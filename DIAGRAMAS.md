@@ -7,63 +7,63 @@
 - [Guia Rápido de Notação UML](#guia-rápido-de-notação-uml)
 - [1. Programação Orientada a Objetos (POO)](#1-programação-orientada-a-objetos-poo)
   - [POO — Unidade 1: Modelo de Domínio, CRUDs e Regras de Validade](#poo--unidade-1-modelo-de-domínio-cruds-e-regras-de-validade)
-    - [POOUS01 — Cadastro de Doação e Entrada de Bolsa no Estoque](#poous01--cadastro-de-doação-e-entrada-de-bolsa-no-estoque)
-    - [POOUS02 — Cadastro e Controle de Validade das Bolsas de Sangue](#poous02--cadastro-e-controle-de-validade-das-bolsas-de-sangue)
-    - [POOUS03 — Gestão de Cadastro de Hospitais](#poous03--gestão-de-cadastro-de-hospitais)
-    - [POOUS04 — Emissão de Requisições Hospitalares](#poous04--emissão-de-requisições-hospitalares)
-    - [POOUS05 — Tela Inicial da Aplicação (Visão Geral do Sistema)](#poous05--tela-inicial-da-aplicação-visão-geral-do-sistema)
+    - [POOUS01 — Cadastro de Doação e Entrada de Bolsa no Estoque](#poous01)
+    - [POOUS02 — Cadastro e Controle de Validade das Bolsas de Sangue](#poous02)
+    - [POOUS03 — Gestão de Cadastro de Hospitais](#poous03)
+    - [POOUS04 — Emissão de Requisições Hospitalares](#poous04)
+    - [POOUS05 — Tela Inicial da Aplicação (Visão Geral do Sistema)](#poous05)
   - [POO — Unidade 2: Aplicação Integrada, Regras de Negócio e Concorrência](#poo--unidade-2-aplicação-integrada-regras-de-negócio-e-concorrência)
-    - [POOUS06 — Processamento e Matching de Requisições (Compatibilidade + FEFO)](#poous06--processamento-e-matching-de-requisições-compatibilidade--fefo)
-    - [POOUS07 — Integração com Módulo de Roteirização e Exibição de Rotas](#poous07--integração-com-módulo-de-roteirização-e-exibição-de-rotas)
-    - [POOUS08 — Integração dos Painéis de Monitoramento e Estatística](#poous08--integração-dos-painéis-de-monitoramento-e-estatística)
-    - [POOUS09 — Início de Transporte e Monitoramento de Cadeia Fria](#poous09--início-de-transporte-e-monitoramento-de-cadeia-fria)
-    - [POOUS10 — Cancelamento de Requisição com Liberação Automática de Estoque](#poous10--cancelamento-de-requisição-com-liberação-automática-de-estoque)
-    - [POOUS11 — Confirmação do Recebimento e Baixa de Entrega](#poous11--confirmação-do-recebimento-e-baixa-de-entrega)
-    - [POOUS12 — Bloqueio de Concorrência na Reserva Simultânea de Bolsas](#poous12--bloqueio-de-concorrência-na-reserva-simultânea-de-bolsas)
+    - [POOUS06 — Processamento e Matching de Requisições (Compatibilidade + FEFO)](#poous06)
+    - [POOUS07 — Integração com Módulo de Roteirização e Exibição de Rotas](#poous07)
+    - [POOUS08 — Integração dos Painéis de Monitoramento e Estatística](#poous08)
+    - [POOUS09 — Início de Transporte e Monitoramento de Cadeia Fria](#poous09)
+    - [POOUS10 — Cancelamento de Requisição com Liberação Automática de Estoque](#poous10)
+    - [POOUS11 — Confirmação do Recebimento e Baixa de Entrega](#poous11)
+    - [POOUS12 — Bloqueio de Concorrência na Reserva Simultânea de Bolsas](#poous12)
 - [2. Algoritmos e Estruturas de Dados (AED)](#2-algoritmos-e-estruturas-de-dados-aed)
   - [AED — Unidade 1: Estruturas de Dados Básicas de Domínio](#aed--unidade-1-estruturas-de-dados-básicas-de-domínio)
-    - [AEDUS01 — Fila de Processamento de Requisições Hospitalares](#aedus01--fila-de-processamento-de-requisições-hospitalares)
-    - [AEDUS02 — Estrutura de Lista para Armazenamento Geral de Bolsas no Estoque](#aedus02--estrutura-de-lista-para-armazenamento-geral-de-bolsas-no-estoque)
-    - [AEDUS03 — Pilha de Histórico e Reversão de Operações de Estoque (Undo Log)](#aedus03--pilha-de-histórico-e-reversão-de-operações-de-estoque-undo-log)
+    - [AEDUS01 — Fila de Processamento de Requisições Hospitalares](#aedus01)
+    - [AEDUS02 — Estrutura de Lista para Armazenamento Geral de Bolsas no Estoque](#aedus02)
+    - [AEDUS03 — Pilha de Histórico e Reversão de Operações de Estoque (Undo Log)](#aedus03)
   - [AED — Unidade 2: Algoritmos Avançados e Otimização](#aed--unidade-2-algoritmos-avançados-e-otimização)
-    - [AEDUS04 — Roteirização e Caminho Mínimo por Grafo (Dijkstra)](#aedus04--roteirização-e-caminho-mínimo-por-grafo-dijkstra)
-    - [AEDUS05 — Priorização de Validade por FEFO (Heap / Fila de Prioridade)](#aedus05--priorização-de-validade-por-fefo-heap--fila-de-prioridade)
-    - [AEDUS06 — Indexação de Estoque por Tabela Hash](#aedus06--indexação-de-estoque-por-tabela-hash)
-    - [AEDUS07 — Matriz de Compatibilidade Sanguínea ABO/Rh](#aedus07--matriz-de-compatibilidade-sanguínea-aborh)
-    - [AEDUS08 — Ordenação por MergeSort/QuickSort para Relatório de Validades](#aedus08--ordenação-por-mergesortquicksort-para-relatório-de-validades)
-    - [AEDUS09 — Busca Binária em Vetor Estático de Hospitais Indexados](#aedus09--busca-binária-em-vetor-estático-de-hospitais-indexados)
-    - [AEDUS10 — Buffer Circular em Memória para Leitura de Telemetria](#aedus10--buffer-circular-em-memória-para-leitura-de-telemetria)
+    - [AEDUS04 — Roteirização e Caminho Mínimo por Grafo (Dijkstra)](#aedus04)
+    - [AEDUS05 — Priorização de Validade por FEFO (Heap / Fila de Prioridade)](#aedus05)
+    - [AEDUS06 — Indexação de Estoque por Tabela Hash](#aedus06)
+    - [AEDUS07 — Matriz de Compatibilidade Sanguínea ABO/Rh](#aedus07)
+    - [AEDUS08 — Ordenação por MergeSort/QuickSort para Relatório de Validades](#aedus08)
+    - [AEDUS09 — Busca Binária em Vetor Estático de Hospitais Indexados](#aedus09)
+    - [AEDUS10 — Buffer Circular em Memória para Leitura de Telemetria](#aedus10)
 - [3. Estatística e Probabilidade (EST)](#3-estatística-e-probabilidade-est)
   - [EST — Unidade 1: Análise Descritiva e Painel Inicial](#est--unidade-1-análise-descritiva-e-painel-inicial)
-    - [ESTUS01 — Análise Descritiva do Estoque por Tipo Sanguíneo e Componente](#estus01--análise-descritiva-do-estoque-por-tipo-sanguíneo-e-componente)
-    - [ESTUS02 — Métricas de Tendência Central e Dispersão para Demanda](#estus02--métricas-de-tendência-central-e-dispersão-para-demanda)
-    - [ESTUS03 — Análise de Tempos de Atendimento e Entrega Logística](#estus03--análise-de-tempos-de-atendimento-e-entrega-logística)
+    - [ESTUS01 — Análise Descritiva do Estoque por Tipo Sanguíneo e Componente](#estus01)
+    - [ESTUS02 — Métricas de Tendência Central e Dispersão para Demanda](#estus02)
+    - [ESTUS03 — Análise de Tempos de Atendimento e Entrega Logística](#estus03)
   - [EST — Unidade 2: Análise Probabilística e Modelagem](#est--unidade-2-análise-probabilística-e-modelagem)
-    - [ESTUS04 — Análise Probabilística de Desabastecimento por Tipo Sanguíneo](#estus04--análise-probabilística-de-desabastecimento-por-tipo-sanguíneo)
-    - [ESTUS05 — Cálculo da Taxa de Descarte por Vencimento de Validade](#estus05--cálculo-da-taxa-de-descarte-por-vencimento-de-validade)
-    - [ESTUS06 — Previsão Simples de Demanda por Média Móvel / Regressão](#estus06--previsão-simples-de-demanda-por-média-móvel--regressão)
-    - [ESTUS07 — Painel Consolidado de Indicadores e Integração REST](#estus07--painel-consolidado-de-indicadores-e-integração-rest)
+    - [ESTUS04 — Análise Probabilística de Desabastecimento por Tipo Sanguíneo](#estus04)
+    - [ESTUS05 — Cálculo da Taxa de Descarte por Vencimento de Validade](#estus05)
+    - [ESTUS06 — Previsão Simples de Demanda por Média Móvel / Regressão](#estus06)
+    - [ESTUS07 — Painel Consolidado de Indicadores e Integração REST](#estus07)
 - [4. Infraestrutura de Software (SO)](#4-infraestrutura-de-software-so)
   - [SO — Unidade 1: CI/CD, Deploy Inicial e Concorrência](#so--unidade-1-cicd-deploy-inicial-e-concorrência)
-    - [SOUS01 — Esteira de Integração e Entrega Contínua (Pipeline CI/CD)](#sous01--esteira-de-integração-e-entrega-contínua-pipeline-cicd)
-    - [SOUS02 — Deploy Contínuo e Publicação da Aplicação em Nuvem](#sous02--deploy-contínuo-e-publicação-da-aplicação-em-nuvem)
-    - [SOUS03 — Processamento Concorrente Multi-Thread para Telemetria](#sous03--processamento-concorrente-multi-thread-para-telemetria)
+    - [SOUS01 — Esteira de Integração e Entrega Contínua (Pipeline CI/CD)](#sous01)
+    - [SOUS02 — Deploy Contínuo e Publicação da Aplicação em Nuvem](#sous02)
+    - [SOUS03 — Processamento Concorrente Multi-Thread para Telemetria](#sous03)
   - [SO — Unidade 2: Arquitetura, Cenários e Sincronização](#so--unidade-2-arquitetura-cenários-e-sincronização)
-    - [SOUS04 — Sincronização e Prevenção de Condições de Corrida](#sous04--sincronização-e-prevenção-de-condições-de-corrida)
-    - [SOUS05 — Dimensionamento e Modelagem para Três Cenários de Carga](#sous05--dimensionamento-e-modelagem-para-três-cenários-de-carga)
-    - [SOUS06 — Estimativa e Planilha de Orçamento da Infraestrutura em Nuvem](#sous06--estimativa-e-planilha-de-orçamento-da-infraestrutura-em-nuvem)
-    - [SOUS07 — Rollback Automatizado no Pipeline de Deploy](#sous07--rollback-automatizado-no-pipeline-de-deploy)
+    - [SOUS04 — Sincronização e Prevenção de Condições de Corrida](#sous04)
+    - [SOUS05 — Dimensionamento e Modelagem para Três Cenários de Carga](#sous05)
+    - [SOUS06 — Estimativa e Planilha de Orçamento da Infraestrutura em Nuvem](#sous06)
+    - [SOUS07 — Rollback Automatizado no Pipeline de Deploy](#sous07)
 - [5. Infraestrutura de Comunicação / Redes (RSD)](#5-infraestrutura-de-comunicação--redes-rsd)
   - [RSD — Unidade 1: Topologia, Requisitos e Protocolos](#rsd--unidade-1-topologia-requisitos-e-protocolos)
-    - [RSDUS01 — Projeto da Topologia de Rede da Hemorrede](#rsdus01--projeto-da-topologia-de-rede-da-hemorrede)
-    - [RSDUS02 — Mapeamento de Requisitos de Negócio em Requisitos Técnicos](#rsdus02--mapeamento-de-requisitos-de-negócio-em-requisitos-técnicos)
-    - [RSDUS03 — Especificação dos Protocolos e Contratos de Telemetria](#rsdus03--especificação-dos-protocolos-e-contratos-de-telemetria)
+    - [RSDUS01 — Projeto da Topologia de Rede da Hemorrede](#rsdus01)
+    - [RSDUS02 — Mapeamento de Requisitos de Negócio em Requisitos Técnicos](#rsdus02)
+    - [RSDUS03 — Especificação dos Protocolos e Contratos de Telemetria](#rsdus03)
   - [RSD — Unidade 2: Benchmarking, Painel de Rede e Implantação](#rsd--unidade-2-benchmarking-painel-de-rede-e-implantação)
-    - [RSDUS04 — Benchmarking de Métricas de Rede (Latência, Vazão e Perda)](#rsdus04--benchmarking-de-métricas-de-rede-latência-vazão-e-perda)
-    - [RSDUS05 — Monitoramento das Taxas de Erro HTTP (4xx e 5xx)](#rsdus05--monitoramento-das-taxas-de-erro-http-4xx-e-5xx)
-    - [RSDUS06 — Painel de Monitoramento da Qualidade de Rede e Telemetria](#rsdus06--painel-de-monitoramento-da-qualidade-de-rede-e-telemetria)
-    - [RSDUS07 — Plano de Migração e Implantação do Ambiente de Rede](#rsdus07--plano-de-migração-e-implantação-do-ambiente-de-rede)
-    - [RSDUS08 — Implantação do Ambiente de Comunicação em Produção](#rsdus08--implantação-do-ambiente-de-comunicação-em-produção)
+    - [RSDUS04 — Benchmarking de Métricas de Rede (Latência, Vazão e Perda)](#rsdus04)
+    - [RSDUS05 — Monitoramento das Taxas de Erro HTTP (4xx e 5xx)](#rsdus05)
+    - [RSDUS06 — Painel de Monitoramento da Qualidade de Rede e Telemetria](#rsdus06)
+    - [RSDUS07 — Plano de Migração e Implantação do Ambiente de Rede](#rsdus07)
+    - [RSDUS08 — Implantação do Ambiente de Comunicação em Produção](#rsdus08)
 
 ---
 
@@ -96,6 +96,7 @@ Cada diagrama mapeia:
 
 ---
 
+<a id="poous01"></a>
 ### POOUS01 — Cadastro de Doação e Entrada de Bolsa no Estoque
 * **Cenário Positivo:** Registro de doação válido gera entidade com UUID e insere bolsa com status `AVAILABLE`.
 * **Cenário Negativo:** Dados sintéticos incompletos disparam erro de validação e retornam HTTP `400 Bad Request`.
@@ -138,6 +139,7 @@ stateDiagram-v2
 
 ---
 
+<a id="poous02"></a>
 ### POOUS02 — Cadastro e Controle de Validade das Bolsas de Sangue
 * **Cenário Positivo:** Bolsa com validade futura é cadastrada com sucesso com status `AVAILABLE`.
 * **Cenário Negativo:** Tentativa de cadastrar bolsa com data retroativa lança `BloodBagExpiredException` e aborta.
@@ -178,6 +180,7 @@ stateDiagram-v2
 
 ---
 
+<a id="poous03"></a>
 ### POOUS03 — Gestão de Cadastro de Hospitais
 * **Cenário Positivo:** Inserção de dados hospitalares válidos (nome, cidade, lat/long) persiste a entidade no PostgreSQL.
 * **Cenário Negativo:** Coordenadas fora do padrão (-90..90, -180..180) resultam em rejeição e HTTP `400 Bad Request`.
@@ -218,6 +221,7 @@ stateDiagram-v2
 
 ---
 
+<a id="poous04"></a>
 ### POOUS04 — Emissão de Requisições Hospitalares
 * **Cenário Positivo:** Hospital emite pedido com quantidade e tipo válidos; requisição é salva com status `PENDING`.
 * **Cenário Negativo:** Quantidade menor ou igual a zero é rejeitada pelo validador do Spring Boot com HTTP `400 Bad Request`.
@@ -258,6 +262,7 @@ stateDiagram-v2
 
 ---
 
+<a id="poous05"></a>
 ### POOUS05 — Tela Inicial da Aplicação (Visão Geral do Sistema)
 * **Cenário Positivo:** Consulta inicial retorna resumo consolidado do banco (total de bolsas, requisições pendentes e status operacional).
 * **Cenário Negativo:** Falha de comunicação com o PostgreSQL exibe estado degradado amigável sem interromper a execução.
@@ -304,6 +309,7 @@ stateDiagram-v2
 
 ---
 
+<a id="poous06"></a>
 ### POOUS06 — Processamento e Matching de Requisições (Compatibilidade + FEFO)
 * **Cenário Positivo:** Identifica bolsas compatíveis via matriz ABO/Rh e reserva as de menor validade (FEFO), alterando status para `RESERVED` e da requisição para `ALLOCATED`.
 * **Cenário Negativo:** Quantidade de bolsas compatíveis insuficiente lança `InsufficientInventoryException` e aborta a alocação sem alterar estados.
@@ -353,6 +359,7 @@ stateDiagram-v2
 
 ---
 
+<a id="poous07"></a>
 ### POOUS07 — Integração com Módulo de Roteirização e Exibição de Rotas
 * **Cenário Positivo:** Calcula rota ótima via Dijkstra e acopla a sequência de vértices e tempo estimado à alocação de transporte.
 * **Cenário Negativo:** Hospital sem arestas conectadas no grafo dispara `InvalidRouteException` e reverte a alocação das bolsas.
@@ -395,6 +402,7 @@ stateDiagram-v2
 
 ---
 
+<a id="poous08"></a>
 ### POOUS08 — Integração dos Painéis de Monitoramento e Estatística
 * **Cenário Positivo:** Endpoint `/dashboard/summary` agrega dados reais de estoque, distribuição estatística e telemetria da rede.
 * **Cenário Negativo:** Banco recém-instanciado sem registros retorna estrutura com contadores zerados sem disparar `NullPointerException`.
@@ -437,6 +445,7 @@ stateDiagram-v2
 
 ---
 
+<a id="poous09"></a>
 ### POOUS09 — Início de Transporte e Monitoramento de Cadeia Fria
 * **Cenário Positivo:** Alocação transiciona para `IN_TRANSIT`, gerando entidade `Transport` e ativando telemetria térmica.
 * **Cenário Negativo:** Tentativa de iniciar transporte de requisição não alocada (`PENDING` ou `CANCELLED`) lança `IllegalStateException`.
@@ -481,6 +490,7 @@ stateDiagram-v2
 
 ---
 
+<a id="poous10"></a>
 ### POOUS10 — Cancelamento de Requisição com Liberação Automática de Estoque
 * **Cenário Positivo:** Cancelamento de requisição `ALLOCATED` reverte as bolsas `RESERVED` para `AVAILABLE` no estoque e atualiza requisição para `CANCELLED`.
 * **Cenário Negativo:** Tentativa de cancelar requisição com transporte já `IN_TRANSIT` é rejeitada com HTTP `422 Unprocessable Entity`.
@@ -521,6 +531,7 @@ stateDiagram-v2
 
 ---
 
+<a id="poous11"></a>
 ### POOUS11 — Confirmação do Recebimento e Baixa de Entrega
 * **Cenário Positivo:** Confirmação de recebimento transiciona `Transport`, `Request` e bolsas para `DELIVERED`, gravando o timestamp final da operação.
 * **Cenário Negativo:** Baixa em transporte com status divergente de `IN_TRANSIT` resulta em erro de regra de negócio.
@@ -565,6 +576,7 @@ stateDiagram-v2
 
 ---
 
+<a id="poous12"></a>
 ### POOUS12 — Bloqueio de Concorrência na Reserva Simultânea de Bolsas
 * **Cenário Positivo:** Bloqueio pessimista (`@Lock(PESSIMISTIC_WRITE)`) garante que duas threads disputando a mesma bolsa serializem o acesso, reservando apenas para uma requisição.
 * **Cenário Negativo:** Exceção durante a transação aciona rollback automático sem deixar bolsas bloqueadas em estado inconsistente.
@@ -613,6 +625,7 @@ stateDiagram-v2
 
 ---
 
+<a id="aedus01"></a>
 ### AEDUS01 — Fila de Processamento de Requisições Hospitalares
 * **Cenário Positivo:** Inserção (`enqueue`) e remoção (`dequeue`) de requisições respeitam rigorosamente a ordem de chegada (FIFO).
 * **Cenário Negativo:** Operação de `dequeue` em fila vazia lança `EmptyQueueException` sem corromper referências.
@@ -669,6 +682,7 @@ stateDiagram-v2
 
 ---
 
+<a id="aedus02"></a>
 ### AEDUS02 — Estrutura de Lista para Armazenamento Geral de Bolsas no Estoque
 * **Cenário Positivo:** Inserção encadeada de bolsas em tempo dinâmico e busca sequencial por ID em complexidade linear $O(n)$.
 * **Cenário Negativo:** Remoção de ID inexistente percorre toda a lista e retorna `false` sem quebrar os encadeamentos existentes.
@@ -732,6 +746,7 @@ stateDiagram-v2
 
 ---
 
+<a id="aedus03"></a>
 ### AEDUS03 — Pilha de Histórico e Reversão de Operações de Estoque (Undo Log)
 * **Cenário Positivo:** Empilhamento de transição de estado (`push`) e desempilhamento (`pop`) revertendo a bolsa ao status anterior.
 * **Cenário Negativo:** Tentativa de executar `undo` com a pilha vazia lança `EmptyStackException`.
@@ -792,6 +807,7 @@ stateDiagram-v2
 
 ---
 
+<a id="aedus04"></a>
 ### AEDUS04 — Roteirização e Caminho Mínimo por Grafo (Dijkstra)
 * **Cenário Positivo:** Algoritmo de Dijkstra relaxa arestas ponderadas por tempo e encontra a rota de menor custo dentro da janela térmica.
 * **Cenário Negativo:** Tempo acumulado excede a janela máxima da cadeia fria, sinalizando inviabilidade logística.
@@ -837,6 +853,7 @@ stateDiagram-v2
 
 ---
 
+<a id="aedus05"></a>
 ### AEDUS05 — Priorização de Validade por FEFO (Heap / Fila de Prioridade)
 * **Cenário Positivo:** Fila de prioridade (Min-Heap) mantém a bolsa com data de validade mais próxima no topo ($O(1)$ para remoção).
 * **Cenário Negativo:** Bolsas com validade expirada são descartadas antes da inserção na árvore de prioridades.
@@ -875,6 +892,7 @@ stateDiagram-v2
 
 ---
 
+<a id="aedus06"></a>
 ### AEDUS06 — Indexação de Estoque por Tabela Hash
 * **Cenário Positivo:** Consulta direta à tabela hash pela chave composta `Tipo_Rh_Componente` retorna o bucket de bolsas em tempo médio $O(1)$.
 * **Cenário Negativo:** Colisões de chave são resolvidas por encadeamento separado (*separate chaining*) mantendo a integridade.
@@ -918,6 +936,7 @@ stateDiagram-v2
 
 ---
 
+<a id="aedus07"></a>
 ### AEDUS07 — Matriz de Compatibilidade Sanguínea ABO/Rh
 * **Cenário Positivo:** Acesso à célula bidimensional `matrix[linhaReceptor][colunaDoador]` valida a transfusão em tempo estrito $O(1)$.
 * **Cenário Negativo:** Cruzamento incompatível (ex: Receptor O- com Doador A+) retorna `false` e bloqueia a alocação.
@@ -959,6 +978,7 @@ stateDiagram-v2
 
 ---
 
+<a id="aedus08"></a>
 ### AEDUS08 — Ordenação por MergeSort/QuickSort para Relatório de Validades
 * **Cenário Positivo:** Algoritmo divide recursivamente o vetor de bolsas e realiza a intercalação ordenada em tempo assintótico $O(n \log n)$.
 * **Cenário Negativo:** Conjunto com datas de validade repetidas preserva a ordem relativa original (estabilidade do MergeSort).
@@ -995,6 +1015,7 @@ stateDiagram-v2
 
 ---
 
+<a id="aedus09"></a>
 ### AEDUS09 — Busca Binária em Vetor Estático de Hospitais Indexados
 * **Cenário Positivo:** Divisão sucessiva do intervalo de busca reduz o espaço para localizar o hospital em tempo logarítmico $O(\log n)$.
 * **Cenário Negativo:** ID inexistente esgota o intervalo (`inicio > fim`) e retorna `-1` ou dispara `EntityNotFoundException`.
@@ -1037,6 +1058,7 @@ stateDiagram-v2
 
 ---
 
+<a id="aedus10"></a>
 ### AEDUS10 — Buffer Circular em Memória para Leitura de Telemetria
 * **Cenário Positivo:** Ingestão contínua com ponteiros `head` e `tail` reaproveitando posições de memória via operação módulo (`tail = (tail + 1) % size`).
 * **Cenário Negativo:** Buffer totalmente preenchido sem leitura ativa rejeita novas entradas evitando corrupção de memória.
@@ -1081,6 +1103,7 @@ stateDiagram-v2
 
 ---
 
+<a id="estus01"></a>
 ### ESTUS01 — Análise Descritiva do Estoque por Tipo Sanguíneo e Componente
 * **Cenário Positivo:** Totalização e cálculo percentual relativo de cada tipo/componente no estoque ativo.
 * **Cenário Negativo:** Estoque vazio totaliza zero sem gerar divisão por zero (`ArithmeticException`).
@@ -1119,6 +1142,7 @@ stateDiagram-v2
 
 ---
 
+<a id="estus02"></a>
 ### ESTUS02 — Métricas de Tendência Central e Dispersão para Demanda
 * **Cenário Positivo:** Cálculo automatizado de média, mediana, variância e desvio padrão das solicitações por hospital.
 * **Cenário Negativo:** Amostra com apenas uma requisição ($n=1$) trata $n-1=0$, definindo desvio padrão igual a zero com aviso.
@@ -1157,6 +1181,7 @@ stateDiagram-v2
 
 ---
 
+<a id="estus03"></a>
 ### ESTUS03 — Análise de Tempos de Atendimento e Entrega Logística
 * **Cenário Positivo:** Extração de deltas de tempo (emissão até entrega) calculando mínimo, máximo, média e desvio padrão.
 * **Cenário Negativo:** Registros com timestamp de término nulo são descartados sem afetar o cálculo das entregas concluídas.
@@ -1197,6 +1222,7 @@ stateDiagram-v2
 
 ---
 
+<a id="estus04"></a>
 ### ESTUS04 — Análise Probabilística de Desabastecimento por Tipo Sanguíneo
 * **Cenário Positivo:** Aplicação da distribuição de Poisson $P(Demanda > Estoque)$ alerta criticidade caso a probabilidade de ruptura supere 80%.
 * **Cenário Negativo:** Estoque abundante com taxa de solicitação baixa calcula risco nulo e sinaliza estabilidade.
@@ -1233,6 +1259,7 @@ stateDiagram-v2
 
 ---
 
+<a id="estus05"></a>
 ### ESTUS05 — Cálculo da Taxa de Descarte por Vencimento de Validade
 * **Cenário Positivo:** Razão percentual $(Vencidas / Entradas) \times 100$ reflete a eficiência do método FEFO.
 * **Cenário Negativo:** Período sem bolsas descartadas registra taxa 0.0% sem inconsistências.
@@ -1267,6 +1294,7 @@ stateDiagram-v2
 
 ---
 
+<a id="estus06"></a>
 ### ESTUS06 — Previsão Simples de Demanda por Média Móvel / Regressão
 * **Cenário Positivo:** Projeção por Média Móvel dos últimos períodos estima o consumo de bolsas para o próximo dia.
 * **Cenário Negativo:** Histórico com menos de dois dias de registros emite aviso de dados insuficientes.
@@ -1301,6 +1329,7 @@ stateDiagram-v2
 
 ---
 
+<a id="estus07"></a>
 ### ESTUS07 — Painel Consolidado de Indicadores e Integração REST
 * **Cenário Positivo:** Requisição GET unifica os indicadores estatísticos retornando payload JSON completo com HTTP 200 OK.
 * **Cenário Negativo:** Indisponibilidade de tabelas de histórico responde com dados em cache ou HTTP 503 Service Unavailable estruturado.
@@ -1341,6 +1370,7 @@ stateDiagram-v2
 
 ---
 
+<a id="sous01"></a>
 ### SOUS01 — Esteira de Integração e Entrega Contínua (Pipeline CI/CD)
 * **Cenário Positivo:** Push dispara GitHub Actions, compila o código Java, passa nos testes e gera o artefato JAR.
 * **Cenário Negativo:** Quebra de teste unitário aborta o pipeline e notifica a equipe com relatório do erro.
@@ -1377,6 +1407,7 @@ stateDiagram-v2
 
 ---
 
+<a id="sous02"></a>
 ### SOUS02 — Deploy Contínuo e Publicação da Aplicação em Nuvem
 * **Cenário Positivo:** Implantação em PaaS/Cloud validada com resposta 200 OK no endpoint `/actuator/health`.
 * **Cenário Negativo:** Falha de conexão de banco aborta a nova versão e mantém a release estável anterior em execução.
@@ -1413,6 +1444,7 @@ stateDiagram-v2
 
 ---
 
+<a id="sous03"></a>
 ### SOUS03 — Processamento Concorrente Multi-Thread para Telemetria
 * **Cenário Positivo:** Ingestão de pacotes simultâneos é delegada para pool de threads assíncronas (`@Async`/`ExecutorService`) respondendo 202 Accepted.
 * **Cenário Negativo:** Saturação de threads aplica política de descarte/rejeição controlada sem travar o servidor principal.
@@ -1451,6 +1483,7 @@ stateDiagram-v2
 
 ---
 
+<a id="sous04"></a>
 ### SOUS04 — Sincronização e Prevenção de Condições de Corrida
 * **Cenário Positivo:** Seção crítica com sincronização atômica (`ReentrantLock`) impede reservas simultâneas da mesma bolsa.
 * **Cenário Negativo:** Threads concorrentes que chegam após o lock encontram a bolsa em estado `RESERVED` e recusam com segurança.
@@ -1487,6 +1520,7 @@ stateDiagram-v2
 
 ---
 
+<a id="sous05"></a>
 ### SOUS05 — Dimensionamento e Modelagem para Três Cenários de Carga
 * **Cenário Positivo:** Dimensionamento de recursos (CPU, RAM, réplicas e banco) categorizado para Baixo, Moderado e Alto uso (10k req/min).
 * **Cenário Negativo:** Cenário de baixo tráfego evita provisionamento superdimensionado (*over-engineering*).
@@ -1528,6 +1562,7 @@ stateDiagram-v2
 
 ---
 
+<a id="sous06"></a>
 ### SOUS06 — Estimativa e Planilha de Orçamento da Infraestrutura em Nuvem
 * **Cenário Positivo:** Levantamento de custos de instâncias, banco e tráfego com justificativa técnica e financeira para os 3 cenários.
 * **Cenário Negativo:** Identificação de custos excessivos sugere instâncias reservadas ou serverless reduzindo custos em até 40%.
@@ -1560,6 +1595,7 @@ stateDiagram-v2
 
 ---
 
+<a id="sous07"></a>
 ### SOUS07 — Rollback Automatizado no Pipeline de Deploy
 * **Cenário Positivo:** Falha no Health Check pós-deploy aciona reversão automática de tráfego para a versão anterior estável sem indisponibilidade.
 * **Cenário Negativo:** Instalação saudável desativa contêineres antigos consolidando a nova release.
@@ -1602,6 +1638,7 @@ stateDiagram-v2
 
 ---
 
+<a id="rsdus01"></a>
 ### RSDUS01 — Projeto da Topologia de Rede da Hemorrede
 * **Cenário Positivo:** Topologia conectando nós fixos (VPN/HTTPS) e móveis (4G/5G/Broker) com links de redundância e sem SPOF (*Single Point of Failure*).
 * **Cenário Negativo:** Proposta sem redundância no enlace central é reprovada exigindo rota de failover.
@@ -1636,6 +1673,7 @@ stateDiagram-v2
 
 ---
 
+<a id="rsdus02"></a>
 ### RSDUS02 — Mapeamento de Requisitos de Negócio em Requisitos Técnicos
 * **Cenário Positivo:** Tradução das demandas operacionais (telemetria contínua, criticidade) em especificações de vazão, latência e criptografia TLS.
 * **Cenário Negativo:** Ausência de requisitos para cenários rurais sinaliza pendência antes do desenho da rede.
@@ -1670,6 +1708,7 @@ stateDiagram-v2
 
 ---
 
+<a id="rsdus03"></a>
 ### RSDUS03 — Especificação dos Protocolos e Contratos de Telemetria
 * **Cenário Positivo:** Formato REST/JSON bem estruturado com latitude, longitude, temperatura e timestamp é aceito e responde 202 Accepted.
 * **Cenário Negativo:** Payload corrompido ou com tipos incorretos é rejeitado na camada de transporte com HTTP 400 Bad Request.
@@ -1710,6 +1749,7 @@ stateDiagram-v2
 
 ---
 
+<a id="rsdus04"></a>
 ### RSDUS04 — Benchmarking de Métricas de Rede (Latência, Vazão e Perda)
 * **Cenário Positivo:** Teste de estresse com 50 req/s consolida latência média (<150ms) e perda de pacotes próxima de zero.
 * **Cenário Negativo:** Teste com carga excessiva satura a banda e identifica o gargalo na camada de rede.
@@ -1744,6 +1784,7 @@ stateDiagram-v2
 
 ---
 
+<a id="rsdus05"></a>
 ### RSDUS05 — Monitoramento das Taxas de Erro HTTP (4xx e 5xx)
 * **Cenário Positivo:** Erros de cliente (4xx) e de servidor (5xx) são contabilizados separadamente em logs de auditoria.
 * **Cenário Negativo:** Taxa de erro 503 superior a 5% em 1 minuto dispara alerta crítico no painel de operações.
@@ -1776,6 +1817,7 @@ stateDiagram-v2
 
 ---
 
+<a id="rsdus06"></a>
 ### RSDUS06 — Painel de Monitoramento da Qualidade de Rede e Telemetria
 * **Cenário Positivo:** Painel gráfico renderiza vazão, latência e status `ONLINE` dos nós em tempo real.
 * **Cenário Negativo:** Perda de sinal de veículo por tempo superior ao timeout altera status para `OFFLINE` com alerta visual.
@@ -1808,6 +1850,7 @@ stateDiagram-v2
 
 ---
 
+<a id="rsdus07"></a>
 ### RSDUS07 — Plano de Migração e Implantação do Ambiente de Rede
 * **Cenário Positivo:** Checklist de migração detalha firewall, DNS, certificados SSL/TLS e contingência, sendo aprovado.
 * **Cenário Negativo:** Proposta com tráfego HTTP puro sem criptografia em portas abertas é bloqueada pela equipe de segurança.
@@ -1840,6 +1883,7 @@ stateDiagram-v2
 
 ---
 
+<a id="rsdus08"></a>
 ### RSDUS08 — Implantação do Ambiente de Comunicação em Produção
 * **Cenário Positivo:** Portas de firewall ativas, DNS resolvido, certificado TLS instalado e telemetria recebida em produção com sucesso.
 * **Cenário Negativo:** Certificado SSL/TLS inválido impede a abertura do tráfego público e notifica incidente de segurança.
