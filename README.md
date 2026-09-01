@@ -119,9 +119,9 @@ Documento completo com todas as histórias do backlog (POO, AED, EST, SO e RSD �
 
 | Nome | E-mail |
 |---|---|
-| Alice Sena | [<email>@cesar.school](mailto:amsp@cesar.school) |
+| Alice Sena | [amsp@cesar.school](mailto:amsp@cesar.school) |
 | Abraão Santos | [afs6@cesar.school](mailto:afs6@cesar.school) |
-| Cecília Lopes | [<email>@cesar.school](mailto:cvls@cesar.school) |
-| Matheus | [<email>@cesar.school](mailto:mngv@cesar.school) | 
-| Emily Raquel |  [<email>@cesar.school](mailto:emrs@cesar.school) |
-| Vinicius Wagner | [<email>@cesar.school](mailto:vwgg@cesar.school) |
+| Cecília Lopes | [cvls@cesar.school](mailto:cvls@cesar.school) |
+| Matheus | [mngv@cesar.school](mailto:mngv@cesar.school) | 
+| Emily Raquel |  [emrs@cesar.school](mailto:emrs@cesar.school) |
+| Vinicius Wagner | [vwgg@cesar.school](mailto:vwgg@cesar.school) |
