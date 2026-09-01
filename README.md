@@ -14,7 +14,7 @@ Projeto Integrador desenvolvido na **CESAR School**, curso de Análise e Desenvo
 - **Documentação de API:** OpenAPI/Swagger
 - **CI/CD:** GitHub Actions
 - **Containerização:** Docker / docker-compose
-- **Protótipo:** Figma (Lo-Fi)
+- **Protótipo:** Lovable (Lo-Fi)
 
 ---
 
@@ -30,20 +30,11 @@ Projeto Integrador desenvolvido na **CESAR School**, curso de Análise e Desenvo
 - **Cenário 2 (Negativo):** Dado uma lista populada, quando tenta-se remover BAG-000 (inexistente), então retorna falso/exceção sem corromper a lista.
 </details>
 
-<details>
-<summary><strong>AEDUS03 — Pilha de Histórico e Reversão de Operações de Estoque</strong></summary>
-
-**Cartão:** Como operador do sistema, quero registrar movimentações em uma Pilha (LIFO) para permitir estorno da última operação.
-
-- **Cenário 1 (Positivo):** Dado uma bolsa que mudou de `AVAILABLE` → `RESERVED` → `IN_TRANSIT`, quando aciona-se Undo, então a Pilha reverte para `RESERVED`.
-- **Cenário 2 (Negativo):** Dado a Pilha vazia, quando aciona-se reversão, então lança `EmptyStackException`.
-</details>
-
-Documento completo com todas as histórias do backlog (POO, AED, EST, SO e RSD — mínimo 7 aqui apresentadas): **[link para o documento de histórias no GitHub]**
+Documento completo com todas as histórias do backlog (POO, AED, EST, SO e RSD — mínimo 7 aqui apresentadas): **[link para o documento de histórias no GitHub](https://github.com/HemovIA/hemovia-backend/tree/main/diagramas)**
 
 #### Protótipo (Lo-Fi — Figma)
 
-- Protótipo Lo-Fi cobrindo no mínimo 5 histórias: **[colar link do Figma aqui]**
+- Protótipo Lo-Fi cobrindo no mínimo 5 histórias: **[Protótipo](https://hemovia-lofiprototype.lovable.app/)**
 - Screencast explicando cada história implementada no protótipo: **[YouTube](https://youtu.be/6ujUBhdNyCA?is=7e5ZPCPDCTEUPSc6)**
 
 ---
