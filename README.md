@@ -26,42 +26,31 @@ Projeto Integrador desenvolvido na **CESAR School**, curso de Análise e Desenvo
 
 > Histórias completas, com cenários de validação (positivo e negativo), escritas em formato BDD (Dado/Quando/Então).
 
----
+- **Cenário 1 (Positivo):** Dado uma bolsa BAG-999 com validade em dia, quando inserida, então é adicionada e localizável com complexidade O(n).
+- **Cenário 2 (Negativo):** Dado uma lista populada, quando tenta-se remover BAG-000 (inexistente), então retorna falso/exceção sem corromper a lista.
+</details>
 
-<div align="center">
-  <h2>Diagramas UML das Funcionalidades</h2>
-  <p><i>Clique no título da funcionalidade para acessar o diagrama correspondente completo</i></p>
-</div>
+<details>
+<summary><strong>AEDUS03 — Pilha de Histórico e Reversão de Operações de Estoque</strong></summary>
 
-### ☕ Programação Orientada a Objetos (POO)
+**Cartão:** Como operador do sistema, quero registrar movimentações em uma Pilha (LIFO) para permitir estorno da última operação.
 
-| Funcionalidade | Diagrama | Funcionalidade | Diagrama | Funcionalidade | Diagrama |
-| :--- | :---: | :--- | :---: | :--- | :---: |
-| [**POOUS01. Cadastro de Doação**](diagramas/README.md#poous01) | [![Ver Diagrama](https://img.shields.io/badge/UML-Fluxo-2ea44f?style=flat-square)](diagramas/README.md#poous01) | [**POOUS02. Controle de Validade**](diagramas/README.md#poous02) | [![Ver Diagrama](https://img.shields.io/badge/UML-Fluxo-2ea44f?style=flat-square)](diagramas/README.md#poous02) | [**POOUS03. Cadastro de Hospitais**](diagramas/README.md#poous03) | [![Ver Diagrama](https://img.shields.io/badge/UML-Fluxo-2ea44f?style=flat-square)](diagramas/README.md#poous03) |
-| [**POOUS04. Emissão de Requisições**](diagramas/README.md#poous04) | [![Ver Diagrama](https://img.shields.io/badge/UML-Fluxo-2ea44f?style=flat-square)](diagramas/README.md#poous04) | [**POOUS05. Tela Inicial / Visão Geral**](diagramas/README.md#poous05) | [![Ver Diagrama](https://img.shields.io/badge/UML-Fluxo-2ea44f?style=flat-square)](diagramas/README.md#poous05) | [**POOUS06. Matching ABO/Rh + FEFO**](diagramas/README.md#poous06) | [![Ver Diagrama](https://img.shields.io/badge/UML-Fluxo-2ea44f?style=flat-square)](diagramas/README.md#poous06) |
-| [**POOUS07. Roteirização Integrada**](diagramas/README.md#poous07) | [![Ver Diagrama](https://img.shields.io/badge/UML-Fluxo-2ea44f?style=flat-square)](diagramas/README.md#poous07) | [**POOUS08. Painel de Monitoramento**](diagramas/README.md#poous08) | [![Ver Diagrama](https://img.shields.io/badge/UML-Fluxo-2ea44f?style=flat-square)](diagramas/README.md#poous08) | [**POOUS09. Início do Transporte**](diagramas/README.md#poous09) | [![Ver Diagrama](https://img.shields.io/badge/UML-Fluxo-2ea44f?style=flat-square)](diagramas/README.md#poous09) |
-| [**POOUS10. Cancelamento de Requisição**](diagramas/README.md#poous10) | [![Ver Diagrama](https://img.shields.io/badge/UML-Fluxo-2ea44f?style=flat-square)](diagramas/README.md#poous10) | [**POOUS11. Baixa Final de Entrega**](diagramas/README.md#poous11) | [![Ver Diagrama](https://img.shields.io/badge/UML-Fluxo-2ea44f?style=flat-square)](diagramas/README.md#poous11) | [**POOUS12. Bloqueio de Concorrência**](diagramas/README.md#poous12) | [![Ver Diagrama](https://img.shields.io/badge/UML-Fluxo-2ea44f?style=flat-square)](diagramas/README.md#poous12) |
+- **Cenário 1 (Positivo):** Dado uma bolsa que mudou de `AVAILABLE` → `RESERVED` → `IN_TRANSIT`, quando aciona-se Undo, então a Pilha reverte para `RESERVED`.
+- **Cenário 2 (Negativo):** Dado a Pilha vazia, quando aciona-se reversão, então lança `EmptyStackException`.
+</details>
 
----
+Documento completo com todas as histórias do backlog (POO, AED, EST, SO e RSD — mínimo 7 aqui apresentadas): **[link para o documento de histórias no GitHub]**
 
-### ⚡ Algoritmos e Estruturas de Dados (AED)
+#### Protótipo (Lo-Fi — Figma)
 
-| Funcionalidade | Diagrama | Funcionalidade | Diagrama | Funcionalidade | Diagrama |
-| :--- | :---: | :--- | :---: | :--- | :---: |
-| [**AEDUS01. Fila FIFO de Requisições**](diagramas/README.md#aedus01) | [![Ver Diagrama](https://img.shields.io/badge/UML-Fluxo-2ea44f?style=flat-square)](diagramas/README.md#aedus01) | [**AEDUS02. Lista Encadeada Estoque**](diagramas/README.md#aedus02) | [![Ver Diagrama](https://img.shields.io/badge/UML-Fluxo-2ea44f?style=flat-square)](diagramas/README.md#aedus02) | [**AEDUS03. Pilha Undo Log**](diagramas/README.md#aedus03) | [![Ver Diagrama](https://img.shields.io/badge/UML-Fluxo-2ea44f?style=flat-square)](diagramas/README.md#aedus03) |
-| [**AEDUS04. Grafo & Dijkstra**](diagramas/README.md#aedus04) | [![Ver Diagrama](https://img.shields.io/badge/UML-Fluxo-2ea44f?style=flat-square)](diagramas/README.md#aedus04) | [**AEDUS05. Min-Heap / FEFO**](diagramas/README.md#aedus05) | [![Ver Diagrama](https://img.shields.io/badge/UML-Fluxo-2ea44f?style=flat-square)](diagramas/README.md#aedus05) | [**AEDUS06. Indexação Tabela Hash**](diagramas/README.md#aedus06) | [![Ver Diagrama](https://img.shields.io/badge/UML-Fluxo-2ea44f?style=flat-square)](diagramas/README.md#aedus06) |
-| [**AEDUS07. Matriz ABO/Rh**](diagramas/README.md#aedus07) | [![Ver Diagrama](https://img.shields.io/badge/UML-Fluxo-2ea44f?style=flat-square)](diagramas/README.md#aedus07) | [**AEDUS08. MergeSort Estável**](diagramas/README.md#aedus08) | [![Ver Diagrama](https://img.shields.io/badge/UML-Fluxo-2ea44f?style=flat-square)](diagramas/README.md#aedus08) | [**AEDUS09. Busca Binária**](diagramas/README.md#aedus09) | [![Ver Diagrama](https://img.shields.io/badge/UML-Fluxo-2ea44f?style=flat-square)](diagramas/README.md#aedus09) |
-| [**AEDUS10. Buffer Circular**](diagramas/README.md#aedus10) | [![Ver Diagrama](https://img.shields.io/badge/UML-Fluxo-2ea44f?style=flat-square)](diagramas/README.md#aedus10) | | | | |
+- Protótipo Lo-Fi cobrindo no mínimo 5 histórias: **[colar link do Figma aqui]**
+- Screencast explicando cada história implementada no protótipo: **[YouTube](https://youtu.be/6ujUBhdNyCA?is=7e5ZPCPDCTEUPSc6)**
 
 ---
 
-### 📊 Estatística e Probabilidade (EST)
+## Como rodar o projeto
 
-| Funcionalidade | Diagrama | Funcionalidade | Diagrama | Funcionalidade | Diagrama |
-| :--- | :---: | :--- | :---: | :--- | :---: |
-| [**ESTUS01. Análise Descritiva**](diagramas/README.md#estus01) | [![Ver Diagrama](https://img.shields.io/badge/UML-Fluxo-2ea44f?style=flat-square)](diagramas/README.md#estus01) | [**ESTUS02. Tendência e Dispersão**](diagramas/README.md#estus02) | [![Ver Diagrama](https://img.shields.io/badge/UML-Fluxo-2ea44f?style=flat-square)](diagramas/README.md#estus02) | [**ESTUS03. Tempos de Entrega**](diagramas/README.md#estus03) | [![Ver Diagrama](https://img.shields.io/badge/UML-Fluxo-2ea44f?style=flat-square)](diagramas/README.md#estus03) |
-| [**ESTUS04. Risco Desabastecimento**](diagramas/README.md#estus04) | [![Ver Diagrama](https://img.shields.io/badge/UML-Fluxo-2ea44f?style=flat-square)](diagramas/README.md#estus04) | [**ESTUS05. Taxa de Descarte**](diagramas/README.md#estus05) | [![Ver Diagrama](https://img.shields.io/badge/UML-Fluxo-2ea44f?style=flat-square)](diagramas/README.md#estus05) | [**ESTUS06. Previsão de Demanda**](diagramas/README.md#estus06) | [![Ver Diagrama](https://img.shields.io/badge/UML-Fluxo-2ea44f?style=flat-square)](diagramas/README.md#estus06) |
-| [**ESTUS07. Dashboard REST**](diagramas/README.md#estus07) | [![Ver Diagrama](https://img.shields.io/badge/UML-Fluxo-2ea44f?style=flat-square)](diagramas/README.md#estus07) | | | | |
+*(seção detalhada a partir da segunda entrega)*
 
 ---
 
