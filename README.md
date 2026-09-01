@@ -103,7 +103,7 @@ Documento completo com todas as histórias do backlog (POO, AED, EST, SO e RSD �
 #### Protótipo (Lo-Fi — Figma)
 
 - Protótipo Lo-Fi cobrindo no mínimo 5 histórias: **[colar link do Figma aqui]**
-- Screencast explicando cada história implementada no protótipo: **![YouTube](https://youtu.be/6ujUBhdNyCA?is=7e5ZPCPDCTEUPSc6)**
+- Screencast explicando cada história implementada no protótipo: **[YouTube](https://youtu.be/6ujUBhdNyCA?is=7e5ZPCPDCTEUPSc6)**
 
 ---
 
