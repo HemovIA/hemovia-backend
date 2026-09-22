@@ -28,7 +28,6 @@ Projeto Integrador desenvolvido na **CESAR School**, curso de Análise e Desenvo
 
 - **Cenário 1 (Positivo):** Dado uma bolsa BAG-999 com validade em dia, quando inserida, então é adicionada e localizável com complexidade O(n).
 - **Cenário 2 (Negativo):** Dado uma lista populada, quando tenta-se remover BAG-000 (inexistente), então retorna falso/exceção sem corromper a lista.
-</details>
 
 Documento completo com todas as histórias do backlog (POO, AED, EST, SO e RSD — mínimo 7 aqui apresentadas): **[link para o documento de histórias no GitHub](https://github.com/HemovIA/hemovia-backend/tree/main/diagramas)**
 
@@ -36,6 +35,33 @@ Documento completo com todas as histórias do backlog (POO, AED, EST, SO e RSD �
 
 - Protótipo Lo-Fi cobrindo no mínimo 5 histórias: **[Protótipo](https://hemovia-lofiprototype.lovable.app/)**
 - Screencast explicando cada história implementada no protótipo: **[YouTube](https://youtu.be/6ujUBhdNyCA?is=7e5ZPCPDCTEUPSc6)**
+
+---
+
+### Entrega 02 — 21/09
+
+Nesta entrega, foram implementadas duas histórias de usuário do backend da plataforma HemovIA:
+
+- **POOUS01 — Cadastro de Doação e Entrada de Bolsa no Estoque**
+- **POOUS02 — Cadastro e Controle de Validade das Bolsas de Sangue**
+
+Essas histórias contemplam o cadastro de doações e o registro das bolsas de sangue, incluindo a associação com a doação, o controle de validade e a estrutura inicial do fluxo de estoque do sistema.
+
+#### Funcionalidades entregues
+
+- Cadastro de doação via API REST
+- Cadastro de bolsas de sangue com dados de tipo sanguíneo, fator Rh, componente, data de coleta e validade
+- Associação de uma doação com uma bolsa de sangue
+- Persistência com Spring Data JPA + PostgreSQL
+- Estrutura de service/controller/repository para a camada de negócio
+- Configuração inicial de segurança para ambiente de desenvolvimento
+- Migration inicial do banco para criar as tabelas de `person`, `blood_bags` e `donations`
+
+#### Screencast
+
+A seguir, o screencast com a apresentação do que foi implementado nesta entrega:
+
+**[Vídeo da entrega 02](https://youtu.be/npM3RlHqVcY?si=utX1xd-HdhkL4oeI)**
 
 ---
 
