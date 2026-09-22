@@ -1,14 +1,19 @@
 package com.hemovia.api.service.implementation;
 
+import com.hemovia.api.exceptions.BloodBagExpiredException;
 import com.hemovia.api.model.BloodBag;
 import com.hemovia.api.model.DTOs.BloodBagRequestDTO;
 import com.hemovia.api.model.DTOs.BloodBagResponseDTO;
+import com.hemovia.api.model.enums.BloodBagStatus;
 import com.hemovia.api.repository.BloodBagRepository;
 import com.hemovia.api.service.BloodBagService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
+import java.util.Date;
 import java.util.UUID;
 
 @Service
@@ -37,12 +42,14 @@ public class BloodBagServiceImpl implements BloodBagService {
 
     @Override
     public BloodBagResponseDTO create(BloodBagRequestDTO bloodBagRequestDTO) {
+        validateExpirationDate(bloodBagRequestDTO.getExpirationDate());
+
         BloodBag bloodBag = new BloodBag();
         bloodBag.setRhFactor(bloodBagRequestDTO.getRhFactor());
         bloodBag.setComponent(bloodBagRequestDTO.getComponent());
         bloodBag.setCollectionDate(bloodBagRequestDTO.getCollectionDate());
         bloodBag.setExpirationDate(bloodBagRequestDTO.getExpirationDate());
-        bloodBag.setStatus(bloodBagRequestDTO.getStatus());
+        bloodBag.setStatus(BloodBagStatus.AVAILABLE);
         bloodBag.setBloodTypeEnum(bloodBagRequestDTO.getBloodTypeEnum());
 
         return toResponseDTO(repository.save(bloodBag));
@@ -53,6 +60,7 @@ public class BloodBagServiceImpl implements BloodBagService {
         UUID id = parseId(bloodBagId);
         BloodBag bloodBag = repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Blood bag not found: " + bloodBagId));
+        validateExpirationDate(bloodBagRequestDTO.getExpirationDate());
 
         bloodBag.setRhFactor(bloodBagRequestDTO.getRhFactor());
         bloodBag.setComponent(bloodBagRequestDTO.getComponent());
@@ -87,6 +95,15 @@ public class BloodBagServiceImpl implements BloodBagService {
             return UUID.fromString(bloodBagId);
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Invalid blood bag id format: " + bloodBagId, e);
+        }
+    }
+
+    private void validateExpirationDate(Date expirationDate) {
+        LocalDate expiration = expirationDate.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
+        if (!expiration.isAfter(LocalDate.now())) {
+            throw new BloodBagExpiredException();
         }
     }
 }
