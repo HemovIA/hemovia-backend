@@ -1,54 +1,33 @@
-package com.hemovia.api.model;
+package com.hemovia.api.model.DTOs;
 
 import com.hemovia.api.model.enums.BloodBagStatus;
 import com.hemovia.api.model.enums.BloodType;
-import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.Date;
 import java.util.UUID;
 
-@Entity
-@Table(name = "blood_bags")
-public class BloodBag {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
-
-    @Column(nullable = false)
+public class BloodBagRequestDTO {
+    @NotNull
     private String rhFactor;
 
-    @Column(nullable = false)
+    @NotNull
     private String component;
 
-    @Column(nullable = false)
-    @Temporal(TemporalType.DATE)
+    @NotNull
     private Date collectionDate;
 
-    @Column(nullable = false)
-    @Temporal(TemporalType.DATE)
+    @NotNull
     private Date expirationDate;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @NotNull
     private BloodBagStatus status;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @NotNull
     private BloodType bloodTypeEnum;
 
-    @OneToOne
-    private Person donor;
-
-    public BloodBag() {
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
+    @NotNull
+    private UUID donorId;
 
     public String getRhFactor() {
         return rhFactor;
@@ -98,11 +77,11 @@ public class BloodBag {
         this.bloodTypeEnum = bloodTypeEnum;
     }
 
-    public Person getDonor() {
-        return donor;
+    public UUID getDonorId() {
+        return donorId;
     }
 
-    public void setDonor(Person donor) {
-        this.donor = donor;
+    public void setDonorId(UUID donorId) {
+        this.donorId = donorId;
     }
 }
