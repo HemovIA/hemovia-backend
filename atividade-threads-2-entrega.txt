@@ -1,0 +1,77 @@
+ATIVIDADE THREADS 2 - TEXTO BASE PARA ENTREGA
+
+Tema escolhido:
+ESTUS02 - Metricas de Tendencia Central e Dispersao para Demanda Hospitalar
+
+1. JUSTIFICATIVA
+
+A operacao escolhida foi o calculo de estatisticas descritivas sobre a demanda hospitalar sintetica, em especial media e desvio-padrao da quantidade de bolsas solicitadas por requisicao. Essa escolha foi feita porque o problema possui uma estrutura naturalmente paralelizavel e, ao mesmo tempo, continua sendo simples o suficiente para permitir uma analise clara do comportamento das threads. Cada registro pode ser processado de forma independente, sem depender do resultado dos demais, o que torna o problema adequado para uma estrategia de particionamento em fatias e agregacao posterior.
+
+Do ponto de vista computacional, a versao sequencial possui complexidade O(n), pois percorre todos os registros uma unica vez. Em cada iteracao, o algoritmo acumula apenas duas informacoes: a soma dos valores e a soma dos quadrados. Ao final, com base nessas duas grandezas e no total de registros, calcula-se a media e a variancia, da qual se obtem o desvio-padrao. Portanto, o custo cresce linearmente com o tamanho da entrada, e esse comportamento faz da implementacao sequencial um baseline adequado para comparar com a versao paralela.
+
+O principal gargalo da solucao esta justamente nesse percurso completo sobre um volume muito grande de dados. Quando a entrada possui 100 mil ou 1 milhao de registros, a maior parte do tempo de execucao nao esta em operacoes complexas de negocio, e sim na repeticao massiva do mesmo calculo elementar sobre muitos itens. Isso caracteriza uma carga CPU-bound: o trabalho principal e consumir a lista inteira realizando acumulacoes numericas. Em cenarios assim, a paralelizacao tende a ser eficiente, desde que os dados possam ser divididos sem gerar dependencia entre as threads.
+
+No caso da operacao ESTUS02, os dados sao particionaveis porque cada thread pode receber uma sublista independente e produzir resultados locais, como soma parcial, soma dos quadrados parcial e quantidade de elementos processados. Nenhuma thread precisa escrever em estruturas compartilhadas durante a fase principal do processamento. Isso evita race conditions e reduz a necessidade de sincronizacao. A unica etapa centralizada acontece no final, quando a thread principal agrega os resultados parciais produzidos pelas demais. Assim, o padrao utilizado e um map-reduce puro: map no processamento independente de cada fatia, reduce na combinacao final dos acumuladores.
+
+Essa operacao tambem faz sentido do ponto de vista de negocio. Em um contexto de rede nacional de hemocentros, calcular media e dispersao da demanda hospitalar e util para entender comportamento agregado, identificar variabilidade e apoiar planejamento logistico. Logo, a atividade nao foi implementada como um experimento artificial desconectado do sistema, mas como um endpoint coerente com o backlog de estatistica do projeto.
+
+2. DESCRICAO DO SERVICO IMPLEMENTADO
+
+Foi implementado um endpoint real em Java com Spring Boot para executar o benchmark. A requisicao HTTP chega ao servidor, o proprio backend gera dados sinteticos em memoria com seed fixa para garantir reprodutibilidade, executa o calculo estatistico na versao sequencial e depois repete o processamento nas versoes paralelas com 2, 4 e 8 threads. Ao final, a resposta retorna os resultados estatisticos e os tempos medidos para cada configuracao.
+
+O uso de seed fixa e importante porque garante que todas as versoes trabalhem exatamente sobre a mesma massa de dados. Isso torna a comparacao justa e evita que diferencas de entrada contaminem a analise de desempenho. Alem disso, a geracao dos dados foi mantida fora da medicao principal do calculo, para que o tempo observado represente apenas o custo do processamento estatistico.
+
+3. COMO AS DUAS VERSOES FORAM FEITAS
+
+Na versao sequencial, uma unica thread percorre toda a lista de requisicoes, somando as quantidades e acumulando tambem os quadrados dessas quantidades. Ao fim do percurso, calcula a media, a variancia e o desvio-padrao.
+
+Na versao paralela, a lista total e dividida em fatias. Cada thread processa apenas a sua propria fatia, produzindo acumuladores locais. Depois que todas as threads terminam, a thread principal coleta os resultados parciais e realiza a agregacao final. Dessa forma, nao existe escrita concorrente em uma mesma variavel global durante o processamento, o que elimina a race condition por construcao. O endpoint tambem verifica que a resposta paralela e equivalente a sequencial, garantindo a corretude do resultado.
+
+4. MEDICOES, TABELA E SPEEDUP
+
+Para a entrega, voces devem apresentar uma tabela com os tempos do sequencial e do paralelo para dois tamanhos de entrada: 100.000 e 1.000.000 de registros. O ideal e usar a media das execucoes medidas, descartando a primeira execucao como warm-up da JVM.
+
+Formula do speedup:
+speedup = tempo_sequencial / tempo_paralelo
+
+Modelo de tabela:
+
+Entrada: 100.000 registros
++----------------+-------------------+----------------+
+| Configuracao   | Tempo medio (ms)  | Speedup        |
++----------------+-------------------+----------------+
+| Sequencial     | [0,772]           | 1,00x          |
+| 2 threads      | [1,454]           | [0,53x]        |
+| 4 threads      | [0,651]           | [1,19x]        |
+| 8 threads      | [2,078]           | [0,37x]        |
++----------------+-------------------+----------------+
+
+Entrada: 1.000.000 de registros
++----------------+-------------------+----------------+
+| Configuracao   | Tempo medio (ms)  | Speedup        |
++----------------+-------------------+----------------+
+| Sequencial     | [3.48]            | 1,00x          |
+| 2 threads      | [2.82]            | [1.23x]        |
+| 4 threads      | [2.33]            | [1.49x]        |
+| 8 threads      | [2.16]            | [1.61x]        |
++----------------+-------------------+----------------+
+
+Para o grafico, a opcao mais simples e colocar no eixo X as configuracoes (sequencial, 2, 4 e 8 threads) e no eixo Y o tempo medio em milissegundos. Tambem pode ser feito um segundo grafico com o speedup.
+
+5. ANALISE
+
+O ganho observado nao tende a ser linear. Embora a carga principal seja particionavel, existe um custo adicional que a versao sequencial nao possui: criacao e gerenciamento das threads, distribuicao das fatias, troca de contexto entre execucoes e a barreira de sincronizacao no final, quando o fluxo principal precisa aguardar todas terminarem para agregar os resultados. Esses elementos formam o overhead da paralelizacao. Esse comportamento pode ser explicado pela Lei de Amdahl, segundo a qual a parte nao paralelizavel do programa limita o ganho maximo obtido com o aumento do numero de threads.
+
+Os resultados medidos mostram esse efeito com clareza. Para 100.000 registros, a melhor configuracao foi 4 threads, com tempo medio de aproximadamente 0,651 ms, contra 0,772 ms no sequencial, produzindo speedup de cerca de 1,19x. Ja com 2 threads o resultado ficou pior que o sequencial, com aproximadamente 1,454 ms, e com 8 threads o desempenho piorou ainda mais, chegando a cerca de 2,078 ms. Isso indica que, para uma entrada menor, o overhead das threads passa a pesar mais do que o beneficio da divisao do trabalho. Alem disso, no caso de 8 threads houve grande variacao entre as execucoes, incluindo uma medicao muito acima das demais, o que sugere interferencia do escalonador do sistema operacional, da JVM e do custo de coordenar muitas threads para um volume relativamente pequeno de dados.
+
+Para 1.000.000 de registros, o comportamento foi diferente. Nesse cenario, o volume de trabalho foi suficientemente grande para compensar melhor o overhead, e todas as configuracoes paralelas superaram a sequencial. O tempo medio da versao sequencial ficou em torno de 3,48 ms, enquanto 2 threads atingiram cerca de 2,82 ms, 4 threads cerca de 2,33 ms e 8 threads cerca de 2,16 ms. Os speedups aproximados foram, respectivamente, 1,23x, 1,49x e 1,61x. Mesmo assim, o ganho continuou longe de ser linear, pois 8 threads nao entregaram um desempenho oito vezes melhor do que o sequencial. Isso reforca que aumentar o numero de threads ajuda apenas ate certo ponto, ja que a coordenacao e a parte serial do algoritmo continuam existindo.
+
+A Big-O da solucao nao muda com a paralelizacao. Tanto a versao sequencial quanto a paralela continuam tendo complexidade O(n), pois ambas precisam processar todos os elementos da entrada. O que muda e o tempo de execucao pratico, ja que na versao paralela parte desse trabalho e distribuida entre varios nucleos de processamento. Em outras palavras, a paralelizacao melhora o desempenho observado, mas nao altera a ordem de crescimento assintotica do algoritmo.
+
+Tambem e importante diferenciar concorrencia de paralelismo. Na atividade da Mesa DJ, a ideia de threads estava ligada ao atendimento de eventos simultaneos, ou seja, varias tarefas independentes sendo coordenadas ao mesmo tempo. Isso caracteriza concorrencia: organizar varias atividades que avancam intercaladamente. Ja nesta atividade, o foco nao e atender requisicoes diferentes, mas sim acelerar uma unica tarefa grande dividindo o volume entre varias threads executando ao mesmo tempo. Isso caracteriza paralelismo: varios processadores ou nucleos trabalhando em conjunto sobre partes do mesmo problema.
+
+Se, no futuro, nem 8 threads forem suficientes para atender o volume de dados, a arquitetura pode evoluir para alem do paralelismo local. Uma alternativa e distribuir o processamento entre multiplas instancias da aplicacao, com particionamento dos dados entre nos diferentes e agregacao final dos resultados. Outra possibilidade e mover esse tipo de analise para uma arquitetura assíncrona ou de processamento em lote, usando filas, workers e eventualmente ferramentas distribuidas de dados. Esse e justamente o ponto em que a evolucao deixa de ser apenas uso de threads dentro de uma unica JVM e passa a envolver escalabilidade horizontal.
+
+6.  CONCLUSAO
+
+Conclui-se que a operacao ESTUS02 e adequada para paralelizacao por possuir processamento independente por particao e agregacao simples ao final. A abordagem com threads melhorou o tempo de resposta para grandes volumes de dados, embora o ganho nao tenha sido linear devido aos custos de sincronizacao e gerenciamento das threads.
