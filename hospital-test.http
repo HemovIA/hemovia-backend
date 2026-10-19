@@ -2,11 +2,21 @@
 ### Cadastro válido de hospital
 POST http://localhost:8080/hospitals
 Content-Type: application/json
-
 {
   "name": "Hospital Central",
   "city": "Recife",
   "latitude": -8.05,
+  "longitude": -34.88,
+  "priority": 1
+}
+
+### Cadastro inválido de hospital - latitude fora do limite
+POST http://localhost:8080/hospitals
+Content-Type: application/json
+{
+  "name": "Hospital Teste Invalido",
+  "city": "Recife",
+  "latitude": 105,
   "longitude": -34.88,
   "priority": 1
 }
