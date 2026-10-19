@@ -1,5 +1,6 @@
 package com.hemovia.api.exceptions;
 
+<<<<<<< HEAD
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -8,11 +9,19 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDateTime;
+=======
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+>>>>>>> 0f1b0a2b553438619df6ed782b933e2dad51652d
 import java.util.HashMap;
 import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+<<<<<<< HEAD
 
     @ExceptionHandler(UserAlreadyExistsException.class)
     public ResponseEntity<Map<String, Object>> handleUserAlreadyExists(
@@ -60,3 +69,18 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 }
+=======
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Map<String, String>> handleValidadtionsErros(
+            MethodArgumentNotValidException exception) {
+
+        Map<String, String> errors = new HashMap<>();
+
+        exception.getBindingResult().getFieldErrors().forEach(error -> errors.put(error.getField(), error.getDefaultMessage())
+        );
+
+        return ResponseEntity.badRequest().body(errors);
+    }
+
+}
+>>>>>>> 0f1b0a2b553438619df6ed782b933e2dad51652d
