@@ -1,0 +1,8 @@
+CREATE TABLE hospital (
+    id UUID PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    city VARCHAR(255) NOT NULL,
+    latitude DOUBLE PRECISION NOT NULL,
+    longitude DOUBLE PRECISION NOT NULL,
+    priority INTEGER NOT NULL
+);
