@@ -17,6 +17,21 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: hemovia_pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    networks:
+      - hemovia_network  # <- IMPORTANTE: Mesma rede do Postgres
+    depends_on:
+      postgres:
+        condition: service_healthy
+
 volumes:
     postgres_data:
         driver: local
