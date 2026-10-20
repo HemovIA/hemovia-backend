@@ -65,7 +65,7 @@ A seguir, o screencast com a apresentação do que foi implementado nesta entreg
 
 ---
 
-Entrega 03 — [19/10]
+**Entrega 03 — 19/10**
 
 Nesta entrega, foram implementadas mais duas histórias de usuário do backend da plataforma HemovIA:
 
