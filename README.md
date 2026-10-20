@@ -81,12 +81,13 @@ Nesta entrega, foram implementadas mais duas histórias de usuário do backend d
 
 Screencasts
 
-
-* Explicação do código das histórias implementadas: [Vídeo do código – entrega 03]([https://youtu.be/qHIdWBhU4DY])
+* Explicação do código das histórias implementadas:
+*  [Vídeo do código – entrega 03]([https://youtu.be/qHIdWBhU4DY])
 
 Issue/Bug tracker
 
-Issues organizadas e atualizadas pela ferramenta de issues do GitHub: [Issues](https://github.com/HemovIA/hemovia-backend/issues)
+Issues organizadas e atualizadas pela ferramenta de issues do GitHub:
+[Issues](https://github.com/HemovIA/hemovia-backend/issues)
 
 ![Print do bug tracker](CAMINHO_DA_IMAGEM)
 
