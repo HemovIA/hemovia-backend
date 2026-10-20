@@ -65,6 +65,31 @@ A seguir, o screencast com a apresentação do que foi implementado nesta entreg
 
 ---
 
+Entrega 03 — [19/10]
+
+Nesta entrega, foram implementadas mais duas histórias de usuário do backend da plataforma HemovIA:
+
+* **POOUS03v — Gestão de Cadastro de Hospitais**
+* **PI3E6-54 — Cadastro de Usuário e Login**
+
+* **Funcionalidades entregues**
+
+- Cadastro de usuário
+- Autenticação de Usuário
+- Cadastro de Hospital
+- Atualização no Docker Compose para comportar imagem do PGAdmin (SGBD)
+
+Screencasts
+
+
+* Explicação do código das histórias implementadas: [Vídeo do código – entrega 03]([https://youtu.be/qHIdWBhU4DY])
+
+Issue/Bug tracker
+
+Issues organizadas e atualizadas pela ferramenta de issues do GitHub: [Issues](https://github.com/HemovIA/hemovia-backend/issues)
+
+![Print do bug tracker](CAMINHO_DA_IMAGEM)
+
 ## Como rodar o projeto
 
 *(seção detalhada a partir da segunda entrega)*
