@@ -82,7 +82,7 @@ Nesta entrega, foram implementadas mais duas histórias de usuário do backend d
 Screencasts
 
 * Explicação do código das histórias implementadas:
-*  [Vídeo do código – entrega 03]([https://youtu.be/qHIdWBhU4DY])
+* **[Vídeo da entrega 03](https://youtu.be/qHIdWBhU4DY)**
 
 Issue/Bug tracker
 
