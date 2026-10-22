@@ -26,6 +26,8 @@ for (const [id, required] of Object.entries(manifest)) {
   });
 }
 test('@spec:AC-014 suíte Maven completa precisa terminar sem falhas ou skips', () => {
+  assert.equal(maven.error, undefined, `Não foi possível iniciar Maven: ${maven.error?.message ?? 'erro desconhecido'}`);
+  assert.notEqual(maven.signal, 'SIGTERM', 'Maven excedeu o tempo de execução da verificação');
   assert.equal(maven.status, 0, `Suíte falhou; consulte ${path.relative(root, directory)}/maven.log`);
   assert.ok(cases.length > 0); assert.ok(cases.every(c => c.status === 'pass'), 'Há falha/skip fora dos critérios também');
 });

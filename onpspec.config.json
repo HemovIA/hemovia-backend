@@ -11,6 +11,12 @@
   ],
   "srcGlobs": [
     "src/**",
-    "scripts/spec-java/*.mjs"
+    "scripts/spec-java/*.mjs",
+    "api/src/main/java/com/hemovia/api/model/**/*.java",
+    "api/src/main/java/com/hemovia/api/repository/**/*.java",
+    "api/src/main/java/com/hemovia/api/service/implementation/**/*.java",
+    "api/src/main/java/com/hemovia/api/controller/**/*.java",
+    "api/src/main/java/com/hemovia/api/exceptions/GlobalExceptionHandler.java",
+    "api/src/main/resources/db/migration/*.sql"
   ]
 }

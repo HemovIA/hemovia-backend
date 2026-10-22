@@ -30,6 +30,10 @@ test('@spec:AC-014 XML truncado ou com contagem divergente é recusado', () => {
   assert.throws(() => parseSurefire('<testsuite tests="1"></testsuite>'), /Contagem/);
   assert.throws(() => parseSurefire('<!DOCTYPE x><testsuite tests="0"></testsuite>'), /DTD/);
 });
+test('@spec:AC-014 contagens de falha, erro e skip também precisam corresponder aos casos', () => {
+  assert.throws(() => parseSurefire('<testsuite tests="1" failures="1"><testcase classname="example.DomainTest" name="ac005_case"/></testsuite>'), /count/i);
+  assert.throws(() => parseSurefire('<testsuite tests="1" errors="1"><testcase classname="example.DomainTest" name="ac005_case"><failure/></testcase></testsuite>'), /count/i);
+});
 test('@spec:AC-014 relatório antigo e diretório sem relatórios são recusados', () => {
   const directory = mkdtempSync(path.join(tmpdir(), 'hemovia-surefire-'));
   const file = path.join(directory, 'TEST-example.xml');

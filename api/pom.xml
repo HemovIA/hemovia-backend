@@ -126,6 +126,7 @@
 					<includes><include>**/*Test.java</include><include>**/*Tests.java</include><include>**/*IT.java</include></includes>
 					<systemPropertyVariables>
 						<spring.config.location>classpath:/application-base-entities-test.yaml</spring.config.location>
+						<spring.profiles.active>base-entities-test</spring.profiles.active>
 					</systemPropertyVariables>
 				</configuration>
 			</plugin></plugins></build>

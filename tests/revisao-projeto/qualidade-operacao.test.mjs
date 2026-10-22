@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import test from 'node:test';
+import { readSnapshot } from './helpers/snapshot.mjs';
 
 const reportPath = new URL('../../.spec/features/revisao-projeto/relatorios/qualidade-operacao.md', import.meta.url);
 
@@ -8,7 +9,7 @@ test('@spec:AC-003 revisa AED, testes e operação com evidências, comandos e l
   const report = await readFile(reportPath, 'utf8');
 
   for (const [, file, range] of report.matchAll(/`((?:api|aed-u1)\/[^`:]+):(\d+(?:-\d+)?(?:,\d+(?:-\d+)?)*)`/g)) {
-    const source = await readFile(new URL(`../../${file}`, import.meta.url), 'utf8');
+    const source = readSnapshot(file);
     for (const line of range.split(/[,-]/).map(Number)) {
       assert.ok(line > 0 && line <= source.split(/\r?\n/).length, `linha fora do arquivo: ${file}:${line}`);
     }
