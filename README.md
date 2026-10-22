@@ -150,6 +150,15 @@ Documento completo com todas as histórias do backlog (POO, AED, EST, SO e RSD �
 
 *(seção detalhada a partir da segunda entrega)*
 
+### Deploy no Render
+
+O arquivo [`render.yaml`](render.yaml) configura o serviço Docker do Render para usar `api/Dockerfile` e `api/` como contexto de build. Para criar o serviço, crie um Blueprint no Render apontando para este repositório (selecione a branch que deseja publicar, como `develop`) e informe as variáveis solicitadas:
+
+- `POSTGRES_HOST`, `POSTGRES_DB`, `POSTGRES_USER` e `POSTGRES_PASSWORD`: dados de conexão de um PostgreSQL acessível pelo serviço.
+- `JWT_SECRET`: segredo forte e exclusivo para assinatura dos tokens.
+
+O Render fornece a variável `PORT` automaticamente; a API já a utiliza. Para um serviço Render já criado sem Blueprint, configure **Dockerfile Path** como `api/Dockerfile` e **Docker Context** como `api` nas configurações de build. Não use a raiz do repositório como contexto, pois o Dockerfile copia arquivos relativos à pasta `api`.
+
 ---
 
 ## Equipe
