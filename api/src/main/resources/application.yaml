@@ -21,8 +21,8 @@ spring:
     locations: classpath:db/migration
 
 jwt:
-  # Sem valor padrão: se JWT_SECRET não for informado, a aplicação não sobe
-  secret: ${JWT_SECRET}
+  # O valor padrão permite a execução local; substitua JWT_SECRET fora do desenvolvimento.
+  secret: ${JWT_SECRET:hemovia-rota-vital-jwt-secret-key-2026-very-secure}
   expiration: ${JWT_EXPIRATION:86400000}
 
 management:
