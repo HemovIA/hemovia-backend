@@ -35,7 +35,7 @@ public class TelemetryReading {
     @NotNull @Column(name = "received_at", nullable = false)
     private Instant receivedAt;
 
-    @NotNull @Column(name = "temperature_celsius", nullable = false, precision = 8, scale = 3)
+    @NotNull @Column(name = "temperature_celsius", nullable = false)
     private BigDecimal temperatureCelsius;
 
     public TelemetryReading() { }

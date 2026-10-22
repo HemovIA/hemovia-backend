@@ -39,7 +39,9 @@ CREATE TABLE telemetry_readings (
     sensor_id VARCHAR(255) NOT NULL,
     measured_at TIMESTAMP WITH TIME ZONE NOT NULL,
     received_at TIMESTAMP WITH TIME ZONE NOT NULL,
-    temperature_celsius NUMERIC(8,3) NOT NULL,
+    -- Unconstrained numeric lets the explicit finite-value CHECK diagnose
+    -- Infinity too, rather than failing earlier through a numeric typmod.
+    temperature_celsius NUMERIC NOT NULL,
     CONSTRAINT ck_telemetry_sensor_not_blank CHECK (btrim(sensor_id) <> ''),
     CONSTRAINT ck_telemetry_temperature_finite CHECK (temperature_celsius NOT IN ('NaN'::numeric, 'Infinity'::numeric, '-Infinity'::numeric))
 );
