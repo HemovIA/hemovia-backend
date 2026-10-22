@@ -60,6 +60,22 @@
     "api/src/main/resources/db/migration/V4__normalize_base_entities.sql",
     "api/src/main/resources/db/migration/V5__create_requests_allocations.sql",
     "api/src/main/resources/db/migration/V6__create_logistics_telemetry.sql",
-    "api/src/main/resources/db/migration/V7__create_stock_movements.sql"
+    "api/src/main/resources/db/migration/V7__create_stock_movements.sql",
+    "api/src/main/java/com/hemovia/api/config/OpenApiConfig.java",
+    "api/src/main/java/com/hemovia/api/config/SecurityConfig.java",
+    "api/src/main/java/com/hemovia/api/controller/AuthController.java",
+    "api/src/main/java/com/hemovia/api/controller/HospitalController.java",
+    "api/src/main/java/com/hemovia/api/controller/DonationController.java",
+    "api/src/main/java/com/hemovia/api/controller/BloodBagController.java",
+    "api/src/main/java/com/hemovia/api/model/DTOs/AuthResponseDTO.java",
+    "api/src/main/java/com/hemovia/api/model/DTOs/UserResponseDTO.java",
+    "api/src/main/java/com/hemovia/api/model/DTOs/LoginRequestDTO.java",
+    "api/src/main/java/com/hemovia/api/model/DTOs/RegisterRequestDTO.java",
+    "api/src/main/java/com/hemovia/api/model/DTOs/HospitalRequestDTO.java",
+    "api/src/main/java/com/hemovia/api/model/DTOs/HospitalResponseDTO.java",
+    "api/src/main/java/com/hemovia/api/model/DTOs/DonationRequestDTO.java",
+    "api/src/main/java/com/hemovia/api/model/DTOs/DonationResponseDTO.java",
+    "api/src/main/java/com/hemovia/api/model/DTOs/BloodBagRequestDTO.java",
+    "api/src/main/java/com/hemovia/api/model/DTOs/BloodBagResponseDTO.java"
   ]
 }

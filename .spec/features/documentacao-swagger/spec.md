@@ -1,7 +1,7 @@
 # Spec: Documentação da API com Swagger
 
 > feature: documentacao-swagger
-> status: em-implementacao
+> status: auditada
 
 ## Contexto
 

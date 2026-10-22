@@ -9,3 +9,7 @@ O cache Maven global está disponível para o orquestrador, mas não é graváve
 O PostgreSQL de testes é temporário e isolado. Não carregar .env pessoal nos testes, não modificar o banco do usuário e não alterar migrações. Não enfraquecer, pular ou remover testes/manifestações antigas. Os relatórios históricos continuam ancorados no commit analisado; os novos critérios precisam de provas do OpenAPI e UI reais, não existência de anotações.
 
 Logs das sessões: `api/target/execucao-swagger/`. O relatório final mecânico será gerado em `auditoria.md` com `audit --ci --md`. A documentação não será declarada concluída antes da execução de todos os testes e provas das três features.
+
+## Cuidados verificados durante a integração
+
+O orquestrador baixou a dependência 3.1.1 no cache global e a compilação inicial passou com Boot 4.1.1. Ler arquivos com `Get-Content -Encoding UTF8` nas sessões PowerShell; evitar regravar textos UTF-8 interpretados como ANSI, especialmente descrições e exemplos em português. O teste de documentação desabilitada deve alterar a propriedade de entrada `HEMOVIA_API_DOCS_ENABLED=false` e exigir ausência normal (404), sem aceitar 500 como sucesso. A prova de UI habilitada deve seguir o redirect, carregar HTML, inicializador e ao menos um recurso JavaScript real, além de conferir a configuração do OpenAPI.

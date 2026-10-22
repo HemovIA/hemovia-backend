@@ -19,6 +19,7 @@ public class OpenApiConfig {
                         .description("Documentação da API Hemovia para gestão de doações e bolsas de sangue."))
                 .components(new Components().addSecuritySchemes("bearerAuth",
                         new SecurityScheme()
+                                .description("Informe somente o token JWT obtido em /auth/login.")
                                 .type(SecurityScheme.Type.HTTP)
                                 .scheme("bearer")
                                 .bearerFormat("JWT")));
