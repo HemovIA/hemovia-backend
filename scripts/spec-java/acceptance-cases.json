@@ -67,5 +67,30 @@
     "com.hemovia.api.controller.ExistingContractsRegressionTest#ac015_unknownDonorDoesNotSave",
     "com.hemovia.api.controller.ExistingContractsRegressionTest#ac015_singleAndMultipleBagResponses",
     "com.hemovia.api.controller.ExistingContractsRegressionTest#ac015_civilDateDoesNotShiftByTimezone"
+  ],
+  "AC-016": [
+    "com.hemovia.api.documentation.OpenApiAvailabilityIT#ac016_exposesGeneratedDocumentationAndUiConfiguration"
+  ],
+  "AC-017": [
+    "com.hemovia.api.documentation.OpenApiDisabledIT#ac017_doesNotExposeDocumentationWhenDisabled"
+  ],
+  "AC-018": [
+    "com.hemovia.api.documentation.OpenApiContractIT#ac018DocumentsCurrentOperationsAndResponses"
+  ],
+  "AC-019": [
+    "com.hemovia.api.documentation.OpenApiContractIT#ac019DocumentsDtoSchemasAndExamples"
+  ],
+  "AC-020": [
+    "com.hemovia.api.documentation.OpenApiContractIT#ac020DocumentsBearerSecurityWithoutExposingInternalParameters",
+    "com.hemovia.api.documentation.OpenApiContractIT#ac020PreservesHttpAuthenticationBehavior"
+  ],
+  "AC-021": [
+    "com.hemovia.api.documentation.OpenApiAvailabilityIT#ac016_exposesGeneratedDocumentationAndUiConfiguration",
+    "com.hemovia.api.documentation.OpenApiDisabledIT#ac017_doesNotExposeDocumentationWhenDisabled",
+    "com.hemovia.api.documentation.OpenApiContractIT#ac018DocumentsCurrentOperationsAndResponses",
+    "com.hemovia.api.documentation.OpenApiContractIT#ac019DocumentsDtoSchemasAndExamples",
+    "com.hemovia.api.documentation.OpenApiContractIT#ac020DocumentsBearerSecurityWithoutExposingInternalParameters",
+    "com.hemovia.api.documentation.OpenApiContractIT#ac020PreservesHttpAuthenticationBehavior",
+    "com.hemovia.api.documentation.OpenApiContractIT#ac021ReadmeDocumentsSwaggerWorkflow"
   ]
 }

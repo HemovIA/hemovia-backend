@@ -1,0 +1,42 @@
+{
+  "feature": "documentacao-swagger",
+  "timestamp": "2026-10-22T20:56:27.063Z",
+  "gitRev": "2b34bc7",
+  "command": "node scripts/spec-java/verify-tests.mjs",
+  "reporter": "tap",
+  "exitCode": 0,
+  "testsParsed": 30,
+  "results": {
+    "AC-016": {
+      "status": "pass",
+      "testName": "@spec:AC-016 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-017": {
+      "status": "pass",
+      "testName": "@spec:AC-017 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-018": {
+      "status": "pass",
+      "testName": "@spec:AC-018 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-019": {
+      "status": "pass",
+      "testName": "@spec:AC-019 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-020": {
+      "status": "pass",
+      "testName": "@spec:AC-020 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-021": {
+      "status": "pass",
+      "testName": "@spec:AC-021 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    }
+  },
+  "principles": {}
+}

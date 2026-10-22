@@ -115,6 +115,36 @@ node <diretorio-da-skill-onp-spec-driven>/scripts/onp-spec.mjs audit --ci
 
 Os dois últimos comandos só devem ser considerados aprovados quando terminarem com exit code `0`; veja as limitações e evidências reais em [resultado-validacao.md](.spec/features/finalizando-entidades-base/resultado-validacao.md).
 
+### Documentação interativa da API
+
+Com a aplicação iniciada, a interface Swagger UI fica em [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html) e o documento OpenAPI em [http://localhost:8080/v3/api-docs](http://localhost:8080/v3/api-docs). A documentação é pública; isso não altera a autenticação das operações de negócio. O endpoint `/auth/me` exige JWT e as outras rotas mantêm a política atual descrita no próprio documento.
+
+#### Pré-requisitos e inicialização local
+
+- JDK 21 e Docker com Docker Compose.
+- PostgreSQL 16, iniciado pelo Compose deste projeto, e variáveis de conexão preenchidas em `api/.env` a partir de `api/.env.example`.
+- Flyway habilitado; a aplicação aplica as migrações no startup. Dados legados incompatíveis podem interromper o startup com diagnóstico; Swagger não corrige nem transforma esses dados.
+
+No PowerShell, a partir da raiz do repositório:
+
+```powershell
+Copy-Item api/.env.example api/.env
+# Preencha POSTGRES_DB, POSTGRES_USER, POSTGRES_PASSWORD e POSTGRES_PORT em api/.env.
+docker compose --env-file api/.env -f api/docker-compose.yml up -d postgres
+Set-Location api
+.\mvnw.cmd spring-boot:run
+```
+
+Para habilitar explicitamente a documentação, defina `HEMOVIA_API_DOCS_ENABLED=true`; esse também é o padrão. Para desabilitá-la, defina `HEMOVIA_API_DOCS_ENABLED=false`; a mesma opção desabilita `/v3/api-docs`, sua configuração e a Swagger UI.
+
+#### Autenticação no Swagger
+
+1. Use `POST /auth/login` para obter o JWT com as credenciais sintéticas cadastradas em `POST /auth/register`.
+2. Clique em **Authorize** na interface e informe somente o valor do token, sem o prefixo `Bearer`.
+3. Execute `/auth/me` para consultar o usuário autenticado. O token não é persistido pela Swagger UI no navegador.
+
+Não use dados pessoais ou credenciais reais nos exemplos. O documento reflete os controllers e DTOs existentes; ele não cria endpoints para entidades sem controller.
+
 ---
 
 ### ⚙️ Infraestrutura de Software (SO)

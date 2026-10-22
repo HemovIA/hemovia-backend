@@ -1,11 +1,11 @@
 {
   "feature": "revisao-projeto",
-  "timestamp": "2026-10-22T19:07:36.778Z",
-  "gitRev": "b66f926",
+  "timestamp": "2026-10-22T20:57:43.181Z",
+  "gitRev": "2b34bc7",
   "command": "node scripts/spec-java/verify-tests.mjs",
   "reporter": "tap",
   "exitCode": 0,
-  "testsParsed": 24,
+  "testsParsed": 30,
   "results": {
     "AC-001": {
       "status": "pass",

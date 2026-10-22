@@ -1,14 +1,20 @@
 package com.hemovia.api.model.DTOs;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 
+@Schema(name = "LoginRequest", description = "Credenciais para autenticação. Informe email, CPF ou login, além da senha.")
 public class LoginRequestDTO {
 
+    @Schema(format = "email", example = "ana.souza@example.test")
     private String email;
+    @Schema(example = "12345678909")
     private String cpf;
+    @Schema(example = "ana.souza")
     private String login;
 
     @NotBlank(message = "A senha é obrigatória")
+    @Schema(format = "password", writeOnly = true, requiredMode = Schema.RequiredMode.REQUIRED, example = "senha-sintetica")
     private String password;
 
     public LoginRequestDTO() {
