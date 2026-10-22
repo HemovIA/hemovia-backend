@@ -1,14 +1,16 @@
 {
-  "testCommand": "node --test",
+  "testCommand": "node scripts/spec-java/verify-tests.mjs",
   "reporter": "tap",
   "testGlobs": [
     "test/**",
     "tests/**",
     "src/**/*.test.*",
     "src/**/*.spec.*",
-    "__tests__/**"
+    "__tests__/**",
+    "api/src/test/java/**/*.java"
   ],
   "srcGlobs": [
-    "src/**"
+    "src/**",
+    "scripts/spec-java/*.mjs"
   ]
 }

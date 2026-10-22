@@ -1,0 +1,67 @@
+{
+  "AC-005": [
+    "com.hemovia.api.model.BaseEntitiesUnitTest#ac005_publicUserDoesNotExposeCredentials",
+    "com.hemovia.api.model.BaseEntitiesUnitTest#ac005_vehicleRetainsIdentity",
+    "com.hemovia.api.model.BaseEntitiesUnitTest#ac005_vehicleRejectsNonPositiveCapacity",
+    "com.hemovia.api.model.BaseEntitiesPersistenceIT#ac005_vehicleUniquenessAndReusableDonor"
+  ],
+  "AC-006": [
+    "com.hemovia.api.model.BaseEntitiesUnitTest#ac006_acceptsZeroCoordinates",
+    "com.hemovia.api.model.BaseEntitiesUnitTest#ac006_acceptsCoordinateBoundaries",
+    "com.hemovia.api.model.BaseEntitiesUnitTest#ac006_rejectsBlankNameAndMissingCoordinates",
+    "com.hemovia.api.model.BaseEntitiesUnitTest#ac006_rejectsLatitude",
+    "com.hemovia.api.model.BaseEntitiesUnitTest#ac006_rejectsLongitude",
+    "com.hemovia.api.model.BaseEntitiesUnitTest#ac006_rejectsPriority",
+    "com.hemovia.api.model.BaseEntitiesPersistenceIT#ac006_databaseRejectsInvalidCoordinates"
+  ],
+  "AC-007": [
+    "com.hemovia.api.model.BaseEntitiesUnitTest#ac007_donationContainsMultipleBags",
+    "com.hemovia.api.model.BaseEntitiesUnitTest#ac007_rejectsConflictingDonors",
+    "com.hemovia.api.model.BaseEntitiesPersistenceIT#ac007_multipleBagsAndNonDestructiveUnlink"
+  ],
+  "AC-008": [
+    "com.hemovia.api.model.BaseEntitiesUnitTest#ac008_retainsCivilDatesAndTypedCharacteristics",
+    "com.hemovia.api.model.BaseEntitiesUnitTest#ac008_rejectsExpirationBeforeCollection",
+    "com.hemovia.api.model.BaseEntitiesUnitTest#ac008_rejectsNonPositiveVolume",
+    "com.hemovia.api.model.BaseEntitiesPersistenceIT#ac008_databaseRejectsInvalidBagValues"
+  ],
+  "AC-009": [
+    "com.hemovia.api.model.BaseEntitiesUnitTest#ac009_initialRequestIsPending",
+    "com.hemovia.api.model.BaseEntitiesUnitTest#ac009_rejectsNonPositiveQuantity",
+    "com.hemovia.api.model.BaseEntitiesPersistenceIT#ac009_requestRoundTripAndForeignKey"
+  ],
+  "AC-011": [
+    "com.hemovia.api.model.BaseEntitiesUnitTest#ac011_preservesWaypointSequence",
+    "com.hemovia.api.model.BaseEntitiesUnitTest#ac011_rejectsNegativeMeasures",
+    "com.hemovia.api.model.BaseEntitiesPersistenceIT#ac011_routeOrderAndUniquePosition"
+  ],
+  "AC-012": [
+    "com.hemovia.api.model.BaseEntitiesUnitTest#ac012_rejectsReversedTransportTimes",
+    "com.hemovia.api.model.BaseEntitiesUnitTest#ac012_preservesTemperatureAndRejectsMissingValue",
+    "com.hemovia.api.model.BaseEntitiesPersistenceIT#ac012_transportTelemetryAndHistoryRoundTrip"
+  ],
+  "AC-010": [
+    "com.hemovia.api.model.BaseEntitiesPersistenceIT#ac010_concurrentReservationAndReleaseHistory",
+    "com.hemovia.api.model.BaseEntitiesPersistenceIT#ac010_optimisticLockRejectsLostUpdate"
+  ],
+  "AC-013": [
+    "com.hemovia.api.model.BaseEntitiesPersistenceIT#ac013_emptyDatabaseAndRepeatedMigrate",
+    "com.hemovia.api.model.BaseEntitiesPersistenceIT#ac013_upgradePreservesLegacyLinks",
+    "com.hemovia.api.model.BaseEntitiesPersistenceIT#ac013_invalidLegacyDataRollsBack",
+    "com.hemovia.api.model.BaseEntitiesPersistenceIT#ac013_ambiguousLegacyDonationAbortsMigration",
+    "com.hemovia.api.model.MigrationSourcesTest#ac013_existingMigrationsRemainUnchanged"
+  ],
+  "AC-014": [
+    "com.hemovia.api.model.BaseEntitiesPersistenceIT#ac014_realPostgresIsUsed",
+    "com.hemovia.api.ApiApplicationTests#contextLoads"
+  ],
+  "AC-015": [
+    "com.hemovia.api.controller.ExistingContractsRegressionTest#ac015_hospitalHttpContract",
+    "com.hemovia.api.controller.ExistingContractsRegressionTest#ac015_donationHttpContract",
+    "com.hemovia.api.controller.ExistingContractsRegressionTest#ac015_bloodBagHttpContract",
+    "com.hemovia.api.controller.ExistingContractsRegressionTest#ac015_legacyBagCreationResolvesDonor",
+    "com.hemovia.api.controller.ExistingContractsRegressionTest#ac015_unknownDonorDoesNotSave",
+    "com.hemovia.api.controller.ExistingContractsRegressionTest#ac015_singleAndMultipleBagResponses",
+    "com.hemovia.api.controller.ExistingContractsRegressionTest#ac015_civilDateDoesNotShiftByTimezone"
+  ]
+}

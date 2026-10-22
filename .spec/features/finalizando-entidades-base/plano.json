@@ -1,0 +1,217 @@
+{
+  "runId": "hemovia-backend-finalizando-entidades-base-mvjvj5kh",
+  "feature": "finalizando-entidades-base",
+  "agent": "codex",
+  "modo": "sequencial",
+  "paralelizar": null,
+  "modeloForcado": "gpt-5.6-terra",
+  "esforcoForcado": "medium",
+  "geradoEm": "2026-10-22 18:28",
+  "branchTrabalho": "spec/finalizando-entidades-base",
+  "baseDir": ".spec/features/finalizando-entidades-base",
+  "specDir": ".spec",
+  "repoName": "hemovia-backend",
+  "logsDir": "../onp-worktrees/hemovia-backend-finalizando-entidades-base-logs",
+  "ondas": [],
+  "faixas": [],
+  "sequenciais": [
+    {
+      "id": "T-005",
+      "titulo": "Preparar provas Java/PostgreSQL e recuperar a validação histórica",
+      "modelo": "gpt-5.6-terra",
+      "esforco": "medium",
+      "arquivos": [
+        "onpspec.config.json",
+        "api/pom.xml",
+        "api/src/test/resources/application-base-entities-test.yaml",
+        "api/src/test/java/com/hemovia/api/support/BaseEntitiesPostgres.java",
+        "api/src/test/java/com/hemovia/api/support/BaseEntityFixtures.java",
+        "scripts/spec-java/test-postgres.ps1",
+        "api/src/test/java/com/hemovia/api/ApiApplicationTests.java",
+        "scripts/spec-java/verify-tests.mjs",
+        "scripts/spec-java/read-surefire.mjs",
+        "scripts/spec-java/acceptance-cases.json",
+        "tests/finalizando-entidades-base/reporter.test.mjs",
+        "tests/revisao-projeto/helpers/snapshot.mjs",
+        "tests/revisao-projeto/alinhamento.test.mjs",
+        "tests/revisao-projeto/api-dados-seguranca.test.mjs",
+        "tests/revisao-projeto/qualidade-operacao.test.mjs"
+      ],
+      "refs": [
+        "US-008",
+        "AC-014"
+      ]
+    },
+    {
+      "id": "T-006",
+      "titulo": "Consolidar pessoas, locais, veículos e tipos comuns",
+      "modelo": "gpt-5.6-terra",
+      "esforco": "medium",
+      "arquivos": [
+        "api/src/main/java/com/hemovia/api/model/Person.java",
+        "api/src/main/java/com/hemovia/api/model/Hospital.java",
+        "api/src/main/java/com/hemovia/api/model/BloodCenter.java",
+        "api/src/main/java/com/hemovia/api/model/Vehicle.java",
+        "api/src/main/java/com/hemovia/api/model/enums/BloodType.java",
+        "api/src/main/java/com/hemovia/api/model/enums/RhFactor.java",
+        "api/src/main/java/com/hemovia/api/model/enums/BloodComponent.java",
+        "api/src/main/java/com/hemovia/api/repository/PersonRepository.java",
+        "api/src/main/java/com/hemovia/api/repository/BloodCenterRepository.java",
+        "api/src/main/java/com/hemovia/api/repository/VehicleRepository.java",
+        "api/src/test/java/com/hemovia/api/model/BaseEntitiesUnitTest.java"
+      ],
+      "refs": [
+        "US-004",
+        "AC-005",
+        "AC-006"
+      ]
+    },
+    {
+      "id": "T-007",
+      "titulo": "Evoluir doações e bolsas com compatibilidade dos contratos",
+      "modelo": "gpt-5.6-terra",
+      "esforco": "medium",
+      "arquivos": [
+        "api/src/main/java/com/hemovia/api/model/Donation.java",
+        "api/src/main/java/com/hemovia/api/model/BloodBag.java",
+        "api/src/main/java/com/hemovia/api/model/enums/BloodBagStatus.java",
+        "api/src/main/java/com/hemovia/api/model/DTOs/DonationRequestDTO.java",
+        "api/src/main/java/com/hemovia/api/model/DTOs/DonationResponseDTO.java",
+        "api/src/main/java/com/hemovia/api/model/DTOs/BloodBagRequestDTO.java",
+        "api/src/main/java/com/hemovia/api/model/DTOs/BloodBagResponseDTO.java",
+        "api/src/main/java/com/hemovia/api/service/implementation/DonationServiceImpl.java",
+        "api/src/main/java/com/hemovia/api/service/implementation/BloodBagServiceImpl.java",
+        "api/src/main/java/com/hemovia/api/repository/DonationRepository.java",
+        "api/src/main/java/com/hemovia/api/repository/BloodBagRepository.java",
+        "api/src/main/java/com/hemovia/api/exceptions/GlobalExceptionHandler.java",
+        "api/src/test/java/com/hemovia/api/model/BaseEntitiesUnitTest.java",
+        "api/src/test/java/com/hemovia/api/model/BaseEntitiesPersistenceIT.java",
+        "api/src/test/java/com/hemovia/api/service/implementation/BloodBagServiceImplTest.java"
+      ],
+      "refs": [
+        "US-005",
+        "US-009",
+        "AC-007",
+        "AC-008",
+        "AC-015"
+      ]
+    },
+    {
+      "id": "T-008",
+      "titulo": "Modelar requisições, alocações e histórico de reservas",
+      "modelo": "gpt-5.6-terra",
+      "esforco": "medium",
+      "arquivos": [
+        "api/src/main/java/com/hemovia/api/model/BloodRequest.java",
+        "api/src/main/java/com/hemovia/api/model/Allocation.java",
+        "api/src/main/java/com/hemovia/api/model/AllocationItem.java",
+        "api/src/main/java/com/hemovia/api/model/enums/RequestStatus.java",
+        "api/src/main/java/com/hemovia/api/model/enums/AllocationStatus.java",
+        "api/src/main/java/com/hemovia/api/model/enums/ReservationStatus.java",
+        "api/src/main/java/com/hemovia/api/repository/BloodRequestRepository.java",
+        "api/src/main/java/com/hemovia/api/repository/AllocationRepository.java",
+        "api/src/main/java/com/hemovia/api/repository/AllocationItemRepository.java",
+        "api/src/test/java/com/hemovia/api/model/BaseEntitiesPersistenceIT.java"
+      ],
+      "refs": [
+        "US-006",
+        "AC-009",
+        "AC-010"
+      ]
+    },
+    {
+      "id": "T-009",
+      "titulo": "Modelar rotas e seus pontos ordenados",
+      "modelo": "gpt-5.6-terra",
+      "esforco": "medium",
+      "arquivos": [
+        "api/src/main/java/com/hemovia/api/model/DeliveryRoute.java",
+        "api/src/main/java/com/hemovia/api/model/RouteWaypoint.java",
+        "api/src/main/java/com/hemovia/api/repository/DeliveryRouteRepository.java",
+        "api/src/test/java/com/hemovia/api/model/BaseEntitiesPersistenceIT.java"
+      ],
+      "refs": [
+        "US-007",
+        "AC-011"
+      ]
+    },
+    {
+      "id": "T-010",
+      "titulo": "Modelar transporte, telemetria e movimentos de estoque",
+      "modelo": "gpt-5.6-terra",
+      "esforco": "medium",
+      "arquivos": [
+        "api/src/main/java/com/hemovia/api/model/Transport.java",
+        "api/src/main/java/com/hemovia/api/model/TelemetryReading.java",
+        "api/src/main/java/com/hemovia/api/model/StockMovement.java",
+        "api/src/main/java/com/hemovia/api/model/enums/TransportStatus.java",
+        "api/src/main/java/com/hemovia/api/model/enums/MovementType.java",
+        "api/src/main/java/com/hemovia/api/repository/TransportRepository.java",
+        "api/src/main/java/com/hemovia/api/repository/TelemetryReadingRepository.java",
+        "api/src/main/java/com/hemovia/api/repository/StockMovementRepository.java",
+        "api/src/test/java/com/hemovia/api/model/BaseEntitiesPersistenceIT.java"
+      ],
+      "refs": [
+        "US-007",
+        "AC-012"
+      ]
+    },
+    {
+      "id": "T-011",
+      "titulo": "Migrar e provar o esquema PostgreSQL",
+      "modelo": "gpt-5.6-terra",
+      "esforco": "medium",
+      "arquivos": [
+        "api/src/main/resources/db/migration/V4__normalize_base_entities.sql",
+        "api/src/main/resources/db/migration/V5__create_requests_allocations.sql",
+        "api/src/main/resources/db/migration/V6__create_logistics_telemetry.sql",
+        "api/src/main/resources/db/migration/V7__create_stock_movements.sql",
+        "api/src/test/java/com/hemovia/api/model/MigrationSourcesTest.java",
+        "api/src/test/java/com/hemovia/api/model/BaseEntitiesPersistenceIT.java",
+        "api/src/test/resources/fixtures/base-entities-migration-checksums.json"
+      ],
+      "refs": [
+        "US-005",
+        "US-006",
+        "US-007",
+        "US-008",
+        "AC-005",
+        "AC-006",
+        "AC-007",
+        "AC-008",
+        "AC-009",
+        "AC-010",
+        "AC-011",
+        "AC-012",
+        "AC-013"
+      ]
+    },
+    {
+      "id": "T-012",
+      "titulo": "Consolidar regressão, documentação e auditoria",
+      "modelo": "gpt-5.6-terra",
+      "esforco": "medium",
+      "arquivos": [
+        "api/src/test/java/com/hemovia/api/controller/ExistingContractsRegressionTest.java",
+        "api/src/test/java/com/hemovia/api/controller/AuthControllerTest.java",
+        "api/src/test/java/com/hemovia/api/service/implementation/AuthServiceImplTest.java",
+        "api/src/test/java/com/hemovia/api/service/JwtServiceTest.java",
+        "api/src/test/java/com/hemovia/api/ApiApplicationTests.java",
+        "scripts/spec-java/acceptance-cases.json",
+        "onpspec.config.json",
+        "README.md",
+        ".spec/features/finalizando-entidades-base/modelo-entidades.md",
+        ".spec/features/finalizando-entidades-base/testes.md",
+        ".spec/features/finalizando-entidades-base/resultado-validacao.md"
+      ],
+      "refs": [
+        "US-008",
+        "US-009",
+        "AC-014",
+        "AC-015"
+      ]
+    }
+  ],
+  "concluidas": [],
+  "avisos": []
+}
