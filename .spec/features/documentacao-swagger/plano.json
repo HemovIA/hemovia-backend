@@ -1,0 +1,104 @@
+{
+  "runId": "hemovia-backend-documentacao-swagger-mvjzcl37",
+  "feature": "documentacao-swagger",
+  "agent": "codex",
+  "modo": "sequencial",
+  "paralelizar": null,
+  "modeloForcado": "gpt-5.6-terra",
+  "esforcoForcado": "medium",
+  "geradoEm": "2026-10-22 20:14",
+  "branchTrabalho": "spec/documentacao-swagger",
+  "baseDir": ".spec/features/documentacao-swagger",
+  "specDir": ".spec",
+  "repoName": "hemovia-backend",
+  "logsDir": "../onp-worktrees/hemovia-backend-documentacao-swagger-logs",
+  "ondas": [],
+  "faixas": [],
+  "sequenciais": [
+    {
+      "id": "T-013",
+      "titulo": "Integrar Swagger UI, OpenAPI e configuração de acesso",
+      "modelo": "gpt-5.6-terra",
+      "esforco": "medium",
+      "arquivos": [
+        "api/pom.xml",
+        "api/src/main/java/com/hemovia/api/config/OpenApiConfig.java",
+        "api/src/main/java/com/hemovia/api/config/SecurityConfig.java",
+        "api/src/main/resources/application.yaml",
+        "api/.env.example",
+        "api/src/test/java/com/hemovia/api/documentation/OpenApiAvailabilityIT.java",
+        "api/src/test/java/com/hemovia/api/documentation/OpenApiDisabledIT.java",
+        "api/src/test/resources/application-base-entities-test.yaml"
+      ],
+      "refs": [
+        "US-010",
+        "AC-016",
+        "AC-017"
+      ]
+    },
+    {
+      "id": "T-014",
+      "titulo": "Documentar contratos, modelos e autenticação JWT",
+      "modelo": "gpt-5.6-terra",
+      "esforco": "medium",
+      "arquivos": [
+        "api/src/main/java/com/hemovia/api/config/OpenApiConfig.java",
+        "api/src/main/java/com/hemovia/api/controller/AuthController.java",
+        "api/src/main/java/com/hemovia/api/controller/HospitalController.java",
+        "api/src/main/java/com/hemovia/api/controller/DonationController.java",
+        "api/src/main/java/com/hemovia/api/controller/BloodBagController.java",
+        "api/src/main/java/com/hemovia/api/model/DTOs/AuthResponseDTO.java",
+        "api/src/main/java/com/hemovia/api/model/DTOs/UserResponseDTO.java",
+        "api/src/main/java/com/hemovia/api/model/DTOs/LoginRequestDTO.java",
+        "api/src/main/java/com/hemovia/api/model/DTOs/RegisterRequestDTO.java",
+        "api/src/main/java/com/hemovia/api/model/DTOs/HospitalRequestDTO.java",
+        "api/src/main/java/com/hemovia/api/model/DTOs/HospitalResponseDTO.java",
+        "api/src/main/java/com/hemovia/api/model/DTOs/DonationRequestDTO.java",
+        "api/src/main/java/com/hemovia/api/model/DTOs/DonationResponseDTO.java",
+        "api/src/main/java/com/hemovia/api/model/DTOs/BloodBagRequestDTO.java",
+        "api/src/main/java/com/hemovia/api/model/DTOs/BloodBagResponseDTO.java",
+        "api/src/test/java/com/hemovia/api/documentation/OpenApiContractIT.java"
+      ],
+      "refs": [
+        "US-011",
+        "US-012",
+        "AC-018",
+        "AC-019",
+        "AC-020"
+      ]
+    },
+    {
+      "id": "T-015",
+      "titulo": "Consolidar provas, instruções e documento de auditoria",
+      "modelo": "gpt-5.6-terra",
+      "esforco": "medium",
+      "arquivos": [
+        "api/src/test/java/com/hemovia/api/documentation/OpenApiAvailabilityIT.java",
+        "api/src/test/java/com/hemovia/api/documentation/OpenApiDisabledIT.java",
+        "api/src/test/java/com/hemovia/api/documentation/OpenApiContractIT.java",
+        "scripts/spec-java/acceptance-cases.json",
+        "scripts/spec-java/verify-tests.mjs",
+        "scripts/spec-java/test-postgres.ps1",
+        "onpspec.config.json",
+        "README.md",
+        ".spec/features/documentacao-swagger/testes.md",
+        ".spec/features/documentacao-swagger/resultado-validacao.md",
+        ".spec/features/documentacao-swagger/auditoria.md"
+      ],
+      "refs": [
+        "US-010",
+        "US-011",
+        "US-012",
+        "US-013",
+        "AC-016",
+        "AC-017",
+        "AC-018",
+        "AC-019",
+        "AC-020",
+        "AC-021"
+      ]
+    }
+  ],
+  "concluidas": [],
+  "avisos": []
+}
