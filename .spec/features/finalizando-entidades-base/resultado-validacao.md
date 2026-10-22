@@ -34,3 +34,9 @@ O perfil inicial de coleta não incluía nomes terminados em *Tests; isso foi co
 - O PostgreSQL temporário foi encerrado, conforme a saída `server stopped` do finally.
 
 Não há skip/todo, provas inventadas, entidades fictícias ou mudanças de expectativa para transformar a fase RED em verde. Os arquivos da implementação permanecem pendentes. O próximo trabalho é implementar o modelo contra esses testes e resolver a validação histórica prevista em T-005; este pedido não autorizou concluir automaticamente o restante do plano.
+
+## Consolidação T-012 — pré-gate, 22/10/2026
+
+Foram consolidados o manifesto por critério, o escopo explícito de fontes auditadas, a documentação do modelo e as verificações de regressão de credenciais nas respostas HTTP. A documentação registra as adaptações internas legítimas: uma doação agora tem coleção de bolsas, sem romper o payload singular para exatamente uma bolsa; `donorId` é resolvido para `Person`; e a ausência de dado legado continua ausência, sem vínculo artificial.
+
+Não foi executado nesta tarefa nenhum PostgreSQL, `onp-spec verify` ou `onp-spec audit --ci`, por instrução expressa de reservar o gate integrado ao orquestrador. Não há relatório novo de Surefire/TAP, nem resultado PASS a declarar. A evidência pendente é a execução real, em ordem: suíte completa com `scripts/spec-java/test-postgres.ps1 -Verify`, verify das features aplicáveis e audit CI. Qualquer falha, relatório antigo, skip ou impedimento deve permanecer registrado como tal antes de concluir tarefas ou alterar o status da spec.

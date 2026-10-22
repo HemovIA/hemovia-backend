@@ -15,6 +15,8 @@
     "com.hemovia.api.model.BaseEntitiesPersistenceIT#ac006_databaseRejectsInvalidCoordinates"
   ],
   "AC-007": [
+    "com.hemovia.api.service.implementation.DonationAssociationsRegressionTest#ac007_rejectsConflictingKnownCenters",
+    "com.hemovia.api.service.implementation.DonationAssociationsRegressionTest#ac007_cannotStealBagFromAnotherDonation",
     "com.hemovia.api.model.BaseEntitiesUnitTest#ac007_donationContainsMultipleBags",
     "com.hemovia.api.model.BaseEntitiesUnitTest#ac007_rejectsConflictingDonors",
     "com.hemovia.api.model.BaseEntitiesPersistenceIT#ac007_multipleBagsAndNonDestructiveUnlink"
@@ -56,6 +58,8 @@
     "com.hemovia.api.ApiApplicationTests#contextLoads"
   ],
   "AC-015": [
+    "com.hemovia.api.service.implementation.DonationAssociationsRegressionTest#ac015_singularUpdatePreservesMultipleBags",
+    "com.hemovia.api.service.implementation.DonationAssociationsRegressionTest#ac015_createRejectsAlreadyAssociatedBag",
     "com.hemovia.api.controller.ExistingContractsRegressionTest#ac015_hospitalHttpContract",
     "com.hemovia.api.controller.ExistingContractsRegressionTest#ac015_donationHttpContract",
     "com.hemovia.api.controller.ExistingContractsRegressionTest#ac015_bloodBagHttpContract",

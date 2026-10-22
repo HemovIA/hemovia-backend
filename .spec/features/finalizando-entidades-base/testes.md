@@ -72,3 +72,13 @@ onpspec.config.json passa a reconhecer os testes Java e executar o adaptador TAP
 O gate preserva os quatro testes documentais da revisão anterior. Três já falhavam antes desta etapa, por referências do snapshot histórico ao arquivo V2 de hospitais renomeado para V3; esses testes não foram enfraquecidos ou alterados neste pedido. Essa pendência de T-005 continua registrada separadamente.
 
 Não foram criadas entidades substitutas, migrações fictícias, skips ou marcações manuais PASS. O resultado real e os caminhos das provas estão em resultado-validacao.md.
+
+## Consolidação T-012
+
+Além dos testes de aceite, a regressão de autenticação preserva registro, login, normalização de e-mail/CPF e JWT somente com `sub`, `iat` e `exp`. `AuthControllerTest` verifica que as respostas de registro e login não expõem `password`; `AuthServiceImplTest` continua verificando que a senha é codificada antes de persistir; `JwtServiceTest` verifica que o token não recebe e-mail, CPF ou papel.
+
+`ExistingContractsRegressionTest` prova os três POSTs legados, a resolução de `donorId`, a recusa de doador inexistente, `bloodBags` completo com `bloodBag` singular somente no caso de uma bolsa e a preservação de `LocalDate` em UTC e America/Sao_Paulo. A serialização da resposta é exercitada para detectar ciclo de JSON e presença de credencial. A adaptação legítima foi trocar o relacionamento interno de uma bolsa por uma coleção, sem mudar o payload singular aceito; novos campos de rastreabilidade continuam opcionais e não são inventados.
+
+O manifesto `scripts/spec-java/acceptance-cases.json` exige todos os métodos de aceite, inclusive `ApiApplicationTests.contextLoads`. `onpspec.config.json` enumera explicitamente os scripts de prova e fontes de produção das tarefas T-005 a T-011, além de migrações. Isso permite que a auditoria detecte cobertura ausente sem ampliar o escopo para código didático não relacionado.
+
+Não houve execução da suíte PostgreSQL, `verify` ou `audit --ci` nesta consolidação: esses comandos são gate integrado do orquestrador, conforme o contrato de trabalho. Portanto esta seção documenta cobertura e comando; não é prova de PASS.
