@@ -1,7 +1,7 @@
 ﻿# Spec: Revisão do projeto
 
 > feature: revisao-projeto
-> status: em-implementacao
+> status: auditada
 
 ## Contexto
 
@@ -59,7 +59,7 @@ Cada critério terá teste anotado com @spec:AC-xxx para verificar completude, r
 
 A configuração atual do motor usa node --test e src/**, embora a API esteja em api/. Avaliar essa lacuna e propor adequação sem enfraquecer a constituição. Um gate limpo de documentação não comprova aprovação funcional da API.
 
-A revisão somente será encerrada com provas por critério via verify revisao-projeto e audit --ci com saída 0. Nesta fase as tarefas permanecem pendentes.
+A revisão somente será encerrada com provas por critério via verify revisao-projeto e audit --ci com saída 0. Execução autorizada em 22/10/2026 e concluída com relatórios e provas documentais; os resultados funcionais e impedimentos constam no relatório final.
 
 ## Fora de escopo
 
@@ -78,4 +78,3 @@ A revisão somente será encerrada com provas por critério via verify revisao-p
 | ID | Pergunta | Status | Resposta |
 |---|---|---|---|
 | Q-001 | Confirmar diagnóstico sem correções automáticas, tarefas a paralelizar e modelos/esforços do plano? | respondida | Usuário autorizou o plano recomendado: T-001/T-002/T-003 paralelas, T-004 ao final, gpt-5.6-terra e esforço medium. |
-

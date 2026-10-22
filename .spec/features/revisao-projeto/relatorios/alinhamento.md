@@ -1,4 +1,4 @@
-# Alinhamento entre objetivos documentados e implementação
+﻿# Alinhamento entre objetivos documentados e implementação
 
 > Escopo: T-001 / AC-001 — levantamento estático, sem correções.
 > Referência do produto: `91d1f981e8860df0cb53fa9472edd8f1bcd91e89`.
@@ -94,7 +94,7 @@ funcionalidade; não é substituído pelo teste Node deste relatório.
 
 O backend atual está alinhado com o núcleo já entregue de doações, bolsas,
 persistência, autenticação e estruturas AED básicas. A matriz contém 4 histórias
-implementadas, 2 parciais, 36 planejadas e 2 sem evidência; essa contagem serve
+implementadas, 2 parciais, 37 planejadas e 1 sem evidência; essa contagem serve
 ao inventário e não reclassifica histórias futuras como defeitos. As declarações
 de Swagger, CI/CD, Docker da aplicação e Clean Architecture exigem evidência ou
 ajuste documental em etapa posterior, mas esta T-001 não recomenda nem aplica

@@ -32,6 +32,16 @@ test('@spec:AC-001 — matriz inventaria componentes e todas as funcionalidades 
     assert.match(report, new RegExp(`\\| ${story} — .+? \\| (implementada|parcial|planejada|sem evidência) \\|`));
   }
 
+  const rows = report.split('\n').filter(line => /^\| (POO|AED|EST|SO|RSD)US\d{2}/.test(line));
+  assert.equal(rows.length, sourceStories.length, 'cada história deve aparecer uma única vez');
+  const counts = {};
+  for (const row of rows) {
+    const status = row.split('|')[2].trim();
+    counts[status] = (counts[status] ?? 0) + 1;
+  }
+  const summary = new RegExp(`${counts.implementada} histórias\\s+implementadas, ${counts.parcial} parciais, ${counts.planejada} planejadas e ${counts['sem evidência']} sem evidência`);
+  assert.match(report, summary, 'a contagem da síntese deve refletir as linhas da matriz');
+
   assert.match(report, /## Componentes encontrados/);
   assert.match(report, /## Matriz das funcionalidades de README e diagramas/);
   assert.match(report, /api\/src\/main\/java\/com\/hemovia\/api\/ApiApplication\.java:6/);

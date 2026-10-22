@@ -7,9 +7,11 @@ const reportPath = new URL('../../.spec/features/revisao-projeto/relatorios/qual
 test('@spec:AC-003 revisa AED, testes e operação com evidências, comandos e limitações', async () => {
   const report = await readFile(reportPath, 'utf8');
 
-  for (const [, file, line] of report.matchAll(/`((?:api|aed-u1)\/[^`:]+):(\d+)[^`]*`/g)) {
+  for (const [, file, range] of report.matchAll(/`((?:api|aed-u1)\/[^`:]+):(\d+(?:-\d+)?(?:,\d+(?:-\d+)?)*)`/g)) {
     const source = await readFile(new URL(`../../${file}`, import.meta.url), 'utf8');
-    assert.ok(Number(line) <= source.split(/\r?\n/).length, `linha fora do arquivo: ${file}:${line}`);
+    for (const line of range.split(/[,-]/).map(Number)) {
+      assert.ok(line > 0 && line <= source.split(/\r?\n/).length, `linha fora do arquivo: ${file}:${line}`);
+    }
   }
 
   for (const section of [
@@ -41,8 +43,14 @@ test('@spec:AC-003 revisa AED, testes e operação com evidências, comandos e l
   assert.match(report, /Não verificado/);
   assert.match(report, /não é aprovação de execução/);
 
-  for (const finding of ['QUA-001', 'QUA-002', 'QUA-003']) {
+  for (const finding of ['QUA-001', 'QUA-002', 'QUA-003', 'QUA-004', 'QUA-005', 'QUA-006']) {
     assert.match(report, new RegExp(finding));
+  }
+  const findings = report.match(/### QUA-\d{3}[\s\S]*?(?=\n### |\n## |$)/g) ?? [];
+  for (const finding of findings) {
+    for (const field of ['Tipo / severidade', 'Arquivo e linhas', 'Esperado', 'Observado', 'Impacto', 'Reprodução ou justificativa estática', 'Recomendação']) {
+      assert.ok(finding.includes(`**${field}:**`), `${field} ausente em ${finding.match(/QUA-\d{3}/)[0]}`);
+    }
   }
   for (const requiredFindingField of [
     'Tipo / severidade',
