@@ -51,6 +51,8 @@ public final class BaseEntitiesPostgres implements AutoCloseable {
         configuration.setProperty("hibernate.connection.username", user);
         configuration.setProperty("hibernate.connection.password", password);
         configuration.setProperty("hibernate.default_schema", schema);
+        // Match Spring Boot's production naming convention in this standalone Hibernate bootstrap.
+        configuration.setProperty("hibernate.physical_naming_strategy", "org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy");
         configuration.setProperty("hibernate.hbm2ddl.auto", "validate");
         configuration.setProperty("hibernate.show_sql", "false");
         factory = configuration.buildSessionFactory();

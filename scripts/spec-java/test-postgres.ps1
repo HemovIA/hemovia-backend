@@ -1,6 +1,7 @@
 ﻿param(
     [string]$PostgresBin = 'C:\Program Files\PostgreSQL\17\bin',
-    [switch]$Verify
+    [switch]$Verify,
+    [string[]]$Features = @('finalizando-entidades-base', 'revisao-projeto')
 )
 $ErrorActionPreference = 'Stop'
 $taskRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../..'))
@@ -34,8 +35,11 @@ try {
     $env:HEMOVIA_TEST_DB_USER = 'hemovia_test'
     $env:HEMOVIA_TEST_DB_PASSWORD = ''
     if ($Verify) {
-        node .agents/skills/onp-spec-driven/scripts/onp-spec.mjs verify finalizando-entidades-base
-        $taskResult = $LASTEXITCODE
+        $taskResult = 0
+        foreach ($taskFeature in $Features) {
+            node .agents/skills/onp-spec-driven/scripts/onp-spec.mjs verify $taskFeature
+            if ($LASTEXITCODE -ne 0) { $taskResult = $LASTEXITCODE; break }
+        }
     } else {
         & mvn -o -f api/pom.xml -Pbase-entities-acceptance test *> (Join-Path $taskBuild 'base-entities-integration-run.log')
         $taskResult = $LASTEXITCODE

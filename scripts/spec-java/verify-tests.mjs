@@ -1,13 +1,20 @@
 import assert from 'node:assert/strict';
 import { mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { spawnSync } from 'node:child_process';
 import { randomUUID } from 'node:crypto';
 import test from 'node:test';
 import { assessCriterion, readFreshReports } from './read-surefire.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
+// Register historical tests in the outer TAP stream too: each historical
+// acceptance criterion needs its own executed proof, not only a child exit code.
+for (const folder of ['tests/revisao-projeto', 'tests/finalizando-entidades-base']) {
+  for (const file of readdirSync(path.join(root, folder)).filter(name => name.endsWith('.test.mjs'))) {
+    await import(pathToFileURL(path.join(root, folder, file)).href);
+  }
+}
 const manifest = JSON.parse(readFileSync(path.join(root, 'scripts/spec-java/acceptance-cases.json'), 'utf8'));
 const directory = path.join(root, 'api/target/base-entities-reports', randomUUID());
 mkdirSync(directory, { recursive: true });
