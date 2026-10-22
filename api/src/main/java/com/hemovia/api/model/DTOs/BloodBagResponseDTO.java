@@ -7,6 +7,11 @@ public class BloodBagResponseDTO {
     private String bloodType;
     private String rhFactor;
     private String expirationDate;
+    private String component;
+    private String collectionDate;
+    private String status;
+    private UUID donorId;
+    private UUID bloodCenterId;
 
     public UUID getBloodBagId() {
         return bloodBagId;
@@ -39,4 +44,14 @@ public class BloodBagResponseDTO {
     public void setExpirationDate(String expirationDate) {
         this.expirationDate = expirationDate;
     }
+    public String getComponent() { return component; }
+    public void setComponent(String component) { this.component = component; }
+    public String getCollectionDate() { return collectionDate; }
+    public void setCollectionDate(String collectionDate) { this.collectionDate = collectionDate; }
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
+    public UUID getDonorId() { return donorId; }
+    public void setDonorId(UUID donorId) { this.donorId = donorId; }
+    public UUID getBloodCenterId() { return bloodCenterId; }
+    public void setBloodCenterId(UUID bloodCenterId) { this.bloodCenterId = bloodCenterId; }
 }

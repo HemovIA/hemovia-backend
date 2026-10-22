@@ -13,6 +13,10 @@ public class DonationRequestDTO {
 
     private UUID bloodBagId;
 
+    private UUID donorId;
+
+    private UUID bloodCenterId;
+
     private BloodType bloodType;
 
     private String rhFactor;
@@ -40,6 +44,11 @@ public class DonationRequestDTO {
     public void setBloodBagId(UUID bloodBagId) {
         this.bloodBagId = bloodBagId;
     }
+
+    public UUID getDonorId() { return donorId; }
+    public void setDonorId(UUID donorId) { this.donorId = donorId; }
+    public UUID getBloodCenterId() { return bloodCenterId; }
+    public void setBloodCenterId(UUID bloodCenterId) { this.bloodCenterId = bloodCenterId; }
 
     public BloodType getBloodType() {
         return bloodType;

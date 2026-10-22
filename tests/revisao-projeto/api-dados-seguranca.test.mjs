@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 import test from 'node:test';
+import { readSnapshot, snapshotExists } from './helpers/snapshot.mjs';
 
 const reportPath = '.spec/features/revisao-projeto/relatorios/api-dados-seguranca.md';
 const report = readFileSync(reportPath, 'utf8');
@@ -41,18 +42,18 @@ test('@spec:AC-002 revisão de API, dados e segurança registra cobertura, evid�
     'api/src/main/java/com/hemovia/api/service/JwtService.java',
     'api/src/main/resources/db/migration/V2__create_users_table.sql',
     'api/src/main/resources/db/migration/V2__create_hospital_table.sql',
-  ]) assert.ok(existsSync(reference), `referência inspecionada ausente: ${reference}`);
+  ]) assert.ok(snapshotExists(reference), `referência inspecionada ausente no commit analisado: ${reference}`);
 
   for (const [, file, line] of report.matchAll(/`(api\/[^`:]+):(\d+)[^`]*`/g)) {
-    assert.ok(existsSync(file), `referência inexistente: ${file}`);
-    assert.ok(Number(line) <= readFileSync(file, 'utf8').split(/\r?\n/).length,
+    assert.ok(snapshotExists(file), `referência inexistente no commit analisado: ${file}`);
+    assert.ok(Number(line) <= readSnapshot(file).split(/\r?\n/).length,
       `linha fora do arquivo: ${file}:${line}`);
   }
 
   assert.match(report, /## Pontos positivos comprovados/);
   assert.match(report, /## Limitações e itens não verificados/);
   assert.match(report, /risco sem reprodução/);
-  const jwtSource = readFileSync('api/src/main/java/com/hemovia/api/service/JwtService.java', 'utf8');
+  const jwtSource = readSnapshot('api/src/main/java/com/hemovia/api/service/JwtService.java');
   const embeddedFallback = jwtSource.match(/\$\{jwt\.secret:([^}]+)\}/)?.[1];
   assert.ok(embeddedFallback, 'o achado de fallback deve corresponder ao código analisado');
   assert.equal(report.includes(embeddedFallback), false, 'o relatório não deve divulgar o segredo JWT');

@@ -76,7 +76,8 @@ class AuthControllerTest {
                 .andExpect(jsonPath("$.id").value(userId.toString()))
                 .andExpect(jsonPath("$.name").value("Alice Sena"))
                 .andExpect(jsonPath("$.email").value("alice@hemovia.com"))
-                .andExpect(jsonPath("$.cpf").value("12345678900"));
+                .andExpect(jsonPath("$.cpf").value("12345678900"))
+                .andExpect(jsonPath("$.password").doesNotExist());
     }
 
     @Test
@@ -131,7 +132,8 @@ class AuthControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.token").value("jwt.token.secret"));
+                .andExpect(jsonPath("$.token").value("jwt.token.secret"))
+                .andExpect(jsonPath("$.password").doesNotExist());
     }
 
     @Test

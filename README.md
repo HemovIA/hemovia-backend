@@ -95,6 +95,26 @@ Issues organizadas e atualizadas pela ferramenta de issues do GitHub:
 
 *(seção detalhada a partir da segunda entrega)*
 
+### Modelo persistente: entidades base
+
+O modelo do ciclo de hemocomponentes é persistido em PostgreSQL com UUIDs, enums gravados por nome, datas civis em `LocalDate` e instantes operacionais em `Instant`. A documentação completa de entidades, associações, unidades e limites está em [modelo-entidades.md](.spec/features/finalizando-entidades-base/modelo-entidades.md).
+
+Compatibilidade dos contratos atuais:
+
+- Uma doação expõe `bloodBags` como coleção completa. O campo legado `bloodBag` só é preenchido quando há exatamente uma bolsa; para mais de uma ele é `null`.
+- `donorId` recebido no cadastro legado de bolsa é resolvido para `Person`; um ID inexistente falha e não cria uma bolsa sem rastreabilidade.
+- Respostas públicas de autenticação e de domínio usam DTOs e não incluem senha; entidades JPA não são retornadas diretamente.
+
+Para a verificação de aceitação em PostgreSQL isolado, com dependências Maven já em cache, execute:
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/spec-java/test-postgres.ps1 -Verify
+node <diretorio-da-skill-onp-spec-driven>/scripts/onp-spec.mjs verify finalizando-entidades-base
+node <diretorio-da-skill-onp-spec-driven>/scripts/onp-spec.mjs audit --ci
+```
+
+Os dois últimos comandos só devem ser considerados aprovados quando terminarem com exit code `0`; veja as limitações e evidências reais em [resultado-validacao.md](.spec/features/finalizando-entidades-base/resultado-validacao.md).
+
 ---
 
 ### ⚙️ Infraestrutura de Software (SO)

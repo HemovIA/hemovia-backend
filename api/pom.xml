@@ -112,6 +112,26 @@
 		</dependency>
 	</dependencies>
 
+	<profiles>
+		<profile>
+			<id>base-entities-acceptance</id>
+			<properties>
+				<base.entities.reports>${project.build.directory}/base-entities-reports</base.entities.reports>
+			</properties>
+			<build><plugins><plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<reportsDirectory>${base.entities.reports}</reportsDirectory>
+					<includes><include>**/*Test.java</include><include>**/*Tests.java</include><include>**/*IT.java</include></includes>
+					<systemPropertyVariables>
+						<spring.config.location>classpath:/application-base-entities-test.yaml</spring.config.location>
+						<spring.profiles.active>base-entities-test</spring.profiles.active>
+					</systemPropertyVariables>
+				</configuration>
+			</plugin></plugins></build>
+		</profile>
+	</profiles>
 	<build>
 		<plugins>
 			<plugin>
