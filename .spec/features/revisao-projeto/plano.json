@@ -1,0 +1,112 @@
+{
+  "runId": "hemovia-backend-revisao-projeto-mvjrz3kb",
+  "feature": "revisao-projeto",
+  "agent": "codex",
+  "modo": "paralelo",
+  "paralelizar": [
+    "T-001",
+    "T-002",
+    "T-003"
+  ],
+  "modeloForcado": null,
+  "esforcoForcado": null,
+  "geradoEm": "2026-10-22 16:48",
+  "branchTrabalho": "spec/revisao-projeto",
+  "baseDir": ".spec/features/revisao-projeto",
+  "specDir": ".spec",
+  "repoName": "hemovia-backend",
+  "logsDir": "../onp-worktrees/hemovia-backend-revisao-projeto-logs",
+  "ondas": [
+    [
+      "faixa-1",
+      "faixa-2",
+      "faixa-3"
+    ]
+  ],
+  "faixas": [
+    {
+      "id": "faixa-1",
+      "branch": "spec/revisao-projeto-faixa-1",
+      "worktree": "../onp-worktrees/hemovia-backend-revisao-projeto-faixa-1",
+      "tarefas": [
+        {
+          "id": "T-001",
+          "titulo": "Mapear objetivos e implementação",
+          "modelo": "gpt-5.6-terra",
+          "esforco": "medium",
+          "arquivos": [
+            ".spec/features/revisao-projeto/relatorios/alinhamento.md",
+            "tests/revisao-projeto/alinhamento.test.mjs"
+          ],
+          "refs": [
+            "US-001",
+            "AC-001"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "faixa-2",
+      "branch": "spec/revisao-projeto-faixa-2",
+      "worktree": "../onp-worktrees/hemovia-backend-revisao-projeto-faixa-2",
+      "tarefas": [
+        {
+          "id": "T-002",
+          "titulo": "Revisar arquitetura, API, dados e segurança",
+          "modelo": "gpt-5.6-terra",
+          "esforco": "medium",
+          "arquivos": [
+            ".spec/features/revisao-projeto/relatorios/api-dados-seguranca.md",
+            "tests/revisao-projeto/api-dados-seguranca.test.mjs"
+          ],
+          "refs": [
+            "US-002",
+            "AC-002"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "faixa-3",
+      "branch": "spec/revisao-projeto-faixa-3",
+      "worktree": "../onp-worktrees/hemovia-backend-revisao-projeto-faixa-3",
+      "tarefas": [
+        {
+          "id": "T-003",
+          "titulo": "Revisar AED, testes e operação",
+          "modelo": "gpt-5.6-terra",
+          "esforco": "medium",
+          "arquivos": [
+            ".spec/features/revisao-projeto/relatorios/qualidade-operacao.md",
+            "tests/revisao-projeto/qualidade-operacao.test.mjs"
+          ],
+          "refs": [
+            "US-002",
+            "AC-003"
+          ]
+        }
+      ]
+    }
+  ],
+  "sequenciais": [
+    {
+      "id": "T-004",
+      "titulo": "Consolidar diagnóstico e verificar provas",
+      "modelo": "gpt-5.6-terra",
+      "esforco": "medium",
+      "arquivos": [
+        ".spec/features/revisao-projeto/relatorios/alinhamento.md",
+        ".spec/features/revisao-projeto/relatorios/api-dados-seguranca.md",
+        ".spec/features/revisao-projeto/relatorios/qualidade-operacao.md",
+        ".spec/features/revisao-projeto/relatorio-final.md",
+        "tests/revisao-projeto/consolidacao.test.mjs"
+      ],
+      "refs": [
+        "US-003",
+        "AC-004"
+      ]
+    }
+  ],
+  "concluidas": [],
+  "avisos": []
+}

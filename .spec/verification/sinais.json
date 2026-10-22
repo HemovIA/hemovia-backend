@@ -1,0 +1,86 @@
+{
+  "schema": 1,
+  "sinais": {
+    "ARQUIVO_INEXISTENTE::revisao-projeto::T-001": {
+      "codigo": "ARQUIVO_INEXISTENTE",
+      "feature": "revisao-projeto",
+      "ref": "T-001",
+      "ocorrencias": 4,
+      "primeiraVez": "2026-10-22T16:48:12.341Z",
+      "ultimaVez": "2026-10-22T16:48:40.735Z",
+      "gitRev": "91d1f98"
+    },
+    "ARQUIVO_INEXISTENTE::revisao-projeto::T-002": {
+      "codigo": "ARQUIVO_INEXISTENTE",
+      "feature": "revisao-projeto",
+      "ref": "T-002",
+      "ocorrencias": 4,
+      "primeiraVez": "2026-10-22T16:48:12.342Z",
+      "ultimaVez": "2026-10-22T16:48:40.735Z",
+      "gitRev": "91d1f98"
+    },
+    "ARQUIVO_INEXISTENTE::revisao-projeto::T-003": {
+      "codigo": "ARQUIVO_INEXISTENTE",
+      "feature": "revisao-projeto",
+      "ref": "T-003",
+      "ocorrencias": 4,
+      "primeiraVez": "2026-10-22T16:48:12.342Z",
+      "ultimaVez": "2026-10-22T16:48:40.735Z",
+      "gitRev": "91d1f98"
+    },
+    "ARQUIVO_INEXISTENTE::revisao-projeto::T-004": {
+      "codigo": "ARQUIVO_INEXISTENTE",
+      "feature": "revisao-projeto",
+      "ref": "T-004",
+      "ocorrencias": 10,
+      "primeiraVez": "2026-10-22T16:48:12.342Z",
+      "ultimaVez": "2026-10-22T16:48:40.735Z",
+      "gitRev": "91d1f98"
+    },
+    "AC_SEM_TESTE::revisao-projeto::AC-001": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "revisao-projeto",
+      "ref": "AC-001",
+      "ocorrencias": 2,
+      "primeiraVez": "2026-10-22T16:48:12.342Z",
+      "ultimaVez": "2026-10-22T16:48:40.735Z",
+      "gitRev": "91d1f98"
+    },
+    "AC_SEM_TESTE::revisao-projeto::AC-002": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "revisao-projeto",
+      "ref": "AC-002",
+      "ocorrencias": 2,
+      "primeiraVez": "2026-10-22T16:48:12.342Z",
+      "ultimaVez": "2026-10-22T16:48:40.735Z",
+      "gitRev": "91d1f98"
+    },
+    "AC_SEM_TESTE::revisao-projeto::AC-003": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "revisao-projeto",
+      "ref": "AC-003",
+      "ocorrencias": 2,
+      "primeiraVez": "2026-10-22T16:48:12.342Z",
+      "ultimaVez": "2026-10-22T16:48:40.735Z",
+      "gitRev": "91d1f98"
+    },
+    "AC_SEM_TESTE::revisao-projeto::AC-004": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "revisao-projeto",
+      "ref": "AC-004",
+      "ocorrencias": 2,
+      "primeiraVez": "2026-10-22T16:48:12.342Z",
+      "ultimaVez": "2026-10-22T16:48:40.735Z",
+      "gitRev": "91d1f98"
+    },
+    "GLOB_SEM_ARQUIVOS::—::P-002": {
+      "codigo": "GLOB_SEM_ARQUIVOS",
+      "feature": "—",
+      "ref": "P-002",
+      "ocorrencias": 2,
+      "primeiraVez": "2026-10-22T16:48:12.342Z",
+      "ultimaVez": "2026-10-22T16:48:40.735Z",
+      "gitRev": "91d1f98"
+    }
+  }
+}
