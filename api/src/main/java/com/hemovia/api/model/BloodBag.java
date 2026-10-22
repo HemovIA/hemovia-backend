@@ -52,9 +52,15 @@ public class BloodBag {
     public Person getDonor() { return donor; }
     public void setDonor(Person donor) { ensureCompatibleDonor(donor, donation); this.donor = donor; }
     public BloodCenter getBloodCenter() { return bloodCenter; }
-    public void setBloodCenter(BloodCenter bloodCenter) { this.bloodCenter = bloodCenter; }
+    public void setBloodCenter(BloodCenter bloodCenter) { ensureCompatibleCenter(bloodCenter, donation); this.bloodCenter = bloodCenter; }
     public Donation getDonation() { return donation; }
-    public void setDonation(Donation donation) { ensureCompatibleDonor(donor, donation); this.donation = donation; }
+    public void setDonation(Donation donation) {
+        if (this.donation != null && donation != null && this.donation != donation)
+            throw new IllegalArgumentException("Unlink the blood bag before associating another donation");
+        ensureCompatibleDonor(donor, donation);
+        ensureCompatibleCenter(bloodCenter, donation);
+        this.donation = donation;
+    }
     public Long getVersion() { return version; }
 
     @AssertTrue(message = "expirationDate must not precede collectionDate")
@@ -65,5 +71,12 @@ public class BloodBag {
         UUID bagDonorId = bagDonor.getId(), donationDonorId = donation.getDonor().getId();
         if (bagDonorId != null && donationDonorId != null && !bagDonorId.equals(donationDonorId))
             throw new IllegalArgumentException("blood bag donor must match donation donor when both are known");
+    }
+
+    private static void ensureCompatibleCenter(BloodCenter center, Donation donation) {
+        if (center == null || donation == null || donation.getBloodCenter() == null) return;
+        BloodCenter origin = donation.getBloodCenter();
+        if (center != origin && (center.getId() == null || !center.getId().equals(origin.getId())))
+            throw new IllegalArgumentException("Blood bag center must match donation center when both are known");
     }
 }

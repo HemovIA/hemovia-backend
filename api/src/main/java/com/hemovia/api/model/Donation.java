@@ -46,7 +46,15 @@ public class Donation {
         this.donor = donor;
     }
     public BloodCenter getBloodCenter() { return bloodCenter; }
-    public void setBloodCenter(BloodCenter bloodCenter) { this.bloodCenter = bloodCenter; }
+    public void setBloodCenter(BloodCenter bloodCenter) {
+        for (BloodBag bag : bloodBags) {
+            BloodCenter center = bag.getBloodCenter();
+            if (bloodCenter != null && center != null && bloodCenter != center
+                    && (bloodCenter.getId() == null || !bloodCenter.getId().equals(center.getId())))
+                throw new IllegalArgumentException("Blood bag center must match donation center when both are known");
+        }
+        this.bloodCenter = bloodCenter;
+    }
     public List<BloodBag> getBloodBags() { return bloodBags; }
     public Long getVersion() { return version; }
 
@@ -55,6 +63,12 @@ public class Donation {
 
     /** @deprecated Use {@link #addBloodBag(BloodBag)} to model the complete collection. */
     @Deprecated public void setBloodBag(BloodBag bloodBag) {
+        if (bloodBags.size() > 1) {
+            if (bloodBag != null && bloodBags.contains(bloodBag)) return;
+            throw new IllegalArgumentException("Use the collection association when a donation contains multiple bags");
+        }
+        if (bloodBag != null && bloodBag.getDonation() != null && bloodBag.getDonation() != this)
+            throw new IllegalArgumentException("Blood bag is already linked to another donation");
         for (BloodBag existing : new ArrayList<>(bloodBags)) existing.setDonation(null);
         bloodBags.clear();
         if (bloodBag != null) addBloodBag(bloodBag);
@@ -62,6 +76,8 @@ public class Donation {
 
     public void addBloodBag(BloodBag bloodBag) {
         if (bloodBag == null) throw new IllegalArgumentException("bloodBag must not be null");
+        if (bloodBag.getDonation() != null && bloodBag.getDonation() != this)
+            throw new IllegalArgumentException("Blood bag is already linked to another donation");
         bloodBag.setDonation(this);
         if (!bloodBags.contains(bloodBag)) bloodBags.add(bloodBag);
     }
