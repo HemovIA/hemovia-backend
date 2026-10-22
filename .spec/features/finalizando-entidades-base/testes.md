@@ -2,7 +2,7 @@
 
 ## Escopo desta etapa
 
-O usuário autorizou escrever os testes unitários e de integração em 22/10/2026. Esta etapa não implementa as entidades nem as migrações. A suíte é intencionalmente RED nos comportamentos que ainda faltam; nenhuma tarefa completa do plano de entidades foi encerrada por haver testes escritos.
+O usuário autorizou os testes unitários e de integração e, em seguida, a execução do plano completo em 22/10/2026. Os testes nasceram RED e foram preservados durante a implementação das entidades e migrações. Os resultados atuais estão em resultado-validacao.md; nenhuma tarefa é concluída apenas pela existência de testes.
 
 ## Organização
 
@@ -12,6 +12,7 @@ O usuário autorizou escrever os testes unitários e de integração em 22/10/20
 | api/src/test/java/com/hemovia/api/controller/ExistingContractsRegressionTest.java | MockMvc dos endpoints atuais e serviços reais com repositórios Mockito; donorId, múltiplas bolsas e datas em dois fusos |
 | api/src/test/java/com/hemovia/api/model/BaseEntitiesPersistenceIT.java | PostgreSQL real, Hibernate validate, FKs/CHECKs/uniquidade, transações concorrentes, versão obsoleta, rotas, histórico e migrações |
 | api/src/test/java/com/hemovia/api/model/MigrationSourcesTest.java | SHA-256 do conteúdo original de V1–V3, normalizando apenas CRLF/LF para portabilidade entre checkouts |
+| api/src/test/java/com/hemovia/api/service/implementation/DonationAssociationsRegressionTest.java | Impede transferência silenciosa de bolsa, divergência de hemocentros e perda da coleção na atualização singular |
 | api/src/test/java/com/hemovia/api/support/BaseEntityFixtures.java | Construção das entidades reais pelo contrato proposto; ausência de tipo/método é falha, nunca aprovação |
 | api/src/test/java/com/hemovia/api/support/BaseEntitiesPostgres.java | Schema aleatório por teste e bootstrap Hibernate programático, sem carregar o .env pessoal |
 | tests/finalizando-entidades-base/reporter.test.mjs | Provas contra relatório antigo, caso ausente, falha, error, skip e parametrização parcialmente falha |
@@ -69,7 +70,7 @@ Alternativamente, fornecer HEMOVIA_TEST_JDBC_URL, HEMOVIA_TEST_DB_USER e HEMOVIA
 
 onpspec.config.json passa a reconhecer os testes Java e executar o adaptador TAP. O adaptador executa Maven uma vez, usa diretório único de relatórios, verifica os casos obrigatórios e recusa resultados antigos. Todas as parametrizações de um método precisam passar; nenhuma aprovação é inferida do exit code global. A falha global também impede aprovação de AC-014.
 
-O gate preserva os quatro testes documentais da revisão anterior. Três já falhavam antes desta etapa, por referências do snapshot histórico ao arquivo V2 de hospitais renomeado para V3; esses testes não foram enfraquecidos ou alterados neste pedido. Essa pendência de T-005 continua registrada separadamente.
+O gate preserva as asserções dos quatro testes documentais da revisão anterior. Três passaram a ler os arquivos no commit histórico analisado, pois a migração de hospitais foi renomeada posteriormente. Os relatórios históricos permanecem intactos; o código atual é verificado pela suíte comportamental desta feature. Os testes históricos também aparecem no TAP externo, fornecendo provas individuais para os critérios da revisão.
 
 Não foram criadas entidades substitutas, migrações fictícias, skips ou marcações manuais PASS. O resultado real e os caminhos das provas estão em resultado-validacao.md.
 
@@ -81,4 +82,4 @@ Além dos testes de aceite, a regressão de autenticação preserva registro, lo
 
 O manifesto `scripts/spec-java/acceptance-cases.json` exige todos os métodos de aceite, inclusive `ApiApplicationTests.contextLoads`. `onpspec.config.json` enumera explicitamente os scripts de prova e fontes de produção das tarefas T-005 a T-011, além de migrações. Isso permite que a auditoria detecte cobertura ausente sem ampliar o escopo para código didático não relacionado.
 
-Não houve execução da suíte PostgreSQL, `verify` ou `audit --ci` nesta consolidação: esses comandos são gate integrado do orquestrador, conforme o contrato de trabalho. Portanto esta seção documenta cobertura e comando; não é prova de PASS.
+Após a consolidação, o orquestrador executou a suíte completa com PostgreSQL, `verify` das duas features e `audit --ci`. Passaram 72 testes Java e 11 Node, sem falhas ou skips; todos os critérios receberam prova e a auditoria saiu 0. Os logs, horários e a limitação do aviso P-002 estão em resultado-validacao.md.

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# executar-tarefas.sh — gerado por `onp-spec plano finalizando-entidades-base` em 2026-10-22 18:28
+# executar-tarefas.sh — gerado por `onp-spec plano finalizando-entidades-base` em 2026-10-22 19:06
 # NÃO edite à mão: mudou tasks.md ou a config, regenere o plano.
 #
 # uso:
@@ -14,7 +14,7 @@
 set -u
 set -o pipefail
 
-RUN_ID='hemovia-backend-finalizando-entidades-base-mvjvj5kh'
+RUN_ID='hemovia-backend-finalizando-entidades-base-mvjwwd0q'
 FEATURE='finalizando-entidades-base'
 BASE_BRANCH='spec/finalizando-entidades-base'
 ENGINE='.agents/skills/onp-spec-driven/scripts/onp-spec.mjs'
@@ -241,7 +241,7 @@ Leia primeiro: .spec/features/finalizando-entidades-base/spec.md, .spec/features
 Sua tarefa (somente ela):
 T-007 — "Evoluir doações e bolsas com compatibilidade dos contratos"
   critérios/refs: AC-007 (Uma doação pode originar várias bolsas), AC-008 (Características das bolsas sem valores ambíguos), AC-015 (Contratos atuais continuam utilizáveis)
-  arquivos permitidos (e seus testes): api/src/main/java/com/hemovia/api/model/Donation.java, api/src/main/java/com/hemovia/api/model/BloodBag.java, api/src/main/java/com/hemovia/api/model/enums/BloodBagStatus.java, api/src/main/java/com/hemovia/api/model/DTOs/DonationRequestDTO.java, api/src/main/java/com/hemovia/api/model/DTOs/DonationResponseDTO.java, api/src/main/java/com/hemovia/api/model/DTOs/BloodBagRequestDTO.java, api/src/main/java/com/hemovia/api/model/DTOs/BloodBagResponseDTO.java, api/src/main/java/com/hemovia/api/service/implementation/DonationServiceImpl.java, api/src/main/java/com/hemovia/api/service/implementation/BloodBagServiceImpl.java, api/src/main/java/com/hemovia/api/repository/DonationRepository.java, api/src/main/java/com/hemovia/api/repository/BloodBagRepository.java, api/src/main/java/com/hemovia/api/exceptions/GlobalExceptionHandler.java, api/src/test/java/com/hemovia/api/model/BaseEntitiesUnitTest.java, api/src/test/java/com/hemovia/api/model/BaseEntitiesPersistenceIT.java, api/src/test/java/com/hemovia/api/service/implementation/BloodBagServiceImplTest.java
+  arquivos permitidos (e seus testes): api/src/main/java/com/hemovia/api/model/Donation.java, api/src/main/java/com/hemovia/api/model/BloodBag.java, api/src/main/java/com/hemovia/api/model/enums/BloodBagStatus.java, api/src/main/java/com/hemovia/api/model/DTOs/DonationRequestDTO.java, api/src/main/java/com/hemovia/api/model/DTOs/DonationResponseDTO.java, api/src/main/java/com/hemovia/api/model/DTOs/BloodBagRequestDTO.java, api/src/main/java/com/hemovia/api/model/DTOs/BloodBagResponseDTO.java, api/src/main/java/com/hemovia/api/service/implementation/DonationServiceImpl.java, api/src/main/java/com/hemovia/api/service/implementation/BloodBagServiceImpl.java, api/src/main/java/com/hemovia/api/repository/DonationRepository.java, api/src/main/java/com/hemovia/api/repository/BloodBagRepository.java, api/src/main/java/com/hemovia/api/exceptions/GlobalExceptionHandler.java, api/src/test/java/com/hemovia/api/model/BaseEntitiesUnitTest.java, api/src/test/java/com/hemovia/api/model/BaseEntitiesPersistenceIT.java, api/src/test/java/com/hemovia/api/service/implementation/BloodBagServiceImplTest.java, api/src/test/java/com/hemovia/api/service/implementation/DonationAssociationsRegressionTest.java
   mensagem de commit: "T-007 finalizando-entidades-base: Evoluir doações e bolsas com compatibilidade dos contratos"
 
 Regras inegociáveis:

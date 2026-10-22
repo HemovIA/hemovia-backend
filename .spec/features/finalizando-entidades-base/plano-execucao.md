@@ -1,6 +1,6 @@
 # Plano de execução — finalizando-entidades-base
 
-> gerado por `onp-spec plano` em 2026-10-22 18:28 — NÃO edite à mão;
+> gerado por `onp-spec plano` em 2026-10-22 19:06 — NÃO edite à mão;
 > mudou tasks.md ou a config? Regenere: `onp-spec plano finalizando-entidades-base --sequencial --modelo gpt-5.6-terra --esforco medium`
 
 ## Resumo — o que vai acontecer
@@ -9,6 +9,17 @@
 - sem worktrees e sem paralelismo — cada tarefa roda numa janela de contexto limpa, na ordem do tasks.md
 - **custo travado pelo usuário**: modelo `gpt-5.6-terra` · esforço `medium` em TODAS as tarefas (vence tasks.md e config)
 - tudo acontece na branch de trabalho `spec/finalizando-entidades-base`; levar para a main é decisão sua
+
+### Avisos
+
+- ⚠ T-005 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar
+- ⚠ T-006 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar
+- ⚠ T-007 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar
+- ⚠ T-008 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar
+- ⚠ T-009 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar
+- ⚠ T-010 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar
+- ⚠ T-011 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar
+- ⚠ T-012 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar
 
 ## Ordem de execução (uma tarefa após a outra)
 

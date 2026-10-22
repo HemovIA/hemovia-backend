@@ -1,7 +1,7 @@
 ﻿# Spec: Finalizando entidades base
 
 > feature: finalizando-entidades-base
-> status: em-implementacao
+> status: auditada
 
 ## Contexto
 

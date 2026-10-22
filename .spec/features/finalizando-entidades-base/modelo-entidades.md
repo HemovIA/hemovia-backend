@@ -14,14 +14,14 @@ As entidades usam UUID como identidade, enums com `EnumType.STRING`, associaçõ
 | Person | nome, e-mail, telefone | Um doador pode ter várias `Donation` e `BloodBag`; relações legadas desconhecidas podem permanecer nulas. |
 | Hospital | nome, cidade, latitude, longitude, prioridade | Um hospital recebe várias `BloodRequest` e é destino de várias `DeliveryRoute`. Latitude -90..90, longitude -180..180 e prioridade 1..5. |
 | BloodCenter | nome, cidade, latitude, longitude | Origem conhecida de doações/bolsas, atendimento de alocações e origem de rotas. Coordenadas têm os mesmos limites de Hospital. |
-| Vehicle | código operacional, identificação, capacidade | Código único; capacidade é número positivo de bolsas. Um veículo pode executar vários transportes. |
+| Vehicle | código operacional, capacidade | Código único; capacidade é número positivo de bolsas. Um veículo pode executar vários transportes. |
 | Donation | data de coleta, `collectionCenter` legado, doador/hemocentro opcionais | Uma doação origina zero ou várias bolsas. Não há remoção em cascata de pessoa ou bolsa. |
 | BloodBag | ABO, Rh, componente, coleta, validade, estado, volume, doador/centro/doação opcionais | Cada bolsa aponta para no máximo uma doação. Volume é opcional, em mL, e quando informado é positivo; validade não antecede coleta. |
 | BloodRequest | hospital, ABO/Rh, componente, quantidade, estado, createdAt/updatedAt | A quantidade é inteira positiva em unidades de bolsa; estado inicial `PENDING`. |
 | Allocation | requisição, hemocentro, estado, instantes | Agrupa vários `AllocationItem`; conserva histórico e versão para concorrência. |
 | AllocationItem | alocação, bolsa, estado de reserva, criado/liberado em | Uma bolsa tem no máximo uma reserva ativa (`RESERVED` ou `IN_TRANSIT`); `RELEASED` permanece no histórico e permite nova reserva. |
 | DeliveryRoute | origem, destino, distância, duração, pontos | Origem é `BloodCenter`, destino é `Hospital`; pontos ordenados têm posição única por rota. |
-| RouteWaypoint | posição, latitude, longitude, descrição | Valor embutido, não entidade independente; posição ordena a coleção da rota. |
+| RouteWaypoint | latitude, longitude | Valor embutido, não entidade independente; a posição é mantida pela coleção ordenada da rota. |
 | Transport | alocação, rota, veículo, estado, início/fim | Uma execução por alocação nesta versão; bolsas vêm de `AllocationItem`, não de lista duplicada. Término não antecede início. |
 | TelemetryReading | transporte, sensor, medido/recebido em, temperatura | Temperatura é Celsius, obrigatória e finita; não há faixa clínica universal deduzida. |
 | StockMovement | bolsa, estado anterior/novo, tipo, instante, ator, motivo | Histórico sem remoção em cascata; ator pode ser desconhecido. |

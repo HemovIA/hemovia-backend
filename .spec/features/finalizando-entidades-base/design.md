@@ -52,7 +52,7 @@ erDiagram
     USER o|--o{ STOCK_MOVEMENT : ator_conhecido
 ```
 
-Os círculos em doação/bolsa representam compatibilidade com registros legados sem origem completa; não são autorização para preencher vínculos com IDs fictícios. Em cadastros completos fornecidos por novos consumidores, validar todos os vínculos informados e a consistência entre bolsa, doador e doação. Se o mesmo vínculo estiver informado em dois lugares, rejeitar divergência. Essa política ainda depende de confirmação do usuário (ASM-004/Q-003).
+Os círculos em doação/bolsa representam compatibilidade com registros legados sem origem completa; não são autorização para preencher vínculos com IDs fictícios. Em cadastros completos fornecidos por novos consumidores, validar todos os vínculos informados e a consistência entre bolsa, doador e doação. Se o mesmo vínculo estiver informado em dois lugares, rejeitar divergência. Essa política foi confirmada na autorização do plano (ASM-004/Q-003).
 
 ## Tipos e invariantes
 

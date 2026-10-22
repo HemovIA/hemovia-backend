@@ -1,12 +1,12 @@
 {
-  "runId": "hemovia-backend-finalizando-entidades-base-mvjvj5kh",
+  "runId": "hemovia-backend-finalizando-entidades-base-mvjwwd0q",
   "feature": "finalizando-entidades-base",
   "agent": "codex",
   "modo": "sequencial",
   "paralelizar": null,
   "modeloForcado": "gpt-5.6-terra",
   "esforcoForcado": "medium",
-  "geradoEm": "2026-10-22 18:28",
+  "geradoEm": "2026-10-22 19:06",
   "branchTrabalho": "spec/finalizando-entidades-base",
   "baseDir": ".spec/features/finalizando-entidades-base",
   "specDir": ".spec",
@@ -86,7 +86,8 @@
         "api/src/main/java/com/hemovia/api/exceptions/GlobalExceptionHandler.java",
         "api/src/test/java/com/hemovia/api/model/BaseEntitiesUnitTest.java",
         "api/src/test/java/com/hemovia/api/model/BaseEntitiesPersistenceIT.java",
-        "api/src/test/java/com/hemovia/api/service/implementation/BloodBagServiceImplTest.java"
+        "api/src/test/java/com/hemovia/api/service/implementation/BloodBagServiceImplTest.java",
+        "api/src/test/java/com/hemovia/api/service/implementation/DonationAssociationsRegressionTest.java"
       ],
       "refs": [
         "US-005",
@@ -213,5 +214,14 @@
     }
   ],
   "concluidas": [],
-  "avisos": []
+  "avisos": [
+    "T-005 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar",
+    "T-006 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar",
+    "T-007 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar",
+    "T-008 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar",
+    "T-009 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar",
+    "T-010 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar",
+    "T-011 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar",
+    "T-012 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar"
+  ]
 }

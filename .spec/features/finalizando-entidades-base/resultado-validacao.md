@@ -1,42 +1,77 @@
-# Resultado da etapa de testes — 22/10/2026
+# Resultado da implementação — 22/10/2026
 
-## Escopo e ambiente
+A feature `finalizando-entidades-base` implementa o modelo persistente do ciclo completo: 14 entidades JPA, o valor embutido RouteWaypoint, repositórios, enums, migrações V4–V7 e compatibilidade dos endpoints existentes. Não adiciona novos CRUDs nem algoritmos de alocação/roteamento.
 
-Foram escritos os testes solicitados, sem implementar entidades, alterar serviços/controllers de produção ou criar migrações novas. O POM recebeu apenas um perfil de teste; a configuração do motor passou a reconhecer os testes Java e executar a coleta TAP real.
+## Verificação real
 
-Ambiente usado: Windows, JDK 22 instalado, Maven offline e PostgreSQL 17 instalado. O banco foi um cluster novo, com porta aleatória em 127.0.0.1 e dados sintéticos, encerrado ao terminar. Nenhum .env pessoal foi usado. O teste de contexto recebeu apenas application-base-entities-test.yaml.
+Ambiente: Windows, JDK 22, Maven offline, PostgreSQL 17 em cluster temporário com porta aleatória em 127.0.0.1. Sem carregar o .env pessoal. O cluster foi encerrado no finally; nenhum serviço ou banco pessoal foi alterado.
 
-## Execução final
+Comando executado:
 
-Comando: `powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/spec-java/test-postgres.ps1 -Verify`, com JAVA_HOME no JDK 22.
+```powershell
+$env:JAVA_HOME = 'C:\Program Files\Eclipse Adoptium\jdk-22'
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/spec-java/test-postgres.ps1 -Verify
+```
 
-| Suíte | Executados | PASS | Falhas | Erros | Ignorados |
-|---|---:|---:|---:|---:|---:|
-| BaseEntitiesUnitTest | 29 | 3 | 26 | 0 | 0 |
-| ExistingContractsRegressionTest | 7 | 3 | 4 | 0 | 0 |
-| MigrationSourcesTest | 1 | 1 | 0 | 0 | 0 |
-| BaseEntitiesPersistenceIT | 14 | 1 | 12 | 1 | 0 |
-| Suítes Java existentes, incluindo ApiApplicationTests.contextLoads | 17 | 17 | 0 | 0 | 0 |
-| Total Java | 68 | 25 | 42 | 1 | 0 |
+| Suíte | Casos aprovados | Falhas/erros/skips |
+|---|---:|---:|
+| BaseEntitiesUnitTest | 29 | 0 |
+| ExistingContractsRegressionTest | 7 | 0 |
+| DonationAssociationsRegressionTest | 4 | 0 |
+| MigrationSourcesTest | 1 | 0 |
+| BaseEntitiesPersistenceIT, PostgreSQL real | 14 | 0 |
+| Suítes Java existentes, incluindo contextLoads | 17 | 0 |
+| Total Java | 72 | 0 |
+| Regressões históricas Node | 4 | 0 |
+| Testes Node do leitor Surefire | 7 | 0 |
 
-Os novos testes correspondem a 37 casos unitários/web e 14 de integração, contando parametrizações. Os seis testes Node do leitor de relatórios também passaram. A coleta Node completa executou dez casos: sete passaram e três testes documentais históricos já existentes falharam nas referências à migration renomeada. Esses três testes não foram alterados nem ignorados.
+```text
+Tests run: 72, Failures: 0, Errors: 0, Skipped: 0
+BUILD SUCCESS
+verify finalizando-entidades-base: 11/11 critérios com prova PASS · 24 testes TAP lidos · exit 0
+verify revisao-projeto: 4/4 critérios com prova PASS · 24 testes TAP lidos · exit 0
+server stopped
+```
 
-Estado da implementação: RED. As falhas indicam entidades/tipos ainda ausentes, invariantes inexistentes, descarte do donorId, contrato singular/coleção e formato de data ainda não adaptados, além das migrações V4–V7 não implementadas. O erro de integração do upgrade expõe a ausência da coluna donation_id no esquema legado. A conexão e a execução PostgreSQL reais foram comprovadas; isso não aprova os cenários que ainda falham.
+Os 24 casos TAP incluem os 11 casos Node e 13 agregações comportamentais do Java/execução completa. Os 72 casos JUnit são obtidos de XMLs Surefire recentes em diretório único. Todas as parametrizações e casos obrigatórios precisam passar; falha, ausência, relatório antigo ou skip impedem aprovação. O manifesto não foi reduzido.
 
-O perfil inicial de coleta não incluía nomes terminados em *Tests; isso foi corrigido, e contextLoads foi incluído expressamente no manifesto. Somente a coleta final acima é o resultado considerado para encerramento desta etapa.
+Provas persistidas: `.spec/verification/finalizando-entidades-base.json` (19:07:06 UTC) e `.spec/verification/revisao-projeto.json` (19:07:36 UTC). Logs e XMLs: `api/target/base-entities-reports/d422c3f2-21a6-4d08-b77b-d379de58a2ef/` e `api/target/base-entities-reports/cbd4a22c-4a9d-45a1-9efb-ec64b5d96530/`. As verificações capturaram HEAD b66f926 com as correções locais presentes; essas mesmas correções foram depois registradas nos commits abaixo, sem modificar as fontes testadas.
 
-## Evidências
+## Execução e commits
 
-- Prova por critério: `.spec/verification/finalizando-entidades-base.json`.
-- Relatórios Surefire e logs finais: `api/target/base-entities-reports/c65717f3-43be-45b4-b58e-4ed98215cc2b/`.
-- `maven.log` registra as 68 execuções e `BUILD FAILURE`; `node.log` registra as regressões documentais e os testes do adaptador.
-- O resultado de verify foi exit 1, 0/11 critérios com PASS, 13 casos TAP de agregação lidos. Cada critério exige que todos os seus casos obrigatórios, incluindo integração, passem; aprovação parcial não fecha o critério.
-- O PostgreSQL temporário foi encerrado, conforme a saída `server stopped` do finally.
+| Tarefa | Entrega | Commit inicial |
+|---|---|---|
+| T-005 | Infraestrutura de provas Java/PostgreSQL e snapshots históricos | cab54a3 |
+| T-006 | Pessoas, hospitais, hemocentros, veículos e tipos comuns | c1c5240 |
+| T-007 | Doação com várias bolsas e API compatível | e4b1c1c |
+| T-008 | Requisições, alocações e itens de reserva | a5aa53f |
+| T-009 | Rotas com pontos ordenados | 875da40 |
+| T-010 | Transporte, leituras e movimentos de estoque | ee52b0e |
+| T-011 | Migrações PostgreSQL V4–V7 | 937fcf6 |
+| T-012 | Regressões de autenticação e documentação | b66f926 |
 
-Não há skip/todo, provas inventadas, entidades fictícias ou mudanças de expectativa para transformar a fase RED em verde. Os arquivos da implementação permanecem pendentes. O próximo trabalho é implementar o modelo contra esses testes e resolver a validação histórica prevista em T-005; este pedido não autorizou concluir automaticamente o restante do plano.
+Correções da revisão integrada: 6c0ed72 protege vínculos e coleção singular; 442c991 torna a restrição explícita responsável pela rejeição de temperatura não finita; 7e0a87b alinha nomes Hibernate e publica provas históricas no TAP externo. Modelo/esforço das oito sessões: gpt-5.6-terra, medium, sequencial, conforme autorização.
 
-## Consolidação T-012 — pré-gate, 22/10/2026
+## Histórico de validação
 
-Foram consolidados o manifesto por critério, o escopo explícito de fontes auditadas, a documentação do modelo e as verificações de regressão de credenciais nas respostas HTTP. A documentação registra as adaptações internas legítimas: uma doação agora tem coleção de bolsas, sem romper o payload singular para exatamente uma bolsa; `donorId` é resolvido para `Person`; e a ausência de dado legado continua ausência, sem vínculo artificial.
+A etapa anterior de escrita dos testes executou 68 casos Java em RED: 25 passaram, 42 falharam e houve 1 erro. As falhas conduziram a implementação, sem enfraquecer testes. Na primeira integração desta execução, 71/72 passaram: a coluna NUMERIC(8,3) rejeitava Infinity pelo limite do tipo (22003) antes da restrição de finitude (23514). A produção foi corrigida para NUMERIC com CHECK explícito; o teste original foi preservado e passou.
 
-Não foi executado nesta tarefa nenhum PostgreSQL, `onp-spec verify` ou `onp-spec audit --ci`, por instrução expressa de reservar o gate integrado ao orquestrador. Não há relatório novo de Surefire/TAP, nem resultado PASS a declarar. A evidência pendente é a execução real, em ordem: suíte completa com `scripts/spec-java/test-postgres.ps1 -Verify`, verify das features aplicáveis e audit CI. Qualquer falha, relatório antigo, skip ou impedimento deve permanecer registrado como tal antes de concluir tarefas ou alterar o status da spec.
+Os testes documentais da revisão passaram a consultar o commit histórico analisado, mantendo as asserções e relatórios originais. Todas as 42 fontes de produção alteradas nesta feature estão explicitamente no escopo e mapeadas às tarefas. O restante do código legado não recebe atribuição fictícia de criação; suas regressões existentes continuam na suíte completa.
+
+## Limites da entrega
+
+Associações legadas desconhecidas permanecem nulas. Uma doação aceita várias bolsas; o campo singular representa apenas exatamente uma e não substitui silenciosamente uma coleção múltipla. Bolsas de outra doação e origens conhecidas divergentes são rejeitadas. Não há exclusão em cascata de cadastros para históricos. As migrações V1–V3 mantêm seus conteúdos e checksums, verificados por teste.
+
+Novos fluxos HTTP, seleção FEFO/compatibilidade, Dijkstra, automação operacional e regras clínicas ficam para features próprias. A constituição mantém o aviso recomendado P-002: seu glob JavaScript não encontra arquivos; este gate não comprova uma varredura completa de segredos no projeto.
+
+## Auditoria final
+
+Executado `node .agents/skills/onp-spec-driven/scripts/onp-spec.mjs audit --ci`, com exit 0:
+
+```text
+AVISO verificação não olha nenhum arquivo (GLOB_SEM_ARQUIVOS) P-002: o glob src/**/*.js não casa nenhum arquivo
+resumo: 2 feature(s) · 9 história(s) de usuário · 15 critério(s) de aceite · 15/15 com teste · 15/15 provados
+✔ auditoria limpa (1 aviso(s))
+```
+
+As oito tarefas receberam status concluída somente depois das provas PASS. A especificação foi marcada auditada após esse gate; o aviso recomendado preexistente foi preservado sem alterar a constituição.
