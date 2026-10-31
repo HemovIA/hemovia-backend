@@ -2,7 +2,6 @@ package com.hemovia.api.infrastructure.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;
-import com.auth0.jwt.BaseVerification;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
@@ -18,7 +17,6 @@ import org.springframework.stereotype.Component;
 import java.time.Clock;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.Date;
 import java.util.UUID;
 
 /*
@@ -33,6 +31,9 @@ public class JwtAccessTokenIssuer implements AccessTokenIssuer {
     private static final String HOSPITAL = "hospitalId";
     private static final String BLOOD_CENTER = "bloodCenterId";
     private static final String VEHICLE = "vehicleId";
+
+    // Dez anos em segundos: desliga, dentro da biblioteca, as conferências de data feitas com o relógio do sistema
+    private static final long LEEWAY_SECONDS = 315_360_000L;
 
     private final Algorithm algorithm;
     private final Duration ttl;
@@ -65,8 +66,14 @@ public class JwtAccessTokenIssuer implements AccessTokenIssuer {
     @Override
     public AuthenticatedUser verify(String token) {
         try {
-            // A verificação usa o nosso relógio (o build com relógio só existe na classe base), assim os testes conseguem "viajar no tempo"
-            DecodedJWT jwt = ((BaseVerification) JWT.require(algorithm)).build(() -> Date.from(clock.instant())).verify(token);
+            // A biblioteca confere a assinatura com o relógio do sistema; por isso a tolerância de datas é enorme,
+            // e a validade é conferida logo abaixo com o NOSSO relógio, o que deixa os testes "viajarem no tempo"
+            DecodedJWT jwt = JWT.require(algorithm).acceptExpiresAt(LEEWAY_SECONDS).acceptIssuedAt(LEEWAY_SECONDS)
+                    .build().verify(token);
+            Instant expiresAt = jwt.getExpiresAtAsInstant();
+            if (expiresAt == null || !clock.instant().isBefore(expiresAt)) {
+                throw new InvalidCredentialsException("Sessão inválida ou expirada.");
+            }
             String role = jwt.getClaim(ROLE).asString();
             return new AuthenticatedUser(UUID.fromString(jwt.getSubject()), role == null ? null : Role.valueOf(role),
                     link(jwt, HOSPITAL), link(jwt, BLOOD_CENTER), link(jwt, VEHICLE));
