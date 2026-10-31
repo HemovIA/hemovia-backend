@@ -153,6 +153,7 @@ class GlobalExceptionHandlerTest {
     // Uma linha para cada situação da tabela 0.7 do guia: caminho que provoca o erro, status e código esperados
     static Stream<Arguments> tabela07() {
         return Stream.of(
+                Arguments.of("/falso/dominio/VALIDATION_ERROR", 400, "VALIDATION_ERROR"),
                 Arguments.of("/falso/dominio/BLOOD_BAG_EXPIRED", 400, "BLOOD_BAG_EXPIRED"),
                 Arguments.of("/falso/dominio/TEMPERATURE_OUT_OF_RANGE", 400, "TEMPERATURE_OUT_OF_RANGE"),
                 Arguments.of("/falso/dominio/UNAUTHORIZED", 401, "UNAUTHORIZED"),

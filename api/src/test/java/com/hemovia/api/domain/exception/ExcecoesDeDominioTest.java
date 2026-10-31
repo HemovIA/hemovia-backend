@@ -48,6 +48,14 @@ class ExcecoesDeDominioTest {
     }
 
     @Test
+    void deveExporCodigoDeDadoInvalido() {
+        // Um dado de negócio inválido usa o mesmo código das validações de campo
+        InvalidDataException excecao = new InvalidDataException("CPF inválido.");
+        assertThat(excecao).hasMessage("CPF inválido.");
+        assertThat(excecao.code()).isEqualTo("VALIDATION_ERROR");
+    }
+
+    @Test
     void deveManterATransicaoInvalidaComoIllegalStateException() {
         // POOUS09 pede que a transição inválida seja uma IllegalStateException
         assertThat(new InvalidStateTransitionException("transição proibida")).isInstanceOf(IllegalStateException.class);
