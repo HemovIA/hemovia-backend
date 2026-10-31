@@ -44,8 +44,11 @@ final class RegrasDeArquitetura {
 
     // Ciclo 2b: do Spring, a aplicação só pode usar @Service e @Transactional
     static ArchRule aplicacaoSoUsaServiceETransactionalDoSpring(String raiz) {
-        // Estas são as duas únicas classes do Spring que a camada de aplicação pode citar
-        DescribedPredicate<JavaClass> permitidas = equivalentTo(Service.class).or(equivalentTo(Transactional.class));
+        // Estas são as únicas classes do Spring que a camada de aplicação pode citar; Isolation e Propagation são só
+        // os tipos dos atributos do próprio @Transactional, então vêm junto com ele
+        DescribedPredicate<JavaClass> permitidas = equivalentTo(Service.class).or(equivalentTo(Transactional.class))
+                .or(equivalentTo(org.springframework.transaction.annotation.Isolation.class))
+                .or(equivalentTo(org.springframework.transaction.annotation.Propagation.class));
         return noClasses().that().resideInAPackage(raiz + ".application..")
                 .should().dependOnClassesThat(resideInAPackage("org.springframework..").and(DescribedPredicate.not(permitidas)))
                 .allowEmptyShould(true);

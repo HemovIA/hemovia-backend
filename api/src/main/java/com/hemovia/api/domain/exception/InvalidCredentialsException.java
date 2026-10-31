@@ -5,6 +5,11 @@ Lançada quando o login falha. A mensagem nunca revela se foi o usuário ou a se
 */
 public final class InvalidCredentialsException extends DomainException {
 
+    // Mensagem genérica de login: nunca revela se o usuário existe, está inativo ou errou a senha
+    public InvalidCredentialsException() {
+        this("Credenciais inválidas.");
+    }
+
     // A mensagem vem de quem validou o login
     public InvalidCredentialsException(String message) {
         super(message);
