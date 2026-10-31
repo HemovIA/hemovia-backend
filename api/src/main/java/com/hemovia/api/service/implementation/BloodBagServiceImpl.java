@@ -1,6 +1,6 @@
 package com.hemovia.api.service.implementation;
 
-import com.hemovia.api.exceptions.BloodBagExpiredException;
+import com.hemovia.api.domain.exception.BloodBagExpiredException;
 import com.hemovia.api.model.BloodBag;
 import com.hemovia.api.model.BloodCenter;
 import com.hemovia.api.model.Person;
