@@ -49,6 +49,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     // Status HTTP de cada código de negócio da tabela 0.7; o domínio só conhece o código
     private static final Map<String, HttpStatus> STATUS_POR_CODIGO = Map.ofEntries(
+            Map.entry("VALIDATION_ERROR", HttpStatus.BAD_REQUEST),
             Map.entry("BLOOD_BAG_EXPIRED", HttpStatus.BAD_REQUEST),
             Map.entry("TEMPERATURE_OUT_OF_RANGE", HttpStatus.BAD_REQUEST),
             Map.entry("UNAUTHORIZED", HttpStatus.UNAUTHORIZED),
