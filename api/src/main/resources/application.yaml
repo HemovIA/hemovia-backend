@@ -21,9 +21,29 @@ spring:
     locations: classpath:db/migration
 
 jwt:
-  # O valor padrão permite a execução local; substitua JWT_SECRET fora do desenvolvimento.
-  secret: ${JWT_SECRET:hemovia-rota-vital-jwt-secret-key-2026-very-secure}
+  # Expiração do token legado; some na Seção 3, quando o JWT em header der lugar aos cookies
   expiration: ${JWT_EXPIRATION:86400000}
+
+hemovia:
+  security:
+    # Obrigatório e sem valor padrão: a aplicação não sobe sem JWT_SECRET de pelo menos 32 caracteres
+    jwt-secret: ${JWT_SECRET}
+    # Duração do access token em minutos
+    access-token-minutes: ${ACCESS_TOKEN_MINUTES:15}
+    # Duração do refresh token em dias
+    refresh-token-days: ${REFRESH_TOKEN_DAYS:7}
+    # Cookies só trafegam por HTTPS; desligue apenas no desenvolvimento local sem HTTPS
+    cookie-secure: ${COOKIE_SECURE:true}
+    # Política SameSite dos cookies de sessão
+    cookie-same-site: ${COOKIE_SAME_SITE:Lax}
+    # Origens do front-end liberadas no CORS, separadas por vírgula
+    cors-allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173}
+  admin-bootstrap:
+    # Dados do primeiro ADMIN; ficam vazios por padrão e só valem na primeira subida
+    name: ${ADMIN_NAME:}
+    email: ${ADMIN_EMAIL:}
+    cpf: ${ADMIN_CPF:}
+    password: ${ADMIN_PASSWORD:}
 
 management:
   endpoints:
