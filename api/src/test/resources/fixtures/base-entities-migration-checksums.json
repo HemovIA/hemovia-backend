@@ -1,5 +1,9 @@
 {
   "V1__create_initial_schema.sql": "76ad29c5ae127788fc3054c936823861713a9e37fdcdec8dc6a7e1fc20212bab",
   "V2__create_users_table.sql": "66031ecfe65066679780e6bac8172c8a3a8ab2a1a564f9407d1c00b832369d7a",
-  "V3__create_hospital_table.sql": "556847b9dfeda42979c5cfbc134f6143171af5aacebc1ddd42f5d8c8086c2aab"
+  "V3__create_hospital_table.sql": "556847b9dfeda42979c5cfbc134f6143171af5aacebc1ddd42f5d8c8086c2aab",
+  "V4__normalize_base_entities.sql": "3cb8dab2b72feb9570c5d1ead0ce732ebd34862acbc120df1db7e1b3a1dcbd49",
+  "V5__create_requests_allocations.sql": "37a85ad3d746be3feb992165f41c2b3ca428a55f575e3c325df2ecb22729a9a4",
+  "V6__create_logistics_telemetry.sql": "ea699e0f5d1cad66b8957a182898b786cbd69cb1a6e7b5a38c87ea8443eb0c03",
+  "V7__create_stock_movements.sql": "e25c4f89c8fbeba7a71134d6eab2a02b9864a5998b2c2e091a7e069a1cd9fd8b"
 }
