@@ -7,7 +7,9 @@ import com.hemovia.api.model.Person;
 import com.hemovia.api.model.DTOs.HospitalResponseDTO;
 import com.hemovia.api.model.DTOs.DonationResponseDTO;
 import com.hemovia.api.model.DTOs.BloodBagResponseDTO;
-import com.hemovia.api.exceptions.GlobalExceptionHandler;
+import com.hemovia.api.presentation.handler.GlobalExceptionHandler;
+import com.hemovia.api.infrastructure.configuration.SystemClockProvider;
+import java.time.Clock;
 import com.hemovia.api.service.HospitalService;
 import com.hemovia.api.service.DonationService;
 import com.hemovia.api.service.BloodBagService;
@@ -61,7 +63,7 @@ class ExistingContractsRegressionTest {
         HospitalService service = mock(HospitalService.class); var response = new HospitalResponseDTO();
         UUID id = UUID.randomUUID(); response.setId(id); response.setName("Hospital Sintético");
         when(service.create(any())).thenReturn(response);
-        var mvc = MockMvcBuilders.standaloneSetup(new HospitalController(service)).setControllerAdvice(new GlobalExceptionHandler()).build();
+        var mvc = MockMvcBuilders.standaloneSetup(new HospitalController(service)).setControllerAdvice(new GlobalExceptionHandler(new SystemClockProvider(Clock.systemUTC()))).build();
         mvc.perform(post("/hospitals").contentType(MediaType.APPLICATION_JSON)
                 .content("{\"name\":\"Hospital Sintético\",\"city\":\"Recife\",\"latitude\":0,\"longitude\":0,\"priority\":1}"))
                 .andExpect(status().isCreated()).andExpect(jsonPath("$.id").value(id.toString()));
@@ -77,7 +79,7 @@ class ExistingContractsRegressionTest {
         UUID donationId = UUID.randomUUID(), bagId = UUID.randomUUID(); response.setDonationId(donationId);
         var bag = new BloodBagResponseDTO(); bag.setBloodBagId(bagId); response.setBloodBag(bag);
         when(service.create(any())).thenReturn(response);
-        var mvc = MockMvcBuilders.standaloneSetup(new DonationController(service)).setControllerAdvice(new GlobalExceptionHandler()).build();
+        var mvc = MockMvcBuilders.standaloneSetup(new DonationController(service)).setControllerAdvice(new GlobalExceptionHandler(new SystemClockProvider(Clock.systemUTC()))).build();
         mvc.perform(post("/donations").contentType(MediaType.APPLICATION_JSON)
                 .content("{\"collectionCenter\":\"Centro Sintético\",\"collectionDate\":\"2030-01-01\",\"bloodBagId\":\"" + bagId + "\"}"))
                 .andExpect(status().isCreated()).andExpect(jsonPath("$.donationId").value(donationId.toString()))
@@ -88,7 +90,7 @@ class ExistingContractsRegressionTest {
     void ac015_bloodBagHttpContract() throws Exception {
         BloodBagService service = mock(BloodBagService.class); var response = new BloodBagResponseDTO();
         UUID id = UUID.randomUUID(); response.setBloodBagId(id); when(service.create(any())).thenReturn(response);
-        var mvc = MockMvcBuilders.standaloneSetup(new BloodBagController(service)).setControllerAdvice(new GlobalExceptionHandler()).build();
+        var mvc = MockMvcBuilders.standaloneSetup(new BloodBagController(service)).setControllerAdvice(new GlobalExceptionHandler(new SystemClockProvider(Clock.systemUTC()))).build();
         String json = new ObjectMapper().findAndRegisterModules().writeValueAsString(legacyRequest(UUID.randomUUID()));
         mvc.perform(post("/blood-bags").contentType(MediaType.APPLICATION_JSON).content(json))
                 .andExpect(status().isCreated()).andExpect(jsonPath("$.bloodBagId").value(id.toString()));

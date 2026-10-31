@@ -1,7 +1,7 @@
 package com.hemovia.api.service.implementation;
 
-import com.hemovia.api.exceptions.InvalidCredentialsException;
-import com.hemovia.api.exceptions.UserAlreadyExistsException;
+import com.hemovia.api.domain.exception.InvalidCredentialsException;
+import com.hemovia.api.domain.exception.DuplicateResourceException;
 import com.hemovia.api.model.DTOs.AuthResponseDTO;
 import com.hemovia.api.model.DTOs.LoginRequestDTO;
 import com.hemovia.api.model.DTOs.RegisterRequestDTO;
@@ -86,7 +86,7 @@ class AuthServiceImplTest {
         when(userRepository.existsByEmail("alice@hemovia.com")).thenReturn(true);
 
         assertThatThrownBy(() -> authService.register(dto))
-                .isInstanceOf(UserAlreadyExistsException.class)
+                .isInstanceOf(DuplicateResourceException.class)
                 .hasMessageContaining("E-mail já cadastrado");
 
         verify(userRepository, never()).save(any());
@@ -106,7 +106,7 @@ class AuthServiceImplTest {
         when(userRepository.existsByCpf("12345678900")).thenReturn(true);
 
         assertThatThrownBy(() -> authService.register(dto))
-                .isInstanceOf(UserAlreadyExistsException.class)
+                .isInstanceOf(DuplicateResourceException.class)
                 .hasMessageContaining("CPF já cadastrado");
 
         verify(userRepository, never()).save(any());

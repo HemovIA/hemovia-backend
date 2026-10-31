@@ -29,7 +29,7 @@ final class RegrasDeArquitetura {
     static ArchRule dominioPuro(String raiz) {
         return noClasses().that().resideInAPackage(raiz + ".domain..")
                 .should().dependOnClassesThat().resideInAnyPackage(
-                        "org.springframework..", "jakarta.persistence..", "com.fasterxml..",
+                        "org.springframework..", "jakarta.persistence..", "com.fasterxml..", "tools.jackson..",
                         raiz + ".application..", raiz + ".infrastructure..", raiz + ".presentation..")
                 // Os pacotes novos começam vazios, então uma regra sem classes não pode ser erro
                 .allowEmptyShould(true);

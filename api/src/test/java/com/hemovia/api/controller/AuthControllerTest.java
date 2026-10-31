@@ -1,9 +1,11 @@
 package com.hemovia.api.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hemovia.api.exceptions.GlobalExceptionHandler;
-import com.hemovia.api.exceptions.InvalidCredentialsException;
-import com.hemovia.api.exceptions.UserAlreadyExistsException;
+import com.hemovia.api.presentation.handler.GlobalExceptionHandler;
+import com.hemovia.api.infrastructure.configuration.SystemClockProvider;
+import java.time.Clock;
+import com.hemovia.api.domain.exception.InvalidCredentialsException;
+import com.hemovia.api.domain.exception.DuplicateResourceException;
 import com.hemovia.api.model.DTOs.AuthResponseDTO;
 import com.hemovia.api.model.DTOs.LoginRequestDTO;
 import com.hemovia.api.model.DTOs.RegisterRequestDTO;
@@ -44,7 +46,7 @@ class AuthControllerTest {
     void setUp() {
         objectMapper = new ObjectMapper();
         mockMvc = MockMvcBuilders.standaloneSetup(authController)
-                .setControllerAdvice(new GlobalExceptionHandler())
+                .setControllerAdvice(new GlobalExceptionHandler(new SystemClockProvider(Clock.systemUTC())))
                 .build();
     }
 
@@ -94,13 +96,13 @@ class AuthControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.errors.name").exists())
-                .andExpect(jsonPath("$.errors.email").exists())
-                .andExpect(jsonPath("$.errors.password").exists());
+                .andExpect(jsonPath("$.fieldErrors.name").exists())
+                .andExpect(jsonPath("$.fieldErrors.email").exists())
+                .andExpect(jsonPath("$.fieldErrors.password").exists());
     }
 
     @Test
-    void shouldReturn400WhenUserAlreadyExists() throws Exception {
+    void deveRetornar409QuandoUsuarioJaExiste() throws Exception {
         RegisterRequestDTO request = new RegisterRequestDTO(
                 "Alice Sena",
                 "alice@hemovia.com",
@@ -110,12 +112,13 @@ class AuthControllerTest {
         );
 
         when(authService.register(any(RegisterRequestDTO.class)))
-                .thenThrow(new UserAlreadyExistsException("E-mail já cadastrado"));
+                .thenThrow(new DuplicateResourceException("E-mail já cadastrado"));
 
         mockMvc.perform(post("/auth/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isBadRequest())
+                .andExpect(status().isConflict())
+                .andExpect(jsonPath("$.error").value("DUPLICATE_RESOURCE"))
                 .andExpect(jsonPath("$.message").value("E-mail já cadastrado"));
     }
 
