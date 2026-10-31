@@ -17,7 +17,7 @@ public class JwtService {
     private final long expiration;
 
     public JwtService(
-            @Value("${jwt.secret:hemovia-rota-vital-jwt-secret-key-2026-very-secure}") String secret,
+            @Value("${hemovia.security.jwt-secret}") String secret,
             @Value("${jwt.expiration:86400000}") long expiration) {
         this.secret = secret;
         this.expiration = expiration;

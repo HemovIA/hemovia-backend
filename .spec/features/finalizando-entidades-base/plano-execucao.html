@@ -1,0 +1,120 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plano de execução — finalizando-entidades-base</title>
+<style>
+  :root { --bg:#fafafa; --fg:#1a1a1a; --card:#fff; --borda:#e2e2e2; --sub:#666;
+          --acc:#0a7c42; --acc-fg:#fff; --aviso:#8a6d00; --aviso-bg:#fff8e1; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#141414; --fg:#eaeaea; --card:#1e1e1e; --borda:#333; --sub:#9a9a9a;
+            --acc:#17a35c; --aviso:#e0c36a; --aviso-bg:#2a2410; }
+  }
+  * { box-sizing:border-box }
+  body { margin:0; padding:2rem 1rem; background:var(--bg); color:var(--fg);
+         font:15px/1.55 system-ui,-apple-system,sans-serif }
+  main { max-width:64rem; margin:0 auto }
+  h1 { font-size:1.5rem; margin:0 0 .25rem } h3 { margin:1.5rem 0 .5rem }
+  h4 { margin:0 0 .5rem } small { color:var(--sub); font-weight:400 }
+  .sub { color:var(--sub); margin:0 0 1.25rem }
+  code { font:.85em ui-monospace,monospace; background:var(--card);
+         border:1px solid var(--borda); border-radius:4px; padding:.05em .35em; overflow-wrap:anywhere }
+  .resumo { display:flex; gap:.75rem; flex-wrap:wrap; margin:0 0 1rem }
+  .resumo div { background:var(--card); border:1px solid var(--borda); border-radius:8px;
+                padding:.5rem .9rem } .resumo b { font-size:1.2rem }
+  .executor { background:var(--card); border:1px solid var(--borda); border-radius:10px;
+              padding:1rem; margin:0 0 .5rem }
+  .executor h2 { margin:0 0 .5rem; font-size:1.05rem }
+  .nota { color:var(--sub); font-size:.85rem; margin:.5rem 0 0 }
+  #cmd { display:inline-block; margin-top:.6rem }
+  .grade { display:grid; grid-template-columns:repeat(auto-fit,minmax(17rem,1fr)); gap:.75rem }
+  .faixa { background:var(--card); border:1px solid var(--borda); border-radius:10px; padding: .9rem }
+  .tarefa { display:flex; flex-direction:column; gap:.15rem; padding:.6rem 0;
+            border-top:1px dashed var(--borda) }
+  .tarefa:first-of-type { border-top:0 }
+  .tid { font:700 .85rem ui-monospace,monospace; color:var(--acc) }
+  .meta,.arquivos { font-size:.85rem; color:var(--sub) }
+  .avisos { background:var(--aviso-bg); color:var(--aviso); border-radius:8px;
+            padding:.6rem .9rem; margin:0 0 1rem; font-size:.9rem }
+  ol li { margin:.25rem 0 }
+</style>
+<main>
+  <h1>Plano de execução — finalizando-entidades-base</h1>
+  <p class="sub">gerado por <code>onp-spec plano</code> em 2026-10-22 19:06 · regenere após mudar tasks.md</p>
+  <div class="resumo">
+    <div><b>8</b> tarefa(s), uma após a outra</div>
+    <div>modo <b>sequencial</b> (escolha do usuário)</div>
+    <div>branch <code>spec/finalizando-entidades-base</code></div>
+  </div>
+  <div class="avisos"><div>⚠ T-005 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar</div><div>⚠ T-006 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar</div><div>⚠ T-007 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar</div><div>⚠ T-008 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar</div><div>⚠ T-009 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar</div><div>⚠ T-010 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar</div><div>⚠ T-011 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar</div><div>⚠ T-012 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar</div></div>
+  <div class="executor">
+    <h2>Como executar — via agente</h2>
+    <p>Peça ao agente (Codex) para executar o plano. Ele roda:</p>
+    <div><code id="cmd">bash .spec/features/finalizando-entidades-base/executar-tarefas.sh</code></div>
+    <p class="nota">Este arquivo é só visualização. Cada tarefa roda <code>codex exec</code> na árvore principal, uma após a outra, com contexto limpo e modelo/esforço já definidos.
+    O gate final (verify + audit) roda sozinho; a execução fica em background e, a cada
+    1 minuto, o agente posta no chat a <b>tabela de andamento</b>
+    (<code>onp-spec resumo finalizando-entidades-base --tabela</code>) e o
+    <b>resumo geral de andamento</b> (<code>onp-spec resumo finalizando-entidades-base</code>).</p>
+  </div>
+  
+  
+    <section class="onda">
+      <h3>Ordem de execução <small>uma tarefa após a outra, na árvore principal</small></h3>
+      <div class="grade"><div class="faixa">
+        <div class="tarefa">
+          <span class="tid">T-005</span>
+          <span class="ttitulo">Preparar provas Java/PostgreSQL e recuperar a validação histórica</span>
+          <span class="meta"><code>gpt-5.6-terra</code> · esforço <b>medium</b></span>
+          <span class="arquivos"><code>onpspec.config.json</code> <code>api/pom.xml</code> <code>api/src/test/resources/application-base-entities-test.yaml</code> <code>api/src/test/java/com/hemovia/api/support/BaseEntitiesPostgres.java</code> <code>api/src/test/java/com/hemovia/api/support/BaseEntityFixtures.java</code> <code>scripts/spec-java/test-postgres.ps1</code> <code>api/src/test/java/com/hemovia/api/ApiApplicationTests.java</code> <code>scripts/spec-java/verify-tests.mjs</code> <code>scripts/spec-java/read-surefire.mjs</code> <code>scripts/spec-java/acceptance-cases.json</code> <code>tests/finalizando-entidades-base/reporter.test.mjs</code> <code>tests/revisao-projeto/helpers/snapshot.mjs</code> <code>tests/revisao-projeto/alinhamento.test.mjs</code> <code>tests/revisao-projeto/api-dados-seguranca.test.mjs</code> <code>tests/revisao-projeto/qualidade-operacao.test.mjs</code></span>
+        </div>
+        <div class="tarefa">
+          <span class="tid">T-006</span>
+          <span class="ttitulo">Consolidar pessoas, locais, veículos e tipos comuns</span>
+          <span class="meta"><code>gpt-5.6-terra</code> · esforço <b>medium</b></span>
+          <span class="arquivos"><code>api/src/main/java/com/hemovia/api/model/Person.java</code> <code>api/src/main/java/com/hemovia/api/model/Hospital.java</code> <code>api/src/main/java/com/hemovia/api/model/BloodCenter.java</code> <code>api/src/main/java/com/hemovia/api/model/Vehicle.java</code> <code>api/src/main/java/com/hemovia/api/model/enums/BloodType.java</code> <code>api/src/main/java/com/hemovia/api/model/enums/RhFactor.java</code> <code>api/src/main/java/com/hemovia/api/model/enums/BloodComponent.java</code> <code>api/src/main/java/com/hemovia/api/repository/PersonRepository.java</code> <code>api/src/main/java/com/hemovia/api/repository/BloodCenterRepository.java</code> <code>api/src/main/java/com/hemovia/api/repository/VehicleRepository.java</code> <code>api/src/test/java/com/hemovia/api/model/BaseEntitiesUnitTest.java</code></span>
+        </div>
+        <div class="tarefa">
+          <span class="tid">T-007</span>
+          <span class="ttitulo">Evoluir doações e bolsas com compatibilidade dos contratos</span>
+          <span class="meta"><code>gpt-5.6-terra</code> · esforço <b>medium</b></span>
+          <span class="arquivos"><code>api/src/main/java/com/hemovia/api/model/Donation.java</code> <code>api/src/main/java/com/hemovia/api/model/BloodBag.java</code> <code>api/src/main/java/com/hemovia/api/model/enums/BloodBagStatus.java</code> <code>api/src/main/java/com/hemovia/api/model/DTOs/DonationRequestDTO.java</code> <code>api/src/main/java/com/hemovia/api/model/DTOs/DonationResponseDTO.java</code> <code>api/src/main/java/com/hemovia/api/model/DTOs/BloodBagRequestDTO.java</code> <code>api/src/main/java/com/hemovia/api/model/DTOs/BloodBagResponseDTO.java</code> <code>api/src/main/java/com/hemovia/api/service/implementation/DonationServiceImpl.java</code> <code>api/src/main/java/com/hemovia/api/service/implementation/BloodBagServiceImpl.java</code> <code>api/src/main/java/com/hemovia/api/repository/DonationRepository.java</code> <code>api/src/main/java/com/hemovia/api/repository/BloodBagRepository.java</code> <code>api/src/main/java/com/hemovia/api/exceptions/GlobalExceptionHandler.java</code> <code>api/src/test/java/com/hemovia/api/model/BaseEntitiesUnitTest.java</code> <code>api/src/test/java/com/hemovia/api/model/BaseEntitiesPersistenceIT.java</code> <code>api/src/test/java/com/hemovia/api/service/implementation/BloodBagServiceImplTest.java</code> <code>api/src/test/java/com/hemovia/api/service/implementation/DonationAssociationsRegressionTest.java</code></span>
+        </div>
+        <div class="tarefa">
+          <span class="tid">T-008</span>
+          <span class="ttitulo">Modelar requisições, alocações e histórico de reservas</span>
+          <span class="meta"><code>gpt-5.6-terra</code> · esforço <b>medium</b></span>
+          <span class="arquivos"><code>api/src/main/java/com/hemovia/api/model/BloodRequest.java</code> <code>api/src/main/java/com/hemovia/api/model/Allocation.java</code> <code>api/src/main/java/com/hemovia/api/model/AllocationItem.java</code> <code>api/src/main/java/com/hemovia/api/model/enums/RequestStatus.java</code> <code>api/src/main/java/com/hemovia/api/model/enums/AllocationStatus.java</code> <code>api/src/main/java/com/hemovia/api/model/enums/ReservationStatus.java</code> <code>api/src/main/java/com/hemovia/api/repository/BloodRequestRepository.java</code> <code>api/src/main/java/com/hemovia/api/repository/AllocationRepository.java</code> <code>api/src/main/java/com/hemovia/api/repository/AllocationItemRepository.java</code> <code>api/src/test/java/com/hemovia/api/model/BaseEntitiesPersistenceIT.java</code></span>
+        </div>
+        <div class="tarefa">
+          <span class="tid">T-009</span>
+          <span class="ttitulo">Modelar rotas e seus pontos ordenados</span>
+          <span class="meta"><code>gpt-5.6-terra</code> · esforço <b>medium</b></span>
+          <span class="arquivos"><code>api/src/main/java/com/hemovia/api/model/DeliveryRoute.java</code> <code>api/src/main/java/com/hemovia/api/model/RouteWaypoint.java</code> <code>api/src/main/java/com/hemovia/api/repository/DeliveryRouteRepository.java</code> <code>api/src/test/java/com/hemovia/api/model/BaseEntitiesPersistenceIT.java</code></span>
+        </div>
+        <div class="tarefa">
+          <span class="tid">T-010</span>
+          <span class="ttitulo">Modelar transporte, telemetria e movimentos de estoque</span>
+          <span class="meta"><code>gpt-5.6-terra</code> · esforço <b>medium</b></span>
+          <span class="arquivos"><code>api/src/main/java/com/hemovia/api/model/Transport.java</code> <code>api/src/main/java/com/hemovia/api/model/TelemetryReading.java</code> <code>api/src/main/java/com/hemovia/api/model/StockMovement.java</code> <code>api/src/main/java/com/hemovia/api/model/enums/TransportStatus.java</code> <code>api/src/main/java/com/hemovia/api/model/enums/MovementType.java</code> <code>api/src/main/java/com/hemovia/api/repository/TransportRepository.java</code> <code>api/src/main/java/com/hemovia/api/repository/TelemetryReadingRepository.java</code> <code>api/src/main/java/com/hemovia/api/repository/StockMovementRepository.java</code> <code>api/src/test/java/com/hemovia/api/model/BaseEntitiesPersistenceIT.java</code></span>
+        </div>
+        <div class="tarefa">
+          <span class="tid">T-011</span>
+          <span class="ttitulo">Migrar e provar o esquema PostgreSQL</span>
+          <span class="meta"><code>gpt-5.6-terra</code> · esforço <b>medium</b></span>
+          <span class="arquivos"><code>api/src/main/resources/db/migration/V4__normalize_base_entities.sql</code> <code>api/src/main/resources/db/migration/V5__create_requests_allocations.sql</code> <code>api/src/main/resources/db/migration/V6__create_logistics_telemetry.sql</code> <code>api/src/main/resources/db/migration/V7__create_stock_movements.sql</code> <code>api/src/test/java/com/hemovia/api/model/MigrationSourcesTest.java</code> <code>api/src/test/java/com/hemovia/api/model/BaseEntitiesPersistenceIT.java</code> <code>api/src/test/resources/fixtures/base-entities-migration-checksums.json</code></span>
+        </div>
+        <div class="tarefa">
+          <span class="tid">T-012</span>
+          <span class="ttitulo">Consolidar regressão, documentação e auditoria</span>
+          <span class="meta"><code>gpt-5.6-terra</code> · esforço <b>medium</b></span>
+          <span class="arquivos"><code>api/src/test/java/com/hemovia/api/controller/ExistingContractsRegressionTest.java</code> <code>api/src/test/java/com/hemovia/api/controller/AuthControllerTest.java</code> <code>api/src/test/java/com/hemovia/api/service/implementation/AuthServiceImplTest.java</code> <code>api/src/test/java/com/hemovia/api/service/JwtServiceTest.java</code> <code>api/src/test/java/com/hemovia/api/ApiApplicationTests.java</code> <code>scripts/spec-java/acceptance-cases.json</code> <code>onpspec.config.json</code> <code>README.md</code> <code>.spec/features/finalizando-entidades-base/modelo-entidades.md</code> <code>.spec/features/finalizando-entidades-base/testes.md</code> <code>.spec/features/finalizando-entidades-base/resultado-validacao.md</code></span>
+        </div></div></div>
+    </section>
+  <section class="onda">
+    <h3>Branches e commits</h3>
+    <ol>
+      <li>tudo parte da branch de trabalho <code>spec/finalizando-entidades-base</code></li>
+      <li>as tarefas rodam nela mesma, na ordem; 1 tarefa = 1 commit <code>T-xxx finalizando-entidades-base: título</code></li>
+      <li>gate final: <code>onp-spec verify finalizando-entidades-base</code> + <code>onp-spec audit --ci</code> — exit 0 ou não está pronto</li>
+    </ol>
+  </section>
+</main>

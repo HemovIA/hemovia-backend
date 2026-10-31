@@ -5,6 +5,7 @@ import com.hemovia.api.model.enums.BloodType;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.Date;
+import java.math.BigDecimal;
 import java.util.UUID;
 
 public class BloodBagRequestDTO {
@@ -26,8 +27,11 @@ public class BloodBagRequestDTO {
     @NotNull
     private BloodType bloodTypeEnum;
 
-    @NotNull
     private UUID donorId;
+
+    private UUID bloodCenterId;
+
+    private BigDecimal volumeMl;
 
     public String getRhFactor() {
         return rhFactor;
@@ -84,4 +88,8 @@ public class BloodBagRequestDTO {
     public void setDonorId(UUID donorId) {
         this.donorId = donorId;
     }
+    public UUID getBloodCenterId() { return bloodCenterId; }
+    public void setBloodCenterId(UUID bloodCenterId) { this.bloodCenterId = bloodCenterId; }
+    public BigDecimal getVolumeMl() { return volumeMl; }
+    public void setVolumeMl(BigDecimal volumeMl) { this.volumeMl = volumeMl; }
 }

@@ -95,6 +95,26 @@ Issues organizadas e atualizadas pela ferramenta de issues do GitHub:
 
 *(seção detalhada a partir da segunda entrega)*
 
+### Modelo persistente: entidades base
+
+O modelo do ciclo de hemocomponentes é persistido em PostgreSQL com UUIDs, enums gravados por nome, datas civis em `LocalDate` e instantes operacionais em `Instant`. A documentação completa de entidades, associações, unidades e limites está em [modelo-entidades.md](.spec/features/finalizando-entidades-base/modelo-entidades.md).
+
+Compatibilidade dos contratos atuais:
+
+- Uma doação expõe `bloodBags` como coleção completa. O campo legado `bloodBag` só é preenchido quando há exatamente uma bolsa; para mais de uma ele é `null`.
+- `donorId` recebido no cadastro legado de bolsa é resolvido para `Person`; um ID inexistente falha e não cria uma bolsa sem rastreabilidade.
+- Respostas públicas de autenticação e de domínio usam DTOs e não incluem senha; entidades JPA não são retornadas diretamente.
+
+Para a verificação de aceitação em PostgreSQL isolado, com dependências Maven já em cache, execute:
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/spec-java/test-postgres.ps1 -Verify
+node <diretorio-da-skill-onp-spec-driven>/scripts/onp-spec.mjs verify finalizando-entidades-base
+node <diretorio-da-skill-onp-spec-driven>/scripts/onp-spec.mjs audit --ci
+```
+
+Os dois últimos comandos só devem ser considerados aprovados quando terminarem com exit code `0`; veja as limitações e evidências reais em [resultado-validacao.md](.spec/features/finalizando-entidades-base/resultado-validacao.md).
+
 ---
 
 ### ⚙️ Infraestrutura de Software (SO)
@@ -129,6 +149,15 @@ Documento completo com todas as histórias do backlog (POO, AED, EST, SO e RSD �
 ## Como rodar o projeto
 
 *(seção detalhada a partir da segunda entrega)*
+
+### Deploy no Render
+
+O arquivo [`render.yaml`](render.yaml) configura o serviço Docker do Render para usar `api/Dockerfile` e `api/` como contexto de build. Para criar o serviço, crie um Blueprint no Render apontando para este repositório (selecione a branch que deseja publicar, como `develop`) e informe as variáveis solicitadas:
+
+- `POSTGRES_HOST`, `POSTGRES_DB`, `POSTGRES_USER` e `POSTGRES_PASSWORD`: dados de conexão de um PostgreSQL acessível pelo serviço.
+- `JWT_SECRET`: segredo forte e exclusivo para assinatura dos tokens.
+
+O Render fornece a variável `PORT` automaticamente; a API já a utiliza. Para um serviço Render já criado sem Blueprint, configure **Dockerfile Path** como `api/Dockerfile` e **Docker Context** como `api` nas configurações de build. Não use a raiz do repositório como contexto, pois o Dockerfile copia arquivos relativos à pasta `api`.
 
 ---
 

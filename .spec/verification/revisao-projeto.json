@@ -1,0 +1,32 @@
+{
+  "feature": "revisao-projeto",
+  "timestamp": "2026-10-22T19:07:36.778Z",
+  "gitRev": "b66f926",
+  "command": "node scripts/spec-java/verify-tests.mjs",
+  "reporter": "tap",
+  "exitCode": 0,
+  "testsParsed": 24,
+  "results": {
+    "AC-001": {
+      "status": "pass",
+      "testName": "@spec:AC-001 — matriz inventaria componentes e todas as funcionalidades documentadas",
+      "method": "tap"
+    },
+    "AC-002": {
+      "status": "pass",
+      "testName": "@spec:AC-002 revisão de API, dados e segurança registra cobertura, evidências e achados reproduzíveis",
+      "method": "tap"
+    },
+    "AC-003": {
+      "status": "pass",
+      "testName": "@spec:AC-003 revisa AED, testes e operação com evidências, comandos e limitações",
+      "method": "tap"
+    },
+    "AC-004": {
+      "status": "pass",
+      "testName": "@spec:AC-004 consolida achados dos relatórios em plano rastreável",
+      "method": "tap"
+    }
+  },
+  "principles": {}
+}

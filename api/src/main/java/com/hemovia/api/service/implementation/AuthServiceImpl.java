@@ -1,7 +1,7 @@
 package com.hemovia.api.service.implementation;
 
-import com.hemovia.api.exceptions.InvalidCredentialsException;
-import com.hemovia.api.exceptions.UserAlreadyExistsException;
+import com.hemovia.api.domain.exception.InvalidCredentialsException;
+import com.hemovia.api.domain.exception.DuplicateResourceException;
 import com.hemovia.api.model.DTOs.AuthResponseDTO;
 import com.hemovia.api.model.DTOs.LoginRequestDTO;
 import com.hemovia.api.model.DTOs.RegisterRequestDTO;
@@ -36,11 +36,11 @@ public class AuthServiceImpl implements AuthService {
         String normalizedCpf = normalizeCpf(dto.getCpf());
 
         if (userRepository.existsByEmail(normalizedEmail)) {
-            throw new UserAlreadyExistsException("E-mail já cadastrado");
+            throw new DuplicateResourceException("E-mail já cadastrado");
         }
 
         if (userRepository.existsByCpf(normalizedCpf)) {
-            throw new UserAlreadyExistsException("CPF já cadastrado");
+            throw new DuplicateResourceException("CPF já cadastrado");
         }
 
         User user = new User();
