@@ -47,8 +47,8 @@ class DonationAcceptanceTest {
     private String doacao(String centro, LocalDate validade) {
         String campoCentro = centro == null ? "" : "\"collectionCenter\":\"" + centro + "\",";
         return """
-                {%s"collectionDate":"%s","bloodType":"O","rhFactor":"-",
-                 "component":"Concentrado de Hemácias","expirationDate":"%s"}
+                {%s"collectionDate":"%s","bloodType":"O","rhFactor":"NEGATIVE",
+                 "component":"RED_BLOOD_CELLS","expirationDate":"%s"}
                 """.formatted(campoCentro, LocalDate.now(), validade);
     }
 
