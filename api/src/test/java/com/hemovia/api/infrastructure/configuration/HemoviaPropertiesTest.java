@@ -68,8 +68,9 @@ class HemoviaPropertiesTest {
 
     @Test
     void deveFalharComOYamlQuandoOJwtSecretEstaVazio() {
-        // Quando a variável JWT_SECRET existe, mas vazia (como num deploy mal configurado), o contexto não sobe
-        contextoComYaml.withSystemProperties("JWT_SECRET=")
+        // Quando JWT_SECRET existe, mas vazia (como num deploy mal configurado), o contexto não sobe
+        // Usamos propriedade de teste, que vence a variável de ambiente que o Surefire define
+        contextoComYaml.withPropertyValues("JWT_SECRET=")
                 .run(ctx -> assertThat(ctx).hasFailed().getFailure().hasStackTraceContaining("jwtSecret"));
     }
 }
