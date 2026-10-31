@@ -55,7 +55,7 @@ class DonationAcceptanceTest {
     @Test
     @DisplayName("POOUS01 — Dado uma doação válida, quando registro, então a bolsa entra no estoque como AVAILABLE")
     void doacaoValidaGeraBolsaDisponivel() throws Exception {
-        String body = mockMvc.perform(post("/donations")
+        String body = mockMvc.perform(post("/api/v1/donations")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(doacao("Hemocentro Sintético Recife", LocalDate.now().plusDays(35))))
                 .andExpect(status().isCreated())
@@ -71,7 +71,7 @@ class DonationAcceptanceTest {
     void doacaoIncompletaRetorna400() throws Exception {
         long antes = bloodBagRepository.count();
 
-        mockMvc.perform(post("/donations")
+        mockMvc.perform(post("/api/v1/donations")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(doacao(null, LocalDate.now().plusDays(35))))
                 .andExpect(status().isBadRequest());
@@ -84,7 +84,7 @@ class DonationAcceptanceTest {
     void bolsaVencidaERejeitada() throws Exception {
         long antes = bloodBagRepository.count();
 
-        mockMvc.perform(post("/donations")
+        mockMvc.perform(post("/api/v1/donations")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(doacao("Hemocentro Sintético Recife", LocalDate.now().minusDays(1))))
                 .andExpect(status().isBadRequest());

@@ -43,7 +43,7 @@ class HospitalAcceptanceTest {
     void cadastroValido() throws Exception {
         long antes = repository.count();
 
-        mockMvc.perform(post("/hospitals")
+        mockMvc.perform(post("/api/v1/hospitals")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {"name":"Hospital Sintético Norte","city":"Recife",
@@ -61,7 +61,7 @@ class HospitalAcceptanceTest {
     void coordenadaInvalida() throws Exception {
         long antes = repository.count();
 
-        mockMvc.perform(post("/hospitals")
+        mockMvc.perform(post("/api/v1/hospitals")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {"name":"Hospital Fora do Mapa","city":"Recife",
