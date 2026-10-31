@@ -9,6 +9,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -58,14 +59,15 @@ class ApiV1IntegrationTest {
     }
 
     @Test
-    void deveManterMeProtegidaSemTokenNoNovoPrefixo() throws Exception {
-        // Caracterização: sem credencial, a rota de sessão continua barrada (a Seção 3 troca isso por 401 com cookies)
-        mvc.perform(get("/api/v1/auth/me")).andExpect(status().is4xxClientError());
+    void deveManterMeProtegidaSemSessaoNoNovoPrefixo() throws Exception {
+        // Sem cookie de sessão, a rota responde 401 no formato ApiError
+        mvc.perform(get("/api/v1/auth/me")).andExpect(status().isUnauthorized());
     }
 
     @Test
     void deveDeixarDeExistirARotaAntigaSemPrefixo() throws Exception {
         // Os caminhos antigos sem /api/v1 deixam de existir
-        mvc.perform(get("/donations")).andExpect(status().isNotFound());
+        // Com um ADMIN autenticado, para a segurança não responder 401 antes de o roteamento dizer que não existe
+        mvc.perform(get("/donations").with(user("admin").roles("ADMIN"))).andExpect(status().isNotFound());
     }
 }
