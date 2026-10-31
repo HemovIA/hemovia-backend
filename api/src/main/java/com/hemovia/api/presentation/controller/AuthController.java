@@ -11,6 +11,7 @@ import com.hemovia.api.infrastructure.security.SessionCookies;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -68,7 +69,7 @@ public class AuthController {
     @PostMapping("/logout")
     public ResponseEntity<Void> logout(@CookieValue(name = SessionCookies.REFRESH, required = false) String refreshToken) {
         logout.execute(refreshToken);
-        ResponseEntity.BodyBuilder response = ResponseEntity.noContent();
+        ResponseEntity.BodyBuilder response = ResponseEntity.status(HttpStatus.NO_CONTENT);
         cookies.clear().forEach(cookie -> response.header(HttpHeaders.SET_COOKIE, cookie));
         return response.build();
     }

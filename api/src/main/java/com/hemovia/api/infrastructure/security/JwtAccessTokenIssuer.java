@@ -2,6 +2,7 @@ package com.hemovia.api.infrastructure.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;
+import com.auth0.jwt.BaseVerification;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
@@ -64,8 +65,8 @@ public class JwtAccessTokenIssuer implements AccessTokenIssuer {
     @Override
     public AuthenticatedUser verify(String token) {
         try {
-            // A verificação usa o nosso relógio, assim os testes conseguem "viajar no tempo"
-            DecodedJWT jwt = JWT.require(algorithm).build(() -> Date.from(clock.instant())).verify(token);
+            // A verificação usa o nosso relógio (o build com relógio só existe na classe base), assim os testes conseguem "viajar no tempo"
+            DecodedJWT jwt = ((BaseVerification) JWT.require(algorithm)).build(() -> Date.from(clock.instant())).verify(token);
             String role = jwt.getClaim(ROLE).asString();
             return new AuthenticatedUser(UUID.fromString(jwt.getSubject()), role == null ? null : Role.valueOf(role),
                     link(jwt, HOSPITAL), link(jwt, BLOOD_CENTER), link(jwt, VEHICLE));
