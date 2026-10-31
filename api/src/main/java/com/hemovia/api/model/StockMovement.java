@@ -1,5 +1,6 @@
 package com.hemovia.api.model;
 
+import com.hemovia.api.infrastructure.persistence.entity.UserEntity;
 import com.hemovia.api.model.enums.BloodBagStatus;
 import com.hemovia.api.model.enums.MovementType;
 import jakarta.persistence.Column;
@@ -42,7 +43,7 @@ public class StockMovement {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "actor_id")
-    private User actor;
+    private UserEntity actor;
 
     @Column(name = "reason") private String reason;
 
@@ -60,8 +61,8 @@ public class StockMovement {
     public void setMovementType(MovementType movementType) { this.movementType = require(movementType, "movementType"); }
     public Instant getOccurredAt() { return occurredAt; }
     public void setOccurredAt(Instant occurredAt) { this.occurredAt = require(occurredAt, "occurredAt"); }
-    public User getActor() { return actor; }
-    public void setActor(User actor) { this.actor = actor; }
+    public UserEntity getActor() { return actor; }
+    public void setActor(UserEntity actor) { this.actor = actor; }
     public String getReason() { return reason; }
     public void setReason(String reason) { this.reason = reason; }
 
