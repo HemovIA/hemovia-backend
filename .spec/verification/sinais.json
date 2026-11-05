@@ -77,10 +77,10 @@
       "codigo": "GLOB_SEM_ARQUIVOS",
       "feature": "—",
       "ref": "P-002",
-      "ocorrencias": 8,
+      "ocorrencias": 12,
       "primeiraVez": "2026-10-22T16:48:12.342Z",
-      "ultimaVez": "2026-10-22T19:11:17.297Z",
-      "gitRev": "7e0a87b"
+      "ultimaVez": "2026-10-22T20:59:40.426Z",
+      "gitRev": "2b34bc7"
     },
     "ARQUIVO_INEXISTENTE::finalizando-entidades-base::T-005": {
       "codigo": "ARQUIVO_INEXISTENTE",
@@ -459,6 +459,87 @@
       "primeiraVez": "2026-10-22T18:28:23.301Z",
       "ultimaVez": "2026-10-22T18:28:23.301Z",
       "gitRev": "5fd3c0c"
+    },
+    "ARQUIVO_INEXISTENTE::documentacao-swagger::T-013": {
+      "codigo": "ARQUIVO_INEXISTENTE",
+      "feature": "documentacao-swagger",
+      "ref": "T-013",
+      "ocorrencias": 3,
+      "primeiraVez": "2026-10-22T20:15:07.788Z",
+      "ultimaVez": "2026-10-22T20:15:07.789Z",
+      "gitRev": "6f50cc7"
+    },
+    "ARQUIVO_INEXISTENTE::documentacao-swagger::T-014": {
+      "codigo": "ARQUIVO_INEXISTENTE",
+      "feature": "documentacao-swagger",
+      "ref": "T-014",
+      "ocorrencias": 2,
+      "primeiraVez": "2026-10-22T20:15:07.789Z",
+      "ultimaVez": "2026-10-22T20:15:07.789Z",
+      "gitRev": "6f50cc7"
+    },
+    "ARQUIVO_INEXISTENTE::documentacao-swagger::T-015": {
+      "codigo": "ARQUIVO_INEXISTENTE",
+      "feature": "documentacao-swagger",
+      "ref": "T-015",
+      "ocorrencias": 9,
+      "primeiraVez": "2026-10-22T20:15:07.789Z",
+      "ultimaVez": "2026-10-22T20:58:35.865Z",
+      "gitRev": "2b34bc7"
+    },
+    "AC_SEM_TESTE::documentacao-swagger::AC-016": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "documentacao-swagger",
+      "ref": "AC-016",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-10-22T20:15:07.790Z",
+      "ultimaVez": "2026-10-22T20:15:07.790Z",
+      "gitRev": "6f50cc7"
+    },
+    "AC_SEM_TESTE::documentacao-swagger::AC-017": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "documentacao-swagger",
+      "ref": "AC-017",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-10-22T20:15:07.790Z",
+      "ultimaVez": "2026-10-22T20:15:07.790Z",
+      "gitRev": "6f50cc7"
+    },
+    "AC_SEM_TESTE::documentacao-swagger::AC-018": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "documentacao-swagger",
+      "ref": "AC-018",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-10-22T20:15:07.790Z",
+      "ultimaVez": "2026-10-22T20:15:07.790Z",
+      "gitRev": "6f50cc7"
+    },
+    "AC_SEM_TESTE::documentacao-swagger::AC-019": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "documentacao-swagger",
+      "ref": "AC-019",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-10-22T20:15:07.790Z",
+      "ultimaVez": "2026-10-22T20:15:07.790Z",
+      "gitRev": "6f50cc7"
+    },
+    "AC_SEM_TESTE::documentacao-swagger::AC-020": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "documentacao-swagger",
+      "ref": "AC-020",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-10-22T20:15:07.790Z",
+      "ultimaVez": "2026-10-22T20:15:07.790Z",
+      "gitRev": "6f50cc7"
+    },
+    "AC_SEM_TESTE::documentacao-swagger::AC-021": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "documentacao-swagger",
+      "ref": "AC-021",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-10-22T20:15:07.790Z",
+      "ultimaVez": "2026-10-22T20:15:07.790Z",
+      "gitRev": "6f50cc7"
     }
   }
 }

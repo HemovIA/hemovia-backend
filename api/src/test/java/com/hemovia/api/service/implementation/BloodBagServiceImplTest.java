@@ -1,6 +1,6 @@
 package com.hemovia.api.service.implementation;
 
-import com.hemovia.api.exceptions.BloodBagExpiredException;
+import com.hemovia.api.domain.exception.BloodBagExpiredException;
 import com.hemovia.api.model.DTOs.BloodBagRequestDTO;
 import com.hemovia.api.model.DTOs.BloodBagResponseDTO;
 import com.hemovia.api.model.enums.BloodBagStatus;
