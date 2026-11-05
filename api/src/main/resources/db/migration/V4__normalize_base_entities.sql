@@ -1,6 +1,11 @@
 -- Normalizes the legacy donation/bag relationship without inventing missing origins.
 -- Flyway executes PostgreSQL migrations transactionally: every preflight failure rolls
 -- back this complete version before the legacy shape is changed.
+-- RED_CELLS was the legacy spelling used by the first blood bag implementation.
+UPDATE blood_bags
+SET component = 'RED_BLOOD_CELLS'
+WHERE component = 'RED_CELLS';
+
 DO $$
 BEGIN
     IF EXISTS (

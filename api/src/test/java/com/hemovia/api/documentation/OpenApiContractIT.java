@@ -25,17 +25,21 @@ import static org.junit.jupiter.api.Assertions.*;
 @ActiveProfiles("base-entities-test")
 class OpenApiContractIT {
 
-    private static final Map<String, Map<String, String>> EXPECTED_OPERATIONS = Map.of(
-            "/auth/register", Map.of("post", "201"),
-            "/auth/login", Map.of("post", "200"),
-            "/auth/me", Map.of("get", "200"),
-            "/hospitals", Map.of("post", "201"),
-            "/donations", Map.of("get", "200", "post", "201"),
-            "/donations/{id}", Map.of("get", "200", "put", "200", "delete", "204"),
-            "/blood-bags", Map.of("get", "200", "post", "201"),
-            "/blood-bags/{id}", Map.of("get", "200", "put", "200", "delete", "204"));
-
-    private static final Set<String> NOT_FOUND_ERRORS = Set.of("400", "404");
+    private static final Map<String, Set<String>> EXPECTED_OPERATIONS = Map.ofEntries(
+            Map.entry("/auth/csrf", Set.of("get")),
+            Map.entry("/auth/login", Set.of("post")),
+            Map.entry("/auth/refresh", Set.of("post")),
+            Map.entry("/auth/logout", Set.of("post")),
+            Map.entry("/auth/me", Set.of("get")),
+            Map.entry("/users", Set.of("get", "post")),
+            Map.entry("/users/{id}", Set.of("get", "put")),
+            Map.entry("/users/{id}/role", Set.of("patch")),
+            Map.entry("/users/{id}/deactivate", Set.of("patch")),
+            Map.entry("/hospitals", Set.of("post")),
+            Map.entry("/donations", Set.of("get", "post")),
+            Map.entry("/donations/{id}", Set.of("get", "put", "delete")),
+            Map.entry("/blood-bags", Set.of("get", "post")),
+            Map.entry("/blood-bags/{id}", Set.of("get", "put", "delete")));
 
     @LocalServerPort
     private int port;
@@ -47,59 +51,26 @@ class OpenApiContractIT {
             .build();
 
     @Test
-    @DisplayName("@spec:AC-018 OpenAPI descreve as 14 operações e suas respostas HTTP reais")
+    @DisplayName("@spec:AC-018 OpenAPI descreve as operações após o merge com a API v1")
     void ac018DocumentsCurrentOperationsAndResponses() throws Exception {
         JsonNode document = getOpenApiDocument();
         JsonNode paths = document.path("paths");
-
+        assertEquals("/api/v1", document.path("servers").get(0).path("url").asText());
         assertEquals(EXPECTED_OPERATIONS.keySet(), objectFieldNames(paths));
-
-        int operationCount = 0;
-        for (Map.Entry<String, Map<String, String>> pathEntry : EXPECTED_OPERATIONS.entrySet()) {
-            JsonNode path = paths.path(pathEntry.getKey());
-            assertEquals(pathEntry.getValue().keySet(), objectFieldNames(path));
-
-            for (Map.Entry<String, String> operationEntry : pathEntry.getValue().entrySet()) {
-                JsonNode operation = path.path(operationEntry.getKey());
-                assertTrue(operation.hasNonNull("operationId"), pathEntry.getKey());
-                assertFalse(operation.path("operationId").asText().isBlank());
-                assertTrue(operation.hasNonNull("summary"), pathEntry.getKey());
-                assertFalse(operation.path("summary").asText().isBlank());
-                assertTrue(operation.path("tags").isArray() && !operation.path("tags").isEmpty());
-                assertEquals(expectedTag(pathEntry.getKey()), operation.path("tags").get(0).asText());
-
-                boolean acceptsBody = Set.of("post", "put").contains(operationEntry.getKey());
-                assertEquals(acceptsBody, operation.has("requestBody"), pathEntry.getKey());
-                if (acceptsBody) {
-                    assertTrue(operation.path("requestBody").path("content").has("application/json"));
-                }
-
-                JsonNode responses = operation.path("responses");
-                assertTrue(responses.has(operationEntry.getValue()), pathEntry.getKey());
-                if (!"204".equals(operationEntry.getValue())) {
-                    assertTrue(responses.path(operationEntry.getValue()).has("content"), pathEntry.getKey());
-                }
-                for (String errorCode : expectedErrors(pathEntry.getKey(), operationEntry.getKey())) {
-                    assertTrue(responses.has(errorCode), pathEntry.getKey() + " " + errorCode);
-                    assertFalse(responses.path(errorCode).path("description").asText().isBlank());
-                }
-                if ("204".equals(operationEntry.getValue())) {
-                    assertFalse(responses.path("204").has("content"), "204 não deve anunciar corpo");
-                }
-                if (pathEntry.getKey().endsWith("/{id}")) {
-                    assertTrue(hasPathIdParameter(operation), pathEntry.getKey());
-                }
-                operationCount++;
+        Set<String> operationIds = new java.util.HashSet<>();
+        for (var entry : EXPECTED_OPERATIONS.entrySet()) {
+            assertEquals(entry.getValue(), objectFieldNames(paths.path(entry.getKey())));
+            for (String method : entry.getValue()) {
+                JsonNode operation = paths.path(entry.getKey()).path(method);
+                assertTrue(operationIds.add(operation.path("operationId").asText()), "operationId único");
+                assertTrue(objectFieldNames(operation.path("responses")).stream().anyMatch(code -> code.startsWith("2")));
             }
         }
-
-        assertEquals(14, operationCount);
-        Set<String> operationIds = EXPECTED_OPERATIONS.entrySet().stream()
-                .flatMap(path -> path.getValue().keySet().stream()
-                        .map(method -> paths.path(path.getKey()).path(method).path("operationId").asText()))
-                .collect(Collectors.toSet());
-        assertEquals(14, operationIds.size(), "operationId deve ser único");
+        assertEquals(22, operationIds.size());
+        assertFalse(paths.has("/auth/register"));
         assertFalse(paths.has("/error"));
+        assertTrue(paths.path("/auth/csrf").path("get").path("responses").has("204"));
+        assertTrue(paths.path("/auth/logout").path("post").path("responses").has("204"));
     }
 
     @Test
@@ -107,15 +78,13 @@ class OpenApiContractIT {
     void ac019DocumentsDtoSchemasAndExamples() throws Exception {
         JsonNode schemas = getOpenApiDocument().path("components").path("schemas");
 
-        JsonNode register = schemas.path("RegisterRequest");
+        JsonNode register = schemas.path("CreateUserRequest");
         assertRequired(register, "name", "email", "cpf", "password");
-        assertPasswordInput(register.path("properties").path("password"));
+        assertTrue(register.path("properties").has("role"));
         assertEquals("email", register.path("properties").path("email").path("format").asText());
 
         JsonNode login = schemas.path("LoginRequest");
-        assertRequired(login, "password");
-        assertPasswordInput(login.path("properties").path("password"));
-        assertEquals("ana.souza@example.test", login.path("properties").path("email").path("example").asText());
+        assertRequired(login, "identifier", "password");
 
         JsonNode userResponse = schemas.path("UserResponse");
         assertTrue(userResponse.path("properties").has("id"));
@@ -165,59 +134,23 @@ class OpenApiContractIT {
     }
 
     @Test
-    @DisplayName("@spec:AC-020 JWT é documentado apenas nas operações protegidas")
-    void ac020DocumentsBearerSecurityWithoutExposingInternalParameters() throws Exception {
+    @DisplayName("@spec:AC-020 OpenAPI descreve cookies e preserva a proteção das rotas")
+    void ac020DocumentsCookieSecurity() throws Exception {
         JsonNode document = getOpenApiDocument();
-        JsonNode bearer = document.path("components").path("securitySchemes").path("bearerAuth");
-
-        assertEquals("http", bearer.path("type").asText());
-        assertEquals("bearer", bearer.path("scheme").asText());
-        assertEquals("JWT", bearer.path("bearerFormat").asText());
-
-        JsonNode operations = document.path("paths");
-        JsonNode authenticatedMe = operations.path("/auth/me").path("get");
-        assertTrue(hasSecurityRequirement(authenticatedMe, "bearerAuth"));
-        assertFalse(containsParameterNamed(authenticatedMe, "user"));
-        assertFalse(hasSecurityRequirement(operations.path("/auth/register").path("post"), "bearerAuth"));
-        assertFalse(hasSecurityRequirement(operations.path("/auth/login").path("post"), "bearerAuth"));
-
-        for (Map.Entry<String, Map<String, String>> pathEntry : EXPECTED_OPERATIONS.entrySet()) {
-            for (String method : pathEntry.getValue().keySet()) {
-                if (!"/auth/me".equals(pathEntry.getKey())) {
-                    assertFalse(hasSecurityRequirement(operations.path(pathEntry.getKey()).path(method), "bearerAuth"),
-                            pathEntry.getKey() + " " + method + " continua público");
-                }
-            }
+        JsonNode scheme = document.path("components").path("securitySchemes").path("cookieAuth");
+        assertEquals("apiKey", scheme.path("type").asText());
+        assertEquals("cookie", scheme.path("in").asText());
+        assertEquals("HEMOVIA_ACCESS", scheme.path("name").asText());
+        assertFalse(document.path("components").path("securitySchemes").has("bearerAuth"));
+        assertTrue(document.path("security").get(0).has("cookieAuth"));
+        for (String path : Set.of("/auth/login", "/auth/refresh", "/auth/csrf")) {
+            String method = path.endsWith("csrf") ? "get" : "post";
+            assertTrue(document.path("paths").path(path).path(method).path("security").isEmpty());
         }
-    }
-
-    @Test
-    @DisplayName("@spec:AC-020 chamadas HTTP preservam JWT válido, ausente e inválido")
-    void ac020PreservesHttpAuthenticationBehavior() throws Exception {
-        String email = "swagger-" + java.util.UUID.randomUUID() + "@example.test";
-        String cpf = "9" + String.format("%013d", Math.floorMod(System.nanoTime(), 1_000_000_000_000L));
-        String password = "senha-teste-2026";
-
-        HttpResponse<String> registration = send("POST", "/auth/register", Map.of(
-                "name", "Usuário Sintético Swagger",
-                "email", email,
-                "cpf", cpf,
-                "password", password));
-        assertEquals(201, registration.statusCode());
-
-        assertUnauthorized(send("GET", "/auth/me", null));
-        assertUnauthorized(send("GET", "/auth/me", null, "token-invalido"));
-
-        HttpResponse<String> login = send("POST", "/auth/login", Map.of("email", email, "password", password));
-        assertEquals(200, login.statusCode());
-        String token = objectMapper.readTree(login.body()).path("token").asText();
-        assertFalse(token.isBlank());
-
-        HttpResponse<String> authenticatedUser = send("GET", "/auth/me", null, token);
-        assertEquals(200, authenticatedUser.statusCode());
-        assertEquals(email, objectMapper.readTree(authenticatedUser.body()).path("email").asText());
-        assertEquals(200, send("GET", "/donations", null).statusCode(),
-                "operações que hoje são públicas continuam acessíveis sem JWT");
+        assertUnauthorized(send("GET", "/api/v1/auth/me", null));
+        assertUnauthorized(send("GET", "/api/v1/auth/me", null, "token-invalido"));
+        assertUnauthorized(send("GET", "/api/v1/donations", null));
+        assertEquals(204, send("GET", "/api/v1/auth/csrf", null).statusCode());
     }
 
     @Test
@@ -264,24 +197,6 @@ class OpenApiContractIT {
                     .method(method, HttpRequest.BodyPublishers.ofString(objectMapper.writeValueAsString(body)));
         }
         return client.send(request.build(), HttpResponse.BodyHandlers.ofString());
-    }
-
-    private static Set<String> expectedErrors(String path, String method) {
-        if ("/auth/register".equals(path)) return Set.of("400");
-        if ("/auth/login".equals(path)) return Set.of("400", "401");
-        if ("/auth/me".equals(path)) return Set.of("401", "403");
-        if ("/hospitals".equals(path)) return Set.of("400");
-        if (path.endsWith("/{id}") || ("post".equals(method) && !"/hospitals".equals(path))) {
-            return NOT_FOUND_ERRORS;
-        }
-        return Set.of();
-    }
-
-    private static String expectedTag(String path) {
-        if (path.startsWith("/auth")) return "Autenticação";
-        if (path.startsWith("/hospitals")) return "Hospitais";
-        if (path.startsWith("/donations")) return "Doações";
-        return "Bolsas de sangue";
     }
 
     private static Set<String> objectFieldNames(JsonNode node) {

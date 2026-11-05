@@ -43,10 +43,12 @@ public final class BaseEntitiesPostgres implements AutoCloseable {
     public EntityManagerFactory current() {
         flyway(null).migrate();
         var configuration = new org.hibernate.cfg.Configuration();
-        for (String name : List.of("User", "Person", "Hospital", "BloodCenter", "Vehicle", "Donation", "BloodBag",
+        for (String name : List.of("Person", "Hospital", "BloodCenter", "Vehicle", "Donation", "BloodBag",
                 "BloodRequest", "Allocation", "AllocationItem", "DeliveryRoute", "RouteWaypoint", "Transport", "TelemetryReading", "StockMovement")) {
             configuration.addAnnotatedClass(BaseEntityFixtures.type(name));
         }
+        // O usuário agora é uma entidade da camada de infraestrutura, mas o StockMovement ainda aponta para ela
+        configuration.addAnnotatedClass(com.hemovia.api.infrastructure.persistence.entity.UserEntity.class);
         configuration.setProperty("hibernate.connection.url", url);
         configuration.setProperty("hibernate.connection.username", user);
         configuration.setProperty("hibernate.connection.password", password);

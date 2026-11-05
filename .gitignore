@@ -36,3 +36,6 @@ target/
 
 # Vscode
 .vscode/
+
+# Local Files
+guia-desenvolvimento

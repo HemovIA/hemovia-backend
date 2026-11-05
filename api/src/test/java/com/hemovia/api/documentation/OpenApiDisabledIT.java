@@ -38,8 +38,8 @@ class OpenApiDisabledIT {
             assertEquals(404, response.statusCode(),
                     () -> path + " n\u00e3o deve disponibilizar documenta\u00e7\u00e3o quando desabilitado; status=" + response.statusCode());
         }
-        assertEquals(200, get("/donations").statusCode(), "A API de negocio continua acessivel");
-        int protectedStatus = get("/auth/me").statusCode();
+        assertEquals(204, get("/api/v1/auth/csrf").statusCode(), "A API continua acessível");
+        int protectedStatus = get("/api/v1/auth/me").statusCode();
         assertTrue(protectedStatus == 401 || protectedStatus == 403, "A protecao existente permanece ativa");
     }
 

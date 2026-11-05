@@ -1,0 +1,37 @@
+name: Rollback
+
+# Executado manualmente (aba Actions → Rollback → Run workflow), informando o SHA
+# de um commit que já passou pela esteira. A imagem desse SHA já está no GHCR,
+# então nada é recompilado: o Render só volta a rodar a imagem anterior.
+on:
+  workflow_dispatch:
+    inputs:
+      sha:
+        description: "SHA completo do commit para o qual voltar"
+        required: true
+
+jobs:
+  rollback:
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: ${{ vars.RENDER_APP_URL }}
+    steps:
+      - name: Redeploy da imagem ${{ inputs.sha }}
+        env:
+          HOOK: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+          SHA: ${{ inputs.sha }}
+        run: |
+          IMAGE="ghcr.io/${GITHUB_REPOSITORY,,}:${SHA}"
+          ENCODED=$(jq -rn --arg v "$IMAGE" '$v|@uri')
+          curl -fsS -X POST "${HOOK}&imgURL=${ENCODED}"
+
+      - name: Conferir health check
+        env:
+          APP_URL: ${{ vars.RENDER_APP_URL }}
+        run: |
+          for i in $(seq 1 40); do
+            curl -fsS "$APP_URL/actuator/health" | grep -q '"status":"UP"' && exit 0
+            sleep 15
+          done
+          exit 1

@@ -13,6 +13,7 @@ spring:
     locations: classpath:db/migration
     clean-disabled: true
 springdoc:
+  packages-to-scan: com.hemovia.api.controller,com.hemovia.api.presentation.controller
   api-docs:
     enabled: ${HEMOVIA_API_DOCS_ENABLED:true}
   swagger-ui:
@@ -23,3 +24,12 @@ springdoc:
 logging:
   level:
     root: WARN
+
+hemovia:
+  security:
+    jwt-secret: ${JWT_SECRET}
+    access-token-minutes: 15
+    refresh-token-days: 7
+    cookie-secure: true
+    cookie-same-site: Lax
+    cors-allowed-origins: http://localhost:5173

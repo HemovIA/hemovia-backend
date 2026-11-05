@@ -129,8 +129,9 @@ No PowerShell, a partir da raiz do repositório:
 
 ```powershell
 Copy-Item api/.env.example api/.env
-# Preencha POSTGRES_DB, POSTGRES_USER, POSTGRES_PASSWORD e POSTGRES_PORT em api/.env.
-docker compose --env-file api/.env -f api/docker-compose.yml up -d postgres
+# Preencha as variáveis POSTGRES_*, JWT_SECRET (mínimo 32 caracteres) e ADMIN_* em api/.env.
+# Para HTTP local, defina COOKIE_SECURE=false.
+docker compose --env-file api/.env -f api/compose.yaml up -d postgres
 Set-Location api
 .\mvnw.cmd spring-boot:run
 ```
@@ -139,9 +140,12 @@ Para habilitar explicitamente a documentação, defina `HEMOVIA_API_DOCS_ENABLED
 
 #### Autenticação no Swagger
 
-1. Use `POST /auth/login` para obter o JWT com as credenciais sintéticas cadastradas em `POST /auth/register`.
-2. Clique em **Authorize** na interface e informe somente o valor do token, sem o prefixo `Bearer`.
-3. Execute `/auth/me` para consultar o usuário autenticado. O token não é persistido pela Swagger UI no navegador.
+1. Configure `ADMIN_NAME`, `ADMIN_EMAIL`, `ADMIN_CPF` e `ADMIN_PASSWORD` para criar o primeiro administrador na inicialização.
+2. Execute `POST /api/v1/auth/login` com `identifier` (e-mail ou CPF) e `password`. O navegador recebe os cookies HttpOnly de sessão.
+3. Consulte `/api/v1/auth/me`. As rotas de negócio exigem sessão e papel autorizado; novos usuários são criados pelo administrador em `/api/v1/users`.
+4. Antes de escritas, consulte `/api/v1/auth/csrf` e envie o valor do cookie `XSRF-TOKEN` no header `X-XSRF-TOKEN`.
+
+A autenticação usa cookies do navegador; o botão **Authorize** não é usado para colar JWT. Em HTTP local, configure `COOKIE_SECURE=false`. O servidor OpenAPI já contém `/api/v1`.
 
 Não use dados pessoais ou credenciais reais nos exemplos. O documento reflete os controllers e DTOs existentes; ele não cria endpoints para entidades sem controller.
 
@@ -179,6 +183,15 @@ Documento completo com todas as histórias do backlog (POO, AED, EST, SO e RSD �
 ## Como rodar o projeto
 
 *(seção detalhada a partir da segunda entrega)*
+
+### Deploy no Render
+
+O arquivo [`render.yaml`](render.yaml) configura o serviço Docker do Render para usar `api/Dockerfile` e `api/` como contexto de build. Para criar o serviço, crie um Blueprint no Render apontando para este repositório (selecione a branch que deseja publicar, como `develop`) e informe as variáveis solicitadas:
+
+- `POSTGRES_HOST`, `POSTGRES_DB`, `POSTGRES_USER` e `POSTGRES_PASSWORD`: dados de conexão de um PostgreSQL acessível pelo serviço.
+- `JWT_SECRET`: segredo forte e exclusivo para assinatura dos tokens.
+
+O Render fornece a variável `PORT` automaticamente; a API já a utiliza. Para um serviço Render já criado sem Blueprint, configure **Dockerfile Path** como `api/Dockerfile` e **Docker Context** como `api` nas configurações de build. Não use a raiz do repositório como contexto, pois o Dockerfile copia arquivos relativos à pasta `api`.
 
 ---
 

@@ -1,7 +1,9 @@
 package com.hemovia.api.model;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hemovia.api.model.DTOs.UserResponseDTO;
+import com.hemovia.api.application.dto.response.UserResponse;
+import com.hemovia.api.domain.enums.Role;
+import com.hemovia.api.infrastructure.persistence.entity.UserEntity;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -20,11 +22,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class BaseEntitiesUnitTest {
     @Test @DisplayName("@spec:AC-005 usuário público não expõe credenciais")
     void ac005_publicUserDoesNotExposeCredentials() throws Exception {
-        var dto = new UserResponseDTO(UUID.randomUUID(), "Operador Sintético", "op@example.test", "00000000000", "81000000000");
+        var dto = new UserResponse(UUID.randomUUID(), "Operador Sintético", "op@example.test", "00000000000", "81000000000", Role.ADMIN, true, null, null, null);
         var json = new ObjectMapper().readTree(new ObjectMapper().writeValueAsString(dto));
         assertFalse(json.has("password")); assertFalse(json.has("secret"));
         assertEquals("op@example.test", json.get("email").asText());
-        assertNotEquals(User.class, Person.class);
+        assertNotEquals(UserEntity.class, Person.class);
     }
 
     @Test @DisplayName("@spec:AC-005 veículo preserva código e capacidade em bolsas")
