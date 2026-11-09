@@ -89,6 +89,13 @@
     "api/src/main/java/com/hemovia/api/infrastructure/configuration/OpenApiConfiguration.java",
     "api/src/main/resources/db/migration/V11__add_request_priority_and_deadline.sql",
     "api/src/main/java/com/hemovia/api/domain/algorithm/priority/FefoQueue.java",
-    "api/src/main/java/com/hemovia/api/domain/BloodCompatibility.java"
+    "api/src/main/java/com/hemovia/api/domain/BloodCompatibility.java",
+    "api/src/main/java/com/hemovia/api/application/dto/response/AllocationResponse.java",
+    "api/src/main/java/com/hemovia/api/application/port/input/AllocateBloodRequestUseCase.java",
+    "api/src/main/java/com/hemovia/api/application/port/output/RequestAllocationStore.java",
+    "api/src/main/java/com/hemovia/api/application/usecase/request/AllocateBloodRequest.java",
+    "api/src/main/java/com/hemovia/api/domain/exception/InsufficientInventoryException.java",
+    "api/src/main/java/com/hemovia/api/domain/exception/RequestAlreadyProcessedException.java",
+    "api/src/main/java/com/hemovia/api/infrastructure/persistence/adapter/RequestAllocationStoreAdapter.java"
   ]
 }
