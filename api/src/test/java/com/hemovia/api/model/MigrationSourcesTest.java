@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /*
 Ciclo 1 da Seção 2: as migrations já publicadas (V1 a V7) são imutáveis.
 Uma migration alterada depois de aplicada quebra o Flyway em produção, então guardamos o checksum de cada uma.
-O banco só cresce com arquivos novos, de V8 a V13, sem buracos na numeração.
+O banco só cresce com arquivos novos, sem buracos na numeração.
 */
 class MigrationSourcesTest {
 
@@ -47,11 +47,11 @@ class MigrationSourcesTest {
     }
 
     @Test
-    void deveTerMigrationsSequenciaisDeV1AV13() throws IOException {
+    void deveTerMigrationsSequenciaisDeV1AV14() throws IOException {
         // Quando listamos as versões que existem na pasta de migrations
         List<Integer> versoes = versoesExistentes();
-        // Então vão de 1 a 13, sem repetir número e sem pular nenhum
-        assertThat(versoes).containsExactlyElementsOf(IntStream.rangeClosed(1, 13).boxed().toList());
+        // Então vão de 1 a 14, sem repetir número e sem pular nenhum
+        assertThat(versoes).containsExactlyElementsOf(IntStream.rangeClosed(1, 14).boxed().toList());
     }
 
     // Lê o manifesto de checksums que fica junto dos recursos de teste
