@@ -36,6 +36,7 @@ class OpenApiContractIT {
             Map.entry("/users/{id}/role", Set.of("patch")),
             Map.entry("/users/{id}/deactivate", Set.of("patch")),
             Map.entry("/hospitals", Set.of("post")),
+            Map.entry("/requests", Set.of("post")),
             Map.entry("/donations", Set.of("get", "post")),
             Map.entry("/donations/{id}", Set.of("get", "put", "delete")),
             Map.entry("/blood-bags", Set.of("get", "post")),
@@ -66,7 +67,7 @@ class OpenApiContractIT {
                 assertTrue(objectFieldNames(operation.path("responses")).stream().anyMatch(code -> code.startsWith("2")));
             }
         }
-        assertEquals(22, operationIds.size());
+        assertEquals(23, operationIds.size());
         assertFalse(paths.has("/auth/register"));
         assertFalse(paths.has("/error"));
         assertTrue(paths.path("/auth/csrf").path("get").path("responses").has("204"));
@@ -170,6 +171,48 @@ class OpenApiContractIT {
         assertTrue(readme.contains("PostgreSQL 16"));
         assertTrue(readme.contains("Flyway"));
         assertTrue(readme.contains("Dados legados incompatíveis"));
+    }
+
+    @Test
+    @DisplayName("@spec:AC-025 OpenAPI documenta emissão hospitalar, segurança e respostas")
+    void ac025DocumentsHospitalRequestContract() throws Exception {
+        JsonNode document = getOpenApiDocument();
+        JsonNode operation = document.path("paths").path("/requests").path("post");
+        assertFalse(operation.isMissingNode(), "POST /requests deve estar documentado");
+
+        JsonNode requestBody = operation.path("requestBody");
+        assertTrue(requestBody.path("required").asBoolean(), "corpo obrigatório");
+        JsonNode requestSchema = requestBody.path("content").path("application/json").path("schema");
+        String schemaRef = requestSchema.path("$ref").asText();
+        assertTrue(schemaRef.startsWith("#/components/schemas/"), "schema de entrada referenciado");
+        JsonNode schema = document.path("components").path("schemas").path(refName(requestSchema.path("$ref")));
+        assertRequired(schema, "bloodType", "rhFactor", "component", "quantity", "priority", "deliveryDeadline");
+        assertEquals(Set.of("bloodType", "rhFactor", "component", "quantity", "priority", "deliveryDeadline"),
+                objectFieldNames(schema.path("properties")));
+        assertEquals("date-time", schema.path("properties").path("deliveryDeadline").path("format").asText());
+        assertTrue(arrayValues(schema.path("properties").path("priority").path("enum"))
+                .containsAll(Set.of("LOW", "MEDIUM", "HIGH", "CRITICAL")));
+
+        JsonNode scheme = document.path("components").path("securitySchemes").path("cookieAuth");
+        assertEquals("apiKey", scheme.path("type").asText());
+        assertEquals("cookie", scheme.path("in").asText());
+        assertEquals("HEMOVIA_ACCESS", scheme.path("name").asText());
+        JsonNode security = operation.has("security") ? operation.path("security") : document.path("security");
+        boolean cookieRequired = false;
+        for (JsonNode requirement : security) {
+            if (requirement.has("cookieAuth")) cookieRequired = true;
+        }
+        assertTrue(cookieRequired, "sessão por cookie deve proteger a operação");
+        boolean csrfRequired = false;
+        for (JsonNode parameter : operation.path("parameters")) {
+            if ("X-XSRF-TOKEN".equalsIgnoreCase(parameter.path("name").asText())
+                    && "header".equals(parameter.path("in").asText())
+                    && parameter.path("required").asBoolean()) csrfRequired = true;
+        }
+        assertTrue(csrfRequired, "cabeçalho CSRF obrigatório deve estar documentado");
+        for (String code : Set.of("201", "400", "401", "403")) {
+            assertTrue(operation.path("responses").has(code), "resposta " + code + " documentada");
+        }
     }
 
     private JsonNode getOpenApiDocument() throws Exception {

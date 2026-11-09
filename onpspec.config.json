@@ -76,6 +76,17 @@
     "api/src/main/java/com/hemovia/api/model/DTOs/DonationRequestDTO.java",
     "api/src/main/java/com/hemovia/api/model/DTOs/DonationResponseDTO.java",
     "api/src/main/java/com/hemovia/api/model/DTOs/BloodBagRequestDTO.java",
-    "api/src/main/java/com/hemovia/api/model/DTOs/BloodBagResponseDTO.java"
+    "api/src/main/java/com/hemovia/api/model/DTOs/BloodBagResponseDTO.java",
+    "api/src/main/java/com/hemovia/api/domain/enums/RequestPriority.java",
+    "api/src/main/java/com/hemovia/api/application/dto/request/CreateBloodRequest.java",
+    "api/src/main/java/com/hemovia/api/application/dto/response/BloodRequestResponse.java",
+    "api/src/main/java/com/hemovia/api/application/port/input/CreateBloodRequestUseCase.java",
+    "api/src/main/java/com/hemovia/api/application/port/output/BloodRequestStore.java",
+    "api/src/main/java/com/hemovia/api/application/usecase/request/CreateHospitalBloodRequest.java",
+    "api/src/main/java/com/hemovia/api/infrastructure/persistence/adapter/BloodRequestStoreAdapter.java",
+    "api/src/main/java/com/hemovia/api/infrastructure/security/SecurityConfig.java",
+    "api/src/main/java/com/hemovia/api/presentation/controller/BloodRequestController.java",
+    "api/src/main/java/com/hemovia/api/infrastructure/configuration/OpenApiConfiguration.java",
+    "api/src/main/resources/db/migration/V11__add_request_priority_and_deadline.sql"
   ]
 }
