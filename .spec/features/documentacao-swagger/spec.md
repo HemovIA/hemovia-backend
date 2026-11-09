@@ -7,7 +7,7 @@
 
 Disponibilizar documentação interativa da API Hemovia, gerada a partir dos controllers e DTOs reais, para consultar contratos e experimentar chamadas pelo Swagger UI. A documentação será acessível sem login e poderá ser desativada por configuração, conforme escolha explícita do usuário em 22/10/2026. A autenticação das operações existentes continua a mesma.
 
-O inventário atual contém 14 operações: POST /auth/register, POST /auth/login, GET /auth/me, POST /hospitals, GET/POST /donations, GET/PUT/DELETE /donations/{id}, GET/POST /blood-bags e GET/PUT/DELETE /blood-bags/{id}. Entidades sem controller não ganham endpoints nesta feature.
+O inventário inclui autenticação, gestão de usuários, hospitais, doações, bolsas e emissão de requisições hospitalares. O teste de contrato compara a lista exata de rotas e métodos com o documento gerado.
 
 ## Histórias
 
@@ -35,9 +35,9 @@ Como desenvolvedor de integração, quero consultar operações, modelos, exempl
 
 #### AC-018 — Todas as operações atuais têm descrição e respostas coerentes
 
-- **Dado** os quatro controllers atuais de autenticação, hospitais, doações e bolsas
+- **Dado** os controllers de negócio e autenticação expostos na API v1
 - **Quando** o documento OpenAPI é gerado pela aplicação real
-- **Então** contém as 14 operações inventariadas, agrupadas por domínio, com resumo em português, identificador único, parâmetros, corpo quando aplicável e respostas de sucesso correspondentes ao controller (200, 201 ou 204)
+- **Então** contém as operações inventariadas, agrupadas por domínio, com resumo em português, identificador único, parâmetros, corpo quando aplicável e respostas de sucesso correspondentes ao controller (200, 201 ou 204)
 - **E** respostas de erro documentadas correspondem aos handlers/comportamentos efetivos; respostas 204 não anunciam corpo; /actuator/**, /error e endpoints inexistentes de entidades não aparecem como operações de negócio.
 
 #### AC-019 — Modelos e exemplos representam os contratos atuais
@@ -50,15 +50,15 @@ Como desenvolvedor de integração, quero consultar operações, modelos, exempl
 
 ### US-012 — Usar autenticação pelo Swagger sem mudar a API
 
-Como consumidor autenticado, quero fornecer meu JWT no Swagger para chamar operações protegidas e entender quais endpoints precisam de token.
+Como consumidor autenticado, quero usar a sessão do navegador no Swagger e saber quais operações exigem sessão e proteção CSRF.
 
-#### AC-020 — JWT e credenciais documentados conforme a segurança real
+#### AC-020 — Sessão e credenciais documentadas conforme a segurança real
 
 - **Dado** a documentação habilitada e a política de acesso atual
-- **Quando** o consumidor consulta a especificação e usa autenticação Bearer
-- **Então** há um esquema HTTP Bearer JWT para o botão Authorize, /auth/me exige esse esquema, registro/login permanecem públicos e os demais endpoints não são marcados como protegidos se hoje são públicos
-- **E** o parâmetro interno @AuthenticationPrincipal não vira corpo/parâmetro do usuário; entidades User e campos internos de credenciais não são expostos como schemas de resposta; password em registro/login é documentado somente como entrada com formato password, sem token real ou senha de ambiente nos exemplos
-- **E** chamadas reais preservam o comportamento atual com token válido, ausente e inválido; a documentação não altera a autorização dos endpoints.
+- **Quando** o consumidor consulta a especificação e usa autenticação por cookie
+- **Então** o OpenAPI descreve o cookie `HEMOVIA_ACCESS` para rotas protegidas, com exceções explícitas para login, renovação e obtenção do token CSRF
+- **E** credenciais ficam restritas à entrada. Respostas de autenticação preservam o contrato público do usuário e entregam os tokens em cookies HttpOnly
+- **E** chamadas reais confirmam a proteção das rotas com cookie válido, ausente ou inválido e a exigência de CSRF nas escritas protegidas
 
 ### US-013 — Manter documentação e implementação verificáveis
 
@@ -69,14 +69,14 @@ Como mantenedor, quero testar o documento gerado e ter instruções reproduzíve
 - **Dado** a suíte atual e os novos testes de documentação
 - **Quando** o gate completo é executado com PostgreSQL isolado
 - **Então** testes HTTP exercitam geração real do OpenAPI, recursos da UI, habilitação/desabilitação, inventário, schemas e segurança; cada critério tem métodos JUnit obrigatórios no manifesto e prova recente por caso, sem skips ou aprovação só por presença de anotações
-- **E** todos os testes anteriores continuam passando; o README traz URLs, configuração, fluxo login/Authorize e pré-requisitos reais do backend, incluindo Flyway sem prometer que Swagger resolve dados legados incompatíveis
-- **E** verify das três features e audit --ci encerram com código 0; o relatório mecânico é salvo em .spec/features/documentacao-swagger/auditoria.md e resultados/limites são registrados sem inventar aprovação.
+- **E** todos os testes anteriores continuam passando. O README traz URLs, configuração, login por cookie, CSRF e os pré-requisitos do backend e do Flyway
+- **E** verify das features rastreadas e audit --ci encerram com código 0, com resultados registrados pelo verificador
 
 ## Desenho técnico
 
-Adicionar org.springdoc:springdoc-openapi-starter-webmvc-ui 3.1.1, compatível proposto para Spring Boot 4.1.1, sem downgrade do Spring Boot. Uma OpenApiConfig define informações, esquema Bearer e schemas reutilizáveis necessários aos erros já retornados. Controllers e DTOs recebem anotações de documentação; a geração continua baseada nos mappings reais. Nenhuma resposta, validação de negócio ou migração é reescrita para caber na documentação.
+O springdoc gera o documento a partir dos mapeamentos e das anotações dos controllers e DTOs. A classe `OpenApiConfiguration` define metadados, o prefixo `/api/v1` e o esquema de sessão por cookie.
 
-Aplicar HEMOVIA_API_DOCS_ENABLED às duas propriedades springdoc.api-docs.enabled e springdoc.swagger-ui.enabled, habilitadas por padrão. Não persistir autorização do Swagger no navegador por padrão. Restringir o inventário aos quatro controllers atuais e não habilitar exposição de repositórios, actuator ou integrações MCP. A versão OpenAPI da aplicação não deve ser confundida com a versão da biblioteca.
+HEMOVIA_API_DOCS_ENABLED controla springdoc.api-docs.enabled e springdoc.swagger-ui.enabled, habilitadas por padrão. O inventário cobre as rotas HTTP dos controllers da aplicação.
 
 Testes de contexto usam a configuração isolada já existente e PostgreSQL descartável. Usar geração OpenAPI real com o contexto web e filtros de segurança, incluindo um contexto separado com documentação desabilitada. Mockito pode simular serviços em testes de contrato específicos, sem substituir o documento por JSON estático. Adaptar testes da UI aos redirects válidos e verificar também recursos/configuração efetivamente utilizados.
 

@@ -6,9 +6,9 @@
 |---|---|
 | AC-016 | `OpenApiAvailabilityIT#ac016_exposesGeneratedDocumentationAndUiConfiguration` consulta `/v3/api-docs`, configuração, redirect da UI, inicializador e bundle JavaScript por HTTP. |
 | AC-017 | `OpenApiDisabledIT#ac017_doesNotExposeDocumentationWhenDisabled` inicia contexto com a opção desabilitada e confirma ausência de docs/UI sem alterar acesso às rotas da API. |
-| AC-018 | `OpenApiContractIT#ac018DocumentsCurrentOperationsAndResponses` valida as 14 operações geradas, seus métodos, IDs, tags, parâmetros, corpos JSON e respostas. |
+| AC-018 | `OpenApiContractIT#ac018DocumentsCurrentOperationsAndResponses` confere o inventário exato de rotas e métodos, IDs e respostas de sucesso. |
 | AC-019 | `OpenApiContractIT#ac019DocumentsDtoSchemasAndExamples` verifica schemas, campos obrigatórios/opcionais, datas, enums, unidades e a coleção `bloodBags`. |
-| AC-020 | `OpenApiContractIT#ac020DocumentsBearerSecurityWithoutExposingInternalParameters` verifica o esquema Bearer apenas em `/auth/me`; `ac020PreservesHttpAuthenticationBehavior` registra e autentica usuário sintético por HTTP e testa token ausente, inválido e válido. |
+| AC-020 | `OpenApiContractIT#ac020DocumentsCookieSecurity` verifica o esquema por cookie, as exceções de acesso e as respostas HTTP para sessão ausente ou inválida. `SessaoPorCookieIntegrationTest` confirma login com cookies HttpOnly, acesso com sessão válida e rejeição de escrita sem CSRF. |
 | AC-021 | `OpenApiContractIT#ac021ReadmeDocumentsSwaggerWorkflow` confere as URLs, variáveis, autenticação e pré-requisitos documentados no README; o gate Maven completo executa os testes de regressão existentes. |
 
 Todos os casos estão relacionados no manifesto `scripts/spec-java/acceptance-cases.json`. A suíte de aceite usa relatórios Surefire recentes por método, rejeita falhas e skips e executa PostgreSQL real. Nenhum teste é aprovado apenas por existir uma anotação.
