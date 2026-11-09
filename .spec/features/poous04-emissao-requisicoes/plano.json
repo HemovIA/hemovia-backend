@@ -1,0 +1,87 @@
+{
+  "runId": "hemovia-backend-poous04-emissao-requisicoes-mw9jpxed",
+  "feature": "poous04-emissao-requisicoes",
+  "agent": "codex",
+  "modo": "paralelo",
+  "paralelizar": [
+    "T-016",
+    "T-017"
+  ],
+  "modeloForcado": null,
+  "esforcoForcado": null,
+  "geradoEm": "2026-11-09 17:39",
+  "branchTrabalho": "spec/poous04-emissao-requisicoes",
+  "baseDir": ".spec/features/poous04-emissao-requisicoes",
+  "specDir": ".spec",
+  "repoName": "hemovia-backend",
+  "logsDir": "../onp-worktrees/hemovia-backend-poous04-emissao-requisicoes-logs",
+  "ondas": [
+    [
+      "faixa-1",
+      "faixa-2"
+    ]
+  ],
+  "faixas": [
+    {
+      "id": "faixa-1",
+      "branch": "spec/poous04-emissao-requisicoes-faixa-1",
+      "worktree": "../onp-worktrees/hemovia-backend-poous04-emissao-requisicoes-faixa-1",
+      "tarefas": [
+        {
+          "id": "T-016",
+          "titulo": "Implementar a emissão e verificar os cenários HTTP",
+          "modelo": "gpt-6.1-terra",
+          "esforco": "medium",
+          "arquivos": [
+            "api/src/main/java/com/hemovia/api/model/BloodRequest.java",
+            "api/src/main/java/com/hemovia/api/domain/enums/RequestPriority.java",
+            "api/src/main/java/com/hemovia/api/application/dto/request/CreateBloodRequest.java",
+            "api/src/main/java/com/hemovia/api/application/dto/response/BloodRequestResponse.java",
+            "api/src/main/java/com/hemovia/api/application/port/input/CreateBloodRequestUseCase.java",
+            "api/src/main/java/com/hemovia/api/application/port/output/BloodRequestStore.java",
+            "api/src/main/java/com/hemovia/api/application/usecase/request/CreateHospitalBloodRequest.java",
+            "api/src/main/java/com/hemovia/api/infrastructure/persistence/adapter/BloodRequestStoreAdapter.java",
+            "api/src/main/java/com/hemovia/api/infrastructure/security/SecurityConfig.java",
+            "api/src/main/java/com/hemovia/api/presentation/controller/BloodRequestController.java",
+            "api/src/main/resources/db/migration/V11__add_request_priority_and_deadline.sql",
+            "api/src/test/java/com/hemovia/api/presentation/controller/BloodRequestAcceptanceTest.java"
+          ],
+          "refs": [
+            "US-014",
+            "AC-022",
+            "AC-023",
+            "AC-024"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "faixa-2",
+      "branch": "spec/poous04-emissao-requisicoes-faixa-2",
+      "worktree": "../onp-worktrees/hemovia-backend-poous04-emissao-requisicoes-faixa-2",
+      "tarefas": [
+        {
+          "id": "T-017",
+          "titulo": "Verificar o contrato OpenAPI e ligar os testes à auditoria",
+          "modelo": "gpt-6.1-terra",
+          "esforco": "medium",
+          "arquivos": [
+            "api/src/test/java/com/hemovia/api/documentation/OpenApiContractIT.java",
+            "scripts/spec-java/acceptance-cases.json",
+            "onpspec.config.json"
+          ],
+          "refs": [
+            "US-014",
+            "AC-025"
+          ]
+        }
+      ]
+    }
+  ],
+  "sequenciais": [],
+  "concluidas": [],
+  "avisos": [
+    "T-016 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar",
+    "T-017 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar"
+  ]
+}
