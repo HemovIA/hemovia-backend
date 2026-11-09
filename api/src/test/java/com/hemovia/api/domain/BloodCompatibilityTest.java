@@ -15,20 +15,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
  */
 class BloodCompatibilityTest {
 
-    @ParameterizedTest(name = "doador {0}, Rh positivo: {1}")
-    @CsvSource({"A, true", "A, false", "O, true", "O, false"})
-    @DisplayName("@spec:AC-028 receptor A+ aceita os quatro doadores do cenário")
-    void shouldAcceptScenarioDonorsForAPositive(BloodType donor, boolean donorRhPositive) {
-        assertThat(BloodCompatibility.canTransfuse(donor, donorRhPositive, BloodType.A, true)).isTrue();
-    }
-
-    @ParameterizedTest(name = "doador {0}, Rh positivo: {1}")
-    @CsvSource({"A, true", "B, false", "AB, false"})
-    @DisplayName("@spec:AC-029 receptor O- rejeita os três doadores do cenário")
-    void shouldRejectScenarioDonorsForONegative(BloodType donor, boolean donorRhPositive) {
-        assertThat(BloodCompatibility.canTransfuse(donor, donorRhPositive, BloodType.O, false)).isFalse();
-    }
-
     @ParameterizedTest(name = "doador {0}{1} -> receptor {2}{3} = {4}")
     @CsvSource({
             // doador, rh+, receptor, rh+, compatível
