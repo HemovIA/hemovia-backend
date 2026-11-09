@@ -108,5 +108,17 @@
   ],
   "AC-025": [
     "com.hemovia.api.documentation.OpenApiContractIT#ac025DocumentsHospitalRequestContract"
+  ],
+  "AC-026": [
+    "com.hemovia.api.domain.algorithm.priority.FefoQueueTest#ordenaBolsasPorValidadeMaisProxima"
+  ],
+  "AC-027": [
+    "com.hemovia.api.domain.algorithm.priority.FefoQueueTest#excluiBolsasVencidasOuQueVencemNaDataDeReferencia"
+  ],
+  "AC-028": [
+    "com.hemovia.api.domain.BloodCompatibilityTest#shouldAcceptScenarioDonorsForAPositive"
+  ],
+  "AC-029": [
+    "com.hemovia.api.domain.BloodCompatibilityTest#shouldRejectScenarioDonorsForONegative"
   ]
 }
