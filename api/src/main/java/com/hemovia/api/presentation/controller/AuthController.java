@@ -10,10 +10,6 @@ import com.hemovia.api.application.port.input.RefreshSessionUseCase;
 import com.hemovia.api.infrastructure.security.SessionCookies;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +27,6 @@ O prefixo /api/v1 é acrescentado automaticamente a todo @RestController.
 */
 @RestController
 @RequestMapping("/auth")
-@Tag(name = "Autenticação")
 public class AuthController {
 
     private final LoginUseCase login;
@@ -51,8 +46,6 @@ public class AuthController {
 
     // Entrega o cookie XSRF-TOKEN para o front-end ler e devolver no header das próximas escritas
     @GetMapping("/csrf")
-    @Operation(operationId = "authCsrf", summary = "Obter token CSRF")
-    @ApiResponse(responseCode = "204", description = "Operação concluída")
     public ResponseEntity<Void> csrf(HttpServletRequest request) {
         CsrfToken token = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
         // O token é gerado sob demanda; ler o valor força o Spring a gravar o cookie na resposta
@@ -63,24 +56,18 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    @Operation(operationId = "authLogin", summary = "Entrar com e-mail ou CPF")
-    @ApiResponse(responseCode = "200", description = "Operação concluída")
     public ResponseEntity<UserResponse> login(@Valid @RequestBody LoginRequest request) {
         return withSession(login.execute(request));
     }
 
     // O refresh token vem do cookie, que o navegador só envia para este caminho
     @PostMapping("/refresh")
-    @Operation(operationId = "authRefresh", summary = "Renovar sessão por cookie")
-    @ApiResponse(responseCode = "200", description = "Operação concluída")
-    public ResponseEntity<UserResponse> refresh(@Parameter(hidden = true) @CookieValue(name = SessionCookies.REFRESH, required = false) String refreshToken) {
+    public ResponseEntity<UserResponse> refresh(@CookieValue(name = SessionCookies.REFRESH, required = false) String refreshToken) {
         return withSession(refresh.execute(refreshToken));
     }
 
     @PostMapping("/logout")
-    @Operation(operationId = "authLogout", summary = "Encerrar sessão")
-    @ApiResponse(responseCode = "204", description = "Operação concluída")
-    public ResponseEntity<Void> logout(@Parameter(hidden = true) @CookieValue(name = SessionCookies.REFRESH, required = false) String refreshToken) {
+    public ResponseEntity<Void> logout(@CookieValue(name = SessionCookies.REFRESH, required = false) String refreshToken) {
         logout.execute(refreshToken);
         ResponseEntity.BodyBuilder response = ResponseEntity.status(HttpStatus.NO_CONTENT);
         cookies.clear().forEach(cookie -> response.header(HttpHeaders.SET_COOKIE, cookie));
@@ -88,8 +75,6 @@ public class AuthController {
     }
 
     @GetMapping("/me")
-    @Operation(operationId = "authMe", summary = "Consultar usuário autenticado")
-    @ApiResponse(responseCode = "200", description = "Operação concluída")
     public UserResponse me() {
         return currentUser.execute();
     }

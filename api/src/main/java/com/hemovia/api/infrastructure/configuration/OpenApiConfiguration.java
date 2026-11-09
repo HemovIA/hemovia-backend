@@ -1,11 +1,8 @@
 package com.hemovia.api.infrastructure.configuration;
 
 import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.Paths;
 import io.swagger.v3.oas.models.info.Info;
-import io.swagger.v3.oas.models.security.SecurityRequirement;
-import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
 import org.springdoc.core.customizers.OpenApiCustomizer;
 import org.springframework.context.annotation.Bean;
@@ -23,12 +20,8 @@ public class OpenApiConfiguration {
     public OpenAPI hemoviaOpenApi() {
         // Título e versão aparecem no topo do Swagger UI; o servidor carrega o prefixo /api/v1
         return new OpenAPI()
-                .info(new Info().title("Hemovia API").version("v1")
-                        .description("Documentação da API Hemovia para gestão de doações e bolsas de sangue. Todos os dados são sintéticos."))
-                .components(new Components().addSecuritySchemes("cookieAuth", new SecurityScheme()
-                        .type(SecurityScheme.Type.APIKEY).in(SecurityScheme.In.COOKIE).name("HEMOVIA_ACCESS")
-                        .description("Sessão HttpOnly criada por POST /api/v1/auth/login. Escritas exigem X-XSRF-TOKEN.")))
-                .addSecurityItem(new SecurityRequirement().addList("cookieAuth"))
+                .info(new Info().title("HEMOVIA API").version("v1")
+                        .description("Gestão e distribuição de hemocomponentes. Todos os dados são sintéticos."))
                 .servers(List.of(new Server().url(ApiPrefixConfiguration.PREFIXO)));
     }
 
@@ -38,14 +31,7 @@ public class OpenApiConfiguration {
         return openApi -> {
             Paths relativos = new Paths();
             if (openApi.getPaths() != null) {
-                openApi.getPaths().forEach((caminho, item) -> {
-                    String relativo = semPrefixo(caminho);
-                    // Login, refresh e emissão de CSRF não exigem uma sessão de acesso ativa
-                    if (List.of("/auth/login", "/auth/refresh", "/auth/csrf").contains(relativo)) {
-                        item.readOperations().forEach(operation -> operation.setSecurity(List.of()));
-                    }
-                    relativos.addPathItem(relativo, item);
-                });
+                openApi.getPaths().forEach((caminho, item) -> relativos.addPathItem(semPrefixo(caminho), item));
             }
             openApi.setPaths(relativos);
         };

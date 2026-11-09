@@ -1,6 +1,5 @@
 package com.hemovia.api.model;
 
-import com.hemovia.api.domain.enums.RequestPriority;
 import com.hemovia.api.model.enums.BloodComponent;
 import com.hemovia.api.model.enums.BloodType;
 import com.hemovia.api.model.enums.RequestStatus;
@@ -41,10 +40,6 @@ public class BloodRequest {
     @NotNull @Positive @Column(nullable = false)
     private Integer quantity;
     @NotNull @Enumerated(EnumType.STRING) @Column(nullable = false)
-    private RequestPriority priority = RequestPriority.MEDIUM;
-    @Column(name = "delivery_deadline")
-    private Instant deliveryDeadline;
-    @NotNull @Enumerated(EnumType.STRING) @Column(nullable = false)
     private RequestStatus status = RequestStatus.PENDING;
     @NotNull @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt = Instant.now();
@@ -77,10 +72,6 @@ public class BloodRequest {
         if (quantity == null || quantity <= 0) throw new IllegalArgumentException("quantity must be positive");
         this.quantity = quantity;
     }
-    public RequestPriority getPriority() { return priority; }
-    public void setPriority(RequestPriority priority) { this.priority = require(priority, "priority"); }
-    public Instant getDeliveryDeadline() { return deliveryDeadline; }
-    public void setDeliveryDeadline(Instant deliveryDeadline) { this.deliveryDeadline = deliveryDeadline; }
     public RequestStatus getStatus() { return status; }
     public void setStatus(RequestStatus status) { this.status = require(status, "status"); }
     public Instant getCreatedAt() { return createdAt; }
