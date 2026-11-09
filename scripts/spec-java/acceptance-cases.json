@@ -120,5 +120,24 @@
   ],
   "AC-029": [
     "com.hemovia.api.domain.BloodCompatibilityTest#shouldRejectScenarioDonorsForONegative"
+  ],
+  "AC-030": [
+    "com.hemovia.api.presentation.controller.BloodRequestAllocationAcceptanceTest#ac030AllocatesCompatibleBagsInFefoOrder"
+  ],
+  "AC-031": [
+    "com.hemovia.api.presentation.controller.BloodRequestAllocationAcceptanceTest#ac031RejectsInsufficientStock"
+  ],
+  "AC-032": [
+    "com.hemovia.api.presentation.controller.BloodRequestAllocationAcceptanceTest#ac032RequiresSessionRoleAndCsrf",
+    "com.hemovia.api.documentation.OpenApiContractIT#ac032DocumentsAllocationContract"
+  ],
+  "AC-033": [
+    "com.hemovia.api.presentation.controller.BloodRequestAllocationAcceptanceTest#ac033RejectsInvalidRequests"
+  ],
+  "AC-034": [
+    "com.hemovia.api.presentation.controller.BloodRequestAllocationAcceptanceTest#ac034OnlyOneConcurrentRequestReservesBag"
+  ],
+  "AC-035": [
+    "com.hemovia.api.presentation.controller.BloodRequestAllocationAcceptanceTest#ac035RollsBackCommitFailureAndAllowsRetry"
   ]
 }

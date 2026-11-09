@@ -37,6 +37,7 @@ class OpenApiContractIT {
             Map.entry("/users/{id}/deactivate", Set.of("patch")),
             Map.entry("/hospitals", Set.of("post")),
             Map.entry("/requests", Set.of("post")),
+            Map.entry("/requests/{id}/allocate", Set.of("post")),
             Map.entry("/donations", Set.of("get", "post")),
             Map.entry("/donations/{id}", Set.of("get", "put", "delete")),
             Map.entry("/blood-bags", Set.of("get", "post")),
@@ -67,7 +68,7 @@ class OpenApiContractIT {
                 assertTrue(objectFieldNames(operation.path("responses")).stream().anyMatch(code -> code.startsWith("2")));
             }
         }
-        assertEquals(23, operationIds.size());
+        assertEquals(24, operationIds.size());
         assertFalse(paths.has("/auth/register"));
         assertFalse(paths.has("/error"));
         assertTrue(paths.path("/auth/csrf").path("get").path("responses").has("204"));
@@ -213,6 +214,35 @@ class OpenApiContractIT {
         for (String code : Set.of("201", "400", "401", "403")) {
             assertTrue(operation.path("responses").has(code), "resposta " + code + " documentada");
         }
+    }
+
+    @Test
+    @DisplayName("@spec:AC-032 OpenAPI documenta alocação, sessão, CSRF e respostas")
+    void ac032DocumentsAllocationContract() throws Exception {
+        JsonNode document = getOpenApiDocument();
+        JsonNode operation = document.path("paths").path("/requests/{id}/allocate").path("post");
+        assertFalse(operation.isMissingNode());
+        assertTrue(hasPathIdParameter(operation));
+        assertFalse(operation.has("requestBody"));
+        assertTrue(hasSecurityRequirement(operation, "cookieAuth"));
+        JsonNode scheme = document.path("components").path("securitySchemes").path("cookieAuth");
+        assertEquals("cookie", scheme.path("in").asText());
+        assertEquals("HEMOVIA_ACCESS", scheme.path("name").asText());
+        boolean csrfRequired = false;
+        for (JsonNode parameter : operation.path("parameters")) {
+            if ("X-XSRF-TOKEN".equalsIgnoreCase(parameter.path("name").asText())
+                    && "header".equals(parameter.path("in").asText())
+                    && parameter.path("required").asBoolean()) csrfRequired = true;
+        }
+        assertTrue(csrfRequired);
+        for (String code : Set.of("201", "400", "401", "403", "404", "409", "422")) {
+            JsonNode schema = operation.path("responses").path(code).path("content")
+                    .path("application/json").path("schema");
+            assertEquals(code.equals("201") ? "AllocationResponse" : "ApiError", refName(schema.path("$ref")),
+                    "schema da resposta " + code);
+        }
+        JsonNode properties = document.path("components").path("schemas").path("AllocationResponse").path("properties");
+        assertEquals(Set.of("id", "requestId", "status", "bloodBagIds"), objectFieldNames(properties));
     }
 
     private JsonNode getOpenApiDocument() throws Exception {

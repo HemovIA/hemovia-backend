@@ -77,10 +77,10 @@
       "codigo": "GLOB_SEM_ARQUIVOS",
       "feature": "—",
       "ref": "P-002",
-      "ocorrencias": 14,
+      "ocorrencias": 15,
       "primeiraVez": "2026-10-22T16:48:12.342Z",
-      "ultimaVez": "2026-11-09T18:36:13.577Z",
-      "gitRev": "78748fa"
+      "ultimaVez": "2026-11-09T19:14:48.415Z",
+      "gitRev": "73ec851"
     },
     "ARQUIVO_INEXISTENTE::finalizando-entidades-base::T-005": {
       "codigo": "ARQUIVO_INEXISTENTE",

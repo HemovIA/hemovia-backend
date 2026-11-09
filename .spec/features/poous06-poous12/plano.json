@@ -1,0 +1,107 @@
+{
+  "runId": "hemovia-backend-poous06-poous12-mw9mlhba",
+  "feature": "poous06-poous12",
+  "agent": "codex",
+  "modo": "paralelo",
+  "paralelizar": [
+    "T-021",
+    "T-022"
+  ],
+  "modeloForcado": null,
+  "esforcoForcado": null,
+  "geradoEm": "2026-11-09 18:59",
+  "branchTrabalho": "spec/poous06-poous12",
+  "baseDir": ".spec/features/poous06-poous12",
+  "specDir": ".spec",
+  "repoName": "hemovia-backend",
+  "logsDir": "../onp-worktrees/hemovia-backend-poous06-poous12-logs",
+  "ondas": [
+    [
+      "faixa-1",
+      "faixa-2"
+    ]
+  ],
+  "faixas": [
+    {
+      "id": "faixa-1",
+      "branch": "spec/poous06-poous12-faixa-1",
+      "worktree": "../onp-worktrees/hemovia-backend-poous06-poous12-faixa-1",
+      "tarefas": [
+        {
+          "id": "T-021",
+          "titulo": "Implementar matching, FEFO e reserva transacional",
+          "modelo": "gpt-6.1-terra",
+          "esforco": "medium",
+          "arquivos": [
+            "api/src/main/java/com/hemovia/api/application/dto/response/AllocationResponse.java",
+            "api/src/main/java/com/hemovia/api/application/port/input/AllocateBloodRequestUseCase.java",
+            "api/src/main/java/com/hemovia/api/application/port/output/RequestAllocationStore.java",
+            "api/src/main/java/com/hemovia/api/application/usecase/request/AllocateBloodRequest.java",
+            "api/src/main/java/com/hemovia/api/domain/exception/InsufficientInventoryException.java",
+            "api/src/main/java/com/hemovia/api/domain/exception/RequestAlreadyProcessedException.java",
+            "api/src/main/java/com/hemovia/api/infrastructure/persistence/adapter/RequestAllocationStoreAdapter.java",
+            "api/src/main/java/com/hemovia/api/repository/BloodRequestRepository.java",
+            "api/src/main/java/com/hemovia/api/repository/BloodBagRepository.java"
+          ],
+          "refs": [
+            "US-017",
+            "US-018",
+            "AC-030",
+            "AC-031",
+            "AC-033",
+            "AC-034",
+            "AC-035"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "faixa-2",
+      "branch": "spec/poous06-poous12-faixa-2",
+      "worktree": "../onp-worktrees/hemovia-backend-poous06-poous12-faixa-2",
+      "tarefas": [
+        {
+          "id": "T-022",
+          "titulo": "Expor a alocação autenticada no Swagger",
+          "modelo": "gpt-6.1-terra",
+          "esforco": "medium",
+          "arquivos": [
+            "api/src/main/java/com/hemovia/api/presentation/controller/BloodRequestController.java",
+            "api/src/main/java/com/hemovia/api/infrastructure/security/SecurityConfig.java",
+            "api/src/test/java/com/hemovia/api/documentation/OpenApiContractIT.java"
+          ],
+          "refs": [
+            "US-017",
+            "AC-030",
+            "AC-031",
+            "AC-032",
+            "AC-033"
+          ]
+        }
+      ]
+    }
+  ],
+  "sequenciais": [
+    {
+      "id": "T-023",
+      "titulo": "Provar matching, concorrência e rollback com PostgreSQL",
+      "modelo": "gpt-6.1-terra",
+      "esforco": "medium",
+      "arquivos": [
+        "api/src/test/java/com/hemovia/api/presentation/controller/BloodRequestAllocationAcceptanceTest.java",
+        "scripts/spec-java/acceptance-cases.json",
+        "onpspec.config.json"
+      ],
+      "refs": [
+        "AC-030",
+        "AC-031",
+        "AC-032",
+        "AC-033",
+        "AC-034",
+        "AC-035"
+      ]
+    }
+  ],
+  "concluidas": [],
+  "avisos": []
+}
