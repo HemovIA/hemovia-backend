@@ -2,6 +2,7 @@ package com.hemovia.api.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import java.time.Instant;
 import java.util.UUID;
 
 @Entity
@@ -12,6 +13,9 @@ public class BloodCenter {
     @NotBlank @Column(nullable = false) private String city;
     @NotNull @DecimalMin("-90.0") @DecimalMax("90.0") @Column(nullable = false) private Double latitude;
     @NotNull @DecimalMin("-180.0") @DecimalMax("180.0") @Column(nullable = false) private Double longitude;
+
+    @Column(name = "deleted_at")
+    private Instant deletedAt;
 
     public BloodCenter() { }
     public UUID getId() { return id; }
@@ -24,6 +28,10 @@ public class BloodCenter {
     public void setLatitude(Double latitude) { this.latitude = coordinate(latitude, -90, 90, "latitude"); }
     public Double getLongitude() { return longitude; }
     public void setLongitude(Double longitude) { this.longitude = coordinate(longitude, -180, 180, "longitude"); }
+
+    public void markDeleted(Instant deletedAt) {
+        this.deletedAt = deletedAt;
+    }
 
     private static String requiredText(String value, String field) {
         if (value == null || value.isBlank()) throw new IllegalArgumentException(field + " must not be blank");

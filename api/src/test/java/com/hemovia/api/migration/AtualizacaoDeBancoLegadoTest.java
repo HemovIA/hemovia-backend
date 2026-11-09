@@ -3,6 +3,7 @@ package com.hemovia.api.migration;
 import com.hemovia.api.support.BancoDeMigracao;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -15,11 +16,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /*
 Ciclo 3 da Seção 2: atualização de um banco que já tem dados no formato da V7.
-Quando a V8 a V13 chegarem em produção, nenhuma linha antiga pode sumir nem mudar de sentido:
+Ao aplicar as migrations a partir da V8, nenhuma linha antiga pode sumir nem mudar de sentido:
 usuários continuam sem papel, requisições viram MEDIUM e leituras antigas ficam sem posição.
 */
 @Tag("integration")
-class AtualizacaoDeV7ParaV13Test {
+class AtualizacaoDeBancoLegadoTest {
 
     // Tabelas que recebem uma linha antes da atualização
     private static final String[] TABELAS = {
@@ -47,7 +48,7 @@ class AtualizacaoDeV7ParaV13Test {
         transporte = banco.criarTransporte();
         leitura = banco.criarLeituraAntiga(transporte);
         antes = contarLinhas();
-        // Quando aplicamos o restante das migrations (V8 a V13)
+        // Quando aplicamos as migrations posteriores à V7
         banco.migrarTudo();
     }
 
@@ -67,9 +68,16 @@ class AtualizacaoDeV7ParaV13Test {
     }
 
     @Test
-    void deveChegarNaVersao13() {
+    void deveChegarNaVersao14() {
         // Então o Flyway termina na última migration
-        assertThat(banco.versaoAtual()).isEqualTo("13");
+        assertThat(banco.versaoAtual()).isEqualTo("14");
+    }
+
+    @Test
+    @DisplayName("@spec:AC-038 migração conserva hemocentros antigos como ativos")
+    void deveManterHemocentroLegadoAtivo() throws SQLException {
+        assertThat(banco.contar("SELECT count(*) FROM blood_centers WHERE deleted_at IS NULL"))
+                .isEqualTo(antes.get("blood_centers"));
     }
 
     @Test

@@ -1,6 +1,7 @@
 package com.hemovia.api.infrastructure.persistence.adapter;
 
 import com.hemovia.api.application.port.output.RequestAllocationStore;
+import com.hemovia.api.domain.exception.ResourceNotFoundException;
 import com.hemovia.api.model.Allocation;
 import com.hemovia.api.model.AllocationItem;
 import com.hemovia.api.model.BloodBag;
@@ -42,6 +43,7 @@ public class RequestAllocationStoreAdapter implements RequestAllocationStore {
 
     @Override
     public List<BloodBag> lockEligibleBags(UUID centerId, BloodComponent component, LocalDate today) {
+        centers.findActiveForUse(centerId).orElseThrow(() -> new ResourceNotFoundException("Hemocentro", centerId));
         var locked = bags.lockEligible(centerId, component, today);
         if (locked.isEmpty()) {
             return locked;

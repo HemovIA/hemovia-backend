@@ -96,6 +96,12 @@
     "api/src/main/java/com/hemovia/api/application/usecase/request/AllocateBloodRequest.java",
     "api/src/main/java/com/hemovia/api/domain/exception/InsufficientInventoryException.java",
     "api/src/main/java/com/hemovia/api/domain/exception/RequestAlreadyProcessedException.java",
-    "api/src/main/java/com/hemovia/api/infrastructure/persistence/adapter/RequestAllocationStoreAdapter.java"
+    "api/src/main/java/com/hemovia/api/infrastructure/persistence/adapter/RequestAllocationStoreAdapter.java",
+    "api/src/main/java/com/hemovia/api/infrastructure/persistence/adapter/LinkedResourceCheckerAdapter.java",
+    "api/src/main/java/com/hemovia/api/presentation/controller/BloodCenterController.java",
+    "api/src/main/java/com/hemovia/api/application/dto/request/BloodCenterRequest.java",
+    "api/src/main/java/com/hemovia/api/application/dto/response/BloodCenterResponse.java",
+    "api/src/main/java/com/hemovia/api/application/usecase/bloodcenter/ManageBloodCenters.java",
+    "api/src/main/resources/db/migration/V14__add_blood_center_deleted_at.sql"
   ]
 }

@@ -36,6 +36,8 @@ class OpenApiContractIT {
             Map.entry("/users/{id}/role", Set.of("patch")),
             Map.entry("/users/{id}/deactivate", Set.of("patch")),
             Map.entry("/hospitals", Set.of("post")),
+            Map.entry("/blood-centers", Set.of("get", "post")),
+            Map.entry("/blood-centers/{id}", Set.of("get", "put", "delete")),
             Map.entry("/requests", Set.of("post")),
             Map.entry("/requests/{id}/allocate", Set.of("post")),
             Map.entry("/donations", Set.of("get", "post")),
@@ -68,7 +70,7 @@ class OpenApiContractIT {
                 assertTrue(objectFieldNames(operation.path("responses")).stream().anyMatch(code -> code.startsWith("2")));
             }
         }
-        assertEquals(24, operationIds.size());
+        assertEquals(29, operationIds.size());
         assertFalse(paths.has("/auth/register"));
         assertFalse(paths.has("/error"));
         assertTrue(paths.path("/auth/csrf").path("get").path("responses").has("204"));
@@ -243,6 +245,38 @@ class OpenApiContractIT {
         }
         JsonNode properties = document.path("components").path("schemas").path("AllocationResponse").path("properties");
         assertEquals(Set.of("id", "requestId", "status", "bloodBagIds"), objectFieldNames(properties));
+    }
+
+    @Test
+    @DisplayName("@spec:AC-040 OpenAPI documenta o cadastro de hemocentros")
+    void ac040DocumentsBloodCenterContract() throws Exception {
+        JsonNode document = getOpenApiDocument();
+        JsonNode collection = document.path("paths").path("/blood-centers");
+        JsonNode member = document.path("paths").path("/blood-centers/{id}");
+        assertBloodCenterOperation(collection.path("get"), false, Set.of("200", "401", "403"));
+        assertBloodCenterOperation(collection.path("post"), true, Set.of("201", "400", "401", "403"));
+        assertBloodCenterOperation(member.path("get"), false, Set.of("200", "400", "401", "403", "404"));
+        assertBloodCenterOperation(member.path("put"), true, Set.of("200", "400", "401", "403", "404"));
+        assertBloodCenterOperation(member.path("delete"), true, Set.of("204", "400", "401", "403", "404"));
+        for (String method : Set.of("get", "put", "delete")) {
+            assertTrue(hasPathIdParameter(member.path(method)));
+        }
+        JsonNode schemas = document.path("components").path("schemas");
+        assertRequired(schemas.path("BloodCenterRequest"), "name", "city", "latitude", "longitude");
+        assertEquals("uuid", schemas.path("BloodCenterResponse").path("properties").path("id").path("format").asText());
+    }
+
+    private static void assertBloodCenterOperation(JsonNode operation, boolean csrf, Set<String> responses) {
+        assertTrue(hasSecurityRequirement(operation, "cookieAuth"));
+        assertEquals(responses, objectFieldNames(operation.path("responses")));
+        boolean csrfRequired = false;
+        for (JsonNode parameter : operation.path("parameters")) {
+            if ("X-XSRF-TOKEN".equalsIgnoreCase(parameter.path("name").asText())
+                    && "header".equals(parameter.path("in").asText()) && parameter.path("required").asBoolean()) {
+                csrfRequired = true;
+            }
+        }
+        assertEquals(csrf, csrfRequired);
     }
 
     private JsonNode getOpenApiDocument() throws Exception {
