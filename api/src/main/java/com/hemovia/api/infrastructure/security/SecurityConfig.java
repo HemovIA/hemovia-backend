@@ -35,6 +35,7 @@ public class SecurityConfig {
     private static final String AUTH = ApiPrefixConfiguration.PREFIXO + "/auth";
     private static final String LOGIN = AUTH + "/login";
     private static final String TELEMETRY = ApiPrefixConfiguration.PREFIXO + "/telemetry";
+    private static final String BLOOD_CENTERS = ApiPrefixConfiguration.PREFIXO + "/blood-centers";
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, AccessTokenIssuer accessTokens,
@@ -58,6 +59,10 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, LOGIN, AUTH + "/refresh").permitAll()
                 .requestMatchers(AUTH + "/**").authenticated()
                 .requestMatchers(HttpMethod.POST, ApiPrefixConfiguration.PREFIXO + "/requests").hasRole(Role.HOSPITAL.name())
+                .requestMatchers(HttpMethod.POST, ApiPrefixConfiguration.PREFIXO + "/requests/*/allocate").hasRole(Role.HEMOCENTRO.name())
+                .requestMatchers(HttpMethod.POST, BLOOD_CENTERS).hasRole(Role.ADMIN.name())
+                .requestMatchers(HttpMethod.PUT, BLOOD_CENTERS + "/*").hasRole(Role.ADMIN.name())
+                .requestMatchers(HttpMethod.DELETE, BLOOD_CENTERS + "/*").hasRole(Role.ADMIN.name())
                 .requestMatchers(ApiPrefixConfiguration.PREFIXO + "/users/**").hasRole(Role.ADMIN.name())
                 // Usuário sem papel não tem nenhuma autoridade, então cai aqui em 403
                 .anyRequest().hasAnyRole(Role.ADMIN.name(), Role.HEMOCENTRO.name(), Role.HOSPITAL.name(), Role.TRANSPORTADOR.name()))

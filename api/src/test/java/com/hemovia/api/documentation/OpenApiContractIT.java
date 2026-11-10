@@ -36,7 +36,10 @@ class OpenApiContractIT {
             Map.entry("/users/{id}/role", Set.of("patch")),
             Map.entry("/users/{id}/deactivate", Set.of("patch")),
             Map.entry("/hospitals", Set.of("post")),
+            Map.entry("/blood-centers", Set.of("get", "post")),
+            Map.entry("/blood-centers/{id}", Set.of("get", "put", "delete")),
             Map.entry("/requests", Set.of("post")),
+            Map.entry("/requests/{id}/allocate", Set.of("post")),
             Map.entry("/donations", Set.of("get", "post")),
             Map.entry("/donations/{id}", Set.of("get", "put", "delete")),
             Map.entry("/blood-bags", Set.of("get", "post")),
@@ -67,7 +70,7 @@ class OpenApiContractIT {
                 assertTrue(objectFieldNames(operation.path("responses")).stream().anyMatch(code -> code.startsWith("2")));
             }
         }
-        assertEquals(23, operationIds.size());
+        assertEquals(29, operationIds.size());
         assertFalse(paths.has("/auth/register"));
         assertFalse(paths.has("/error"));
         assertTrue(paths.path("/auth/csrf").path("get").path("responses").has("204"));
@@ -148,6 +151,23 @@ class OpenApiContractIT {
             String method = path.endsWith("csrf") ? "get" : "post";
             assertTrue(document.path("paths").path(path).path(method).path("security").isEmpty());
         }
+        for (var entry : EXPECTED_OPERATIONS.entrySet()) {
+            String path = entry.getKey();
+            for (String method : entry.getValue()) {
+                boolean requiresCsrf = !method.equals("get") && !path.equals("/auth/login");
+                JsonNode operation = document.path("paths").path(path).path(method);
+                int csrfHeaders = 0;
+                for (JsonNode parameter : operation.path("parameters")) {
+                    if ("X-XSRF-TOKEN".equalsIgnoreCase(parameter.path("name").asText())
+                            && "header".equals(parameter.path("in").asText())) {
+                        csrfHeaders++;
+                        assertTrue(parameter.path("required").asBoolean(), method + " " + path);
+                        assertEquals("string", parameter.path("schema").path("type").asText(), method + " " + path);
+                    }
+                }
+                assertEquals(requiresCsrf ? 1 : 0, csrfHeaders, method + " " + path);
+            }
+        }
         assertUnauthorized(send("GET", "/api/v1/auth/me", null));
         assertUnauthorized(send("GET", "/api/v1/auth/me", null, "token-invalido"));
         assertUnauthorized(send("GET", "/api/v1/donations", null));
@@ -213,6 +233,67 @@ class OpenApiContractIT {
         for (String code : Set.of("201", "400", "401", "403")) {
             assertTrue(operation.path("responses").has(code), "resposta " + code + " documentada");
         }
+    }
+
+    @Test
+    @DisplayName("@spec:AC-032 OpenAPI documenta alocação, sessão, CSRF e respostas")
+    void ac032DocumentsAllocationContract() throws Exception {
+        JsonNode document = getOpenApiDocument();
+        JsonNode operation = document.path("paths").path("/requests/{id}/allocate").path("post");
+        assertFalse(operation.isMissingNode());
+        assertTrue(hasPathIdParameter(operation));
+        assertFalse(operation.has("requestBody"));
+        assertTrue(hasSecurityRequirement(operation, "cookieAuth"));
+        JsonNode scheme = document.path("components").path("securitySchemes").path("cookieAuth");
+        assertEquals("cookie", scheme.path("in").asText());
+        assertEquals("HEMOVIA_ACCESS", scheme.path("name").asText());
+        boolean csrfRequired = false;
+        for (JsonNode parameter : operation.path("parameters")) {
+            if ("X-XSRF-TOKEN".equalsIgnoreCase(parameter.path("name").asText())
+                    && "header".equals(parameter.path("in").asText())
+                    && parameter.path("required").asBoolean()) csrfRequired = true;
+        }
+        assertTrue(csrfRequired);
+        for (String code : Set.of("201", "400", "401", "403", "404", "409", "422")) {
+            JsonNode schema = operation.path("responses").path(code).path("content")
+                    .path("application/json").path("schema");
+            assertEquals(code.equals("201") ? "AllocationResponse" : "ApiError", refName(schema.path("$ref")),
+                    "schema da resposta " + code);
+        }
+        JsonNode properties = document.path("components").path("schemas").path("AllocationResponse").path("properties");
+        assertEquals(Set.of("id", "requestId", "status", "bloodBagIds"), objectFieldNames(properties));
+    }
+
+    @Test
+    @DisplayName("@spec:AC-040 OpenAPI documenta o cadastro de hemocentros")
+    void ac040DocumentsBloodCenterContract() throws Exception {
+        JsonNode document = getOpenApiDocument();
+        JsonNode collection = document.path("paths").path("/blood-centers");
+        JsonNode member = document.path("paths").path("/blood-centers/{id}");
+        assertBloodCenterOperation(collection.path("get"), false, Set.of("200", "401", "403"));
+        assertBloodCenterOperation(collection.path("post"), true, Set.of("201", "400", "401", "403"));
+        assertBloodCenterOperation(member.path("get"), false, Set.of("200", "400", "401", "403", "404"));
+        assertBloodCenterOperation(member.path("put"), true, Set.of("200", "400", "401", "403", "404"));
+        assertBloodCenterOperation(member.path("delete"), true, Set.of("204", "400", "401", "403", "404"));
+        for (String method : Set.of("get", "put", "delete")) {
+            assertTrue(hasPathIdParameter(member.path(method)));
+        }
+        JsonNode schemas = document.path("components").path("schemas");
+        assertRequired(schemas.path("BloodCenterRequest"), "name", "city", "latitude", "longitude");
+        assertEquals("uuid", schemas.path("BloodCenterResponse").path("properties").path("id").path("format").asText());
+    }
+
+    private static void assertBloodCenterOperation(JsonNode operation, boolean csrf, Set<String> responses) {
+        assertTrue(hasSecurityRequirement(operation, "cookieAuth"));
+        assertEquals(responses, objectFieldNames(operation.path("responses")));
+        boolean csrfRequired = false;
+        for (JsonNode parameter : operation.path("parameters")) {
+            if ("X-XSRF-TOKEN".equalsIgnoreCase(parameter.path("name").asText())
+                    && "header".equals(parameter.path("in").asText()) && parameter.path("required").asBoolean()) {
+                csrfRequired = true;
+            }
+        }
+        assertEquals(csrf, csrfRequired);
     }
 
     private JsonNode getOpenApiDocument() throws Exception {

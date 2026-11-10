@@ -55,7 +55,8 @@ public class DonationServiceImpl implements DonationService {
 
     private void apply(DonationRequestDTO request, Donation donation) {
         donation.setCollectionCenter(request.getCollectionCenter()); donation.setCollectionDate(request.getCollectionDate());
-        donation.setDonor(resolvePerson(request.getDonorId())); donation.setBloodCenter(resolveBloodCenter(request.getBloodCenterId()));
+        donation.setDonor(resolvePerson(request.getDonorId()));
+        donation.setBloodCenter(resolveBloodCenter(request.getBloodCenterId(), donation.getBloodCenter()));
     }
     private BloodBag resolveBloodBag(DonationRequestDTO request) {
         if (request.getBloodBagId() != null) return resolveExistingBag(request.getBloodBagId());
@@ -65,7 +66,12 @@ public class DonationServiceImpl implements DonationService {
     }
     private BloodBag resolveExistingBag(UUID id) { return bloodBagRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Blood bag not found: " + id)); }
     private Person resolvePerson(UUID id) { return id == null ? null : personRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Person not found: " + id)); }
-    private BloodCenter resolveBloodCenter(UUID id) { return id == null ? null : bloodCenterRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Blood center not found: " + id)); }
+    private BloodCenter resolveBloodCenter(UUID id, BloodCenter existing) {
+        if (id == null) return null;
+        if (existing != null && id.equals(existing.getId())) return existing;
+        return bloodCenterRepository.findActiveForUse(id)
+                .orElseThrow(() -> new EntityNotFoundException("Blood center not found: " + id));
+    }
     private Donation find(UUID id, String raw) { return donationRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Donation not found: " + raw)); }
     private UUID parseId(String id) { try { return UUID.fromString(id); } catch (IllegalArgumentException e) { throw new IllegalArgumentException("Invalid donation id format: " + id, e); } }
     private RhFactor parseRhFactor(String value) { try { return RhFactor.valueOf(value); } catch (RuntimeException e) { throw new IllegalArgumentException("Unknown Rh factor: " + value, e); } }

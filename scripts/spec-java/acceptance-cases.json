@@ -120,5 +120,40 @@
   ],
   "AC-029": [
     "com.hemovia.api.domain.BloodCompatibilityTest#shouldRejectScenarioDonorsForONegative"
+  ],
+  "AC-030": [
+    "com.hemovia.api.presentation.controller.BloodRequestAllocationAcceptanceTest#ac030AllocatesCompatibleBagsInFefoOrder"
+  ],
+  "AC-031": [
+    "com.hemovia.api.presentation.controller.BloodRequestAllocationAcceptanceTest#ac031RejectsInsufficientStock"
+  ],
+  "AC-032": [
+    "com.hemovia.api.presentation.controller.BloodRequestAllocationAcceptanceTest#ac032RequiresSessionRoleAndCsrf",
+    "com.hemovia.api.documentation.OpenApiContractIT#ac032DocumentsAllocationContract"
+  ],
+  "AC-033": [
+    "com.hemovia.api.presentation.controller.BloodRequestAllocationAcceptanceTest#ac033RejectsInvalidRequests"
+  ],
+  "AC-034": [
+    "com.hemovia.api.presentation.controller.BloodRequestAllocationAcceptanceTest#ac034OnlyOneConcurrentRequestReservesBag"
+  ],
+  "AC-035": [
+    "com.hemovia.api.presentation.controller.BloodRequestAllocationAcceptanceTest#ac035RollsBackCommitFailureAndAllowsRetry"
+  ],
+  "AC-036": [
+    "com.hemovia.api.presentation.controller.BloodCenterAcceptanceTest#ac036ManagesBloodCenter"
+  ],
+  "AC-037": [
+    "com.hemovia.api.presentation.controller.BloodCenterAcceptanceTest#ac037RejectsUnauthorizedAndInvalidWrites"
+  ],
+  "AC-038": [
+    "com.hemovia.api.presentation.controller.BloodCenterAcceptanceTest#ac038SoftDeletesPreservingHistory",
+    "com.hemovia.api.migration.AtualizacaoDeBancoLegadoTest#deveManterHemocentroLegadoAtivo"
+  ],
+  "AC-039": [
+    "com.hemovia.api.presentation.controller.BloodCenterAcceptanceTest#ac039RejectsNewOperationsAtDeletedCenter"
+  ],
+  "AC-040": [
+    "com.hemovia.api.documentation.OpenApiContractIT#ac040DocumentsBloodCenterContract"
   ]
 }

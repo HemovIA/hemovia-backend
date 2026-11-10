@@ -5,6 +5,7 @@ import com.hemovia.api.repository.BloodCenterRepository;
 import com.hemovia.api.repository.HospitalRepository;
 import com.hemovia.api.repository.VehicleRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -31,8 +32,9 @@ public class LinkedResourceCheckerAdapter implements LinkedResourceChecker {
     }
 
     @Override
+    @Transactional
     public boolean bloodCenterExists(UUID id) {
-        return bloodCenters.existsById(id);
+        return bloodCenters.findActiveForUse(id).isPresent();
     }
 
     @Override

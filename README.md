@@ -91,6 +91,39 @@ Issues organizadas e atualizadas pela ferramenta de issues do GitHub:
 
 ![Print do bug tracker](CAMINHO_DA_IMAGEM)
 
+---
+
+### Entrega 04
+
+#### Histórias implementadas
+
+##### [POOUS13 — Gestão do Cadastro de Hemocentros](https://github.com/HemovIA/hemovia-backend/issues/64)
+
+**Cartão:** Como administrador, quero cadastrar, consultar, atualizar e excluir hemocentros com sua localização para manter o cadastro operacional e preservar o histórico.
+
+**Conversa:** O cadastro registra nome, cidade, latitude e longitude. Usuários autenticados com um papel de negócio podem consultar hemocentros ativos. Somente administradores podem criar, atualizar e excluir. A exclusão preenche `deleted_at` e preserva os vínculos históricos.
+
+**Confirmação:**
+
+- **Dado** um administrador autenticado e dados válidos, **quando** ele cadastra e atualiza um hemocentro, **então** a criação retorna `201` com o ID e a atualização retorna `200`, preservando o ID e gravando os novos dados.
+- **Dado** um hemocentro com vínculos existentes, **quando** um administrador o exclui, **então** a API retorna `204`, retira o centro das consultas do cadastro e mantém o registro e seus vínculos no banco.
+
+##### [POOUS04 — Emissão de Requisições Hospitalares](https://github.com/HemovIA/hemovia-backend/issues/6)
+
+**Cartão:** Como profissional de um hospital, quero solicitar hemocomponentes informando o tipo sanguíneo, o fator Rh, o componente, a quantidade, a prioridade e o prazo de entrega para suprir demandas médicas urgentes.
+
+**Conversa:** O hospital solicitante é identificado pela sessão do profissional. Toda nova requisição válida é registrada com status inicial `PENDING`.
+
+**Confirmação:**
+
+- **Dado** um profissional autorizado que solicita quatro bolsas de plaquetas A+ com prioridade alta e prazo de seis horas, **quando** ele envia a requisição a `POST /api/v1/requests`, **então** a API retorna `201`, o ID para acompanhamento e o status `PENDING`.
+- **Dado** um pedido com os demais dados válidos, **quando** o profissional envia quantidade nula, zero ou negativa, **então** a API retorna `400` e não grava a requisição.
+
+#### Screencasts
+
+- **Uso do sistema:** demonstração da emissão de requisições hospitalares e da gestão de hemocentros no Swagger. *Link do YouTube pendente.*
+- **Explicação do código:** apresentação da implementação da POOUS13 e da POOUS04. *Link do YouTube pendente.*
+
 ## Como rodar o projeto
 
 *(seção detalhada a partir da segunda entrega)*

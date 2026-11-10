@@ -43,10 +43,16 @@ public class BloodBagServiceImpl implements BloodBagService {
         bag.setRhFactor(parseRhFactor(request.getRhFactor())); bag.setComponent(parseComponent(request.getComponent()));
         bag.setCollectionDate(toLocalDate(request.getCollectionDate())); bag.setExpirationDate(toLocalDate(request.getExpirationDate()));
         bag.setStatus(creating ? BloodBagStatus.AVAILABLE : request.getStatus()); bag.setBloodTypeEnum(request.getBloodTypeEnum());
-        bag.setVolumeMl(request.getVolumeMl()); bag.setDonor(resolvePerson(request.getDonorId())); bag.setBloodCenter(resolveBloodCenter(request.getBloodCenterId()));
+        bag.setVolumeMl(request.getVolumeMl()); bag.setDonor(resolvePerson(request.getDonorId()));
+        bag.setBloodCenter(resolveBloodCenter(request.getBloodCenterId(), bag.getBloodCenter()));
     }
     private Person resolvePerson(UUID id) { return id == null ? null : personRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Person not found: " + id)); }
-    private BloodCenter resolveBloodCenter(UUID id) { return id == null ? null : bloodCenterRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Blood center not found: " + id)); }
+    private BloodCenter resolveBloodCenter(UUID id, BloodCenter existing) {
+        if (id == null) return null;
+        if (existing != null && id.equals(existing.getId())) return existing;
+        return bloodCenterRepository.findActiveForUse(id)
+                .orElseThrow(() -> new EntityNotFoundException("Blood center not found: " + id));
+    }
     private BloodBag find(UUID id, String rawId) { return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Blood bag not found: " + rawId)); }
     private RhFactor parseRhFactor(String value) { try { return RhFactor.valueOf(value); } catch (RuntimeException e) { throw new IllegalArgumentException("Unknown Rh factor: " + value, e); } }
     private BloodComponent parseComponent(String value) { try { return BloodComponent.valueOf(value); } catch (RuntimeException e) { throw new IllegalArgumentException("Unknown blood component: " + value, e); } }

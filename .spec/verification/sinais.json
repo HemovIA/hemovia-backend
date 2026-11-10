@@ -77,10 +77,10 @@
       "codigo": "GLOB_SEM_ARQUIVOS",
       "feature": "—",
       "ref": "P-002",
-      "ocorrencias": 14,
+      "ocorrencias": 18,
       "primeiraVez": "2026-10-22T16:48:12.342Z",
-      "ultimaVez": "2026-11-09T18:36:13.577Z",
-      "gitRev": "78748fa"
+      "ultimaVez": "2026-11-09T23:05:19.426Z",
+      "gitRev": "566c3c6"
     },
     "ARQUIVO_INEXISTENTE::finalizando-entidades-base::T-005": {
       "codigo": "ARQUIVO_INEXISTENTE",
@@ -540,6 +540,69 @@
       "primeiraVez": "2026-10-22T20:15:07.790Z",
       "ultimaVez": "2026-10-22T20:15:07.790Z",
       "gitRev": "6f50cc7"
+    },
+    "ID_DUPLICADO::poous13-cadastro-hemocentros::ASM-005": {
+      "codigo": "ID_DUPLICADO",
+      "feature": "poous13-cadastro-hemocentros",
+      "ref": "ASM-005",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-09T22:48:48.721Z",
+      "ultimaVez": "2026-11-09T22:48:48.728Z",
+      "gitRev": "566c3c6"
+    },
+    "ARQUIVO_INEXISTENTE::poous13-cadastro-hemocentros::T-024": {
+      "codigo": "ARQUIVO_INEXISTENTE",
+      "feature": "poous13-cadastro-hemocentros",
+      "ref": "T-024",
+      "ocorrencias": 6,
+      "primeiraVez": "2026-11-09T22:48:48.728Z",
+      "ultimaVez": "2026-11-09T22:48:48.728Z",
+      "gitRev": "566c3c6"
+    },
+    "AC_SEM_TESTE::poous13-cadastro-hemocentros::AC-036": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "poous13-cadastro-hemocentros",
+      "ref": "AC-036",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-09T22:48:48.728Z",
+      "ultimaVez": "2026-11-09T22:48:48.728Z",
+      "gitRev": "566c3c6"
+    },
+    "AC_SEM_TESTE::poous13-cadastro-hemocentros::AC-037": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "poous13-cadastro-hemocentros",
+      "ref": "AC-037",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-09T22:48:48.728Z",
+      "ultimaVez": "2026-11-09T22:48:48.728Z",
+      "gitRev": "566c3c6"
+    },
+    "AC_SEM_TESTE::poous13-cadastro-hemocentros::AC-038": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "poous13-cadastro-hemocentros",
+      "ref": "AC-038",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-09T22:48:48.728Z",
+      "ultimaVez": "2026-11-09T22:48:48.728Z",
+      "gitRev": "566c3c6"
+    },
+    "AC_SEM_TESTE::poous13-cadastro-hemocentros::AC-039": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "poous13-cadastro-hemocentros",
+      "ref": "AC-039",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-09T22:48:48.728Z",
+      "ultimaVez": "2026-11-09T22:48:48.728Z",
+      "gitRev": "566c3c6"
+    },
+    "AC_SEM_TESTE::poous13-cadastro-hemocentros::AC-040": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "poous13-cadastro-hemocentros",
+      "ref": "AC-040",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-09T22:48:48.728Z",
+      "ultimaVez": "2026-11-09T22:48:48.728Z",
+      "gitRev": "566c3c6"
     }
   }
 }
