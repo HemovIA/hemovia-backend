@@ -17,7 +17,8 @@ $taskPortProbe.Start()
 $taskPort = $taskPortProbe.LocalEndpoint.Port
 $taskPortProbe.Stop()
 $taskPrevious = @{}
-foreach ($taskName in @('HEMOVIA_TEST_JDBC_URL','HEMOVIA_TEST_DB_USER','HEMOVIA_TEST_DB_PASSWORD')) {
+foreach ($taskName in @('HEMOVIA_TEST_JDBC_URL','HEMOVIA_TEST_DB_USER','HEMOVIA_TEST_DB_PASSWORD',
+        'POSTGRES_HOST','POSTGRES_PORT','POSTGRES_DB','POSTGRES_USER','POSTGRES_PASSWORD')) {
     $taskPrevious[$taskName] = [Environment]::GetEnvironmentVariable($taskName, 'Process')
 }
 $taskStarted = $false
@@ -34,6 +35,12 @@ try {
     $env:HEMOVIA_TEST_JDBC_URL = "jdbc:postgresql://127.0.0.1:$taskPort/hemovia_entities_test"
     $env:HEMOVIA_TEST_DB_USER = 'hemovia_test'
     $env:HEMOVIA_TEST_DB_PASSWORD = ''
+    # Os testes de migration da main usam POSTGRES_*; apontam para o mesmo banco temporário.
+    $env:POSTGRES_HOST = '127.0.0.1'
+    $env:POSTGRES_PORT = [string]$taskPort
+    $env:POSTGRES_DB = 'hemovia_entities_test'
+    $env:POSTGRES_USER = 'hemovia_test'
+    $env:POSTGRES_PASSWORD = ''
     if ($Verify) {
         $taskResult = 0
         foreach ($taskFeature in $Features) {
