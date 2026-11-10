@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /*
-Ciclo 2 da Seção 2: as treze migrations aplicam, em ordem, num banco totalmente vazio.
+Ciclo 2 da Seção 2: todas as migrations aplicam, em ordem, num banco totalmente vazio.
 É o caminho de quem sobe o sistema pela primeira vez (e o do CI).
 */
 @Tag("integration")
@@ -36,8 +36,8 @@ class MigracoesEmBancoVazioTest {
     void deveAplicarTodasAsMigrationsEmBancoVazio() {
         // Quando aplicamos todas as migrations
         banco.migrarTudo();
-        // Então o banco termina na versão 13
-        assertThat(banco.versaoAtual()).isEqualTo("13");
+        // Então o banco termina na versão 14
+        assertThat(banco.versaoAtual()).isEqualTo("14");
     }
 
     @Test

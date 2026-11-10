@@ -91,6 +91,39 @@ Issues organizadas e atualizadas pela ferramenta de issues do GitHub:
 
 ![Print do bug tracker](CAMINHO_DA_IMAGEM)
 
+---
+
+### Entrega 04
+
+#### Histórias implementadas
+
+##### [POOUS13 — Gestão do Cadastro de Hemocentros](https://github.com/HemovIA/hemovia-backend/issues/64)
+
+**Cartão:** Como administrador, quero cadastrar, consultar, atualizar e excluir hemocentros com sua localização para manter o cadastro operacional e preservar o histórico.
+
+**Conversa:** O cadastro registra nome, cidade, latitude e longitude. Usuários autenticados com um papel de negócio podem consultar hemocentros ativos. Somente administradores podem criar, atualizar e excluir. A exclusão preenche `deleted_at` e preserva os vínculos históricos.
+
+**Confirmação:**
+
+- **Dado** um administrador autenticado e dados válidos, **quando** ele cadastra e atualiza um hemocentro, **então** a criação retorna `201` com o ID e a atualização retorna `200`, preservando o ID e gravando os novos dados.
+- **Dado** um hemocentro com vínculos existentes, **quando** um administrador o exclui, **então** a API retorna `204`, retira o centro das consultas do cadastro e mantém o registro e seus vínculos no banco.
+
+##### [POOUS04 — Emissão de Requisições Hospitalares](https://github.com/HemovIA/hemovia-backend/issues/6)
+
+**Cartão:** Como profissional de um hospital, quero solicitar hemocomponentes informando o tipo sanguíneo, o fator Rh, o componente, a quantidade, a prioridade e o prazo de entrega para suprir demandas médicas urgentes.
+
+**Conversa:** O hospital solicitante é identificado pela sessão do profissional. Toda nova requisição válida é registrada com status inicial `PENDING`.
+
+**Confirmação:**
+
+- **Dado** um profissional autorizado que solicita quatro bolsas de plaquetas A+ com prioridade alta e prazo de seis horas, **quando** ele envia a requisição a `POST /api/v1/requests`, **então** a API retorna `201`, o ID para acompanhamento e o status `PENDING`.
+- **Dado** um pedido com os demais dados válidos, **quando** o profissional envia quantidade nula, zero ou negativa, **então** a API retorna `400` e não grava a requisição.
+
+#### Screencasts
+
+- **Uso do sistema:** demonstração da emissão de requisições hospitalares e da gestão de hemocentros no Swagger. *Link do YouTube pendente.*
+- **Explicação do código:** apresentação da implementação da POOUS13 e da POOUS04. *Link do YouTube pendente.*
+
 ## Como rodar o projeto
 
 *(seção detalhada a partir da segunda entrega)*
@@ -114,6 +147,40 @@ node <diretorio-da-skill-onp-spec-driven>/scripts/onp-spec.mjs audit --ci
 ```
 
 Os dois últimos comandos só devem ser considerados aprovados quando terminarem com exit code `0`; veja as limitações e evidências reais em [resultado-validacao.md](.spec/features/finalizando-entidades-base/resultado-validacao.md).
+
+### Documentação interativa da API
+
+Com a aplicação iniciada, a interface Swagger UI fica em [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html) e o documento OpenAPI em [http://localhost:8080/v3/api-docs](http://localhost:8080/v3/api-docs). A documentação é pública; isso não altera a autenticação das operações de negócio. O endpoint `/auth/me` exige JWT e as outras rotas mantêm a política atual descrita no próprio documento.
+
+#### Pré-requisitos e inicialização local
+
+- JDK 21 e Docker com Docker Compose.
+- PostgreSQL 16, iniciado pelo Compose deste projeto, e variáveis de conexão preenchidas em `api/.env` a partir de `api/.env.example`.
+- Flyway habilitado; a aplicação aplica as migrações no startup. Dados legados incompatíveis podem interromper o startup com diagnóstico; Swagger não corrige nem transforma esses dados.
+
+No PowerShell, a partir da raiz do repositório:
+
+```powershell
+Copy-Item api/.env.example api/.env
+# Preencha as variáveis POSTGRES_*, JWT_SECRET (mínimo 32 caracteres) e ADMIN_* em api/.env.
+# Para HTTP local, defina COOKIE_SECURE=false.
+docker compose --env-file api/.env -f api/compose.yaml up -d postgres
+Set-Location api
+.\mvnw.cmd spring-boot:run
+```
+
+Para habilitar explicitamente a documentação, defina `HEMOVIA_API_DOCS_ENABLED=true`; esse também é o padrão. Para desabilitá-la, defina `HEMOVIA_API_DOCS_ENABLED=false`; a mesma opção desabilita `/v3/api-docs`, sua configuração e a Swagger UI.
+
+#### Autenticação no Swagger
+
+1. Configure `ADMIN_NAME`, `ADMIN_EMAIL`, `ADMIN_CPF` e `ADMIN_PASSWORD` para criar o primeiro administrador na inicialização.
+2. Execute `POST /api/v1/auth/login` com `identifier` (e-mail ou CPF) e `password`. O navegador recebe os cookies HttpOnly de sessão.
+3. Consulte `/api/v1/auth/me`. As rotas de negócio exigem sessão e papel autorizado; novos usuários são criados pelo administrador em `/api/v1/users`.
+4. Antes de escritas, consulte `/api/v1/auth/csrf` e envie o valor do cookie `XSRF-TOKEN` no header `X-XSRF-TOKEN`.
+
+A autenticação usa cookies do navegador; o botão **Authorize** não é usado para colar JWT. Em HTTP local, configure `COOKIE_SECURE=false`. O servidor OpenAPI já contém `/api/v1`.
+
+Não use dados pessoais ou credenciais reais nos exemplos. O documento reflete os controllers e DTOs existentes; ele não cria endpoints para entidades sem controller.
 
 ---
 

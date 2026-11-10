@@ -14,7 +14,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
-import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -35,7 +35,7 @@ class BloodBagServiceImplTest {
 
     @Test
     void shouldRejectExpiredBloodBagBeforeSaving() {
-        BloodBagRequestDTO request = requestWithExpiration(LocalDate.now().minusDays(1));
+        BloodBagRequestDTO request = requestWithExpiration(LocalDate.now(ZoneOffset.UTC).minusDays(1));
 
         assertThatThrownBy(() -> service.create(request))
                 .isInstanceOf(BloodBagExpiredException.class);
@@ -45,7 +45,7 @@ class BloodBagServiceImplTest {
 
     @Test
     void shouldSaveFutureBloodBagAsAvailable() {
-        BloodBagRequestDTO request = requestWithExpiration(LocalDate.now().plusDays(1));
+        BloodBagRequestDTO request = requestWithExpiration(LocalDate.now(ZoneOffset.UTC).plusDays(1));
         when(repository.save(any())).thenAnswer(invocation -> invocation.getArgument(0));
 
         BloodBagResponseDTO response = service.create(request);
@@ -61,7 +61,7 @@ class BloodBagServiceImplTest {
         BloodBagRequestDTO request = new BloodBagRequestDTO();
         request.setRhFactor("POSITIVE");
         request.setComponent("WHOLE_BLOOD");
-        request.setCollectionDate(toDate(LocalDate.now()));
+        request.setCollectionDate(toDate(LocalDate.now(ZoneOffset.UTC)));
         request.setExpirationDate(toDate(expirationDate));
         request.setStatus(BloodBagStatus.DISCARDED);
         request.setBloodTypeEnum(BloodType.O);
@@ -69,6 +69,6 @@ class BloodBagServiceImplTest {
     }
 
     private Date toDate(LocalDate date) {
-        return Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        return Date.from(date.atStartOfDay().toInstant(ZoneOffset.UTC));
     }
 }

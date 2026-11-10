@@ -1,0 +1,37 @@
+{
+  "feature": "poous13-cadastro-hemocentros",
+  "timestamp": "2026-11-09T22:57:21.779Z",
+  "gitRev": "566c3c6",
+  "command": "node scripts/spec-java/verify-tests.mjs",
+  "reporter": "tap",
+  "exitCode": 0,
+  "testsParsed": 49,
+  "results": {
+    "AC-036": {
+      "status": "pass",
+      "testName": "@spec:AC-036 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-037": {
+      "status": "pass",
+      "testName": "@spec:AC-037 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-038": {
+      "status": "pass",
+      "testName": "@spec:AC-038 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-039": {
+      "status": "pass",
+      "testName": "@spec:AC-039 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-040": {
+      "status": "pass",
+      "testName": "@spec:AC-040 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    }
+  },
+  "principles": {}
+}

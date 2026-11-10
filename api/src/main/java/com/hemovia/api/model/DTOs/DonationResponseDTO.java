@@ -1,17 +1,27 @@
 package com.hemovia.api.model.DTOs;
 
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
+@Schema(name = "DonationResponse", description = "Doação consultada. bloodBags contém todas as bolsas; bloodBag é nulo quando não há exatamente uma bolsa associada.")
 public class DonationResponseDTO {
+    @Schema(format = "uuid", example = "d721fd4a-6e38-47d7-8a6d-63c154cfcb8a")
     private UUID donationId;
     /** ISO-8601 civil date, deliberately serialized without a timezone. */
+    @Schema(format = "date", example = "2026-10-22")
     private String collectionDate;
+    @Schema(example = "Hemocentro Central")
     private String collectionCenter;
+    @Schema(nullable = true, description = "Bolsa singular somente quando a doação possui exatamente uma; nula para zero ou várias.")
     private BloodBagResponseDTO bloodBag;
+    @ArraySchema(schema = @Schema(implementation = BloodBagResponseDTO.class), arraySchema = @Schema(description = "Todas as bolsas associadas à doação."))
     private List<BloodBagResponseDTO> bloodBags = List.of();
+    @Schema(format = "uuid", nullable = true, description = "Doador vinculado, quando conhecido.")
     private UUID donorId;
+    @Schema(format = "uuid", nullable = true, description = "Hemocentro vinculado, quando conhecido.")
     private UUID bloodCenterId;
 
     public UUID getDonationId() {

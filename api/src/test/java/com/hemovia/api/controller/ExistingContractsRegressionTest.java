@@ -24,6 +24,7 @@ import org.mockito.ArgumentCaptor;
 
 import java.lang.reflect.Constructor;
 import java.time.LocalDate;
+import java.time.ZoneOffset;
 import java.util.*;
 
 import static com.hemovia.api.support.BaseEntityFixtures.*;
@@ -45,8 +46,12 @@ class ExistingContractsRegressionTest {
     }
 
     private BloodBagRequestDTO legacyRequest(UUID donorId) throws Exception {
-        String json = "{\"rhFactor\":\"POSITIVE\",\"component\":\"WHOLE_BLOOD\",\"collectionDate\":\"" + LocalDate.now().minusDays(1)
-                + "\",\"expirationDate\":\"" + LocalDate.now().plusDays(30)
+        return legacyRequest(donorId, LocalDate.now(ZoneOffset.UTC));
+    }
+
+    private BloodBagRequestDTO legacyRequest(UUID donorId, LocalDate referenceDate) throws Exception {
+        String json = "{\"rhFactor\":\"POSITIVE\",\"component\":\"WHOLE_BLOOD\",\"collectionDate\":\"" + referenceDate.minusDays(1)
+                + "\",\"expirationDate\":\"" + referenceDate.plusDays(30)
                 + "\",\"status\":\"AVAILABLE\",\"bloodTypeEnum\":\"O\",\"donorId\":\"" + donorId + "\"}";
         return new ObjectMapper().findAndRegisterModules().readValue(json, BloodBagRequestDTO.class);
     }
@@ -137,7 +142,8 @@ class ExistingContractsRegressionTest {
     @Test @DisplayName("@spec:AC-015 data de calendário não muda entre UTC e São Paulo")
     void ac015_civilDateDoesNotShiftByTimezone() throws Exception {
         TimeZone original = TimeZone.getDefault();
-        LocalDate expected = LocalDate.now().plusDays(30);
+        LocalDate referenceDate = LocalDate.now(ZoneOffset.UTC);
+        LocalDate expected = referenceDate.plusDays(30);
         try {
             for (String zone : List.of("UTC", "America/Sao_Paulo")) {
                 TimeZone.setDefault(TimeZone.getTimeZone(zone));
@@ -145,7 +151,7 @@ class ExistingContractsRegressionTest {
                 var repository = (BloodBagRepository) dependencies.get(BloodBagRepository.class);
                 Person donor = new Person(UUID.randomUUID(), "Pessoa Sintética", "donor@example.test", "81000000000"); donorLookup(donor);
                 when(repository.save(any())).thenAnswer(i -> i.getArgument(0));
-                var response = service.create(legacyRequest(donor.getId()));
+                var response = service.create(legacyRequest(donor.getId(), referenceDate));
                 assertEquals(expected.toString(), response.getExpirationDate(), "Data civil deve usar ISO sem mudar de dia: " + zone);
             }
         } finally { TimeZone.setDefault(original); }
