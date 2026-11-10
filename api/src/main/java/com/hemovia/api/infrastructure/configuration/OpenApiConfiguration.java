@@ -2,8 +2,11 @@ package com.hemovia.api.infrastructure.configuration;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.Operation;
 import io.swagger.v3.oas.models.Paths;
 import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.media.StringSchema;
+import io.swagger.v3.oas.models.parameters.HeaderParameter;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
@@ -18,6 +21,7 @@ Descreve a API no OpenAPI (doc, seção 44) e alimenta o Swagger UI.
 */
 @Configuration
 public class OpenApiConfiguration {
+    private static final String CSRF_HEADER = "X-XSRF-TOKEN";
 
     @Bean
     public OpenAPI hemoviaOpenApi() {
@@ -44,11 +48,35 @@ public class OpenApiConfiguration {
                     if (List.of("/auth/login", "/auth/refresh", "/auth/csrf").contains(relativo)) {
                         item.readOperations().forEach(operation -> operation.setSecurity(List.of()));
                     }
+                    // O login e a telemetria são isentos de CSRF na cadeia de segurança.
+                    if (!List.of("/auth/login", "/telemetry").contains(relativo)) {
+                        item.readOperationsMap().forEach((metodo, operacao) -> {
+                            switch (metodo) {
+                                case POST, PUT, PATCH, DELETE -> documentarCsrf(operacao);
+                                default -> { }
+                            }
+                        });
+                    }
                     relativos.addPathItem(relativo, item);
                 });
             }
             openApi.setPaths(relativos);
         };
+    }
+
+    private static void documentarCsrf(Operation operacao) {
+        var parametros = operacao.getParameters();
+        if (parametros != null) {
+            for (var parametro : parametros) {
+                if ("header".equals(parametro.getIn()) && CSRF_HEADER.equalsIgnoreCase(parametro.getName())) {
+                    parametro.required(true).schema(new StringSchema());
+                    return;
+                }
+            }
+        }
+        operacao.addParametersItem(new HeaderParameter().name(CSRF_HEADER).required(true)
+                .description("Valor do cookie XSRF-TOKEN obtido em GET /auth/csrf.")
+                .schema(new StringSchema()));
     }
 
     // Remove o prefixo da versão do começo do caminho, se ele estiver lá

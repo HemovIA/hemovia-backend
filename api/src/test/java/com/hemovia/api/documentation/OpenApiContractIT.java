@@ -151,6 +151,23 @@ class OpenApiContractIT {
             String method = path.endsWith("csrf") ? "get" : "post";
             assertTrue(document.path("paths").path(path).path(method).path("security").isEmpty());
         }
+        for (var entry : EXPECTED_OPERATIONS.entrySet()) {
+            String path = entry.getKey();
+            for (String method : entry.getValue()) {
+                boolean requiresCsrf = !method.equals("get") && !path.equals("/auth/login");
+                JsonNode operation = document.path("paths").path(path).path(method);
+                int csrfHeaders = 0;
+                for (JsonNode parameter : operation.path("parameters")) {
+                    if ("X-XSRF-TOKEN".equalsIgnoreCase(parameter.path("name").asText())
+                            && "header".equals(parameter.path("in").asText())) {
+                        csrfHeaders++;
+                        assertTrue(parameter.path("required").asBoolean(), method + " " + path);
+                        assertEquals("string", parameter.path("schema").path("type").asText(), method + " " + path);
+                    }
+                }
+                assertEquals(requiresCsrf ? 1 : 0, csrfHeaders, method + " " + path);
+            }
+        }
         assertUnauthorized(send("GET", "/api/v1/auth/me", null));
         assertUnauthorized(send("GET", "/api/v1/auth/me", null, "token-invalido"));
         assertUnauthorized(send("GET", "/api/v1/donations", null));
