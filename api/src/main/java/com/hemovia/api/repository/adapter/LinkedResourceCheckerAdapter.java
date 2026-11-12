@@ -1,0 +1,44 @@
+package com.hemovia.api.repository.adapter;
+
+import com.hemovia.api.repository.port.LinkedResourceChecker;
+import com.hemovia.api.repository.jpa.BloodCenterRepository;
+import com.hemovia.api.repository.jpa.HospitalRepository;
+import com.hemovia.api.repository.jpa.VehicleRepository;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.UUID;
+
+/*
+Confere nos repositórios existentes se o hospital, hemocentro ou veículo do vínculo realmente existe.
+*/
+@Component
+public class LinkedResourceCheckerAdapter implements LinkedResourceChecker {
+
+    private final HospitalRepository hospitals;
+    private final BloodCenterRepository bloodCenters;
+    private final VehicleRepository vehicles;
+
+    public LinkedResourceCheckerAdapter(HospitalRepository hospitals, BloodCenterRepository bloodCenters,
+                                        VehicleRepository vehicles) {
+        this.hospitals = hospitals;
+        this.bloodCenters = bloodCenters;
+        this.vehicles = vehicles;
+    }
+
+    @Override
+    public boolean hospitalExists(UUID id) {
+        return hospitals.existsById(id);
+    }
+
+    @Override
+    @Transactional
+    public boolean bloodCenterExists(UUID id) {
+        return bloodCenters.findActiveForUse(id).isPresent();
+    }
+
+    @Override
+    public boolean vehicleExists(UUID id) {
+        return vehicles.existsById(id);
+    }
+}

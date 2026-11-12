@@ -1,6 +1,6 @@
 package com.hemovia.api.acceptance;
 
-import com.hemovia.api.repository.HospitalRepository;
+import com.hemovia.api.repository.jpa.HospitalRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;

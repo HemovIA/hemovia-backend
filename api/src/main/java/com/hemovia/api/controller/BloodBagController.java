@@ -1,7 +1,7 @@
 package com.hemovia.api.controller;
 
-import com.hemovia.api.model.DTOs.BloodBagRequestDTO;
-import com.hemovia.api.model.DTOs.BloodBagResponseDTO;
+import com.hemovia.api.dto.request.BloodBagRequestDTO;
+import com.hemovia.api.dto.response.BloodBagResponseDTO;
 import com.hemovia.api.service.BloodBagService;
 import jakarta.validation.Valid;
 import io.swagger.v3.oas.annotations.Operation;

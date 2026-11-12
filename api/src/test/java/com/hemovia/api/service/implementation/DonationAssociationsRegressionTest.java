@@ -1,10 +1,10 @@
 package com.hemovia.api.service.implementation;
 
-import com.hemovia.api.model.BloodBag;
-import com.hemovia.api.model.BloodCenter;
-import com.hemovia.api.model.Donation;
-import com.hemovia.api.model.DTOs.DonationRequestDTO;
-import com.hemovia.api.repository.*;
+import com.hemovia.api.model.entity.BloodBag;
+import com.hemovia.api.model.entity.BloodCenter;
+import com.hemovia.api.model.entity.Donation;
+import com.hemovia.api.dto.request.DonationRequestDTO;
+import com.hemovia.api.repository.jpa.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

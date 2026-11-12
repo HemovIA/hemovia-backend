@@ -9,7 +9,7 @@ Projeto Integrador desenvolvido na **CESAR School**, curso de Análise e Desenvo
 ## Tecnologias usadas
 
 - **Backend:** Java + Spring Boot
-- **Arquitetura:** Clean Architecture (Domain, Application, Infrastructure, Presentation) + princípios SOLID
+- **Arquitetura:** backend em cinco camadas Java (`controller`, `service`, `dto`, `repository` e `model`)
 - **Banco de dados:** PostgreSQL (Spring Data JPA)
 - **Documentação de API:** OpenAPI/Swagger
 - **CI/CD:** GitHub Actions
@@ -127,6 +127,20 @@ Issues organizadas e atualizadas pela ferramenta de issues do GitHub:
 ## Como rodar o projeto
 
 *(seção detalhada a partir da segunda entrega)*
+
+### Organização do backend
+
+As cinco camadas ficam sob o pacote `com.hemovia.api`.
+
+| Camada | Responsabilidade |
+|---|---|
+| `controller` | Rotas HTTP, tratamento de erros, configuração do Swagger e segurança da sessão HTTP. |
+| `service` | Casos de uso, regras de aplicação, transações e serviços de autenticação. |
+| `dto` | Dados de entrada, de saída e de troca interna, separados dos modelos persistidos. |
+| `repository` | Contratos de persistência, repositórios Spring Data JPA, adaptadores e mapeadores. |
+| `model` | Modelos de negócio, entidades JPA em `model.entity`, enums, objetos de valor e algoritmos. |
+
+Um controller recebe e devolve DTOs e chama o serviço. O serviço coordena a operação e usa o modelo e os repositórios. O ArchUnit verifica a distribuição do código e as dependências entre as camadas.
 
 ### Modelo persistente: entidades base
 

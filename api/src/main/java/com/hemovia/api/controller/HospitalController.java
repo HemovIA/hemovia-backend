@@ -1,7 +1,7 @@
 package com.hemovia.api.controller;
 
-import com.hemovia.api.model.DTOs.HospitalRequestDTO;
-import com.hemovia.api.model.DTOs.HospitalResponseDTO;
+import com.hemovia.api.dto.request.HospitalRequestDTO;
+import com.hemovia.api.dto.response.HospitalResponseDTO;
 import com.hemovia.api.service.HospitalService;
 import jakarta.validation.Valid;
 import io.swagger.v3.oas.annotations.Operation;

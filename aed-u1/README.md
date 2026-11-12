@@ -23,7 +23,7 @@ Não há roteirização, FEFO, hash ou compatibilidade ABO/Rh.
 
 ## Integração Java
 
-As classes em `api/src/main/java/com/hemovia/api/structures/basic` não dependem de `List`, `Queue`, `Deque` ou `Stack` da biblioteca para implementar os elos. Um serviço pode compor `BloodBagStockList`, `HospitalRequestQueue` e `StockHistoryStack` como campos. `BloodBagStockList` armazena objetos `BloodBag` existentes no domínio; a fila e a pilha usam registros pequenos de domínio da própria U1. O estado de undo é descrito pelo evento e sua aplicação fica a cargo do serviço, que deve localizar a bolsa e restaurar `previousStatus` conforme o fluxo de domínio.
+As classes em `api/src/main/java/com/hemovia/api/model/algorithm/structure` não dependem de `List`, `Queue`, `Deque` ou `Stack` da biblioteca para implementar os elos. Um serviço pode compor `BloodBagStockList`, `HospitalRequestQueue` e `StockHistoryStack` como campos. `BloodBagStockList` armazena objetos `BloodBag` existentes no domínio; a fila e a pilha usam registros pequenos de domínio da própria U1. O estado de undo é descrito pelo evento e sua aplicação fica a cargo do serviço, que deve localizar a bolsa e restaurar `previousStatus` conforme o fluxo de domínio.
 
 ## Compilar e executar o exemplo C
 

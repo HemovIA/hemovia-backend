@@ -1,7 +1,7 @@
 package com.hemovia.api.service;
 
-import com.hemovia.api.model.DTOs.BloodBagRequestDTO;
-import com.hemovia.api.model.DTOs.BloodBagResponseDTO;
+import com.hemovia.api.dto.request.BloodBagRequestDTO;
+import com.hemovia.api.dto.response.BloodBagResponseDTO;
 
 import java.util.List;
 

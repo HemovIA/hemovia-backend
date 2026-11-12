@@ -4,38 +4,56 @@ import com.tngtech.archunit.core.importer.ImportOption;
 import com.tngtech.archunit.junit.AnalyzeClasses;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
+import jakarta.persistence.Entity;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RestController;
 
-/*
-Aplica as regras de arquitetura ao código de produção real do projeto.
-As classes legadas (controller, service, model...) não casam com estes pacotes,
-então as regras passam a valer de verdade conforme cada seção migra o seu pedaço.
-*/
-// Olhamos só o código de produção; as classes de teste ficam de fora da análise
+import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
+
 @AnalyzeClasses(packages = ArquiteturaTest.RAIZ, importOptions = ImportOption.DoNotIncludeTests.class)
 class ArquiteturaTest {
 
-    // Pacote raiz do projeto, compartilhado com a anotação acima
     static final String RAIZ = "com.hemovia.api";
 
-    // Ciclo 1: domínio sem Spring, JPA, Jackson nem camadas externas
     @ArchTest
-    static final ArchRule dominioDeveSerJavaPuro = RegrasDeArquitetura.dominioPuro(RAIZ);
+    static final ArchRule codigoNasCincoCamadas = RegrasDeArquitetura.codigoNasCincoCamadas(RAIZ);
 
-    // Ciclo 2a: aplicação sem infraestrutura nem apresentação
     @ArchTest
-    static final ArchRule aplicacaoNaoDeveDependerDeInfraestruturaNemApresentacao =
-            RegrasDeArquitetura.aplicacaoSemInfraestruturaNemApresentacao(RAIZ);
+    static final ArchRule rotasNaCamadaController = classes().that().areAnnotatedWith(RestController.class)
+            .should().resideInAPackage(RAIZ + ".controller..");
 
-    // Ciclo 2b: aplicação só com @Service e @Transactional do Spring
     @ArchTest
-    static final ArchRule aplicacaoSoDeveUsarServiceETransactionalDoSpring =
-            RegrasDeArquitetura.aplicacaoSoUsaServiceETransactionalDoSpring(RAIZ);
+    static final ArchRule casosDeUsoNaCamadaService = classes().that().areAnnotatedWith(Service.class)
+            .should().resideInAPackage(RAIZ + ".service..");
 
-    // Ciclo 3: apresentação sem acesso à persistência
     @ArchTest
-    static final ArchRule apresentacaoNaoDeveAcessarPersistencia = RegrasDeArquitetura.apresentacaoSemPersistencia(RAIZ);
+    static final ArchRule repositoriosJpaNaCamadaRepository = classes().that().areAssignableTo(JpaRepository.class)
+            .should().resideInAPackage(RAIZ + ".repository.jpa..");
 
-    // Ciclo 4: controllers sem entidades no retorno
     @ArchTest
-    static final ArchRule controllersNaoDevemDevolverEntidades = RegrasDeArquitetura.controllersNaoDevolvemEntidades(RAIZ);
+    static final ArchRule entidadesJpaNaCamadaModel = classes().that().areAnnotatedWith(Entity.class)
+            .should().resideInAPackage(RAIZ + ".model.entity..");
+
+    @ArchTest
+    static final ArchRule controllersSemPersistencia = RegrasDeArquitetura.controllersSemPersistencia(RAIZ);
+
+    @ArchTest
+    static final ArchRule servicosSemControllers = RegrasDeArquitetura.servicosSemControllers(RAIZ);
+
+    @ArchTest
+    static final ArchRule repositoriosSemDependenciasDasCamadasSuperiores =
+            RegrasDeArquitetura.repositoriosSemDependenciasDasCamadasSuperiores(RAIZ);
+
+    @ArchTest
+    static final ArchRule dtosSemPersistenciaNemDependenciasDasCamadasSuperiores =
+            RegrasDeArquitetura.dtosSemPersistenciaNemDependenciasDasCamadasSuperiores(RAIZ);
+
+    @ArchTest
+    static final ArchRule modeloSemDependenciasDasCamadasSuperiores =
+            RegrasDeArquitetura.modeloSemDependenciasDasCamadasSuperiores(RAIZ);
+
+    @ArchTest
+    static final ArchRule controllersNaoDevemDevolverEntidades =
+            RegrasDeArquitetura.controllersNaoDevolvemEntidades(RAIZ);
 }
