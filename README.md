@@ -121,8 +121,8 @@ Issues organizadas e atualizadas pela ferramenta de issues do GitHub:
 
 #### Screencasts
 
-- **Uso do sistema:** demonstração da emissão de requisições hospitalares e da gestão de hemocentros no Swagger. *Link do YouTube pendente.*
-- **Explicação do código:** apresentação da implementação da POOUS13 e da POOUS04. *Link do YouTube pendente.*
+-  **[Vídeo da entrega 04](https://www.youtube.com/watch?v=d44n4RsEXDw)**
+-  **[Explicação do código](https://www.youtube.com/watch?v=TQqrf7Rikus)**
 
 ## Como rodar o projeto
 
