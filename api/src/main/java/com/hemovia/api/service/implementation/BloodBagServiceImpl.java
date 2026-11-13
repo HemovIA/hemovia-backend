@@ -1,17 +1,17 @@
 package com.hemovia.api.service.implementation;
 
-import com.hemovia.api.domain.exception.BloodBagExpiredException;
-import com.hemovia.api.model.BloodBag;
-import com.hemovia.api.model.BloodCenter;
-import com.hemovia.api.model.Person;
-import com.hemovia.api.model.DTOs.BloodBagRequestDTO;
-import com.hemovia.api.model.DTOs.BloodBagResponseDTO;
+import com.hemovia.api.model.exception.BloodBagExpiredException;
+import com.hemovia.api.model.entity.BloodBag;
+import com.hemovia.api.model.entity.BloodCenter;
+import com.hemovia.api.model.entity.Person;
+import com.hemovia.api.dto.request.BloodBagRequestDTO;
+import com.hemovia.api.dto.response.BloodBagResponseDTO;
 import com.hemovia.api.model.enums.BloodBagStatus;
 import com.hemovia.api.model.enums.BloodComponent;
 import com.hemovia.api.model.enums.RhFactor;
-import com.hemovia.api.repository.BloodBagRepository;
-import com.hemovia.api.repository.BloodCenterRepository;
-import com.hemovia.api.repository.PersonRepository;
+import com.hemovia.api.repository.jpa.BloodBagRepository;
+import com.hemovia.api.repository.jpa.BloodCenterRepository;
+import com.hemovia.api.repository.jpa.PersonRepository;
 import com.hemovia.api.service.BloodBagService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;

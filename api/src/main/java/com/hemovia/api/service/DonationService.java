@@ -1,7 +1,7 @@
 package com.hemovia.api.service;
 
-import com.hemovia.api.model.DTOs.DonationRequestDTO;
-import com.hemovia.api.model.DTOs.DonationResponseDTO;
+import com.hemovia.api.dto.request.DonationRequestDTO;
+import com.hemovia.api.dto.response.DonationResponseDTO;
 
 import java.util.List;
 

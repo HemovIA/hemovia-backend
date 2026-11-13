@@ -1,7 +1,7 @@
 package com.hemovia.api.controller;
 
-import com.hemovia.api.model.DTOs.DonationRequestDTO;
-import com.hemovia.api.model.DTOs.DonationResponseDTO;
+import com.hemovia.api.dto.request.DonationRequestDTO;
+import com.hemovia.api.dto.response.DonationResponseDTO;
 import com.hemovia.api.service.DonationService;
 import jakarta.validation.Valid;
 import io.swagger.v3.oas.annotations.Operation;

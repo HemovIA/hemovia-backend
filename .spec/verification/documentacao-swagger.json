@@ -1,7 +1,7 @@
 {
   "feature": "documentacao-swagger",
-  "timestamp": "2026-11-09T23:00:50.453Z",
-  "gitRev": "566c3c6",
+  "timestamp": "2026-11-12T16:54:32.124Z",
+  "gitRev": "d7408a7",
   "command": "node scripts/spec-java/verify-tests.mjs",
   "reporter": "tap",
   "exitCode": 0,

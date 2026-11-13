@@ -1,11 +1,11 @@
 package com.hemovia.api.service.implementation;
 
-import com.hemovia.api.model.DTOs.HospitalRequestDTO;
-import com.hemovia.api.model.DTOs.HospitalResponseDTO;
+import com.hemovia.api.dto.request.HospitalRequestDTO;
+import com.hemovia.api.dto.response.HospitalResponseDTO;
 import com.hemovia.api.service.HospitalService;
 import org.springframework.stereotype.Service;
-import com.hemovia.api.repository.HospitalRepository;
-import com.hemovia.api.model.Hospital;
+import com.hemovia.api.repository.jpa.HospitalRepository;
+import com.hemovia.api.model.entity.Hospital;
 
 @Service
 public class HospitalServiceImpl implements HospitalService{

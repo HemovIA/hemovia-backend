@@ -77,10 +77,10 @@
       "codigo": "GLOB_SEM_ARQUIVOS",
       "feature": "—",
       "ref": "P-002",
-      "ocorrencias": 18,
+      "ocorrencias": 20,
       "primeiraVez": "2026-10-22T16:48:12.342Z",
-      "ultimaVez": "2026-11-09T23:05:19.426Z",
-      "gitRev": "566c3c6"
+      "ultimaVez": "2026-11-12T17:01:26.540Z",
+      "gitRev": "d7408a7"
     },
     "ARQUIVO_INEXISTENTE::finalizando-entidades-base::T-005": {
       "codigo": "ARQUIVO_INEXISTENTE",
@@ -257,10 +257,10 @@
       "codigo": "VERIFY_OBSOLETO",
       "feature": "revisao-projeto",
       "ref": "—",
-      "ocorrencias": 2,
+      "ocorrencias": 3,
       "primeiraVez": "2026-10-22T17:48:09.136Z",
-      "ultimaVez": "2026-10-22T18:28:23.301Z",
-      "gitRev": "5fd3c0c"
+      "ultimaVez": "2026-11-12T16:47:05.227Z",
+      "gitRev": "4ece0a9"
     },
     "VERIFY_FALHOU::finalizando-entidades-base::AC-005": {
       "codigo": "VERIFY_FALHOU",
@@ -347,10 +347,10 @@
       "codigo": "VERIFY_FALHOU",
       "feature": "finalizando-entidades-base",
       "ref": "AC-014",
-      "ocorrencias": 2,
+      "ocorrencias": 3,
       "primeiraVez": "2026-10-22T18:21:36.111Z",
-      "ultimaVez": "2026-10-22T18:24:16.571Z",
-      "gitRev": "5fd3c0c"
+      "ultimaVez": "2026-11-12T16:51:18.624Z",
+      "gitRev": "4ece0a9"
     },
     "VERIFY_FALHOU::finalizando-entidades-base::AC-015": {
       "codigo": "VERIFY_FALHOU",
@@ -603,6 +603,60 @@
       "primeiraVez": "2026-11-09T22:48:48.728Z",
       "ultimaVez": "2026-11-09T22:48:48.728Z",
       "gitRev": "566c3c6"
+    },
+    "VERIFY_OBSOLETO::aedus05-aedus07::—": {
+      "codigo": "VERIFY_OBSOLETO",
+      "feature": "aedus05-aedus07",
+      "ref": "—",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-12T16:47:05.221Z",
+      "ultimaVez": "2026-11-12T16:47:05.227Z",
+      "gitRev": "4ece0a9"
+    },
+    "VERIFY_OBSOLETO::documentacao-swagger::—": {
+      "codigo": "VERIFY_OBSOLETO",
+      "feature": "documentacao-swagger",
+      "ref": "—",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-12T16:47:05.227Z",
+      "ultimaVez": "2026-11-12T16:47:05.227Z",
+      "gitRev": "4ece0a9"
+    },
+    "VERIFY_OBSOLETO::finalizando-entidades-base::—": {
+      "codigo": "VERIFY_OBSOLETO",
+      "feature": "finalizando-entidades-base",
+      "ref": "—",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-12T16:47:05.227Z",
+      "ultimaVez": "2026-11-12T16:47:05.227Z",
+      "gitRev": "4ece0a9"
+    },
+    "VERIFY_OBSOLETO::poous04-emissao-requisicoes::—": {
+      "codigo": "VERIFY_OBSOLETO",
+      "feature": "poous04-emissao-requisicoes",
+      "ref": "—",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-12T16:47:05.227Z",
+      "ultimaVez": "2026-11-12T16:47:05.227Z",
+      "gitRev": "4ece0a9"
+    },
+    "VERIFY_OBSOLETO::poous06-poous12::—": {
+      "codigo": "VERIFY_OBSOLETO",
+      "feature": "poous06-poous12",
+      "ref": "—",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-12T16:47:05.227Z",
+      "ultimaVez": "2026-11-12T16:47:05.227Z",
+      "gitRev": "4ece0a9"
+    },
+    "VERIFY_OBSOLETO::poous13-cadastro-hemocentros::—": {
+      "codigo": "VERIFY_OBSOLETO",
+      "feature": "poous13-cadastro-hemocentros",
+      "ref": "—",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-12T16:47:05.227Z",
+      "ultimaVez": "2026-11-12T16:47:05.227Z",
+      "gitRev": "4ece0a9"
     }
   }
 }

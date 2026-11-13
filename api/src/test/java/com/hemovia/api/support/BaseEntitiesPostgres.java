@@ -48,7 +48,7 @@ public final class BaseEntitiesPostgres implements AutoCloseable {
             configuration.addAnnotatedClass(BaseEntityFixtures.type(name));
         }
         // O usuário agora é uma entidade da camada de infraestrutura, mas o StockMovement ainda aponta para ela
-        configuration.addAnnotatedClass(com.hemovia.api.infrastructure.persistence.entity.UserEntity.class);
+        configuration.addAnnotatedClass(com.hemovia.api.model.entity.UserEntity.class);
         configuration.setProperty("hibernate.connection.url", url);
         configuration.setProperty("hibernate.connection.username", user);
         configuration.setProperty("hibernate.connection.password", password);

@@ -1,11 +1,11 @@
 package com.hemovia.api.service.implementation;
 
-import com.hemovia.api.domain.exception.BloodBagExpiredException;
-import com.hemovia.api.model.DTOs.BloodBagRequestDTO;
-import com.hemovia.api.model.DTOs.BloodBagResponseDTO;
+import com.hemovia.api.model.exception.BloodBagExpiredException;
+import com.hemovia.api.dto.request.BloodBagRequestDTO;
+import com.hemovia.api.dto.response.BloodBagResponseDTO;
 import com.hemovia.api.model.enums.BloodBagStatus;
 import com.hemovia.api.model.enums.BloodType;
-import com.hemovia.api.repository.BloodBagRepository;
+import com.hemovia.api.repository.jpa.BloodBagRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -49,8 +49,8 @@ class BloodBagServiceImplTest {
         when(repository.save(any())).thenAnswer(invocation -> invocation.getArgument(0));
 
         BloodBagResponseDTO response = service.create(request);
-        ArgumentCaptor<com.hemovia.api.model.BloodBag> captor =
-                ArgumentCaptor.forClass(com.hemovia.api.model.BloodBag.class);
+        ArgumentCaptor<com.hemovia.api.model.entity.BloodBag> captor =
+                ArgumentCaptor.forClass(com.hemovia.api.model.entity.BloodBag.class);
 
         verify(repository).save(captor.capture());
         assertThat(captor.getValue().getStatus()).isEqualTo(BloodBagStatus.AVAILABLE);

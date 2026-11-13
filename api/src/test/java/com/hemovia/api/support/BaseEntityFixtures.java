@@ -19,7 +19,8 @@ public final class BaseEntityFixtures {
 
     public static Class<?> type(String name) {
         try {
-            return Class.forName("com.hemovia.api.model." + name);
+            String prefix = name.startsWith("enums.") ? "com.hemovia.api.model." : "com.hemovia.api.model.entity.";
+            return Class.forName(prefix + name);
         } catch (ClassNotFoundException e) {
             throw new AssertionError("Entidade/tipo ainda não implementado: " + name, e);
         }

@@ -4,14 +4,14 @@
 
 ## T-018 — Implementar FEFO e provar ordenação e exclusão por validade [concluida]
 - Refs: US-015, AC-026, AC-027
-- Arquivos: api/src/main/java/com/hemovia/api/domain/algorithm/priority/FefoQueue.java, api/src/test/java/com/hemovia/api/domain/algorithm/priority/FefoQueueTest.java
+- Arquivos: api/src/main/java/com/hemovia/api/model/algorithm/priority/FefoQueue.java, api/src/test/java/com/hemovia/api/model/algorithm/priority/FefoQueueTest.java
 - Modelo: gpt-6.1-terra
 - Esforço: medio
 - Notas: Usar fila de prioridade para ordenar `BloodBag` por `expirationDate`. A data de referência explícita torna a borda de vencimento determinística. Manter a coleção e as entidades de entrada intactas.
 
 ## T-019 — Provar os cenários ABO/Rh com a matriz de hemácias existente [concluida]
 - Refs: US-016, AC-028, AC-029
-- Arquivos: api/src/main/java/com/hemovia/api/domain/BloodCompatibility.java, api/src/test/java/com/hemovia/api/domain/BloodCompatibilityTest.java
+- Arquivos: api/src/main/java/com/hemovia/api/model/algorithm/compatibility/BloodCompatibility.java, api/src/test/java/com/hemovia/api/model/algorithm/compatibility/BloodCompatibilityTest.java
 - Modelo: gpt-6.1-terra
 - Esforço: medio
 - Notas: Reusar `canTransfuse` e cobrir os quatro doadores do cenário A+ e os três do cenário O- sem reduzir a cobertura existente. A matriz de produção só precisa mudar se a prova detectar divergência.

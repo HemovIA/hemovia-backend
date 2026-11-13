@@ -1,9 +1,10 @@
 package com.hemovia.api.model;
 
+import com.hemovia.api.model.entity.Person;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hemovia.api.application.dto.response.UserResponse;
-import com.hemovia.api.domain.enums.Role;
-import com.hemovia.api.infrastructure.persistence.entity.UserEntity;
+import com.hemovia.api.dto.response.UserResponse;
+import com.hemovia.api.model.enums.Role;
+import com.hemovia.api.model.entity.UserEntity;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

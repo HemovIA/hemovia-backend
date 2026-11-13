@@ -13,7 +13,7 @@ spring:
     locations: classpath:db/migration
     clean-disabled: true
 springdoc:
-  packages-to-scan: com.hemovia.api.controller,com.hemovia.api.presentation.controller
+  packages-to-scan: com.hemovia.api.controller
   api-docs:
     enabled: ${HEMOVIA_API_DOCS_ENABLED:true}
   swagger-ui:
