@@ -1,7 +1,7 @@
 {
   "feature": "revisao-projeto",
-  "timestamp": "2026-11-12T17:01:15.707Z",
-  "gitRev": "d7408a7",
+  "timestamp": "2026-11-13T23:54:14.554Z",
+  "gitRev": "e34af87",
   "command": "node scripts/spec-java/verify-tests.mjs",
   "reporter": "tap",
   "exitCode": 0,
