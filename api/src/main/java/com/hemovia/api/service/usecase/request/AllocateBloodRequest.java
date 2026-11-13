@@ -1,7 +1,6 @@
 package com.hemovia.api.service.usecase.request;
 
 import com.hemovia.api.dto.response.AllocationResponse;
-import com.hemovia.api.service.port.input.AllocateBloodRequestUseCase;
 import com.hemovia.api.service.port.output.ClockProvider;
 import com.hemovia.api.service.port.output.CurrentUserProvider;
 import com.hemovia.api.repository.port.RequestAllocationStore;
@@ -25,7 +24,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 @Service
-public class AllocateBloodRequest implements AllocateBloodRequestUseCase {
+public class AllocateBloodRequest {
     private final RequestAllocationStore store;
     private final CurrentUserProvider currentUser;
     private final ClockProvider clock;
@@ -36,7 +35,6 @@ public class AllocateBloodRequest implements AllocateBloodRequestUseCase {
         this.clock = clock;
     }
 
-    @Override
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public AllocationResponse execute(UUID requestId) {
         var user = currentUser.current();

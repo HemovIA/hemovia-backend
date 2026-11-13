@@ -1,5 +1,7 @@
 # Plano de execução — aedus05-aedus07
 
+> Plano histórico da entrega. Os caminhos refletem a estrutura usada na execução. Consulte o [tasks.md](tasks.md) para encontrar os arquivos atuais.
+
 > gerado por `onp-spec plano` em 2026-11-09 18:26 — NÃO edite à mão;
 > mudou tasks.md ou a config? Regenere: `onp-spec plano aedus05-aedus07 --paralelizar T-018,T-019`
 

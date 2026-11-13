@@ -1,8 +1,8 @@
 package com.hemovia.api.service.usecase.request;
 
 import com.hemovia.api.dto.request.CreateBloodRequest;
+import com.hemovia.api.dto.internal.NewBloodRequest;
 import com.hemovia.api.dto.response.BloodRequestResponse;
-import com.hemovia.api.service.port.input.CreateBloodRequestUseCase;
 import com.hemovia.api.repository.port.BloodRequestStore;
 import com.hemovia.api.service.port.output.ClockProvider;
 import com.hemovia.api.service.port.output.CurrentUserProvider;
@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class CreateHospitalBloodRequest implements CreateBloodRequestUseCase {
+public class CreateHospitalBloodRequest {
     private final BloodRequestStore store;
     private final CurrentUserProvider currentUser;
     private final ClockProvider clock;
@@ -24,7 +24,6 @@ public class CreateHospitalBloodRequest implements CreateBloodRequestUseCase {
         this.clock = clock;
     }
 
-    @Override
     public BloodRequestResponse execute(CreateBloodRequest request) {
         if (request.deliveryDeadline() == null || !request.deliveryDeadline().isAfter(clock.now())) {
             throw new InvalidDataException("O prazo de entrega deve estar no futuro.");
@@ -33,6 +32,8 @@ public class CreateHospitalBloodRequest implements CreateBloodRequestUseCase {
         if (!user.worksAtHospital(user.hospitalId())) {
             throw new InvalidDataException("Usuário sem vínculo com hospital.");
         }
-        return new BloodRequestResponse(store.save(user.hospitalId(), request), RequestStatus.PENDING);
+        var pending = new NewBloodRequest(user.hospitalId(), request.bloodType(), request.rhFactor(),
+                request.component(), request.quantity(), request.priority(), request.deliveryDeadline());
+        return new BloodRequestResponse(store.save(pending), RequestStatus.PENDING);
     }
 }

@@ -4,7 +4,7 @@ on:
   push:
     branches: ["**"]
   pull_request:
-    branches: [main]
+    branches: [main, develop]
 
 permissions:
   contents: read
@@ -42,6 +42,9 @@ jobs:
       POSTGRES_DB: hemovia_test
       POSTGRES_USER: hemovia
       POSTGRES_PASSWORD: hemovia
+      HEMOVIA_TEST_JDBC_URL: jdbc:postgresql://localhost:5432/hemovia_test
+      HEMOVIA_TEST_DB_USER: hemovia
+      HEMOVIA_TEST_DB_PASSWORD: hemovia
       JWT_SECRET: ci-only-secret-key-for-tests-0123456789
     steps:
       - uses: actions/checkout@v4
@@ -53,14 +56,14 @@ jobs:
           cache: maven
 
       - name: Compilar e rodar testes (unitários, integração e aceitação)
-        run: chmod +x mvnw && ./mvnw -B verify
+        run: chmod +x mvnw && ./mvnw -B -Pbase-entities-acceptance verify
 
       - name: Publicar relatórios de teste
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: relatorios-de-teste
-          path: api/target/surefire-reports/
+          path: api/target/base-entities-reports/
 
   # 2) IMAGEM — só depois dos testes verdes e só na main
   image:

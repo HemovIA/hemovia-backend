@@ -1,8 +1,8 @@
-package com.hemovia.api.service.implementation;
+package com.hemovia.api.service.usecase.inventory;
 
 import com.hemovia.api.model.exception.BloodBagExpiredException;
-import com.hemovia.api.dto.request.BloodBagRequestDTO;
-import com.hemovia.api.dto.response.BloodBagResponseDTO;
+import com.hemovia.api.dto.request.BloodBagRequest;
+import com.hemovia.api.dto.response.BloodBagResponse;
 import com.hemovia.api.model.enums.BloodBagStatus;
 import com.hemovia.api.model.enums.BloodType;
 import com.hemovia.api.repository.jpa.BloodBagRepository;
@@ -25,17 +25,20 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class BloodBagServiceImplTest {
+class ManageBloodBagsTest {
 
     @Mock
     private BloodBagRepository repository;
 
+    @Mock
+    private InventoryLinks links;
+
     @InjectMocks
-    private BloodBagServiceImpl service;
+    private ManageBloodBags service;
 
     @Test
     void shouldRejectExpiredBloodBagBeforeSaving() {
-        BloodBagRequestDTO request = requestWithExpiration(LocalDate.now(ZoneOffset.UTC).minusDays(1));
+        BloodBagRequest request = requestWithExpiration(LocalDate.now(ZoneOffset.UTC).minusDays(1));
 
         assertThatThrownBy(() -> service.create(request))
                 .isInstanceOf(BloodBagExpiredException.class);
@@ -45,27 +48,21 @@ class BloodBagServiceImplTest {
 
     @Test
     void shouldSaveFutureBloodBagAsAvailable() {
-        BloodBagRequestDTO request = requestWithExpiration(LocalDate.now(ZoneOffset.UTC).plusDays(1));
+        BloodBagRequest request = requestWithExpiration(LocalDate.now(ZoneOffset.UTC).plusDays(1));
         when(repository.save(any())).thenAnswer(invocation -> invocation.getArgument(0));
 
-        BloodBagResponseDTO response = service.create(request);
+        BloodBagResponse response = service.create(request);
         ArgumentCaptor<com.hemovia.api.model.entity.BloodBag> captor =
                 ArgumentCaptor.forClass(com.hemovia.api.model.entity.BloodBag.class);
 
         verify(repository).save(captor.capture());
         assertThat(captor.getValue().getStatus()).isEqualTo(BloodBagStatus.AVAILABLE);
-        assertThat(response.getExpirationDate()).isNotNull();
+        assertThat(response.expirationDate()).isNotNull();
     }
 
-    private BloodBagRequestDTO requestWithExpiration(LocalDate expirationDate) {
-        BloodBagRequestDTO request = new BloodBagRequestDTO();
-        request.setRhFactor("POSITIVE");
-        request.setComponent("WHOLE_BLOOD");
-        request.setCollectionDate(toDate(LocalDate.now(ZoneOffset.UTC)));
-        request.setExpirationDate(toDate(expirationDate));
-        request.setStatus(BloodBagStatus.DISCARDED);
-        request.setBloodTypeEnum(BloodType.O);
-        return request;
+    private BloodBagRequest requestWithExpiration(LocalDate expirationDate) {
+        return new BloodBagRequest("POSITIVE", "WHOLE_BLOOD", toDate(LocalDate.now(ZoneOffset.UTC)),
+                toDate(expirationDate), BloodBagStatus.DISCARDED, BloodType.O, null, null, null);
     }
 
     private Date toDate(LocalDate date) {

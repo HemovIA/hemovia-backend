@@ -1,7 +1,6 @@
 package com.hemovia.api.service.usecase.auth;
 
 import com.hemovia.api.dto.response.UserResponse;
-import com.hemovia.api.service.port.input.GetCurrentUserUseCase;
 import com.hemovia.api.service.port.output.CurrentUserProvider;
 import com.hemovia.api.repository.port.UserRepository;
 import com.hemovia.api.model.exception.InvalidCredentialsException;
@@ -13,7 +12,7 @@ Devolve os dados do usuário que fez a requisição. Se o dono do token já não
 */
 @Service
 @Transactional(readOnly = true)
-public class GetCurrentUser implements GetCurrentUserUseCase {
+public class GetCurrentUser {
 
     private final UserRepository users;
     private final CurrentUserProvider currentUser;
@@ -23,7 +22,6 @@ public class GetCurrentUser implements GetCurrentUserUseCase {
         this.currentUser = currentUser;
     }
 
-    @Override
     public UserResponse execute() {
         return users.findById(currentUser.current().userId())
                 .map(UserResponse::from)

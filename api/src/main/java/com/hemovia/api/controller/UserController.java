@@ -4,12 +4,12 @@ import com.hemovia.api.dto.request.ChangeUserRoleRequest;
 import com.hemovia.api.dto.request.CreateUserRequest;
 import com.hemovia.api.dto.request.UpdateUserRequest;
 import com.hemovia.api.dto.response.UserResponse;
-import com.hemovia.api.service.port.input.ChangeUserRoleUseCase;
-import com.hemovia.api.service.port.input.CreateUserUseCase;
-import com.hemovia.api.service.port.input.DeactivateUserUseCase;
-import com.hemovia.api.service.port.input.GetUserUseCase;
-import com.hemovia.api.service.port.input.ListUsersUseCase;
-import com.hemovia.api.service.port.input.UpdateUserUseCase;
+import com.hemovia.api.service.usecase.user.ChangeUserRole;
+import com.hemovia.api.service.usecase.user.CreateUser;
+import com.hemovia.api.service.usecase.user.DeactivateUser;
+import com.hemovia.api.service.usecase.user.GetUser;
+import com.hemovia.api.service.usecase.user.ListUsers;
+import com.hemovia.api.service.usecase.user.UpdateUser;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,15 +32,15 @@ Gestão de usuários. A cadeia de segurança já limita todas estas rotas ao pap
 @RequestMapping("/users")
 public class UserController {
 
-    private final CreateUserUseCase create;
-    private final ListUsersUseCase list;
-    private final GetUserUseCase get;
-    private final UpdateUserUseCase update;
-    private final ChangeUserRoleUseCase changeRole;
-    private final DeactivateUserUseCase deactivate;
+    private final CreateUser create;
+    private final ListUsers list;
+    private final GetUser get;
+    private final UpdateUser update;
+    private final ChangeUserRole changeRole;
+    private final DeactivateUser deactivate;
 
-    public UserController(CreateUserUseCase create, ListUsersUseCase list, GetUserUseCase get,
-                          UpdateUserUseCase update, ChangeUserRoleUseCase changeRole, DeactivateUserUseCase deactivate) {
+    public UserController(CreateUser create, ListUsers list, GetUser get,
+                          UpdateUser update, ChangeUserRole changeRole, DeactivateUser deactivate) {
         this.create = create;
         this.list = list;
         this.get = get;

@@ -22,6 +22,7 @@ replay_pid*
 
 # Environment Files
 .env
+http-client.private.env.json
 
 # Java / Maven
 target/

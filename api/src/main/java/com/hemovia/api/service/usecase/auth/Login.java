@@ -2,7 +2,6 @@ package com.hemovia.api.service.usecase.auth;
 
 import com.hemovia.api.dto.request.LoginRequest;
 import com.hemovia.api.dto.internal.SessionTokens;
-import com.hemovia.api.service.port.input.LoginUseCase;
 import com.hemovia.api.service.port.output.PasswordHasher;
 import com.hemovia.api.repository.port.UserRepository;
 import com.hemovia.api.model.exception.InvalidCredentialsException;
@@ -22,7 +21,7 @@ para ninguém descobrir se um e-mail ou CPF existe no sistema.
 */
 @Service
 @Transactional
-public class Login implements LoginUseCase {
+public class Login {
 
     private final UserRepository users;
     private final PasswordHasher hasher;
@@ -34,7 +33,6 @@ public class Login implements LoginUseCase {
         this.sessions = sessions;
     }
 
-    @Override
     public SessionTokens execute(LoginRequest request) {
         // Só entra quem existe, está ativo, tem papel e acertou a senha
         User user = find(request.identifier())

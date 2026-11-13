@@ -1,8 +1,8 @@
 package com.hemovia.api.controller;
 
-import com.hemovia.api.dto.request.DonationRequestDTO;
-import com.hemovia.api.dto.response.DonationResponseDTO;
-import com.hemovia.api.service.DonationService;
+import com.hemovia.api.dto.request.DonationRequest;
+import com.hemovia.api.dto.response.DonationResponse;
+import com.hemovia.api.service.usecase.inventory.ManageDonations;
 import jakarta.validation.Valid;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -22,40 +22,40 @@ import java.util.List;
 @Tag(name = "Doações", description = "Consulta e manutenção de doações.")
 public class DonationController {
 
-    private final DonationService donationService;
+    private final ManageDonations donationService;
 
-    public DonationController(DonationService donationService) {
+    public DonationController(ManageDonations donationService) {
         this.donationService = donationService;
     }
 
     @GetMapping
     @Operation(operationId = "listDonations", summary = "Listar doações")
-    @ApiResponse(responseCode = "200", description = "Doações encontradas", content = @Content(array = @ArraySchema(schema = @Schema(implementation = DonationResponseDTO.class))))
-    public ResponseEntity<List<DonationResponseDTO>> getAllDonations() {
-        return ResponseEntity.ok(donationService.getAllDonations());
+    @ApiResponse(responseCode = "200", description = "Doações encontradas", content = @Content(array = @ArraySchema(schema = @Schema(implementation = DonationResponse.class))))
+    public ResponseEntity<List<DonationResponse>> getAllDonations() {
+        return ResponseEntity.ok(donationService.list());
     }
 
     @GetMapping("/{id}")
     @Operation(operationId = "getDonationById", summary = "Buscar doação por identificador")
-    @ApiResponses({@ApiResponse(responseCode = "200", description = "Doação encontrada", content = @Content(schema = @Schema(implementation = DonationResponseDTO.class))), @ApiResponse(responseCode = "400", description = "Identificador inválido"), @ApiResponse(responseCode = "404", description = "Doação não encontrada")})
-    public ResponseEntity<DonationResponseDTO> getDonationById(@PathVariable String id) {
-        return ResponseEntity.ok(donationService.getDonationById(id));
+    @ApiResponses({@ApiResponse(responseCode = "200", description = "Doação encontrada", content = @Content(schema = @Schema(implementation = DonationResponse.class))), @ApiResponse(responseCode = "400", description = "Identificador inválido"), @ApiResponse(responseCode = "404", description = "Doação não encontrada")})
+    public ResponseEntity<DonationResponse> getDonationById(@PathVariable String id) {
+        return ResponseEntity.ok(donationService.get(id));
     }
 
     @PostMapping
     @Operation(operationId = "createDonation", summary = "Registrar doação")
-    @ApiResponses({@ApiResponse(responseCode = "201", description = "Doação registrada", content = @Content(schema = @Schema(implementation = DonationResponseDTO.class))), @ApiResponse(responseCode = "400", description = "Dados de entrada inválidos"), @ApiResponse(responseCode = "404", description = "Vínculo informado não encontrado")})
-    public ResponseEntity<DonationResponseDTO> createDonation(@Valid @RequestBody DonationRequestDTO donationRequestDTO) {
-        DonationResponseDTO response = donationService.create(donationRequestDTO);
+    @ApiResponses({@ApiResponse(responseCode = "201", description = "Doação registrada", content = @Content(schema = @Schema(implementation = DonationResponse.class))), @ApiResponse(responseCode = "400", description = "Dados de entrada inválidos"), @ApiResponse(responseCode = "404", description = "Vínculo informado não encontrado")})
+    public ResponseEntity<DonationResponse> createDonation(@Valid @RequestBody DonationRequest request) {
+        DonationResponse response = donationService.create(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PutMapping("/{id}")
     @Operation(operationId = "updateDonation", summary = "Atualizar doação")
-    @ApiResponses({@ApiResponse(responseCode = "200", description = "Doação atualizada", content = @Content(schema = @Schema(implementation = DonationResponseDTO.class))), @ApiResponse(responseCode = "400", description = "Dados de entrada inválidos"), @ApiResponse(responseCode = "404", description = "Doação ou vínculo não encontrado")})
-    public ResponseEntity<DonationResponseDTO> updateDonation(@PathVariable String id,
-                                                            @Valid @RequestBody DonationRequestDTO donationRequestDTO) {
-        return ResponseEntity.ok(donationService.update(id, donationRequestDTO));
+    @ApiResponses({@ApiResponse(responseCode = "200", description = "Doação atualizada", content = @Content(schema = @Schema(implementation = DonationResponse.class))), @ApiResponse(responseCode = "400", description = "Dados de entrada inválidos"), @ApiResponse(responseCode = "404", description = "Doação ou vínculo não encontrado")})
+    public ResponseEntity<DonationResponse> updateDonation(@PathVariable String id,
+                                                            @Valid @RequestBody DonationRequest request) {
+        return ResponseEntity.ok(donationService.update(id, request));
     }
 
     @DeleteMapping("/{id}")

@@ -1,6 +1,6 @@
 package com.hemovia.api.repository.adapter;
 
-import com.hemovia.api.dto.request.CreateBloodRequest;
+import com.hemovia.api.dto.internal.NewBloodRequest;
 import com.hemovia.api.repository.port.BloodRequestStore;
 import com.hemovia.api.model.entity.BloodRequest;
 import com.hemovia.api.repository.jpa.BloodRequestRepository;
@@ -19,9 +19,9 @@ public class BloodRequestStoreAdapter implements BloodRequestStore {
     }
 
     @Override
-    public UUID save(UUID hospitalId, CreateBloodRequest input) {
+    public UUID save(NewBloodRequest input) {
         BloodRequest request = new BloodRequest();
-        request.setHospital(hospitals.getReferenceById(hospitalId));
+        request.setHospital(hospitals.getReferenceById(input.hospitalId()));
         request.setBloodType(input.bloodType());
         request.setRhFactor(input.rhFactor());
         request.setComponent(input.component());

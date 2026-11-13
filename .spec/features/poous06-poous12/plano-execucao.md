@@ -1,5 +1,7 @@
 # Plano de execução — poous06-poous12
 
+> Plano histórico da entrega. Os caminhos refletem a estrutura usada na execução. Consulte o [tasks.md](tasks.md) para encontrar os arquivos atuais.
+
 > gerado por `onp-spec plano` em 2026-11-09 18:59 — NÃO edite à mão;
 > mudou tasks.md ou a config? Regenere: `onp-spec plano poous06-poous12 --paralelizar T-021,T-022`
 

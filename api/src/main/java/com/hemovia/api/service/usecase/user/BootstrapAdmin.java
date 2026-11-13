@@ -1,6 +1,5 @@
 package com.hemovia.api.service.usecase.user;
 
-import com.hemovia.api.service.port.input.BootstrapAdminUseCase;
 import com.hemovia.api.service.port.output.AdminBootstrapSettings;
 import com.hemovia.api.service.port.output.PasswordHasher;
 import com.hemovia.api.repository.port.UserRepository;
@@ -19,7 +18,7 @@ Sem as variáveis, ou com e-mail/CPF já usados por outra conta, apenas avisa no
 */
 @Service
 @Transactional
-public class BootstrapAdmin implements BootstrapAdminUseCase {
+public class BootstrapAdmin {
 
     // Aviso e confirmação da criação ficam no log da aplicação
     private static final Logger LOG = LoggerFactory.getLogger(BootstrapAdmin.class);
@@ -34,7 +33,6 @@ public class BootstrapAdmin implements BootstrapAdminUseCase {
         this.settings = settings;
     }
 
-    @Override
     public void execute() {
         // Já existe administrador: nada a fazer, e é por isso que reiniciar não duplica
         if (users.existsByRole(Role.ADMIN)) {
