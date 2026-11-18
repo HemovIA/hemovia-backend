@@ -3,8 +3,8 @@ package com.hemovia.api.controller;
 import com.hemovia.api.dto.request.CreateBloodRequest;
 import com.hemovia.api.dto.response.AllocationResponse;
 import com.hemovia.api.dto.response.BloodRequestResponse;
-import com.hemovia.api.service.port.input.AllocateBloodRequestUseCase;
-import com.hemovia.api.service.port.input.CreateBloodRequestUseCase;
+import com.hemovia.api.service.usecase.request.AllocateBloodRequest;
+import com.hemovia.api.service.usecase.request.CreateHospitalBloodRequest;
 import com.hemovia.api.dto.response.ApiError;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -28,10 +28,10 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/requests")
 public class BloodRequestController {
-    private final CreateBloodRequestUseCase create;
-    private final AllocateBloodRequestUseCase allocate;
+    private final CreateHospitalBloodRequest create;
+    private final AllocateBloodRequest allocate;
 
-    public BloodRequestController(CreateBloodRequestUseCase create, AllocateBloodRequestUseCase allocate) {
+    public BloodRequestController(CreateHospitalBloodRequest create, AllocateBloodRequest allocate) {
         this.create = create;
         this.allocate = allocate;
     }

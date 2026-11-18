@@ -2,7 +2,6 @@ package com.hemovia.api.service.usecase.user;
 
 import com.hemovia.api.dto.request.UpdateUserRequest;
 import com.hemovia.api.dto.response.UserResponse;
-import com.hemovia.api.service.port.input.UpdateUserUseCase;
 import com.hemovia.api.repository.port.UserRepository;
 import com.hemovia.api.model.exception.DuplicateResourceException;
 import com.hemovia.api.model.exception.ResourceNotFoundException;
@@ -18,7 +17,7 @@ Atualiza nome, e-mail e telefone. Trocar o e-mail por um que já é de outra pes
 */
 @Service
 @Transactional
-public class UpdateUser implements UpdateUserUseCase {
+public class UpdateUser {
 
     private final UserRepository users;
 
@@ -26,7 +25,6 @@ public class UpdateUser implements UpdateUserUseCase {
         this.users = users;
     }
 
-    @Override
     public UserResponse execute(UUID userId, UpdateUserRequest request) {
         User user = users.findById(userId).orElseThrow(() -> new ResourceNotFoundException("Usuário", userId));
         Email email = new Email(request.email());

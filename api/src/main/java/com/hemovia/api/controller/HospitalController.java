@@ -1,8 +1,8 @@
 package com.hemovia.api.controller;
 
-import com.hemovia.api.dto.request.HospitalRequestDTO;
-import com.hemovia.api.dto.response.HospitalResponseDTO;
-import com.hemovia.api.service.HospitalService;
+import com.hemovia.api.dto.request.HospitalRequest;
+import com.hemovia.api.dto.response.HospitalResponse;
+import com.hemovia.api.service.usecase.hospital.CreateHospital;
 import jakarta.validation.Valid;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -19,20 +19,20 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "Hospitais", description = "Cadastro de hospitais parceiros.")
 public class HospitalController {
 
-    private final HospitalService hospitalService;
+    private final CreateHospital createHospital;
 
-    public HospitalController(HospitalService hospitalService) {
-        this.hospitalService = hospitalService;
+    public HospitalController(CreateHospital createHospital) {
+        this.createHospital = createHospital;
     }
 
     @PostMapping
     @Operation(operationId = "createHospital", summary = "Cadastrar hospital")
     @ApiResponses({
-            @ApiResponse(responseCode = "201", description = "Hospital cadastrado", content = @Content(schema = @Schema(implementation = HospitalResponseDTO.class))),
+            @ApiResponse(responseCode = "201", description = "Hospital cadastrado", content = @Content(schema = @Schema(implementation = HospitalResponse.class))),
             @ApiResponse(responseCode = "400", description = "Dados de entrada inválidos")
     })
-    public ResponseEntity<HospitalResponseDTO> createHospital(@Valid @RequestBody HospitalRequestDTO hospitalRequestDTO) {
-        HospitalResponseDTO response = hospitalService.create(hospitalRequestDTO);
+    public ResponseEntity<HospitalResponse> createHospital(@Valid @RequestBody HospitalRequest request) {
+        HospitalResponse response = createHospital.execute(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }

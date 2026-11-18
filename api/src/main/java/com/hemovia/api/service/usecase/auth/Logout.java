@@ -1,6 +1,5 @@
 package com.hemovia.api.service.usecase.auth;
 
-import com.hemovia.api.service.port.input.LogoutUseCase;
 import com.hemovia.api.service.port.output.ClockProvider;
 import com.hemovia.api.repository.port.RefreshTokenRepository;
 import com.hemovia.api.service.port.output.TokenHasher;
@@ -12,7 +11,7 @@ Encerra a sessão revogando o refresh token. É idempotente: sair duas vezes, ou
 */
 @Service
 @Transactional
-public class Logout implements LogoutUseCase {
+public class Logout {
 
     private final RefreshTokenRepository refreshTokens;
     private final TokenHasher tokenHasher;
@@ -24,7 +23,6 @@ public class Logout implements LogoutUseCase {
         this.clock = clock;
     }
 
-    @Override
     public void execute(String rawRefreshToken) {
         // Sem token não há o que revogar
         if (rawRefreshToken == null || rawRefreshToken.isBlank()) {

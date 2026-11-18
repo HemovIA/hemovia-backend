@@ -23,7 +23,6 @@ class ComentariosTest {
     private static final Set<String> LEGADOS = Set.of(
             "main/java/com/hemovia/api/model/algorithm/compatibility/BloodCompatibility.java",
             "main/java/com/hemovia/api/model/entity/BloodRequest.java",
-            "main/java/com/hemovia/api/dto/response/DonationResponseDTO.java",
             "main/java/com/hemovia/api/model/entity/DeliveryRoute.java",
             "main/java/com/hemovia/api/model/entity/Donation.java",
             "main/java/com/hemovia/api/model/entity/RouteWaypoint.java",

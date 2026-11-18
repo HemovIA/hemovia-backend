@@ -1,6 +1,5 @@
 package com.hemovia.api.service.usecase.user;
 
-import com.hemovia.api.service.port.input.DeactivateUserUseCase;
 import com.hemovia.api.service.port.output.ClockProvider;
 import com.hemovia.api.repository.port.RefreshTokenRepository;
 import com.hemovia.api.repository.port.UserRepository;
@@ -16,7 +15,7 @@ Desativa o usuário e revoga todas as sessões dele, para ele ser expulso em vez
 */
 @Service
 @Transactional
-public class DeactivateUser implements DeactivateUserUseCase {
+public class DeactivateUser {
 
     private final UserRepository users;
     private final RefreshTokenRepository refreshTokens;
@@ -28,7 +27,6 @@ public class DeactivateUser implements DeactivateUserUseCase {
         this.clock = clock;
     }
 
-    @Override
     public void execute(UUID userId) {
         User user = users.findById(userId).orElseThrow(() -> new ResourceNotFoundException("Usuário", userId));
         user.deactivate();

@@ -1,6 +1,6 @@
 package com.hemovia.api.service.config;
 
-import com.hemovia.api.service.port.input.BootstrapAdminUseCase;
+import com.hemovia.api.service.usecase.user.BootstrapAdmin;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -11,9 +11,9 @@ Na subida da aplicação, pede ao caso de uso para criar o primeiro ADMIN, se ai
 @Component
 public class AdminBootstrapRunner implements ApplicationRunner {
 
-    private final BootstrapAdminUseCase bootstrapAdmin;
+    private final BootstrapAdmin bootstrapAdmin;
 
-    public AdminBootstrapRunner(BootstrapAdminUseCase bootstrapAdmin) {
+    public AdminBootstrapRunner(BootstrapAdmin bootstrapAdmin) {
         this.bootstrapAdmin = bootstrapAdmin;
     }
 

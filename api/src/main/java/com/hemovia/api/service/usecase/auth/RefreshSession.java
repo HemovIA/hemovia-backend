@@ -1,7 +1,6 @@
 package com.hemovia.api.service.usecase.auth;
 
 import com.hemovia.api.dto.internal.SessionTokens;
-import com.hemovia.api.service.port.input.RefreshSessionUseCase;
 import com.hemovia.api.service.port.output.ClockProvider;
 import com.hemovia.api.repository.port.RefreshTokenRepository;
 import com.hemovia.api.service.port.output.TokenHasher;
@@ -20,7 +19,7 @@ Renova a sessão trocando o refresh token por outro (rotação). Se alguém reap
 */
 @Service
 @Transactional(noRollbackFor = InvalidCredentialsException.class)
-public class RefreshSession implements RefreshSessionUseCase {
+public class RefreshSession {
 
     private final RefreshTokenRepository refreshTokens;
     private final UserRepository users;
@@ -37,7 +36,6 @@ public class RefreshSession implements RefreshSessionUseCase {
         this.clock = clock;
     }
 
-    @Override
     public SessionTokens execute(String rawRefreshToken) {
         // Sem token não há o que renovar
         if (rawRefreshToken == null || rawRefreshToken.isBlank()) {

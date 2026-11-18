@@ -1,7 +1,7 @@
 {
   "feature": "poous04-emissao-requisicoes",
-  "timestamp": "2026-11-12T16:55:52.102Z",
-  "gitRev": "d7408a7",
+  "timestamp": "2026-11-13T23:49:02.504Z",
+  "gitRev": "e34af87",
   "command": "node scripts/spec-java/verify-tests.mjs",
   "reporter": "tap",
   "exitCode": 0,

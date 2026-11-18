@@ -1,9 +1,9 @@
-package com.hemovia.api.service.implementation;
+package com.hemovia.api.service.usecase.inventory;
 
 import com.hemovia.api.model.entity.BloodBag;
 import com.hemovia.api.model.entity.BloodCenter;
 import com.hemovia.api.model.entity.Donation;
-import com.hemovia.api.dto.request.DonationRequestDTO;
+import com.hemovia.api.dto.request.DonationRequest;
 import com.hemovia.api.repository.jpa.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -57,13 +57,13 @@ class DonationAssociationsRegressionTest {
     void ac015_createRejectsAlreadyAssociatedBag() {
         DonationRepository donations = mock(DonationRepository.class);
         BloodBagRepository bags = mock(BloodBagRepository.class);
-        var service = new DonationServiceImpl(donations, bags, mock(PersonRepository.class), mock(BloodCenterRepository.class));
+        var service = new ManageDonations(donations, bags,
+                new InventoryLinks(mock(PersonRepository.class), mock(BloodCenterRepository.class)));
         BloodBag bag = new BloodBag(); bag.setId(UUID.randomUUID());
         Donation original = new Donation(); original.addBloodBag(bag);
         when(bags.findById(bag.getId())).thenReturn(Optional.of(bag));
-        DonationRequestDTO request = new DonationRequestDTO();
-        request.setCollectionCenter("Centro Sintético"); request.setCollectionDate(LocalDate.of(2030, 1, 1));
-        request.setBloodBagId(bag.getId());
+        var request = new DonationRequest("Centro Sintético", bag.getId(), null, null,
+                null, null, null, LocalDate.of(2030, 1, 1), null);
         assertThrows(IllegalArgumentException.class, () -> service.create(request));
         verify(donations, never()).save(any());
         assertSame(original, bag.getDonation());

@@ -3,10 +3,10 @@ package com.hemovia.api.controller;
 import com.hemovia.api.dto.request.LoginRequest;
 import com.hemovia.api.dto.internal.SessionTokens;
 import com.hemovia.api.dto.response.UserResponse;
-import com.hemovia.api.service.port.input.GetCurrentUserUseCase;
-import com.hemovia.api.service.port.input.LoginUseCase;
-import com.hemovia.api.service.port.input.LogoutUseCase;
-import com.hemovia.api.service.port.input.RefreshSessionUseCase;
+import com.hemovia.api.service.usecase.auth.GetCurrentUser;
+import com.hemovia.api.service.usecase.auth.Login;
+import com.hemovia.api.service.usecase.auth.Logout;
+import com.hemovia.api.service.usecase.auth.RefreshSession;
 import com.hemovia.api.controller.security.SessionCookies;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -34,14 +34,14 @@ O prefixo /api/v1 é acrescentado automaticamente a todo @RestController.
 @Tag(name = "Autenticação")
 public class AuthController {
 
-    private final LoginUseCase login;
-    private final RefreshSessionUseCase refresh;
-    private final LogoutUseCase logout;
-    private final GetCurrentUserUseCase currentUser;
+    private final Login login;
+    private final RefreshSession refresh;
+    private final Logout logout;
+    private final GetCurrentUser currentUser;
     private final SessionCookies cookies;
 
-    public AuthController(LoginUseCase login, RefreshSessionUseCase refresh, LogoutUseCase logout,
-                          GetCurrentUserUseCase currentUser, SessionCookies cookies) {
+    public AuthController(Login login, RefreshSession refresh, Logout logout,
+                          GetCurrentUser currentUser, SessionCookies cookies) {
         this.login = login;
         this.refresh = refresh;
         this.logout = logout;

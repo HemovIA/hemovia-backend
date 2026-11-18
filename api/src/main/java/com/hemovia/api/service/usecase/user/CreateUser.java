@@ -2,7 +2,6 @@ package com.hemovia.api.service.usecase.user;
 
 import com.hemovia.api.dto.request.CreateUserRequest;
 import com.hemovia.api.dto.response.UserResponse;
-import com.hemovia.api.service.port.input.CreateUserUseCase;
 import com.hemovia.api.service.port.output.PasswordHasher;
 import com.hemovia.api.repository.port.UserRepository;
 import com.hemovia.api.model.exception.DuplicateResourceException;
@@ -19,7 +18,7 @@ Cria um usuário: valida e normaliza e-mail e CPF, recusa duplicados, confere o 
 */
 @Service
 @Transactional
-public class CreateUser implements CreateUserUseCase {
+public class CreateUser {
 
     private final UserRepository users;
     private final PasswordHasher hasher;
@@ -31,7 +30,6 @@ public class CreateUser implements CreateUserUseCase {
         this.links = links;
     }
 
-    @Override
     public UserResponse execute(CreateUserRequest request) {
         // Os objetos de valor já validam e normalizam os dados
         Email email = new Email(request.email());

@@ -124,7 +124,7 @@ Issues organizadas e atualizadas pela ferramenta de issues do GitHub:
 -  **[Vídeo da entrega 04](https://www.youtube.com/watch?v=d44n4RsEXDw)**
 -  **[Explicação do código](https://www.youtube.com/watch?v=TQqrf7Rikus)**
 
-## Como rodar o projeto
+## Desenvolvimento local
 
 *(seção detalhada a partir da segunda entrega)*
 
@@ -141,6 +141,11 @@ As cinco camadas ficam sob o pacote `com.hemovia.api`.
 | `model` | Modelos de negócio, entidades JPA em `model.entity`, enums, objetos de valor e algoritmos. |
 
 Um controller recebe e devolve DTOs e chama o serviço. O serviço coordena a operação e usa o modelo e os repositórios. O ArchUnit verifica a distribuição do código e as dependências entre as camadas.
+
+- Agrupe os casos de uso em `service/usecase/<área>`. Use uma classe por operação com regras próprias, como `CreateHospital`. Agrupe as operações de um mesmo cadastro em classes como `ManageBloodCenters`.
+- Use `record` para os DTOs. O repositório pode receber dados internos em `dto.internal`. Os DTOs HTTP ficam em `dto.request` e `dto.response`.
+- Use as interfaces de persistência, relógio e autenticação para separar os casos de uso de dependências externas.
+- Os planos de execução em `.spec` registram o trabalho de cada entrega. Para localizar os arquivos no checkout atual, consulte o `tasks.md` da história.
 
 ### Modelo persistente: entidades base
 
@@ -227,11 +232,7 @@ Documento completo com todas as histórias do backlog (POO, AED, EST, SO e RSD �
 
 ---
 
-## Como rodar o projeto
-
-*(seção detalhada a partir da segunda entrega)*
-
-### Deploy no Render
+## Deploy no Render
 
 O arquivo [`render.yaml`](render.yaml) configura o serviço Docker do Render para usar `api/Dockerfile` e `api/` como contexto de build. Para criar o serviço, crie um Blueprint no Render apontando para este repositório (selecione a branch que deseja publicar, como `develop`) e informe as variáveis solicitadas:
 

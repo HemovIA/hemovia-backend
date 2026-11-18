@@ -1,5 +1,7 @@
 # Plano de execução — poous04-emissao-requisicoes
 
+> Plano histórico da entrega. Os caminhos refletem a estrutura usada na execução. Consulte o [tasks.md](tasks.md) para encontrar os arquivos atuais.
+
 > gerado por `onp-spec plano` em 2026-11-09 17:39 — NÃO edite à mão;
 > mudou tasks.md ou a config? Regenere: `onp-spec plano poous04-emissao-requisicoes --paralelizar T-016,T-017`
 

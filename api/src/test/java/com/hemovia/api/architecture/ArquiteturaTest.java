@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RestController;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
+import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 
 @AnalyzeClasses(packages = ArquiteturaTest.RAIZ, importOptions = ImportOption.DoNotIncludeTests.class)
 class ArquiteturaTest {
@@ -25,7 +26,7 @@ class ArquiteturaTest {
 
     @ArchTest
     static final ArchRule casosDeUsoNaCamadaService = classes().that().areAnnotatedWith(Service.class)
-            .should().resideInAPackage(RAIZ + ".service..");
+            .should().resideInAPackage(RAIZ + ".service.usecase..");
 
     @ArchTest
     static final ArchRule repositoriosJpaNaCamadaRepository = classes().that().areAssignableTo(JpaRepository.class)
@@ -34,6 +35,15 @@ class ArquiteturaTest {
     @ArchTest
     static final ArchRule entidadesJpaNaCamadaModel = classes().that().areAnnotatedWith(Entity.class)
             .should().resideInAPackage(RAIZ + ".model.entity..");
+
+    @ArchTest
+    static final ArchRule dtosSaoRecords = classes().that().resideInAPackage(RAIZ + ".dto..")
+            .and().doNotHaveSimpleName("package-info")
+            .should().beAssignableTo(Record.class);
+
+    @ArchTest
+    static final ArchRule persistenciaNaoUsaDtosHttp = noClasses().that().resideInAPackage(RAIZ + ".repository..")
+            .should().dependOnClassesThat().resideInAnyPackage(RAIZ + ".dto.request..", RAIZ + ".dto.response..");
 
     @ArchTest
     static final ArchRule controllersSemPersistencia = RegrasDeArquitetura.controllersSemPersistencia(RAIZ);
