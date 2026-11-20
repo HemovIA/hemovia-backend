@@ -4,6 +4,7 @@ import com.hemovia.api.dto.request.CreateBloodRequest;
 import com.hemovia.api.dto.response.AllocationResponse;
 import com.hemovia.api.dto.response.BloodRequestResponse;
 import com.hemovia.api.service.usecase.request.AllocateBloodRequest;
+import com.hemovia.api.service.usecase.request.CancelBloodRequest;
 import com.hemovia.api.service.usecase.request.CreateHospitalBloodRequest;
 import com.hemovia.api.dto.response.ApiError;
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,10 +31,12 @@ import java.util.UUID;
 public class BloodRequestController {
     private final CreateHospitalBloodRequest create;
     private final AllocateBloodRequest allocate;
+    private final CancelBloodRequest cancel;
 
-    public BloodRequestController(CreateHospitalBloodRequest create, AllocateBloodRequest allocate) {
+    public BloodRequestController(CreateHospitalBloodRequest create, AllocateBloodRequest allocate, CancelBloodRequest cancel) {
         this.create = create;
         this.allocate = allocate;
+        this.cancel = cancel;
     }
 
     @Operation(summary = "Emitir requisição hospitalar", security = @SecurityRequirement(name = "cookieAuth"),
@@ -65,5 +68,21 @@ public class BloodRequestController {
     @PostMapping("/{id}/allocate")
     public ResponseEntity<AllocationResponse> allocate(@PathVariable UUID id) {
         return ResponseEntity.status(HttpStatus.CREATED).body(allocate.execute(id));
+    }
+
+    @Operation(summary = "Cancelar requisição hospitalar", security = @SecurityRequirement(name = "cookieAuth"),
+            parameters = @Parameter(name = "X-XSRF-TOKEN", in = ParameterIn.HEADER, required = true,
+                    description = "Token CSRF obtido em /auth/csrf", schema = @Schema(type = "string")))
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Requisição cancelada", content = @Content(mediaType = "application/json", schema = @Schema(implementation = BloodRequestResponse.class))),
+            @ApiResponse(responseCode = "400", description = "Identificador inválido", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiError.class))),
+            @ApiResponse(responseCode = "401", description = "Sessão ausente ou inválida", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiError.class))),
+            @ApiResponse(responseCode = "403", description = "Papel ou CSRF inválido", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiError.class))),
+            @ApiResponse(responseCode = "404", description = "Requisição não encontrada", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiError.class))),
+            @ApiResponse(responseCode = "422", description = "Estado não permite cancelamento", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiError.class)))
+    })
+    @PostMapping("/{id}/cancel")
+    public ResponseEntity<BloodRequestResponse> cancel(@PathVariable UUID id) {
+        return ResponseEntity.ok(cancel.execute(id));
     }
 }

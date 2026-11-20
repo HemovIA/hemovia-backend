@@ -40,6 +40,7 @@ class OpenApiContractIT {
             Map.entry("/blood-centers/{id}", Set.of("get", "put", "delete")),
             Map.entry("/requests", Set.of("post")),
             Map.entry("/requests/{id}/allocate", Set.of("post")),
+            Map.entry("/requests/{id}/cancel", Set.of("post")),
             Map.entry("/donations", Set.of("get", "post")),
             Map.entry("/donations/{id}", Set.of("get", "put", "delete")),
             Map.entry("/blood-bags", Set.of("get", "post")),
@@ -70,7 +71,7 @@ class OpenApiContractIT {
                 assertTrue(objectFieldNames(operation.path("responses")).stream().anyMatch(code -> code.startsWith("2")));
             }
         }
-        assertEquals(29, operationIds.size());
+        assertEquals(30, operationIds.size());
         assertFalse(paths.has("/auth/register"));
         assertFalse(paths.has("/error"));
         assertTrue(paths.path("/auth/csrf").path("get").path("responses").has("204"));
@@ -262,6 +263,42 @@ class OpenApiContractIT {
         }
         JsonNode properties = document.path("components").path("schemas").path("AllocationResponse").path("properties");
         assertEquals(Set.of("id", "requestId", "status", "bloodBagIds"), objectFieldNames(properties));
+    }
+
+    @Test
+    @DisplayName("@spec:AC-047 OpenAPI documenta cancelamento de requisição")
+    void ac047DocumentsCancellationContract() throws Exception {
+        JsonNode document = getOpenApiDocument();
+        JsonNode paths = document.path("paths");
+        JsonNode operation = paths.path("/requests/{id}/cancel").path("post");
+        assertFalse(operation.isMissingNode());
+        assertFalse(paths.path("/requests").path("post").isMissingNode());
+        assertFalse(paths.path("/requests/{id}/allocate").path("post").isMissingNode());
+        assertFalse(operation.has("requestBody"));
+        assertTrue(hasSecurityRequirement(operation, "cookieAuth"));
+        JsonNode scheme = document.path("components").path("securitySchemes").path("cookieAuth");
+        assertEquals("cookie", scheme.path("in").asText());
+        assertEquals("HEMOVIA_ACCESS", scheme.path("name").asText());
+        boolean uuidPath = false;
+        boolean csrfHeader = false;
+        for (JsonNode parameter : operation.path("parameters")) {
+            if ("id".equals(parameter.path("name").asText()) && "path".equals(parameter.path("in").asText())
+                    && parameter.path("required").asBoolean()
+                    && "uuid".equals(parameter.path("schema").path("format").asText())) uuidPath = true;
+            if ("X-XSRF-TOKEN".equalsIgnoreCase(parameter.path("name").asText())
+                    && "header".equals(parameter.path("in").asText()) && parameter.path("required").asBoolean()
+                    && "string".equals(parameter.path("schema").path("type").asText())) csrfHeader = true;
+        }
+        assertTrue(uuidPath, "identificador UUID obrigatório");
+        assertTrue(csrfHeader, "cabeçalho CSRF obrigatório");
+        for (String code : Set.of("200", "400", "401", "403", "404", "422")) {
+            JsonNode schema = operation.path("responses").path(code).path("content")
+                    .path("application/json").path("schema");
+            assertEquals(code.equals("200") ? "BloodRequestResponse" : "ApiError", refName(schema.path("$ref")),
+                    "schema da resposta " + code);
+        }
+        JsonNode properties = document.path("components").path("schemas").path("BloodRequestResponse").path("properties");
+        assertEquals(Set.of("id", "status"), objectFieldNames(properties));
     }
 
     @Test
