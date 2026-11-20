@@ -1,6 +1,10 @@
 package com.hemovia.api.repository.adapter;
 
 import com.hemovia.api.repository.port.RequestAllocationStore;
+import com.hemovia.api.model.algorithm.graph.Dijkstra;
+import com.hemovia.api.model.entity.DeliveryRoute;
+import com.hemovia.api.model.entity.RouteWaypoint;
+import jakarta.persistence.EntityManager;
 import com.hemovia.api.model.exception.ResourceNotFoundException;
 import com.hemovia.api.model.entity.Allocation;
 import com.hemovia.api.model.entity.AllocationItem;
@@ -27,13 +31,15 @@ public class RequestAllocationStoreAdapter implements RequestAllocationStore {
     private final BloodBagRepository bags;
     private final BloodCenterRepository centers;
     private final AllocationRepository allocations;
+    private final EntityManager entityManager;
 
     public RequestAllocationStoreAdapter(BloodRequestRepository requests, BloodBagRepository bags,
-                                         BloodCenterRepository centers, AllocationRepository allocations) {
+                                         BloodCenterRepository centers, AllocationRepository allocations, EntityManager entityManager) {
         this.requests = requests;
         this.bags = bags;
         this.centers = centers;
         this.allocations = allocations;
+        this.entityManager = entityManager;
     }
 
     @Override
@@ -53,6 +59,32 @@ public class RequestAllocationStoreAdapter implements RequestAllocationStore {
         return locked.stream()
                 .filter(bag -> bag.getStatus() == BloodBagStatus.AVAILABLE && !reserved.contains(bag.getId()))
                 .toList();
+    }
+
+    @Override
+    public DeliveryRoute saveRoute(Allocation allocation, Dijkstra.Path path) {
+        var route = new DeliveryRoute();
+        route.setOrigin(allocation.getBloodCenter());
+        route.setDestination(allocation.getRequest().getHospital());
+        route.setDistanceKm(path.distanceKm());
+        route.setEstimatedDurationSeconds(path.durationSeconds());
+        route.getNodeIds().addAll(path.nodeIds());
+        for (var edge : path.edges()) {
+            for (var point : edge.geometry()) {
+                var waypoints = route.getWaypoints();
+                if (!waypoints.isEmpty()) {
+                    var last = waypoints.get(waypoints.size() - 1);
+                    if (last.getLatitude().equals(point.latitude()) && last.getLongitude().equals(point.longitude())) continue;
+                }
+                var waypoint = new RouteWaypoint();
+                waypoint.setLatitude(point.latitude());
+                waypoint.setLongitude(point.longitude());
+                route.addWaypoint(waypoint);
+            }
+        }
+        entityManager.persist(route);
+        allocation.setRoute(route);
+        return route;
     }
 
     @Override

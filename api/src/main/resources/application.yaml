@@ -30,6 +30,13 @@ springdoc:
     disable-swagger-default-url: true
     persist-authorization: false
 hemovia:
+  # OSRM: valores finitos e limite compatível com o servidor público
+  routing:
+    base-url: ${ROUTING_BASE_URL:https://router.project-osrm.org}
+    connect-timeout: ${ROUTING_CONNECT_TIMEOUT:5s}
+    request-timeout: ${ROUTING_REQUEST_TIMEOUT:15s}
+    minimum-interval: ${ROUTING_MINIMUM_INTERVAL:1s}
+    platelets-max-seconds: ${ROUTING_PLATELETS_MAX_SECONDS:3600}
   security:
     # Obrigatório e sem valor padrão: a aplicação não sobe sem JWT_SECRET de pelo menos 32 caracteres
     jwt-secret: ${JWT_SECRET}

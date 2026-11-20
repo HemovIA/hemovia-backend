@@ -44,7 +44,10 @@ class OpenApiContractIT {
             Map.entry("/donations", Set.of("get", "post")),
             Map.entry("/donations/{id}", Set.of("get", "put", "delete")),
             Map.entry("/blood-bags", Set.of("get", "post")),
-            Map.entry("/blood-bags/{id}", Set.of("get", "put", "delete")));
+            Map.entry("/blood-bags/{id}", Set.of("get", "put", "delete")),
+            Map.entry("/route-graph/nodes", Set.of("get", "post")),
+            Map.entry("/route-graph/edges", Set.of("get", "post")),
+            Map.entry("/routes/calculate", Set.of("post")));
 
     @LocalServerPort
     private int port;
@@ -71,7 +74,7 @@ class OpenApiContractIT {
                 assertTrue(objectFieldNames(operation.path("responses")).stream().anyMatch(code -> code.startsWith("2")));
             }
         }
-        assertEquals(30, operationIds.size());
+        assertEquals(35, operationIds.size());
         assertFalse(paths.has("/auth/register"));
         assertFalse(paths.has("/error"));
         assertTrue(paths.path("/auth/csrf").path("get").path("responses").has("204"));
@@ -262,7 +265,7 @@ class OpenApiContractIT {
                     "schema da resposta " + code);
         }
         JsonNode properties = document.path("components").path("schemas").path("AllocationResponse").path("properties");
-        assertEquals(Set.of("id", "requestId", "status", "bloodBagIds"), objectFieldNames(properties));
+        assertEquals(Set.of("id", "requestId", "status", "bloodBagIds", "route"), objectFieldNames(properties));
     }
 
     @Test
@@ -318,6 +321,25 @@ class OpenApiContractIT {
         JsonNode schemas = document.path("components").path("schemas");
         assertRequired(schemas.path("BloodCenterRequest"), "name", "city", "latitude", "longitude");
         assertEquals("uuid", schemas.path("BloodCenterResponse").path("properties").path("id").path("format").asText());
+    }
+
+    @Test
+    @DisplayName("@spec:AC-054 OpenAPI documenta rede e prévia em JSON")
+    void ac054DocumentsRouteOperations() throws Exception {
+        JsonNode paths = getOpenApiDocument().path("paths");
+        for (String path : Set.of("/route-graph/nodes", "/route-graph/edges")) {
+            for (String method : Set.of("get", "post")) {
+                JsonNode operation = paths.path(path).path(method);
+                assertTrue(hasSecurityRequirement(operation, "cookieAuth"));
+                assertTrue(operation.path("responses").path(method.equals("get") ? "200" : "201")
+                        .path("content").has("application/json"));
+            }
+        }
+        JsonNode preview = paths.path("/routes/calculate").path("post");
+        assertTrue(hasSecurityRequirement(preview, "cookieAuth"));
+        assertTrue(preview.path("responses").path("200").path("content").has("application/json"));
+        assertEquals("RoutePreviewResponse", refName(preview.path("responses").path("200")
+                .path("content").path("application/json").path("schema").path("$ref")));
     }
 
     private static void assertBloodCenterOperation(JsonNode operation, boolean csrf, Set<String> responses) {

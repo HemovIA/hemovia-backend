@@ -64,6 +64,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             Map.entry("REQUEST_ALREADY_PROCESSED", HttpStatus.CONFLICT),
             Map.entry("INVALID_ROUTE", HttpStatus.UNPROCESSABLE_ENTITY),
             Map.entry("INCOMPATIBLE_BLOOD", HttpStatus.UNPROCESSABLE_ENTITY),
+            Map.entry("ROUTING_PROVIDER_UNAVAILABLE", HttpStatus.SERVICE_UNAVAILABLE),
             Map.entry(CODIGO_BUFFER_CHEIO, HttpStatus.SERVICE_UNAVAILABLE));
 
     // Fonte do timestamp de cada erro, injetada para os testes poderem fixar o tempo

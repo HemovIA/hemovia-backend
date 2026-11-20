@@ -251,6 +251,54 @@ O Render fornece a variável `PORT` automaticamente; a API já a utiliza. Para u
 
 ---
 
+## Rotas na rede cadastrada — AEDUS04 e POOUS07
+
+O [OSRM](https://project-osrm.org/) fornece trajetos de ruas com dados do [OpenStreetMap](https://www.openstreetmap.org/copyright). Nosso Dijkstra escolhe a sequência de ligações cadastradas com menor tempo total. Defina as coordenadas dos hemocentros e hospitais antes de preparar a malha.
+
+1. Autentique-se como `ADMIN`, obtenha o CSRF e cadastre o ponto de origem em `POST /api/v1/route-graph/nodes`:
+
+```json
+{"name":"Origem","bloodCenterId":"<id-do-hemocentro>"}
+```
+
+2. Cadastre o destino na mesma operação:
+
+```json
+{"name":"Destino","hospitalId":"<id-do-hospital>"}
+```
+
+Ao vincular um cadastro, omita `latitude` e `longitude`: o servidor copia as coordenadas do recurso. Para um cruzamento, envie `name`, `latitude` e `longitude`, sem os campos de vínculo. Guarde os IDs dos pontos retornados; são diferentes dos IDs do hospital e do hemocentro.
+
+3. Cadastre a ligação em `POST /api/v1/route-graph/edges`, usando os IDs dos pontos:
+
+```json
+{"fromNodeId":"<id-do-ponto-de-origem>","toNodeId":"<id-do-ponto-de-destino>"}
+```
+
+O servidor consulta o OSRM para obter tempo, distância e geometria. Não informe pesos manualmente. Cada ligação é direcional; cadastre também a ligação inversa se precisar da viagem de volta. Use os GETs de `/route-graph/nodes` e `/route-graph/edges` para consultar a malha.
+
+4. Autentique-se como `HEMOCENTRO` vinculado à origem e envie uma prévia a `POST /api/v1/routes/calculate`:
+
+```json
+{
+  "hospitalId":"<id-do-hospital>",
+  "component":"RED_BLOOD_CELLS",
+  "deliveryDeadline":"2030-12-31T18:00:00Z"
+}
+```
+
+Substitua o prazo pelo instante futuro do seu teste. A prévia não grava rota nem reserva estoque. Nas operações POST, envie o cookie da sessão e o header `X-XSRF-TOKEN`, conforme as instruções de autenticação no Swagger.
+
+5. Com uma requisição pendente do hospital e estoque compatível, execute `POST /api/v1/requests/{id}/allocate`. A resposta mantém os campos anteriores e acrescenta `route`, com ID da rota, vértices, distância em quilômetros, duração em segundos e geometria GeoJSON. Se não houver caminho ou a chegada ultrapassar o prazo, retorna `422 INVALID_ROUTE` e desfaz a reserva inteira. O cancelamento preserva o histórico da rota.
+
+O GeoJSON usa pares `[longitude, latitude]`; o perfil considerado é o de carro. Os custos e trajetos são snapshots dos trechos consultados no cadastro, sem atualização automática ou trânsito em tempo real. A seleção é ótima dentro da rede cadastrada; não pesquisa todas as ruas fora dela. Esta entrega oferece cadastro e listagem da malha e mantém a alocação restrita a hemácias.
+
+O endereço do serviço é configurável por `ROUTING_BASE_URL`. O servidor público de demonstração é destinado a uso não comercial razoável, limita consultas a uma por segundo e não oferece garantia de disponibilidade. [Política do servidor](https://github.com/Project-OSRM/osrm-backend/wiki/Demo-server). Falha do provedor no cadastro retorna `503 ROUTING_PROVIDER_UNAVAILABLE`, sem ligação parcial.
+
+O limite de plaquetas na prévia é a regra didática do backlog: 60 minutos por padrão, configurável em segundos por `ROUTING_PLATELETS_MAX_SECONDS`. A associação da rota ao transporte será feita na POOUS09; esta entrega não cria transporte nem veículo.
+
+---
+
 ## Equipe
 
 ### Membros atuais

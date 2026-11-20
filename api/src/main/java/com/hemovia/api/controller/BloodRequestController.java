@@ -53,7 +53,7 @@ public class BloodRequestController {
         return ResponseEntity.status(HttpStatus.CREATED).body(create.execute(request));
     }
 
-    @Operation(summary = "Alocar hemácias para requisição", security = @SecurityRequirement(name = "cookieAuth"),
+    @Operation(summary = "Alocar hemácias para requisição", description = "Restrito a HEMOCENTRO. A rota contém distância em quilômetros, duração em segundos e geometria longitude/latitude.", security = @SecurityRequirement(name = "cookieAuth"),
             parameters = @Parameter(name = "X-XSRF-TOKEN", in = ParameterIn.HEADER, required = true,
                     description = "Token CSRF obtido em /auth/csrf"))
     @ApiResponses({
@@ -63,7 +63,7 @@ public class BloodRequestController {
             @ApiResponse(responseCode = "403", description = "Papel ou CSRF inválido", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiError.class))),
             @ApiResponse(responseCode = "404", description = "Requisição ou hemocentro ativo não encontrado", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiError.class))),
             @ApiResponse(responseCode = "409", description = "Requisição processada ou estoque insuficiente", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiError.class))),
-            @ApiResponse(responseCode = "422", description = "Componente não elegível", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiError.class)))
+            @ApiResponse(responseCode = "422", description = "Componente não elegível ou INVALID_ROUTE: rota inexistente ou fora da janela", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiError.class)))
     })
     @PostMapping("/{id}/allocate")
     public ResponseEntity<AllocationResponse> allocate(@PathVariable UUID id) {

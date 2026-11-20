@@ -1,0 +1,199 @@
+{
+  "runId": "hemovia-backend-aedus04-poous07-roteirizacao-mwp5nq58",
+  "feature": "aedus04-poous07-roteirizacao",
+  "agent": "codex",
+  "modo": "paralelo",
+  "paralelizar": [
+    "T-028",
+    "T-029"
+  ],
+  "modeloForcado": null,
+  "esforcoForcado": null,
+  "geradoEm": "2026-11-20 15:50",
+  "branchTrabalho": "spec/aedus04-poous07-roteirizacao",
+  "baseDir": ".spec/features/aedus04-poous07-roteirizacao",
+  "specDir": ".spec",
+  "repoName": "hemovia-backend",
+  "logsDir": "../onp-worktrees/hemovia-backend-aedus04-poous07-roteirizacao-logs",
+  "ondas": [
+    [
+      "faixa-1",
+      "faixa-2"
+    ]
+  ],
+  "faixas": [
+    {
+      "id": "faixa-1",
+      "branch": "spec/aedus04-poous07-roteirizacao-faixa-1",
+      "worktree": "../onp-worktrees/hemovia-backend-aedus04-poous07-roteirizacao-faixa-1",
+      "tarefas": [
+        {
+          "id": "T-028",
+          "titulo": "Implementar Dijkstra e validação da janela de entrega",
+          "modelo": "gpt-6.1-terra",
+          "esforco": "medium",
+          "arquivos": [
+            "api/src/main/java/com/hemovia/api/model/valueobject/GeoPoint.java",
+            "api/src/main/java/com/hemovia/api/model/algorithm/graph/RoutingGraph.java",
+            "api/src/main/java/com/hemovia/api/model/algorithm/graph/Dijkstra.java",
+            "api/src/main/java/com/hemovia/api/model/algorithm/graph/DeliveryWindow.java",
+            "api/src/main/java/com/hemovia/api/model/exception/InvalidRouteException.java",
+            "api/src/test/java/com/hemovia/api/model/algorithm/graph/DijkstraTest.java",
+            "api/src/test/java/com/hemovia/api/model/algorithm/graph/DeliveryWindowTest.java"
+          ],
+          "refs": [
+            "US-021",
+            "AC-048",
+            "AC-049"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "faixa-2",
+      "branch": "spec/aedus04-poous07-roteirizacao-faixa-2",
+      "worktree": "../onp-worktrees/hemovia-backend-aedus04-poous07-roteirizacao-faixa-2",
+      "tarefas": [
+        {
+          "id": "T-029",
+          "titulo": "Integrar OSRM e persistir a malha com trechos reais",
+          "modelo": "gpt-6.1-terra",
+          "esforco": "medium",
+          "arquivos": [
+            "api/src/main/java/com/hemovia/api/model/RoadSegment.java",
+            "api/src/main/java/com/hemovia/api/model/entity/RouteNode.java",
+            "api/src/main/java/com/hemovia/api/model/entity/RouteEdge.java",
+            "api/src/main/java/com/hemovia/api/model/exception/RoutingProviderUnavailableException.java",
+            "api/src/main/java/com/hemovia/api/service/port/output/RoadRoutingProvider.java",
+            "api/src/main/java/com/hemovia/api/service/routing/OsrmRoadRoutingProvider.java",
+            "api/src/main/java/com/hemovia/api/service/config/RoutingProperties.java",
+            "api/src/main/java/com/hemovia/api/service/config/RoutingConfiguration.java",
+            "api/src/main/java/com/hemovia/api/service/usecase/route/ManageRouteGraph.java",
+            "api/src/main/java/com/hemovia/api/repository/port/RouteGraphStore.java",
+            "api/src/main/java/com/hemovia/api/repository/adapter/RouteGraphStoreAdapter.java",
+            "api/src/main/java/com/hemovia/api/repository/mapper/RoadGeometryCodec.java",
+            "api/src/main/java/com/hemovia/api/repository/jpa/RouteNodeRepository.java",
+            "api/src/main/java/com/hemovia/api/repository/jpa/RouteEdgeRepository.java",
+            "api/src/main/resources/db/migration/V15__associate_allocations_with_real_routes.sql",
+            "api/src/main/resources/application.yaml",
+            "api/.env.example",
+            "api/src/test/java/com/hemovia/api/service/routing/OsrmRoadRoutingProviderTest.java",
+            "api/src/main/java/com/hemovia/api/dto/internal/NewRouteEdge.java",
+            "api/src/main/java/com/hemovia/api/dto/internal/StoredRouteEdge.java"
+          ],
+          "refs": [
+            "US-021",
+            "US-022",
+            "AC-050",
+            "AC-051",
+            "AC-052",
+            "AC-055"
+          ]
+        }
+      ]
+    }
+  ],
+  "sequenciais": [
+    {
+      "id": "T-030",
+      "titulo": "Expor cadastro de pontos e ligações no Swagger",
+      "modelo": "gpt-6.1-terra",
+      "esforco": "medium",
+      "arquivos": [
+        "api/src/main/java/com/hemovia/api/controller/RouteGraphController.java",
+        "api/src/main/java/com/hemovia/api/controller/config/OpenApiConfiguration.java",
+        "api/src/main/java/com/hemovia/api/controller/security/SecurityConfig.java",
+        "api/src/main/java/com/hemovia/api/controller/handler/GlobalExceptionHandler.java",
+        "api/src/main/java/com/hemovia/api/dto/request/CreateRouteNodeRequest.java",
+        "api/src/main/java/com/hemovia/api/dto/request/CreateRouteEdgeRequest.java",
+        "api/src/main/java/com/hemovia/api/dto/response/RouteNodeResponse.java",
+        "api/src/main/java/com/hemovia/api/dto/response/RouteEdgeResponse.java",
+        "api/src/main/java/com/hemovia/api/dto/response/GeoJsonLineString.java"
+      ],
+      "refs": [
+        "US-022",
+        "AC-051",
+        "AC-054"
+      ]
+    },
+    {
+      "id": "T-031",
+      "titulo": "Integrar cálculo e histórico da rota à alocação",
+      "modelo": "gpt-6.1-terra",
+      "esforco": "medium",
+      "arquivos": [
+        "api/src/main/java/com/hemovia/api/service/usecase/route/CalculateDeliveryRoute.java",
+        "api/src/main/java/com/hemovia/api/service/usecase/route/PreviewDeliveryRoute.java",
+        "api/src/main/java/com/hemovia/api/service/usecase/request/AllocateBloodRequest.java",
+        "api/src/main/java/com/hemovia/api/repository/port/RequestAllocationStore.java",
+        "api/src/main/java/com/hemovia/api/repository/adapter/RequestAllocationStoreAdapter.java",
+        "api/src/main/java/com/hemovia/api/model/entity/Allocation.java",
+        "api/src/main/java/com/hemovia/api/model/entity/DeliveryRoute.java",
+        "api/src/main/java/com/hemovia/api/dto/request/CalculateRouteRequest.java",
+        "api/src/main/java/com/hemovia/api/dto/response/RoutePreviewResponse.java",
+        "api/src/main/java/com/hemovia/api/dto/response/RouteResponse.java",
+        "api/src/main/java/com/hemovia/api/dto/response/AllocationResponse.java",
+        "api/src/main/java/com/hemovia/api/controller/RouteController.java",
+        "api/src/main/java/com/hemovia/api/controller/BloodRequestController.java"
+      ],
+      "refs": [
+        "US-021",
+        "US-022",
+        "AC-049",
+        "AC-052",
+        "AC-053",
+        "AC-054",
+        "AC-055",
+        "AC-056"
+      ]
+    },
+    {
+      "id": "T-032",
+      "titulo": "Provar os fluxos com PostgreSQL e renovar a auditoria",
+      "modelo": "gpt-6.1-terra",
+      "esforco": "medium",
+      "arquivos": [
+        "api/src/test/java/com/hemovia/api/controller/RouteGraphAcceptanceTest.java",
+        "api/src/test/java/com/hemovia/api/controller/DeliveryRouteAcceptanceTest.java",
+        "api/src/test/java/com/hemovia/api/controller/BloodRequestAllocationAcceptanceTest.java",
+        "api/src/test/java/com/hemovia/api/controller/BloodRequestCancellationAcceptanceTest.java",
+        "api/src/test/java/com/hemovia/api/controller/BloodCenterAcceptanceTest.java",
+        "api/src/test/java/com/hemovia/api/documentation/OpenApiContractIT.java",
+        "api/src/test/java/com/hemovia/api/support/RouteGraphFixtures.java",
+        "api/src/test/java/com/hemovia/api/migration/MigracaoV15RotasReaisTest.java",
+        "api/src/test/java/com/hemovia/api/ApiApplicationTests.java",
+        "api/src/test/java/com/hemovia/api/migration/AtualizacaoDeBancoLegadoTest.java",
+        "api/src/test/java/com/hemovia/api/migration/MigracoesEmBancoVazioTest.java",
+        "api/src/test/java/com/hemovia/api/model/MigrationSourcesTest.java",
+        "scripts/spec-java/acceptance-cases.json",
+        "onpspec.config.json",
+        "README.md"
+      ],
+      "refs": [
+        "AC-048",
+        "AC-049",
+        "AC-050",
+        "AC-051",
+        "AC-052",
+        "AC-053",
+        "AC-054",
+        "AC-055",
+        "AC-056",
+        "AC-030",
+        "AC-034",
+        "AC-035",
+        "AC-041",
+        "AC-045",
+        "AC-046"
+      ]
+    }
+  ],
+  "concluidas": [],
+  "avisos": [
+    "T-028 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar",
+    "T-029 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar",
+    "T-030 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar",
+    "T-031 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar",
+    "T-032 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar"
+  ]
+}

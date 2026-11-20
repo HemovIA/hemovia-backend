@@ -1,5 +1,6 @@
 package com.hemovia.api.controller;
 
+import com.hemovia.api.support.RouteGraphFixtures;
 import com.hemovia.api.controller.security.SessionCookies;
 import com.hemovia.api.model.User;
 import com.hemovia.api.model.enums.Role;
@@ -37,38 +38,50 @@ class BloodRequestCancellationAcceptanceTest {
     UUID hospital, otherHospital, center;
     final List<UUID> requests = new ArrayList<>(), bags = new ArrayList<>(), routes = new ArrayList<>(), vehicles = new ArrayList<>();
     String trigger, function;
+    UUID centerNode, hospitalNode;
 
     @BeforeEach void setup() {
         mvc = MockMvcBuilders.webAppContextSetup(context).apply(springSecurity()).build();
         hospital = UUID.randomUUID(); otherHospital = UUID.randomUUID(); center = UUID.randomUUID();
         for (UUID id : List.of(hospital, otherHospital)) jdbc.update("insert into hospital(id,name,city,latitude,longitude,priority) values (?, 'H', 'C', 0, 0, 1)", id);
         jdbc.update("insert into blood_centers(id,name,city,latitude,longitude) values (?, 'C', 'C', 0, 0)", center);
+        centerNode = RouteGraphFixtures.center(jdbc, center);
+        hospitalNode = RouteGraphFixtures.hospital(jdbc, hospital);
+        RouteGraphFixtures.edge(jdbc, centerNode, hospitalNode, 60);
     }
     @AfterEach void cleanup() {
         dropTrigger();
         for (UUID id : requests) {
             jdbc.update("delete from transports where allocation_id in (select id from allocations where request_id=?)", id);
             jdbc.update("delete from allocation_items where allocation_id in (select id from allocations where request_id=?)", id);
+            jdbc.update("delete from route_waypoints where route_id in (select route_id from allocations where request_id=?)", id);
+            jdbc.update("delete from delivery_route_nodes where route_id in (select route_id from allocations where request_id=?)", id);
+            List<UUID> allocatedRoutes = jdbc.queryForList("select route_id from allocations where request_id=? and route_id is not null", UUID.class, id);
             jdbc.update("delete from allocations where request_id=?", id);
+            for (UUID route : allocatedRoutes) jdbc.update("delete from delivery_routes where id=?", route);
             jdbc.update("delete from blood_requests where id=?", id);
         }
         for (UUID id : routes) jdbc.update("delete from delivery_routes where id=?", id);
         for (UUID id : vehicles) jdbc.update("delete from vehicles where id=?", id);
         for (UUID id : bags) jdbc.update("delete from blood_bags where id=?", id);
+        RouteGraphFixtures.cleanup(jdbc, centerNode, hospitalNode);
         jdbc.update("delete from blood_centers where id=?", center);
         jdbc.update("delete from hospital where id in (?,?)", hospital, otherHospital);
     }
-    @Test @DisplayName("@spec:AC-041 cancelamento libera três bolsas e preserva histórico reutilizável")
+    @Test @DisplayName("@spec:AC-041 @spec:AC-056 cancelamento libera três bolsas e preserva o histórico da rota")
     void ac041ReleasesAllBagsAndAllowsReallocation() throws Exception {
         UUID r = request(hospital, 3, "PENDING");
         UUID a = bag(), b = bag(), c = bag();
         allocate(r).andExpect(status().isCreated());
         UUID allocation = allocation(r);
+        UUID route = jdbc.queryForObject("select route_id from allocations where id=?", UUID.class, allocation);
         List<UUID> itemIds = itemIds(allocation);
         assertThat(itemIds).hasSize(3);
         cancel(r.toString(), access(Role.HOSPITAL, hospital), true).andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(r.toString())).andExpect(jsonPath("$.status").value("CANCELLED"));
         assertReleased(r, allocation, itemIds, a, b, c);
+        assertThat(jdbc.queryForObject("select route_id from allocations where id=?", UUID.class, allocation)).isEqualTo(route);
+        assertThat(count("select count(*) from delivery_routes where id=?", route)).isEqualTo(1);
         UUID next = request(hospital, 3, "PENDING");
         allocate(next).andExpect(status().isCreated());
         assertThat(jdbc.queryForList("select blood_bag_id from allocation_items where allocation_id=? and status='RESERVED'", UUID.class, allocation(next))).containsExactlyInAnyOrder(a,b,c);

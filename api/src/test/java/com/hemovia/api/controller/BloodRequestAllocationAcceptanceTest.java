@@ -1,5 +1,6 @@
 package com.hemovia.api.controller;
 
+import com.hemovia.api.support.RouteGraphFixtures;
 import com.hemovia.api.service.port.output.AccessTokenIssuer;
 import com.hemovia.api.service.port.output.ClockProvider;
 import com.hemovia.api.model.enums.Role;
@@ -57,21 +58,30 @@ class BloodRequestAllocationAcceptanceTest {
     UUID hospital, center, otherCenter;
     final List<UUID> requests = new ArrayList<>(), bags = new ArrayList<>();
     String trigger, function;
+    UUID centerNode, hospitalNode;
 
     @BeforeEach void setup() {
         mvc = MockMvcBuilders.webAppContextSetup(context).apply(springSecurity()).build();
         hospital = UUID.randomUUID(); center = UUID.randomUUID(); otherCenter = UUID.randomUUID();
         jdbc.update("insert into hospital(id,name,city,latitude,longitude,priority) values (?, 'H', 'C', 0, 0, 1)", hospital);
         for (UUID id : List.of(center, otherCenter)) jdbc.update("insert into blood_centers(id,name,city,latitude,longitude) values (?, 'C', 'C', 0, 0)", id);
+        centerNode = RouteGraphFixtures.center(jdbc, center);
+        hospitalNode = RouteGraphFixtures.hospital(jdbc, hospital);
+        RouteGraphFixtures.edge(jdbc, centerNode, hospitalNode, 60);
     }
     @AfterEach void cleanup() {
         dropTrigger();
         for (UUID id : requests) {
             jdbc.update("delete from allocation_items where allocation_id in (select id from allocations where request_id = ?)", id);
+            jdbc.update("delete from route_waypoints where route_id in (select route_id from allocations where request_id=?)", id);
+            jdbc.update("delete from delivery_route_nodes where route_id in (select route_id from allocations where request_id=?)", id);
+            List<UUID> allocatedRoutes = jdbc.queryForList("select route_id from allocations where request_id=? and route_id is not null", UUID.class, id);
             jdbc.update("delete from allocations where request_id = ?", id);
+            for (UUID route : allocatedRoutes) jdbc.update("delete from delivery_routes where id=?", route);
             jdbc.update("delete from blood_requests where id = ?", id);
         }
         for (UUID id : bags) jdbc.update("delete from blood_bags where id = ?", id);
+        RouteGraphFixtures.cleanup(jdbc, centerNode, hospitalNode);
         jdbc.update("delete from blood_centers where id in (?, ?)", center, otherCenter);
         jdbc.update("delete from hospital where id = ?", hospital);
     }

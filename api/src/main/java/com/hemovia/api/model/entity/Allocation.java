@@ -40,6 +40,8 @@ public class Allocation {
     private Instant updatedAt = Instant.now();
     @OneToMany(mappedBy = "allocation", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private final List<AllocationItem> items = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "route_id") private DeliveryRoute route;
     @Version private Long version;
 
     public Allocation() { }
@@ -66,6 +68,8 @@ public class Allocation {
     public void setUpdatedAt(Instant updatedAt) { this.updatedAt = require(updatedAt, "updatedAt"); }
     public List<AllocationItem> getItems() { return items; }
     public Long getVersion() { return version; }
+    public DeliveryRoute getRoute() { return route; }
+    public void setRoute(DeliveryRoute route) { this.route = require(route, "route"); }
 
     public void addItem(AllocationItem item) {
         if (item == null) throw new IllegalArgumentException("item must not be null");
