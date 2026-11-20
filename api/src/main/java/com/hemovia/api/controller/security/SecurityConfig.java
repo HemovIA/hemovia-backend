@@ -67,6 +67,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, ApiPrefixConfiguration.PREFIXO + "/transports/*/complete").hasRole(Role.HOSPITAL.name())
                 .requestMatchers(HttpMethod.POST, ApiPrefixConfiguration.PREFIXO + "/vehicles").hasRole(Role.ADMIN.name())
                 .requestMatchers(HttpMethod.POST, BLOOD_CENTERS).hasRole(Role.ADMIN.name())
+                .requestMatchers(HttpMethod.GET, ApiPrefixConfiguration.PREFIXO + "/statistics/**").hasAnyRole(Role.ADMIN.name(), Role.HEMOCENTRO.name())
                 .requestMatchers(HttpMethod.PUT, BLOOD_CENTERS + "/*").hasRole(Role.ADMIN.name())
                 .requestMatchers(HttpMethod.DELETE, BLOOD_CENTERS + "/*").hasRole(Role.ADMIN.name())
                 .requestMatchers(ApiPrefixConfiguration.PREFIXO + "/users/**").hasRole(Role.ADMIN.name())
