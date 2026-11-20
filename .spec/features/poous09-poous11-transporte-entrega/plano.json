@@ -1,0 +1,150 @@
+{
+  "runId": "hemovia-backend-poous09-poous11-transporte-entrega-mwpg5ivd",
+  "feature": "poous09-poous11-transporte-entrega",
+  "agent": "codex",
+  "modo": "paralelo",
+  "paralelizar": [
+    "T-033",
+    "T-034"
+  ],
+  "modeloForcado": "gpt-6.1-terra",
+  "esforcoForcado": "medium",
+  "geradoEm": "2026-11-20 20:43",
+  "branchTrabalho": "spec/poous09-poous11-transporte-entrega",
+  "baseDir": ".spec/features/poous09-poous11-transporte-entrega",
+  "specDir": ".spec",
+  "repoName": "hemovia-backend",
+  "logsDir": "../onp-worktrees/hemovia-backend-poous09-poous11-transporte-entrega-logs",
+  "ondas": [
+    [
+      "faixa-1",
+      "faixa-2"
+    ]
+  ],
+  "faixas": [
+    {
+      "id": "faixa-1",
+      "branch": "spec/poous09-poous11-transporte-entrega-faixa-1",
+      "worktree": "../onp-worktrees/hemovia-backend-poous09-poous11-transporte-entrega-faixa-1",
+      "tarefas": [
+        {
+          "id": "T-033",
+          "titulo": "Implementar início e conclusão transacionais",
+          "modelo": "gpt-6.1-terra",
+          "esforco": "medium",
+          "arquivos": [
+            "api/src/main/java/com/hemovia/api/service/usecase/transport/StartTransport.java",
+            "api/src/main/java/com/hemovia/api/service/usecase/transport/CompleteTransport.java",
+            "api/src/main/java/com/hemovia/api/service/usecase/transport/TransportLifecycle.java",
+            "api/src/main/java/com/hemovia/api/repository/port/TransportLifecycleStore.java",
+            "api/src/main/java/com/hemovia/api/repository/adapter/TransportLifecycleStoreAdapter.java",
+            "api/src/main/java/com/hemovia/api/repository/jpa/TransportRepository.java",
+            "api/src/main/java/com/hemovia/api/repository/jpa/AllocationRepository.java",
+            "api/src/main/java/com/hemovia/api/repository/jpa/VehicleRepository.java",
+            "api/src/main/java/com/hemovia/api/model/exception/VehicleUnavailableException.java",
+            "api/src/main/java/com/hemovia/api/dto/request/StartTransportRequest.java",
+            "api/src/main/java/com/hemovia/api/dto/response/TransportResponse.java",
+            "api/src/main/resources/db/migration/V16__one_active_transport_per_vehicle.sql"
+          ],
+          "refs": [
+            "US-023",
+            "US-024",
+            "AC-057",
+            "AC-058",
+            "AC-059",
+            "AC-060",
+            "AC-061",
+            "AC-062",
+            "AC-063"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "faixa-2",
+      "branch": "spec/poous09-poous11-transporte-entrega-faixa-2",
+      "worktree": "../onp-worktrees/hemovia-backend-poous09-poous11-transporte-entrega-faixa-2",
+      "tarefas": [
+        {
+          "id": "T-034",
+          "titulo": "Disponibilizar cadastro e listagem de veículos",
+          "modelo": "gpt-6.1-terra",
+          "esforco": "medium",
+          "arquivos": [
+            "api/src/main/java/com/hemovia/api/service/usecase/vehicle/ManageVehicles.java",
+            "api/src/main/java/com/hemovia/api/dto/request/VehicleRequest.java",
+            "api/src/main/java/com/hemovia/api/dto/response/VehicleResponse.java",
+            "api/src/main/java/com/hemovia/api/controller/VehicleController.java",
+            "api/src/test/java/com/hemovia/api/service/usecase/vehicle/ManageVehiclesTest.java"
+          ],
+          "refs": [
+            "US-025",
+            "AC-065"
+          ]
+        }
+      ]
+    }
+  ],
+  "sequenciais": [
+    {
+      "id": "T-035",
+      "titulo": "Expor transporte com segurança e Swagger",
+      "modelo": "gpt-6.1-terra",
+      "esforco": "medium",
+      "arquivos": [
+        "api/src/main/java/com/hemovia/api/controller/TransportController.java",
+        "api/src/main/java/com/hemovia/api/controller/security/SecurityConfig.java",
+        "api/src/main/java/com/hemovia/api/controller/config/OpenApiConfiguration.java"
+      ],
+      "refs": [
+        "US-023",
+        "US-024",
+        "US-025",
+        "AC-057",
+        "AC-061",
+        "AC-064",
+        "AC-065",
+        "AC-066"
+      ]
+    },
+    {
+      "id": "T-036",
+      "titulo": "Provar o ciclo e renovar a auditoria",
+      "modelo": "gpt-6.1-terra",
+      "esforco": "medium",
+      "arquivos": [
+        "api/src/test/java/com/hemovia/api/controller/TransportAcceptanceTest.java",
+        "api/src/test/java/com/hemovia/api/controller/VehicleAcceptanceTest.java",
+        "api/src/test/java/com/hemovia/api/migration/MigracaoV16TransportesTest.java",
+        "api/src/test/java/com/hemovia/api/migration/MigracaoV15RotasReaisTest.java",
+        "api/src/test/java/com/hemovia/api/documentation/OpenApiContractIT.java",
+        "api/src/test/java/com/hemovia/api/ApiApplicationTests.java",
+        "api/src/test/java/com/hemovia/api/migration/AtualizacaoDeBancoLegadoTest.java",
+        "api/src/test/java/com/hemovia/api/migration/MigracoesEmBancoVazioTest.java",
+        "api/src/test/java/com/hemovia/api/model/MigrationSourcesTest.java",
+        "scripts/spec-java/acceptance-cases.json",
+        "onpspec.config.json",
+        "README.md"
+      ],
+      "refs": [
+        "AC-057",
+        "AC-058",
+        "AC-059",
+        "AC-060",
+        "AC-061",
+        "AC-062",
+        "AC-063",
+        "AC-064",
+        "AC-065",
+        "AC-066"
+      ]
+    }
+  ],
+  "concluidas": [],
+  "avisos": [
+    "T-033 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar",
+    "T-034 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar",
+    "T-035 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar",
+    "T-036 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar"
+  ]
+}

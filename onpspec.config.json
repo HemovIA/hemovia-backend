@@ -132,6 +132,20 @@
     "api/src/main/java/com/hemovia/api/dto/request/CalculateRouteRequest.java",
     "api/src/main/java/com/hemovia/api/dto/response/RoutePreviewResponse.java",
     "api/src/main/java/com/hemovia/api/dto/response/RouteResponse.java",
-    "api/src/main/java/com/hemovia/api/controller/RouteController.java"
+    "api/src/main/java/com/hemovia/api/controller/RouteController.java",
+    "api/src/main/java/com/hemovia/api/service/usecase/transport/StartTransport.java",
+    "api/src/main/java/com/hemovia/api/service/usecase/transport/CompleteTransport.java",
+    "api/src/main/java/com/hemovia/api/service/usecase/transport/TransportLifecycle.java",
+    "api/src/main/java/com/hemovia/api/repository/port/TransportLifecycleStore.java",
+    "api/src/main/java/com/hemovia/api/repository/adapter/TransportLifecycleStoreAdapter.java",
+    "api/src/main/java/com/hemovia/api/model/exception/VehicleUnavailableException.java",
+    "api/src/main/java/com/hemovia/api/dto/request/StartTransportRequest.java",
+    "api/src/main/java/com/hemovia/api/dto/response/TransportResponse.java",
+    "api/src/main/resources/db/migration/V16__one_active_transport_per_vehicle.sql",
+    "api/src/main/java/com/hemovia/api/service/usecase/vehicle/ManageVehicles.java",
+    "api/src/main/java/com/hemovia/api/dto/request/VehicleRequest.java",
+    "api/src/main/java/com/hemovia/api/dto/response/VehicleResponse.java",
+    "api/src/main/java/com/hemovia/api/controller/VehicleController.java",
+    "api/src/main/java/com/hemovia/api/controller/TransportController.java"
   ]
 }

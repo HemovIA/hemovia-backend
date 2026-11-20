@@ -295,7 +295,37 @@ O GeoJSON usa pares `[longitude, latitude]`; o perfil considerado é o de carro.
 
 O endereço do serviço é configurável por `ROUTING_BASE_URL`. O servidor público de demonstração é destinado a uso não comercial razoável, limita consultas a uma por segundo e não oferece garantia de disponibilidade. [Política do servidor](https://github.com/Project-OSRM/osrm-backend/wiki/Demo-server). Falha do provedor no cadastro retorna `503 ROUTING_PROVIDER_UNAVAILABLE`, sem ligação parcial.
 
-O limite de plaquetas na prévia é a regra didática do backlog: 60 minutos por padrão, configurável em segundos por `ROUTING_PLATELETS_MAX_SECONDS`. A associação da rota ao transporte será feita na POOUS09; esta entrega não cria transporte nem veículo.
+O limite de plaquetas na prévia é a regra didática do backlog: 60 minutos por padrão, configurável em segundos por `ROUTING_PLATELETS_MAX_SECONDS`. O transporte reutiliza a rota associada à alocação, conforme o fluxo abaixo.
+
+## Transporte e entrega — POOUS09 e POOUS11
+
+Pré-requisito: uma requisição alocada com rota, conforme o roteiro anterior. A viagem transporta o lote inteiro de uma alocação. A frota é compartilhada, e a capacidade de cada veículo é medida em bolsas.
+
+1. Como `ADMIN`, cadastre um veículo em `POST /api/v1/vehicles`:
+
+```json
+{"code":"HEMOVIA-01","capacity":20}
+```
+
+Guarde o `id` retornado. `GET /api/v1/vehicles` lista a frota por código e está disponível aos quatro papéis de negócio. O código é único e a capacidade precisa ser positiva.
+
+2. Como `HEMOCENTRO` vinculado à origem da alocação, envie `POST /api/v1/transports/start`:
+
+```json
+{"allocationId":"<id-da-alocacao>","vehicleId":"<id-do-veiculo>"}
+```
+
+A resposta `201` contém o `id` do transporte, `allocationId`, `requestId`, `routeId`, `vehicleId`, `status: IN_TRANSIT`, `startedAt` e `completedAt: null`. O pedido, a alocação, os itens e as bolsas passam juntos para `IN_TRANSIT`. A rota existente é preservada; sua janela de chegada é validada novamente no instante da saída. Não é feita outra consulta ao OSRM.
+
+Veículo ocupado retorna `409 VEHICLE_UNAVAILABLE`. Capacidade insuficiente, pedido sem alocação válida, lote inconsistente ou viagem repetida retornam `422`; rota ausente ou prazo inviável retorna `422 INVALID_ROUTE`. A operação não modifica parcialmente o estoque. Uma requisição em trânsito não pode ser cancelada.
+
+3. Como `HOSPITAL` vinculado ao destino, envie `POST /api/v1/transports/{id}/complete`, usando o ID do transporte, sem corpo.
+
+A resposta `200` mantém os identificadores e `startedAt`, passa o status para `DELIVERED` e registra `completedAt` em UTC. Pedido, alocação, itens e bolsas ficam `DELIVERED`. O veículo pode iniciar outra viagem; as bolsas entregues não voltam ao estoque disponível. Uma segunda confirmação ou uma viagem não iniciada retorna `422`.
+
+Em todos os POSTs, envie o cookie da sessão e o header `X-XSRF-TOKEN` obtido em `GET /api/v1/auth/csrf`. Ao trocar de usuário, use o CSRF da sessão atual. Papel incompatível retorna `403`; alocação de outro hemocentro ou transporte de outro hospital retorna `404`.
+
+Este fluxo registra saída e recebimento. Ingestão de GPS, temperatura e alertas será desenvolvida nas histórias de telemetria. A migração V16 impede duas viagens em trânsito no mesmo veículo, preservando o histórico de viagens encerradas.
 
 ---
 

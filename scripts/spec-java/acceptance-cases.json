@@ -217,5 +217,45 @@
     "com.hemovia.api.controller.BloodRequestCancellationAcceptanceTest#ac041ReleasesAllBagsAndAllowsReallocation",
     "com.hemovia.api.controller.BloodRequestCancellationAcceptanceTest#ac046CoordinatesCancellationAndAllocation",
     "com.hemovia.api.controller.BloodRequestCancellationAcceptanceTest#ac046CoordinatesTwoCancellations"
+  ],
+  "AC-057": [
+    "com.hemovia.api.controller.TransportAcceptanceTest#ac057And061CompleteLifecycle"
+  ],
+  "AC-058": [
+    "com.hemovia.api.controller.TransportAcceptanceTest#ac058RejectsInvalidStartStates",
+    "com.hemovia.api.controller.TransportAcceptanceTest#ac059RejectsInvalidDepartureConditions"
+  ],
+  "AC-059": [
+    "com.hemovia.api.controller.TransportAcceptanceTest#ac059RejectsInsufficientCapacity",
+    "com.hemovia.api.controller.TransportAcceptanceTest#ac060CoordinatesVehicleCompetition"
+  ],
+  "AC-060": [
+    "com.hemovia.api.controller.TransportAcceptanceTest#ac060CoordinatesConcurrentStarts",
+    "com.hemovia.api.controller.TransportAcceptanceTest#ac060CoordinatesVehicleCompetition",
+    "com.hemovia.api.controller.TransportAcceptanceTest#ac060CoordinatesStartAndCancellation",
+    "com.hemovia.api.migration.MigracaoV16TransportesTest#ac060PreservesLegacyAndEnforcesOneActiveVehicle"
+  ],
+  "AC-061": [
+    "com.hemovia.api.controller.TransportAcceptanceTest#ac057And061CompleteLifecycle",
+    "com.hemovia.api.controller.TransportAcceptanceTest#ac061ReusesVehicleAfterDelivery"
+  ],
+  "AC-062": [
+    "com.hemovia.api.controller.TransportAcceptanceTest#ac062RejectsInconsistentCompletion",
+    "com.hemovia.api.controller.TransportAcceptanceTest#ac062CoordinatesConcurrentCompletions"
+  ],
+  "AC-063": [
+    "com.hemovia.api.controller.TransportAcceptanceTest#ac063RollsBackBothCommitFailures"
+  ],
+  "AC-064": [
+    "com.hemovia.api.controller.TransportAcceptanceTest#ac064ProtectsTransportEndpoints"
+  ],
+  "AC-065": [
+    "com.hemovia.api.controller.VehicleAcceptanceTest#ac065CreatesAndListsVehicles",
+    "com.hemovia.api.controller.VehicleAcceptanceTest#ac065ProtectsVehicleCreation",
+    "com.hemovia.api.service.usecase.vehicle.ManageVehiclesTest#createTrimsCodeAndReturnsSavedVehicle"
+  ],
+  "AC-066": [
+    "com.hemovia.api.migration.MigracaoV16TransportesTest#ac060PreservesLegacyAndEnforcesOneActiveVehicle",
+    "com.hemovia.api.documentation.OpenApiContractIT#ac066DocumentsTransportAndVehicleContracts"
   ]
 }

@@ -1,0 +1,62 @@
+{
+  "feature": "poous09-poous11-transporte-entrega",
+  "timestamp": "2026-11-20T20:50:33.376Z",
+  "gitRev": "668c320",
+  "command": "node scripts/spec-java/verify-tests.mjs",
+  "reporter": "tap",
+  "exitCode": 0,
+  "testsParsed": 75,
+  "results": {
+    "AC-057": {
+      "status": "pass",
+      "testName": "@spec:AC-057 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-058": {
+      "status": "pass",
+      "testName": "@spec:AC-058 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-059": {
+      "status": "pass",
+      "testName": "@spec:AC-059 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-060": {
+      "status": "pass",
+      "testName": "@spec:AC-060 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-061": {
+      "status": "pass",
+      "testName": "@spec:AC-061 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-062": {
+      "status": "pass",
+      "testName": "@spec:AC-062 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-063": {
+      "status": "pass",
+      "testName": "@spec:AC-063 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-064": {
+      "status": "pass",
+      "testName": "@spec:AC-064 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-065": {
+      "status": "pass",
+      "testName": "@spec:AC-065 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-066": {
+      "status": "pass",
+      "testName": "@spec:AC-066 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    }
+  },
+  "principles": {}
+}
