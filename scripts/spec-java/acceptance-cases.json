@@ -257,5 +257,39 @@
   "AC-066": [
     "com.hemovia.api.migration.MigracaoV16TransportesTest#ac060PreservesLegacyAndEnforcesOneActiveVehicle",
     "com.hemovia.api.documentation.OpenApiContractIT#ac066DocumentsTransportAndVehicleContracts"
+  ],
+  "AC-067": [
+    "com.hemovia.api.controller.StatisticsAcceptanceTest#ac067ReconcilesInventoryDistribution"
+  ],
+  "AC-068": [
+    "com.hemovia.api.model.algorithm.statistics.PercentageDistributionTest#distributesRemaindersInInputOrder",
+    "com.hemovia.api.model.algorithm.statistics.PercentageDistributionTest#handlesZerosAndLargeCounts",
+    "com.hemovia.api.model.algorithm.statistics.PercentageDistributionTest#rejectsInvalidInputs",
+    "com.hemovia.api.controller.StatisticsAcceptanceTest#ac068HandlesEmptyAndFractionalInventory"
+  ],
+  "AC-069": [
+    "com.hemovia.api.controller.StatisticsAcceptanceTest#ac069ExcludesUnavailableBagsWithoutMutation"
+  ],
+  "AC-070": [
+    "com.hemovia.api.model.algorithm.statistics.DescriptiveStatisticsTest#calculatesPopulationAndSample",
+    "com.hemovia.api.model.algorithm.statistics.DescriptiveStatisticsTest#calculatesAsymmetricFrequencies",
+    "com.hemovia.api.model.algorithm.statistics.DescriptiveStatisticsTest#avoidsCancellationForLargeValues",
+    "com.hemovia.api.controller.StatisticsAcceptanceTest#ac070CalculatesDemandMetrics"
+  ],
+  "AC-071": [
+    "com.hemovia.api.model.algorithm.statistics.DescriptiveStatisticsTest#calculatesAsymmetricFrequencies",
+    "com.hemovia.api.model.algorithm.statistics.DescriptiveStatisticsTest#handlesEmptyAndSingleSample",
+    "com.hemovia.api.model.algorithm.statistics.DescriptiveStatisticsTest#weightedMedianAndLargeCounts",
+    "com.hemovia.api.model.algorithm.statistics.DescriptiveStatisticsTest#rejectsInvalidInputsAndOverflow",
+    "com.hemovia.api.controller.StatisticsAcceptanceTest#ac071HandlesEmptySingleAndRepeatedDemand"
+  ],
+  "AC-072": [
+    "com.hemovia.api.controller.StatisticsAcceptanceTest#ac072FiltersByCreatedAtAndExcludesCancelled"
+  ],
+  "AC-073": [
+    "com.hemovia.api.controller.StatisticsAcceptanceTest#ac073ProtectsReadsAndDoesNotMutate"
+  ],
+  "AC-074": [
+    "com.hemovia.api.documentation.OpenApiContractIT#ac074DocumentsStatisticsContract"
   ]
 }

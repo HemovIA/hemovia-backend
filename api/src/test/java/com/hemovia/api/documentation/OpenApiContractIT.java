@@ -50,7 +50,9 @@ class OpenApiContractIT {
             Map.entry("/routes/calculate", Set.of("post")),
             Map.entry("/vehicles", Set.of("get", "post")),
             Map.entry("/transports/start", Set.of("post")),
-            Map.entry("/transports/{id}/complete", Set.of("post")));
+            Map.entry("/transports/{id}/complete", Set.of("post")),
+            Map.entry("/statistics/inventory", Set.of("get")),
+            Map.entry("/statistics/demand", Set.of("get")));
 
     @LocalServerPort
     private int port;
@@ -77,7 +79,7 @@ class OpenApiContractIT {
                 assertTrue(objectFieldNames(operation.path("responses")).stream().anyMatch(code -> code.startsWith("2")));
             }
         }
-        assertEquals(39, operationIds.size());
+        assertEquals(41, operationIds.size());
         assertFalse(paths.has("/auth/register"));
         assertFalse(paths.has("/error"));
         assertTrue(paths.path("/auth/csrf").path("get").path("responses").has("204"));
@@ -384,6 +386,55 @@ class OpenApiContractIT {
         }
         assertFalse(schemas.has("Vehicle"));
         assertFalse(schemas.has("Transport"));
+    }
+
+    @Test
+    @DisplayName("@spec:AC-074 OpenAPI documenta estatísticas, filtros e segurança")
+    void ac074DocumentsStatisticsContract() throws Exception {
+        JsonNode document = getOpenApiDocument();
+        JsonNode schemas = document.path("components").path("schemas");
+        JsonNode scheme = document.path("components").path("securitySchemes").path("cookieAuth");
+        assertEquals("cookie", scheme.path("in").asText());
+        assertEquals("HEMOVIA_ACCESS", scheme.path("name").asText());
+        for (String name : Set.of("inventory", "demand")) {
+            JsonNode operation = document.path("paths").path("/statistics/" + name).path("get");
+            assertTrue(hasSecurityRequirement(operation, "cookieAuth"));
+            assertFalse(containsParameterNamed(operation, "X-XSRF-TOKEN"));
+            for (String code : name.equals("demand") ? Set.of("200", "400", "401", "403") : Set.of("200", "401", "403")) {
+                JsonNode schema = operation.path("responses").path(code).path("content").path("application/json").path("schema");
+                assertEquals(code.equals("200") ? (name.equals("inventory") ? "InventorySummaryResponse" : "DemandSummaryResponse") : "ApiError", refName(schema.path("$ref")));
+            }
+        }
+        JsonNode demand = document.path("paths").path("/statistics/demand").path("get");
+        for (String name : Set.of("from", "to")) {
+            boolean found = false;
+            for (JsonNode parameter : demand.path("parameters")) {
+                if (name.equals(parameter.path("name").asText())) {
+                    found = true;
+                    assertEquals("query", parameter.path("in").asText());
+                    assertFalse(parameter.path("required").asBoolean());
+                    assertEquals("date-time", parameter.path("schema").path("format").asText());
+                }
+            }
+            assertTrue(found, name);
+        }
+        assertEquals(Set.of("generatedAt", "referenceDate", "totalBags", "byBloodType", "byComponent", "byBloodTypeAndComponent"), objectFieldNames(schemas.path("InventorySummaryResponse").path("properties")));
+        assertEquals(Set.of("from", "to", "overall", "byHospital"), objectFieldNames(schemas.path("DemandSummaryResponse").path("properties")));
+        JsonNode metrics = schemas.path("DemandMetricsResponse");
+        assertEquals(Set.of("requestCount", "totalBags", "mean", "median", "populationVariance", "populationStandardDeviation", "sampleVariance", "sampleStandardDeviation", "insufficientSample", "warning"), objectFieldNames(metrics.path("properties")));
+        assertEquals("int64", metrics.path("properties").path("requestCount").path("format").asText());
+        assertEquals("int64", metrics.path("properties").path("totalBags").path("format").asText());
+        assertTrue(metrics.path("description").asText().contains("bolsas"));
+        assertEquals("int64", schemas.path("InventorySummaryResponse").path("properties").path("totalBags").path("format").asText());
+        for (String name : Set.of("BloodTypeInventoryResponse", "ComponentInventoryResponse", "InventoryCombinationResponse")) {
+            JsonNode properties = schemas.path(name).path("properties");
+            assertEquals("int64", properties.path("count").path("format").asText());
+            assertEquals("number", properties.path("percentage").path("type").asText());
+            assertEquals(0, properties.path("percentage").path("minimum").asInt());
+            assertEquals(100, properties.path("percentage").path("maximum").asInt());
+            assertTrue(properties.path("percentage").path("description").asText().contains("duas casas"));
+        }
+        assertEquals(Set.of("hospitalId", "hospitalName", "metrics"), objectFieldNames(schemas.path("HospitalDemandResponse").path("properties")));
     }
 
     private static void assertBloodCenterOperation(JsonNode operation, boolean csrf, Set<String> responses) {

@@ -327,6 +327,38 @@ Em todos os POSTs, envie o cookie da sessão e o header `X-XSRF-TOKEN` obtido em
 
 Este fluxo registra saída e recebimento. Ingestão de GPS, temperatura e alertas será desenvolvida nas histórias de telemetria. A migração V16 impede duas viagens em trânsito no mesmo veículo, preservando o histórico de viagens encerradas.
 
+## Estatísticas de estoque e demanda — ESTUS01 e ESTUS02
+
+Autentique-se como `ADMIN` ou `HEMOCENTRO` no Swagger. Os dois endpoints abaixo consultam a rede inteira com o cookie da sessão; são GETs e não exigem o header CSRF. `HOSPITAL` e `TRANSPORTADOR` recebem `403`, e sessão ausente recebe `401`.
+
+1. Consulte `GET /api/v1/statistics/inventory`.
+
+O resumo retorna `totalBags`, a data UTC de referência e três distribuições: `byBloodType` (oito tipos ABO/Rh), `byComponent` (cinco componentes) e `byBloodTypeAndComponent` (quarenta combinações). Cada uma contém contagens e `percentage` entre 0 e 100. Categorias sem bolsas também aparecem com zero.
+
+Para um teste simples, cadastre três bolsas disponíveis em um hemocentro ativo: uma O+ de hemácias, uma A+ de plaquetas e uma AB- de plasma, todas com validade posterior ao dia UTC atual. Use `POST /api/v1/blood-bags`, informando `bloodCenterId`, `bloodTypeEnum`, `rhFactor`, `component`, `status`, `collectionDate` e `expirationDate`. Com apenas essas bolsas elegíveis, o total será 3. Os percentuais são rateados para somar 100,00% em cada distribuição: uma divisão em três partes iguais aparece como 33,34%, 33,33% e 33,33%, com desempate pela ordem dos enums.
+
+O estoque considera apenas bolsas `AVAILABLE`, sem reserva ativa, de centros ativos e com validade posterior a hoje UTC. Bolsas que vencem hoje, bolsas sem hemocentro, reservadas, em trânsito, entregues ou descartadas não entram no resumo. A consulta não muda esses estados. Se não houver estoque elegível, as categorias permanecem no JSON com contagens e percentuais zero.
+
+2. Consulte `GET /api/v1/statistics/demand`. Opcionalmente, informe `from` e/ou `to` no Swagger, usando instantes como `2026-11-01T00:00:00Z` e `2026-12-01T00:00:00Z`, ajustados ao seu teste.
+
+O período considera o instante de emissão (`createdAt`): `from` é inclusivo e `to` é exclusivo. Sem limites, consulta todo o histórico. Cada requisição não cancelada é uma observação, inclusive pedidos ainda pendentes; requisições `CANCELLED` são excluídas. `from >= to` e datas malformadas retornam `400`.
+
+Emita três requisições, de 10, 20 e 30 bolsas, pelos profissionais dos hospitais A, B e C conforme o fluxo da POOUS04. Para um período que contenha somente essas emissões, `overall` retorna:
+
+| Campo | Resultado |
+|---|---:|
+| `requestCount` | 3 |
+| `totalBags` | 60 |
+| `mean` e `median` | 20,00 |
+| `populationVariance` | 66,67 |
+| `populationStandardDeviation` | 8,16 |
+| `sampleVariance` | 100,00 |
+| `sampleStandardDeviation` | 10,00 |
+
+`byHospital` traz as mesmas métricas separadas por hospital. Se um hospital emitir várias requisições, cada uma mantém seu peso no cálculo; o total por hospital não substitui as observações individuais. Hospitais sem requisições no período não aparecem nessa lista.
+
+As métricas populacionais dividem por `n`; as amostrais, por `n - 1`. Médias, medianas e desvios são medidos em bolsas; variâncias, em bolsas ao quadrado. Os decimais têm duas casas. Com menos de duas requisições, as dispersões são zero e `insufficientSample: true` vem acompanhado de `warning`. No histórico vazio, todas as métricas são zero e `byHospital` é uma lista vazia. Essa convenção evita divisões por zero e não indica erro na consulta.
+
 ---
 
 ## Equipe
