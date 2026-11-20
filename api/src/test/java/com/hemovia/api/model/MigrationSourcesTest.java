@@ -47,11 +47,11 @@ class MigrationSourcesTest {
     }
 
     @Test
-    void deveTerMigrationsSequenciaisDeV1AV14() throws IOException {
+    void deveTerMigrationsSequenciaisDeV1AV15() throws IOException {
         // Quando listamos as versões que existem na pasta de migrations
         List<Integer> versoes = versoesExistentes();
-        // Então vão de 1 a 14, sem repetir número e sem pular nenhum
-        assertThat(versoes).containsExactlyElementsOf(IntStream.rangeClosed(1, 14).boxed().toList());
+        // Então vão de 1 a 15, sem repetir número e sem pular nenhum
+        assertThat(versoes).containsExactlyElementsOf(IntStream.rangeClosed(1, 15).boxed().toList());
     }
 
     // Lê o manifesto de checksums que fica junto dos recursos de teste

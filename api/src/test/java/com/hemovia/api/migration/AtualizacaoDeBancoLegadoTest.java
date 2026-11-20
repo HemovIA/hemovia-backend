@@ -68,9 +68,9 @@ class AtualizacaoDeBancoLegadoTest {
     }
 
     @Test
-    void deveChegarNaVersao14() {
+    void deveChegarNaVersao15() {
         // Então o Flyway termina na última migration
-        assertThat(banco.versaoAtual()).isEqualTo("14");
+        assertThat(banco.versaoAtual()).isEqualTo("15");
     }
 
     @Test

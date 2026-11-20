@@ -177,5 +177,45 @@
   ],
   "AC-047": [
     "com.hemovia.api.documentation.OpenApiContractIT#ac047DocumentsCancellationContract"
+  ],
+  "AC-048": [
+    "com.hemovia.api.model.algorithm.graph.DijkstraTest#findsFastestPathInsteadOfShorterDistanceOrImmediateNeighbor",
+    "com.hemovia.api.model.algorithm.graph.DijkstraTest#rejectsUnreachableAndInvalidGraph",
+    "com.hemovia.api.model.algorithm.graph.DijkstraTest#copiesCollectionsAndAvoidsOverflow"
+  ],
+  "AC-049": [
+    "com.hemovia.api.model.algorithm.graph.DeliveryWindowTest#enforcesConfiguredPlateletsLimitIncludingBoundary",
+    "com.hemovia.api.model.algorithm.graph.DeliveryWindowTest#enforcesDeadlineForEveryComponentAndAllowsLegacy"
+  ],
+  "AC-050": [
+    "com.hemovia.api.service.routing.OsrmRoadRoutingProviderTest#consultaERetornaGeometriaEmOrdemComDuracaoArredondada",
+    "com.hemovia.api.service.routing.OsrmRoadRoutingProviderTest#rotaOuSegmentoAusenteEhErroDeRota",
+    "com.hemovia.api.service.routing.OsrmRoadRoutingProviderTest#rejeitaRespostaInvalidaEHttpDeErro",
+    "com.hemovia.api.service.routing.OsrmRoadRoutingProviderTest#timeoutEhIndisponibilidade",
+    "com.hemovia.api.service.routing.OsrmRoadRoutingProviderTest#limitaConsultasConcorrentesAoIntervaloConfigurado"
+  ],
+  "AC-051": [
+    "com.hemovia.api.controller.RouteGraphAcceptanceTest#ac051ManagesGraphWithSecurityAndValidation",
+    "com.hemovia.api.controller.RouteGraphAcceptanceTest#ac051ProviderFailuresDoNotPersistEdges"
+  ],
+  "AC-052": [
+    "com.hemovia.api.controller.DeliveryRouteAcceptanceTest#ac052PersistsRouteSnapshot",
+    "com.hemovia.api.migration.MigracaoV15RotasReaisTest#ac052UpgradesLegacyWithoutInventedRouteOrGeometry"
+  ],
+  "AC-053": [
+    "com.hemovia.api.controller.DeliveryRouteAcceptanceTest#ac053RollsBackMissingRouteAndDeadline"
+  ],
+  "AC-054": [
+    "com.hemovia.api.controller.DeliveryRouteAcceptanceTest#ac054PreviewChecksWindowAndSecurity",
+    "com.hemovia.api.documentation.OpenApiContractIT#ac054DocumentsRouteOperations"
+  ],
+  "AC-055": [
+    "com.hemovia.api.controller.DeliveryRouteAcceptanceTest#ac055RollsBackRouteCommitFailureAndRetries"
+  ],
+  "AC-056": [
+    "com.hemovia.api.controller.BloodRequestAllocationAcceptanceTest#ac034OnlyOneConcurrentRequestReservesBag",
+    "com.hemovia.api.controller.BloodRequestCancellationAcceptanceTest#ac041ReleasesAllBagsAndAllowsReallocation",
+    "com.hemovia.api.controller.BloodRequestCancellationAcceptanceTest#ac046CoordinatesCancellationAndAllocation",
+    "com.hemovia.api.controller.BloodRequestCancellationAcceptanceTest#ac046CoordinatesTwoCancellations"
   ]
 }

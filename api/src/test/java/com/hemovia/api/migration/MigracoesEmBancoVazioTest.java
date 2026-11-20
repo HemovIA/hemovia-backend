@@ -36,8 +36,8 @@ class MigracoesEmBancoVazioTest {
     void deveAplicarTodasAsMigrationsEmBancoVazio() {
         // Quando aplicamos todas as migrations
         banco.migrarTudo();
-        // Então o banco termina na versão 14
-        assertThat(banco.versaoAtual()).isEqualTo("14");
+        // Então o banco termina na versão 15
+        assertThat(banco.versaoAtual()).isEqualTo("15");
     }
 
     @Test
