@@ -155,5 +155,27 @@
   ],
   "AC-040": [
     "com.hemovia.api.documentation.OpenApiContractIT#ac040DocumentsBloodCenterContract"
+  ],
+  "AC-041": [
+    "com.hemovia.api.controller.BloodRequestCancellationAcceptanceTest#ac041ReleasesAllBagsAndAllowsReallocation"
+  ],
+  "AC-042": [
+    "com.hemovia.api.controller.BloodRequestCancellationAcceptanceTest#ac042CancelsPendingWithoutTouchingOtherReservation"
+  ],
+  "AC-043": [
+    "com.hemovia.api.controller.BloodRequestCancellationAcceptanceTest#ac043RejectsInvalidStatesAndInTransitTransport"
+  ],
+  "AC-044": [
+    "com.hemovia.api.controller.BloodRequestCancellationAcceptanceTest#ac044EnforcesSecurityAndOwnership"
+  ],
+  "AC-045": [
+    "com.hemovia.api.controller.BloodRequestCancellationAcceptanceTest#ac045RollsBackCommitFailureAndAllowsRetry"
+  ],
+  "AC-046": [
+    "com.hemovia.api.controller.BloodRequestCancellationAcceptanceTest#ac046CoordinatesCancellationAndAllocation",
+    "com.hemovia.api.controller.BloodRequestCancellationAcceptanceTest#ac046CoordinatesTwoCancellations"
+  ],
+  "AC-047": [
+    "com.hemovia.api.documentation.OpenApiContractIT#ac047DocumentsCancellationContract"
   ]
 }

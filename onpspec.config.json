@@ -93,6 +93,9 @@
     "api/src/main/java/com/hemovia/api/dto/request/BloodCenterRequest.java",
     "api/src/main/java/com/hemovia/api/dto/response/BloodCenterResponse.java",
     "api/src/main/java/com/hemovia/api/service/usecase/bloodcenter/ManageBloodCenters.java",
-    "api/src/main/resources/db/migration/V14__add_blood_center_deleted_at.sql"
+    "api/src/main/resources/db/migration/V14__add_blood_center_deleted_at.sql",
+    "api/src/main/java/com/hemovia/api/service/usecase/request/CancelBloodRequest.java",
+    "api/src/main/java/com/hemovia/api/repository/port/RequestCancellationStore.java",
+    "api/src/main/java/com/hemovia/api/repository/adapter/RequestCancellationStoreAdapter.java"
   ]
 }
