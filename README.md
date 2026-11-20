@@ -201,6 +201,14 @@ A autenticação usa cookies do navegador; o botão **Authorize** não é usado 
 
 Não use dados pessoais ou credenciais reais nos exemplos. O documento reflete os controllers e DTOs existentes; ele não cria endpoints para entidades sem controller.
 
+#### Cancelamento de requisições hospitalares — POOUS10
+
+Um profissional com papel `HOSPITAL` pode cancelar uma requisição do próprio hospital em `PENDING` ou `ALLOCATED` com `POST /api/v1/requests/{id}/cancel`, sem corpo. A resposta `200` contém `id` e `status: CANCELLED`. O cancelamento libera as bolsas reservadas e preserva a alocação e seus itens como histórico: a alocação fica `CANCELLED`, os itens ficam `RELEASED` com o horário de liberação e as bolsas voltam a `AVAILABLE`.
+
+Para testar no Swagger, siga a autenticação acima, abra a operação de cancelamento, informe o ID da requisição e preencha o header `X-XSRF-TOKEN` com o valor do cookie `XSRF-TOKEN`. Pedidos em trânsito, entregues ou já cancelados retornam `422`; requisições inexistentes ou de outro hospital retornam `404`.
+
+O cancelamento e a alocação usam o mesmo bloqueio da requisição. A liberação acontece em uma única transação; uma falha de gravação desfaz todas as alterações. [História e critérios de aceite](https://github.com/HemovIA/hemovia-backend/issues/12).
+
 ---
 
 ### ⚙️ Infraestrutura de Software (SO)

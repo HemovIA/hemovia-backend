@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
 import java.util.List;
+
 import java.util.Optional;
 import java.util.UUID;
 
@@ -37,4 +38,7 @@ public interface BloodBagRepository extends JpaRepository<BloodBag, UUID> {
                                   com.hemovia.api.model.enums.ReservationStatus.IN_TRANSIT)
             """)
     List<UUID> findActivelyReservedIds(@Param("ids") List<UUID> ids);
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Query("select b from BloodBag b where b.id in :ids order by b.id")
+    List<BloodBag> lockByIds(@Param("ids") List<UUID> ids);
 }
