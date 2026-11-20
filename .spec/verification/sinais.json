@@ -77,10 +77,10 @@
       "codigo": "GLOB_SEM_ARQUIVOS",
       "feature": "—",
       "ref": "P-002",
-      "ocorrencias": 22,
+      "ocorrencias": 26,
       "primeiraVez": "2026-10-22T16:48:12.342Z",
-      "ultimaVez": "2026-11-13T23:54:29.906Z",
-      "gitRev": "e34af87"
+      "ultimaVez": "2026-11-20T14:20:46.771Z",
+      "gitRev": "be4d9e3"
     },
     "ARQUIVO_INEXISTENTE::finalizando-entidades-base::T-005": {
       "codigo": "ARQUIVO_INEXISTENTE",
@@ -257,10 +257,10 @@
       "codigo": "VERIFY_OBSOLETO",
       "feature": "revisao-projeto",
       "ref": "—",
-      "ocorrencias": 4,
+      "ocorrencias": 6,
       "primeiraVez": "2026-10-22T17:48:09.136Z",
-      "ultimaVez": "2026-11-13T23:43:38.211Z",
-      "gitRev": "bb91e84"
+      "ultimaVez": "2026-11-20T14:07:08.850Z",
+      "gitRev": "c866394"
     },
     "VERIFY_FALHOU::finalizando-entidades-base::AC-005": {
       "codigo": "VERIFY_FALHOU",
@@ -608,55 +608,136 @@
       "codigo": "VERIFY_OBSOLETO",
       "feature": "aedus05-aedus07",
       "ref": "—",
-      "ocorrencias": 2,
+      "ocorrencias": 4,
       "primeiraVez": "2026-11-12T16:47:05.221Z",
-      "ultimaVez": "2026-11-13T23:43:38.205Z",
-      "gitRev": "bb91e84"
+      "ultimaVez": "2026-11-20T14:07:08.849Z",
+      "gitRev": "c866394"
     },
     "VERIFY_OBSOLETO::documentacao-swagger::—": {
       "codigo": "VERIFY_OBSOLETO",
       "feature": "documentacao-swagger",
       "ref": "—",
-      "ocorrencias": 2,
+      "ocorrencias": 4,
       "primeiraVez": "2026-11-12T16:47:05.227Z",
-      "ultimaVez": "2026-11-13T23:43:38.211Z",
-      "gitRev": "bb91e84"
+      "ultimaVez": "2026-11-20T14:07:08.850Z",
+      "gitRev": "c866394"
     },
     "VERIFY_OBSOLETO::finalizando-entidades-base::—": {
       "codigo": "VERIFY_OBSOLETO",
       "feature": "finalizando-entidades-base",
       "ref": "—",
-      "ocorrencias": 2,
+      "ocorrencias": 4,
       "primeiraVez": "2026-11-12T16:47:05.227Z",
-      "ultimaVez": "2026-11-13T23:43:38.211Z",
-      "gitRev": "bb91e84"
+      "ultimaVez": "2026-11-20T14:07:08.850Z",
+      "gitRev": "c866394"
     },
     "VERIFY_OBSOLETO::poous04-emissao-requisicoes::—": {
       "codigo": "VERIFY_OBSOLETO",
       "feature": "poous04-emissao-requisicoes",
       "ref": "—",
-      "ocorrencias": 2,
+      "ocorrencias": 4,
       "primeiraVez": "2026-11-12T16:47:05.227Z",
-      "ultimaVez": "2026-11-13T23:43:38.211Z",
-      "gitRev": "bb91e84"
+      "ultimaVez": "2026-11-20T14:07:08.850Z",
+      "gitRev": "c866394"
     },
     "VERIFY_OBSOLETO::poous06-poous12::—": {
       "codigo": "VERIFY_OBSOLETO",
       "feature": "poous06-poous12",
       "ref": "—",
-      "ocorrencias": 2,
+      "ocorrencias": 4,
       "primeiraVez": "2026-11-12T16:47:05.227Z",
-      "ultimaVez": "2026-11-13T23:43:38.211Z",
-      "gitRev": "bb91e84"
+      "ultimaVez": "2026-11-20T14:07:08.850Z",
+      "gitRev": "c866394"
     },
     "VERIFY_OBSOLETO::poous13-cadastro-hemocentros::—": {
       "codigo": "VERIFY_OBSOLETO",
       "feature": "poous13-cadastro-hemocentros",
       "ref": "—",
-      "ocorrencias": 2,
+      "ocorrencias": 4,
       "primeiraVez": "2026-11-12T16:47:05.227Z",
-      "ultimaVez": "2026-11-13T23:43:38.211Z",
-      "gitRev": "bb91e84"
+      "ultimaVez": "2026-11-20T14:07:08.850Z",
+      "gitRev": "c866394"
+    },
+    "ARQUIVO_INEXISTENTE::poous10-cancelamento-requisicoes::T-025": {
+      "codigo": "ARQUIVO_INEXISTENTE",
+      "feature": "poous10-cancelamento-requisicoes",
+      "ref": "T-025",
+      "ocorrencias": 3,
+      "primeiraVez": "2026-11-20T13:54:31.038Z",
+      "ultimaVez": "2026-11-20T13:54:31.038Z",
+      "gitRev": "c866394"
+    },
+    "ARQUIVO_INEXISTENTE::poous10-cancelamento-requisicoes::T-027": {
+      "codigo": "ARQUIVO_INEXISTENTE",
+      "feature": "poous10-cancelamento-requisicoes",
+      "ref": "T-027",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-20T13:54:31.038Z",
+      "ultimaVez": "2026-11-20T13:54:31.038Z",
+      "gitRev": "c866394"
+    },
+    "AC_SEM_TESTE::poous10-cancelamento-requisicoes::AC-041": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "poous10-cancelamento-requisicoes",
+      "ref": "AC-041",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-20T13:54:31.038Z",
+      "ultimaVez": "2026-11-20T13:54:31.038Z",
+      "gitRev": "c866394"
+    },
+    "AC_SEM_TESTE::poous10-cancelamento-requisicoes::AC-042": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "poous10-cancelamento-requisicoes",
+      "ref": "AC-042",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-20T13:54:31.038Z",
+      "ultimaVez": "2026-11-20T13:54:31.038Z",
+      "gitRev": "c866394"
+    },
+    "AC_SEM_TESTE::poous10-cancelamento-requisicoes::AC-043": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "poous10-cancelamento-requisicoes",
+      "ref": "AC-043",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-20T13:54:31.038Z",
+      "ultimaVez": "2026-11-20T13:54:31.038Z",
+      "gitRev": "c866394"
+    },
+    "AC_SEM_TESTE::poous10-cancelamento-requisicoes::AC-044": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "poous10-cancelamento-requisicoes",
+      "ref": "AC-044",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-20T13:54:31.038Z",
+      "ultimaVez": "2026-11-20T13:54:31.038Z",
+      "gitRev": "c866394"
+    },
+    "AC_SEM_TESTE::poous10-cancelamento-requisicoes::AC-045": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "poous10-cancelamento-requisicoes",
+      "ref": "AC-045",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-20T13:54:31.038Z",
+      "ultimaVez": "2026-11-20T13:54:31.038Z",
+      "gitRev": "c866394"
+    },
+    "AC_SEM_TESTE::poous10-cancelamento-requisicoes::AC-046": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "poous10-cancelamento-requisicoes",
+      "ref": "AC-046",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-20T13:54:31.038Z",
+      "ultimaVez": "2026-11-20T13:54:31.038Z",
+      "gitRev": "c866394"
+    },
+    "AC_SEM_TESTE::poous10-cancelamento-requisicoes::AC-047": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "poous10-cancelamento-requisicoes",
+      "ref": "AC-047",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-20T13:54:31.038Z",
+      "ultimaVez": "2026-11-20T13:54:31.038Z",
+      "gitRev": "c866394"
     }
   }
 }
