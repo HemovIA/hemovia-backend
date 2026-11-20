@@ -47,7 +47,10 @@ class OpenApiContractIT {
             Map.entry("/blood-bags/{id}", Set.of("get", "put", "delete")),
             Map.entry("/route-graph/nodes", Set.of("get", "post")),
             Map.entry("/route-graph/edges", Set.of("get", "post")),
-            Map.entry("/routes/calculate", Set.of("post")));
+            Map.entry("/routes/calculate", Set.of("post")),
+            Map.entry("/vehicles", Set.of("get", "post")),
+            Map.entry("/transports/start", Set.of("post")),
+            Map.entry("/transports/{id}/complete", Set.of("post")));
 
     @LocalServerPort
     private int port;
@@ -74,7 +77,7 @@ class OpenApiContractIT {
                 assertTrue(objectFieldNames(operation.path("responses")).stream().anyMatch(code -> code.startsWith("2")));
             }
         }
-        assertEquals(35, operationIds.size());
+        assertEquals(39, operationIds.size());
         assertFalse(paths.has("/auth/register"));
         assertFalse(paths.has("/error"));
         assertTrue(paths.path("/auth/csrf").path("get").path("responses").has("204"));
@@ -340,6 +343,47 @@ class OpenApiContractIT {
         assertTrue(preview.path("responses").path("200").path("content").has("application/json"));
         assertEquals("RoutePreviewResponse", refName(preview.path("responses").path("200")
                 .path("content").path("application/json").path("schema").path("$ref")));
+    }
+
+    @Test
+    @DisplayName("@spec:AC-066 OpenAPI descreve veículos e ciclo de transporte")
+    void ac066DocumentsTransportAndVehicleContracts() throws Exception {
+        JsonNode document = getOpenApiDocument();
+        JsonNode schemas = document.path("components").path("schemas");
+        assertRequired(schemas.path("StartTransportRequest"), "allocationId", "vehicleId");
+        assertRequired(schemas.path("VehicleRequest"), "code", "capacity");
+        for (String field : Set.of("allocationId", "vehicleId")) {
+            assertEquals("uuid", schemas.path("StartTransportRequest").path("properties").path(field).path("format").asText());
+        }
+        JsonNode transport = schemas.path("TransportResponse").path("properties");
+        for (String field : Set.of("id", "allocationId", "requestId", "routeId", "vehicleId")) {
+            assertEquals("uuid", transport.path(field).path("format").asText());
+        }
+        for (String field : Set.of("startedAt", "completedAt")) {
+            assertEquals("date-time", transport.path(field).path("format").asText());
+        }
+        for (String path : Set.of("/transports/start", "/transports/{id}/complete")) {
+            JsonNode operation = document.path("paths").path(path).path("post");
+            assertTrue(hasSecurityRequirement(operation, "cookieAuth"));
+            assertTrue(containsParameterNamed(operation, "X-XSRF-TOKEN"));
+            for (String code : Set.of("400", "401", "403", "404", "422")) {
+                assertEquals("ApiError", refName(operation.path("responses").path(code).path("content")
+                        .path("application/json").path("schema").path("$ref")));
+            }
+            String success = path.endsWith("start") ? "201" : "200";
+            assertEquals("TransportResponse", refName(operation.path("responses").path(success).path("content")
+                    .path("application/json").path("schema").path("$ref")));
+        }
+        assertTrue(hasPathIdParameter(document.path("paths").path("/transports/{id}/complete").path("post")));
+        assertTrue(document.path("paths").path("/transports/start").path("post").path("responses").has("409"));
+        for (String method : Set.of("get", "post")) {
+            JsonNode operation = document.path("paths").path("/vehicles").path(method);
+            assertTrue(hasSecurityRequirement(operation, "cookieAuth"));
+            assertTrue(operation.path("responses").has(method.equals("get") ? "200" : "201"));
+            assertEquals(method.equals("post"), containsParameterNamed(operation, "X-XSRF-TOKEN"));
+        }
+        assertFalse(schemas.has("Vehicle"));
+        assertFalse(schemas.has("Transport"));
     }
 
     private static void assertBloodCenterOperation(JsonNode operation, boolean csrf, Set<String> responses) {

@@ -17,7 +17,7 @@ class MigracaoV15RotasReaisTest {
             UUID a = UUID.randomUUID(), b = UUID.randomUUID(), edge = UUID.randomUUID();
             banco.executar("insert into route_nodes(id,name,latitude,longitude) values (?,'A',0,0),(?,'B',0,1)", a, b);
             banco.executar("insert into route_edges(id,from_node_id,to_node_id,distance_km,travel_seconds) values (?,?,?,1,60)", edge, a, b);
-            banco.migrarTudo();
+            banco.migrarAte("15");
             assertThat(banco.versaoAtual()).isEqualTo("15");
             assertThat(banco.contar("select count(*) from allocations where route_id is null")).isEqualTo(1);
             assertThat(banco.contar("select count(*) from route_edges where id=? and geometry_json is null and provider is null and calculated_at is null", edge)).isEqualTo(1);
