@@ -61,6 +61,12 @@ public class DeliveryRoute {
     @OrderColumn(name = "position", nullable = false)
     private final List<RouteWaypoint> waypoints = new ArrayList<>();
 
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "delivery_route_nodes", joinColumns = @JoinColumn(name = "route_id"))
+    @OrderColumn(name = "position", nullable = false)
+    @Column(name = "node_id", nullable = false)
+    private final List<UUID> nodeIds = new ArrayList<>();
+
     public DeliveryRoute() { }
 
     public UUID getId() { return id; }
@@ -84,6 +90,7 @@ public class DeliveryRoute {
         this.estimatedDurationSeconds = estimatedDurationSeconds;
     }
     public List<RouteWaypoint> getWaypoints() { return waypoints; }
+    public List<UUID> getNodeIds() { return nodeIds; }
 
     public void addWaypoint(RouteWaypoint waypoint) {
         if (waypoint == null) throw new IllegalArgumentException("waypoint must not be null");

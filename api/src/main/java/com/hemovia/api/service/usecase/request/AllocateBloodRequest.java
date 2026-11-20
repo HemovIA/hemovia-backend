@@ -1,6 +1,9 @@
 package com.hemovia.api.service.usecase.request;
 
 import com.hemovia.api.dto.response.AllocationResponse;
+import com.hemovia.api.dto.response.RouteResponse;
+import com.hemovia.api.service.usecase.route.CalculateDeliveryRoute;
+import com.hemovia.api.service.usecase.route.PreviewDeliveryRoute;
 import com.hemovia.api.service.port.output.ClockProvider;
 import com.hemovia.api.service.port.output.CurrentUserProvider;
 import com.hemovia.api.repository.port.RequestAllocationStore;
@@ -28,11 +31,13 @@ public class AllocateBloodRequest {
     private final RequestAllocationStore store;
     private final CurrentUserProvider currentUser;
     private final ClockProvider clock;
+    private final CalculateDeliveryRoute calculateRoute;
 
-    public AllocateBloodRequest(RequestAllocationStore store, CurrentUserProvider currentUser, ClockProvider clock) {
+    public AllocateBloodRequest(RequestAllocationStore store, CurrentUserProvider currentUser, ClockProvider clock, CalculateDeliveryRoute calculateRoute) {
         this.store = store;
         this.currentUser = currentUser;
         this.clock = clock;
+        this.calculateRoute = calculateRoute;
     }
 
     @Transactional(isolation = Isolation.READ_COMMITTED)
@@ -66,7 +71,12 @@ public class AllocateBloodRequest {
             selected.add(queue.remove());
         }
         var allocation = store.reserve(request, user.bloodCenterId(), selected);
+        var path = calculateRoute.execute(user.bloodCenterId(), request.getHospital().getId(),
+                request.getComponent(), request.getDeliveryDeadline());
+        var route = store.saveRoute(allocation, path);
+        var routeResponse = new RouteResponse(route.getId(), path.nodeIds(), path.distanceKm(),
+                path.durationSeconds(), PreviewDeliveryRoute.geometry(path));
         return new AllocationResponse(allocation.getId(), requestId, request.getStatus(),
-                selected.stream().map(BloodBag::getId).toList());
+                selected.stream().map(BloodBag::getId).toList(), routeResponse);
     }
 }
