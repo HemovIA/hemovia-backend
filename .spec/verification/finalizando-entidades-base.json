@@ -1,11 +1,11 @@
 {
   "feature": "finalizando-entidades-base",
-  "timestamp": "2026-11-20T19:36:08.978Z",
-  "gitRev": "2eb01b0",
+  "timestamp": "2026-11-20T20:58:19.397Z",
+  "gitRev": "c77ba77",
   "command": "node scripts/spec-java/verify-tests.mjs",
   "reporter": "tap",
   "exitCode": 0,
-  "testsParsed": 65,
+  "testsParsed": 75,
   "results": {
     "AC-005": {
       "status": "pass",

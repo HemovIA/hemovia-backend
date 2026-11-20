@@ -1,11 +1,11 @@
 {
   "feature": "aedus04-poous07-roteirizacao",
-  "timestamp": "2026-11-20T15:52:14.081Z",
-  "gitRev": "a48cb94",
+  "timestamp": "2026-11-20T20:52:28.665Z",
+  "gitRev": "668c320",
   "command": "node scripts/spec-java/verify-tests.mjs",
   "reporter": "tap",
   "exitCode": 0,
-  "testsParsed": 65,
+  "testsParsed": 75,
   "results": {
     "AC-048": {
       "status": "pass",
