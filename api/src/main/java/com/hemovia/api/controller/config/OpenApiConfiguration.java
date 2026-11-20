@@ -28,7 +28,7 @@ public class OpenApiConfiguration {
         // Título e versão aparecem no topo do Swagger UI; o servidor carrega o prefixo /api/v1
         return new OpenAPI()
                 .info(new Info().title("Hemovia API").version("v1")
-                        .description("Documentação da API Hemovia para gestão de doações e bolsas de sangue. Todos os dados são sintéticos."))
+                        .description("Documentação da API Hemovia para gestão de doações e bolsas de sangue. Dados operacionais acadêmicos são sintéticos; os trechos viários são obtidos do OpenStreetMap por meio do OSRM."))
                 .components(new Components().addSecuritySchemes("cookieAuth", new SecurityScheme()
                         .type(SecurityScheme.Type.APIKEY).in(SecurityScheme.In.COOKIE).name("HEMOVIA_ACCESS")
                         .description("Sessão HttpOnly criada por POST /api/v1/auth/login. Escritas exigem X-XSRF-TOKEN.")))
