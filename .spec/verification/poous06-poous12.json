@@ -1,11 +1,11 @@
 {
   "feature": "poous06-poous12",
-  "timestamp": "2026-11-20T21:01:48.014Z",
-  "gitRev": "d00ca95",
+  "timestamp": "2026-11-20T22:34:24.238Z",
+  "gitRev": "8f84d35",
   "command": "node scripts/spec-java/verify-tests.mjs",
   "reporter": "tap",
   "exitCode": 0,
-  "testsParsed": 75,
+  "testsParsed": 83,
   "results": {
     "AC-030": {
       "status": "pass",

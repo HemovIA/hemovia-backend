@@ -1,0 +1,52 @@
+{
+  "feature": "estus01-estus02-estatisticas",
+  "timestamp": "2026-11-20T22:22:02.527Z",
+  "gitRev": "2918638",
+  "command": "node scripts/spec-java/verify-tests.mjs",
+  "reporter": "tap",
+  "exitCode": 0,
+  "testsParsed": 83,
+  "results": {
+    "AC-067": {
+      "status": "pass",
+      "testName": "@spec:AC-067 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-068": {
+      "status": "pass",
+      "testName": "@spec:AC-068 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-069": {
+      "status": "pass",
+      "testName": "@spec:AC-069 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-070": {
+      "status": "pass",
+      "testName": "@spec:AC-070 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-071": {
+      "status": "pass",
+      "testName": "@spec:AC-071 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-072": {
+      "status": "pass",
+      "testName": "@spec:AC-072 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-073": {
+      "status": "pass",
+      "testName": "@spec:AC-073 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-074": {
+      "status": "pass",
+      "testName": "@spec:AC-074 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    }
+  },
+  "principles": {}
+}

@@ -1,11 +1,11 @@
 {
   "feature": "documentacao-swagger",
-  "timestamp": "2026-11-20T20:56:25.236Z",
-  "gitRev": "c77ba77",
+  "timestamp": "2026-11-20T22:29:02.533Z",
+  "gitRev": "8f84d35",
   "command": "node scripts/spec-java/verify-tests.mjs",
   "reporter": "tap",
   "exitCode": 0,
-  "testsParsed": 75,
+  "testsParsed": 83,
   "results": {
     "AC-016": {
       "status": "pass",
