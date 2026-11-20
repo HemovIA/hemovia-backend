@@ -13,6 +13,8 @@ import java.util.UUID;
 public interface AllocationRepository extends JpaRepository<Allocation, UUID> {
     Optional<Allocation> findById(@NotNull UUID id);
     boolean existsById(@NotNull UUID id);
+    @Query("select a.request.id from Allocation a where a.id = :id")
+    Optional<UUID> findRequestId(@Param("id") UUID id);
     @Query("select a from Allocation a where a.request.id = :requestId")
     List<Allocation> findByRequestId(@Param("requestId") UUID requestId);
 }
