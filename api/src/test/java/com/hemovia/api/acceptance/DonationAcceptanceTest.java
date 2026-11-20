@@ -1,8 +1,8 @@
 package com.hemovia.api.acceptance;
 
-import com.hemovia.api.model.BloodBag;
+import com.hemovia.api.model.entity.BloodBag;
 import com.hemovia.api.model.enums.BloodBagStatus;
-import com.hemovia.api.repository.BloodBagRepository;
+import com.hemovia.api.repository.jpa.BloodBagRepository;
 import com.jayway.jsonpath.JsonPath;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

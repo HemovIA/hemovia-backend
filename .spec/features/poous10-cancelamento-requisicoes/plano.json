@@ -1,0 +1,106 @@
+{
+  "runId": "hemovia-backend-poous10-cancelamento-requisicoes-mwp1jk2k",
+  "feature": "poous10-cancelamento-requisicoes",
+  "agent": "codex",
+  "modo": "paralelo",
+  "paralelizar": [
+    "T-025",
+    "T-026"
+  ],
+  "modeloForcado": null,
+  "esforcoForcado": null,
+  "geradoEm": "2026-11-20 13:54",
+  "branchTrabalho": "spec/poous10-cancelamento-requisicoes",
+  "baseDir": ".spec/features/poous10-cancelamento-requisicoes",
+  "specDir": ".spec",
+  "repoName": "hemovia-backend",
+  "logsDir": "../onp-worktrees/hemovia-backend-poous10-cancelamento-requisicoes-logs",
+  "ondas": [
+    [
+      "faixa-1",
+      "faixa-2"
+    ]
+  ],
+  "faixas": [
+    {
+      "id": "faixa-1",
+      "branch": "spec/poous10-cancelamento-requisicoes-faixa-1",
+      "worktree": "../onp-worktrees/hemovia-backend-poous10-cancelamento-requisicoes-faixa-1",
+      "tarefas": [
+        {
+          "id": "T-025",
+          "titulo": "Implementar cancelamento e liberação transacional",
+          "modelo": "gpt-6.1-terra",
+          "esforco": "medium",
+          "arquivos": [
+            "api/src/main/java/com/hemovia/api/service/usecase/request/CancelBloodRequest.java",
+            "api/src/main/java/com/hemovia/api/repository/port/RequestCancellationStore.java",
+            "api/src/main/java/com/hemovia/api/repository/adapter/RequestCancellationStoreAdapter.java",
+            "api/src/main/java/com/hemovia/api/repository/jpa/BloodRequestRepository.java",
+            "api/src/main/java/com/hemovia/api/repository/jpa/AllocationRepository.java",
+            "api/src/main/java/com/hemovia/api/repository/jpa/AllocationItemRepository.java",
+            "api/src/main/java/com/hemovia/api/repository/jpa/BloodBagRepository.java",
+            "api/src/main/java/com/hemovia/api/repository/jpa/TransportRepository.java"
+          ],
+          "refs": [
+            "US-020",
+            "AC-041",
+            "AC-042",
+            "AC-043",
+            "AC-044",
+            "AC-045",
+            "AC-046"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "faixa-2",
+      "branch": "spec/poous10-cancelamento-requisicoes-faixa-2",
+      "worktree": "../onp-worktrees/hemovia-backend-poous10-cancelamento-requisicoes-faixa-2",
+      "tarefas": [
+        {
+          "id": "T-026",
+          "titulo": "Expor o cancelamento autenticado e documentado no Swagger",
+          "modelo": "gpt-6.1-terra",
+          "esforco": "medium",
+          "arquivos": [
+            "api/src/main/java/com/hemovia/api/controller/BloodRequestController.java",
+            "api/src/main/java/com/hemovia/api/controller/security/SecurityConfig.java",
+            "api/src/test/java/com/hemovia/api/documentation/OpenApiContractIT.java"
+          ],
+          "refs": [
+            "US-020",
+            "AC-044",
+            "AC-047"
+          ]
+        }
+      ]
+    }
+  ],
+  "sequenciais": [
+    {
+      "id": "T-027",
+      "titulo": "Provar cancelamento, rollback e concorrência com PostgreSQL",
+      "modelo": "gpt-6.1-terra",
+      "esforco": "medium",
+      "arquivos": [
+        "api/src/test/java/com/hemovia/api/controller/BloodRequestCancellationAcceptanceTest.java",
+        "scripts/spec-java/acceptance-cases.json",
+        "onpspec.config.json",
+        "README.md"
+      ],
+      "refs": [
+        "AC-041",
+        "AC-042",
+        "AC-043",
+        "AC-044",
+        "AC-045",
+        "AC-046",
+        "AC-047"
+      ]
+    }
+  ],
+  "concluidas": [],
+  "avisos": []
+}

@@ -15,8 +15,8 @@
     "com.hemovia.api.model.BaseEntitiesPersistenceIT#ac006_databaseRejectsInvalidCoordinates"
   ],
   "AC-007": [
-    "com.hemovia.api.service.implementation.DonationAssociationsRegressionTest#ac007_rejectsConflictingKnownCenters",
-    "com.hemovia.api.service.implementation.DonationAssociationsRegressionTest#ac007_cannotStealBagFromAnotherDonation",
+    "com.hemovia.api.service.usecase.inventory.DonationAssociationsRegressionTest#ac007_rejectsConflictingKnownCenters",
+    "com.hemovia.api.service.usecase.inventory.DonationAssociationsRegressionTest#ac007_cannotStealBagFromAnotherDonation",
     "com.hemovia.api.model.BaseEntitiesUnitTest#ac007_donationContainsMultipleBags",
     "com.hemovia.api.model.BaseEntitiesUnitTest#ac007_rejectsConflictingDonors",
     "com.hemovia.api.model.BaseEntitiesPersistenceIT#ac007_multipleBagsAndNonDestructiveUnlink"
@@ -58,8 +58,8 @@
     "com.hemovia.api.ApiApplicationTests#contextLoads"
   ],
   "AC-015": [
-    "com.hemovia.api.service.implementation.DonationAssociationsRegressionTest#ac015_singularUpdatePreservesMultipleBags",
-    "com.hemovia.api.service.implementation.DonationAssociationsRegressionTest#ac015_createRejectsAlreadyAssociatedBag",
+    "com.hemovia.api.service.usecase.inventory.DonationAssociationsRegressionTest#ac015_singularUpdatePreservesMultipleBags",
+    "com.hemovia.api.service.usecase.inventory.DonationAssociationsRegressionTest#ac015_createRejectsAlreadyAssociatedBag",
     "com.hemovia.api.controller.ExistingContractsRegressionTest#ac015_hospitalHttpContract",
     "com.hemovia.api.controller.ExistingContractsRegressionTest#ac015_donationHttpContract",
     "com.hemovia.api.controller.ExistingContractsRegressionTest#ac015_bloodBagHttpContract",
@@ -82,9 +82,9 @@
   ],
   "AC-020": [
     "com.hemovia.api.documentation.OpenApiContractIT#ac020DocumentsCookieSecurity",
-    "com.hemovia.api.presentation.controller.SessaoPorCookieIntegrationTest#deveEntrarComEmailEEntregarOsTokensSoEmCookiesHttpOnly",
-    "com.hemovia.api.presentation.controller.SessaoPorCookieIntegrationTest#deveResponderMeComOCookieDeAcesso",
-    "com.hemovia.api.presentation.controller.SessaoPorCookieIntegrationTest#deveBarrarEscritaSemOHeaderXsrf"
+    "com.hemovia.api.controller.SessaoPorCookieIntegrationTest#deveEntrarComEmailEEntregarOsTokensSoEmCookiesHttpOnly",
+    "com.hemovia.api.controller.SessaoPorCookieIntegrationTest#deveResponderMeComOCookieDeAcesso",
+    "com.hemovia.api.controller.SessaoPorCookieIntegrationTest#deveBarrarEscritaSemOHeaderXsrf"
   ],
   "AC-021": [
     "com.hemovia.api.documentation.OpenApiAvailabilityIT#ac016_exposesGeneratedDocumentationAndUiConfiguration",
@@ -92,68 +92,130 @@
     "com.hemovia.api.documentation.OpenApiContractIT#ac018DocumentsCurrentOperationsAndResponses",
     "com.hemovia.api.documentation.OpenApiContractIT#ac019DocumentsDtoSchemasAndExamples",
     "com.hemovia.api.documentation.OpenApiContractIT#ac020DocumentsCookieSecurity",
-    "com.hemovia.api.presentation.controller.SessaoPorCookieIntegrationTest#deveEntrarComEmailEEntregarOsTokensSoEmCookiesHttpOnly",
-    "com.hemovia.api.presentation.controller.SessaoPorCookieIntegrationTest#deveResponderMeComOCookieDeAcesso",
-    "com.hemovia.api.presentation.controller.SessaoPorCookieIntegrationTest#deveBarrarEscritaSemOHeaderXsrf",
+    "com.hemovia.api.controller.SessaoPorCookieIntegrationTest#deveEntrarComEmailEEntregarOsTokensSoEmCookiesHttpOnly",
+    "com.hemovia.api.controller.SessaoPorCookieIntegrationTest#deveResponderMeComOCookieDeAcesso",
+    "com.hemovia.api.controller.SessaoPorCookieIntegrationTest#deveBarrarEscritaSemOHeaderXsrf",
     "com.hemovia.api.documentation.OpenApiContractIT#ac021ReadmeDocumentsSwaggerWorkflow"
   ],
   "AC-022": [
-    "com.hemovia.api.presentation.controller.BloodRequestAcceptanceTest#criaRequisicaoPendenteComDadosPersistidos"
+    "com.hemovia.api.controller.BloodRequestAcceptanceTest#criaRequisicaoPendenteComDadosPersistidos"
   ],
   "AC-023": [
-    "com.hemovia.api.presentation.controller.BloodRequestAcceptanceTest#rejeitaQuantidadesInvalidasSemPersistir"
+    "com.hemovia.api.controller.BloodRequestAcceptanceTest#rejeitaQuantidadesInvalidasSemPersistir"
   ],
   "AC-024": [
-    "com.hemovia.api.presentation.controller.BloodRequestAcceptanceTest#exigeSessaoPapelHospitalEVinculo"
+    "com.hemovia.api.controller.BloodRequestAcceptanceTest#exigeSessaoPapelHospitalEVinculo"
   ],
   "AC-025": [
     "com.hemovia.api.documentation.OpenApiContractIT#ac025DocumentsHospitalRequestContract"
   ],
   "AC-026": [
-    "com.hemovia.api.domain.algorithm.priority.FefoQueueTest#ordenaBolsasPorValidadeMaisProxima"
+    "com.hemovia.api.model.algorithm.priority.FefoQueueTest#ordenaBolsasPorValidadeMaisProxima"
   ],
   "AC-027": [
-    "com.hemovia.api.domain.algorithm.priority.FefoQueueTest#excluiBolsasVencidasOuQueVencemNaDataDeReferencia"
+    "com.hemovia.api.model.algorithm.priority.FefoQueueTest#excluiBolsasVencidasOuQueVencemNaDataDeReferencia"
   ],
   "AC-028": [
-    "com.hemovia.api.domain.BloodCompatibilityTest#shouldAcceptScenarioDonorsForAPositive"
+    "com.hemovia.api.model.algorithm.compatibility.BloodCompatibilityTest#shouldAcceptScenarioDonorsForAPositive"
   ],
   "AC-029": [
-    "com.hemovia.api.domain.BloodCompatibilityTest#shouldRejectScenarioDonorsForONegative"
+    "com.hemovia.api.model.algorithm.compatibility.BloodCompatibilityTest#shouldRejectScenarioDonorsForONegative"
   ],
   "AC-030": [
-    "com.hemovia.api.presentation.controller.BloodRequestAllocationAcceptanceTest#ac030AllocatesCompatibleBagsInFefoOrder"
+    "com.hemovia.api.controller.BloodRequestAllocationAcceptanceTest#ac030AllocatesCompatibleBagsInFefoOrder"
   ],
   "AC-031": [
-    "com.hemovia.api.presentation.controller.BloodRequestAllocationAcceptanceTest#ac031RejectsInsufficientStock"
+    "com.hemovia.api.controller.BloodRequestAllocationAcceptanceTest#ac031RejectsInsufficientStock"
   ],
   "AC-032": [
-    "com.hemovia.api.presentation.controller.BloodRequestAllocationAcceptanceTest#ac032RequiresSessionRoleAndCsrf",
+    "com.hemovia.api.controller.BloodRequestAllocationAcceptanceTest#ac032RequiresSessionRoleAndCsrf",
     "com.hemovia.api.documentation.OpenApiContractIT#ac032DocumentsAllocationContract"
   ],
   "AC-033": [
-    "com.hemovia.api.presentation.controller.BloodRequestAllocationAcceptanceTest#ac033RejectsInvalidRequests"
+    "com.hemovia.api.controller.BloodRequestAllocationAcceptanceTest#ac033RejectsInvalidRequests"
   ],
   "AC-034": [
-    "com.hemovia.api.presentation.controller.BloodRequestAllocationAcceptanceTest#ac034OnlyOneConcurrentRequestReservesBag"
+    "com.hemovia.api.controller.BloodRequestAllocationAcceptanceTest#ac034OnlyOneConcurrentRequestReservesBag"
   ],
   "AC-035": [
-    "com.hemovia.api.presentation.controller.BloodRequestAllocationAcceptanceTest#ac035RollsBackCommitFailureAndAllowsRetry"
+    "com.hemovia.api.controller.BloodRequestAllocationAcceptanceTest#ac035RollsBackCommitFailureAndAllowsRetry"
   ],
   "AC-036": [
-    "com.hemovia.api.presentation.controller.BloodCenterAcceptanceTest#ac036ManagesBloodCenter"
+    "com.hemovia.api.controller.BloodCenterAcceptanceTest#ac036ManagesBloodCenter"
   ],
   "AC-037": [
-    "com.hemovia.api.presentation.controller.BloodCenterAcceptanceTest#ac037RejectsUnauthorizedAndInvalidWrites"
+    "com.hemovia.api.controller.BloodCenterAcceptanceTest#ac037RejectsUnauthorizedAndInvalidWrites"
   ],
   "AC-038": [
-    "com.hemovia.api.presentation.controller.BloodCenterAcceptanceTest#ac038SoftDeletesPreservingHistory",
+    "com.hemovia.api.controller.BloodCenterAcceptanceTest#ac038SoftDeletesPreservingHistory",
     "com.hemovia.api.migration.AtualizacaoDeBancoLegadoTest#deveManterHemocentroLegadoAtivo"
   ],
   "AC-039": [
-    "com.hemovia.api.presentation.controller.BloodCenterAcceptanceTest#ac039RejectsNewOperationsAtDeletedCenter"
+    "com.hemovia.api.controller.BloodCenterAcceptanceTest#ac039RejectsNewOperationsAtDeletedCenter"
   ],
   "AC-040": [
     "com.hemovia.api.documentation.OpenApiContractIT#ac040DocumentsBloodCenterContract"
+  ],
+  "AC-041": [
+    "com.hemovia.api.controller.BloodRequestCancellationAcceptanceTest#ac041ReleasesAllBagsAndAllowsReallocation"
+  ],
+  "AC-042": [
+    "com.hemovia.api.controller.BloodRequestCancellationAcceptanceTest#ac042CancelsPendingWithoutTouchingOtherReservation"
+  ],
+  "AC-043": [
+    "com.hemovia.api.controller.BloodRequestCancellationAcceptanceTest#ac043RejectsInvalidStatesAndInTransitTransport"
+  ],
+  "AC-044": [
+    "com.hemovia.api.controller.BloodRequestCancellationAcceptanceTest#ac044EnforcesSecurityAndOwnership"
+  ],
+  "AC-045": [
+    "com.hemovia.api.controller.BloodRequestCancellationAcceptanceTest#ac045RollsBackCommitFailureAndAllowsRetry"
+  ],
+  "AC-046": [
+    "com.hemovia.api.controller.BloodRequestCancellationAcceptanceTest#ac046CoordinatesCancellationAndAllocation",
+    "com.hemovia.api.controller.BloodRequestCancellationAcceptanceTest#ac046CoordinatesTwoCancellations"
+  ],
+  "AC-047": [
+    "com.hemovia.api.documentation.OpenApiContractIT#ac047DocumentsCancellationContract"
+  ],
+  "AC-048": [
+    "com.hemovia.api.model.algorithm.graph.DijkstraTest#findsFastestPathInsteadOfShorterDistanceOrImmediateNeighbor",
+    "com.hemovia.api.model.algorithm.graph.DijkstraTest#rejectsUnreachableAndInvalidGraph",
+    "com.hemovia.api.model.algorithm.graph.DijkstraTest#copiesCollectionsAndAvoidsOverflow"
+  ],
+  "AC-049": [
+    "com.hemovia.api.model.algorithm.graph.DeliveryWindowTest#enforcesConfiguredPlateletsLimitIncludingBoundary",
+    "com.hemovia.api.model.algorithm.graph.DeliveryWindowTest#enforcesDeadlineForEveryComponentAndAllowsLegacy"
+  ],
+  "AC-050": [
+    "com.hemovia.api.service.routing.OsrmRoadRoutingProviderTest#consultaERetornaGeometriaEmOrdemComDuracaoArredondada",
+    "com.hemovia.api.service.routing.OsrmRoadRoutingProviderTest#rotaOuSegmentoAusenteEhErroDeRota",
+    "com.hemovia.api.service.routing.OsrmRoadRoutingProviderTest#rejeitaRespostaInvalidaEHttpDeErro",
+    "com.hemovia.api.service.routing.OsrmRoadRoutingProviderTest#timeoutEhIndisponibilidade",
+    "com.hemovia.api.service.routing.OsrmRoadRoutingProviderTest#limitaConsultasConcorrentesAoIntervaloConfigurado"
+  ],
+  "AC-051": [
+    "com.hemovia.api.controller.RouteGraphAcceptanceTest#ac051ManagesGraphWithSecurityAndValidation",
+    "com.hemovia.api.controller.RouteGraphAcceptanceTest#ac051ProviderFailuresDoNotPersistEdges"
+  ],
+  "AC-052": [
+    "com.hemovia.api.controller.DeliveryRouteAcceptanceTest#ac052PersistsRouteSnapshot",
+    "com.hemovia.api.migration.MigracaoV15RotasReaisTest#ac052UpgradesLegacyWithoutInventedRouteOrGeometry"
+  ],
+  "AC-053": [
+    "com.hemovia.api.controller.DeliveryRouteAcceptanceTest#ac053RollsBackMissingRouteAndDeadline"
+  ],
+  "AC-054": [
+    "com.hemovia.api.controller.DeliveryRouteAcceptanceTest#ac054PreviewChecksWindowAndSecurity",
+    "com.hemovia.api.documentation.OpenApiContractIT#ac054DocumentsRouteOperations"
+  ],
+  "AC-055": [
+    "com.hemovia.api.controller.DeliveryRouteAcceptanceTest#ac055RollsBackRouteCommitFailureAndRetries"
+  ],
+  "AC-056": [
+    "com.hemovia.api.controller.BloodRequestAllocationAcceptanceTest#ac034OnlyOneConcurrentRequestReservesBag",
+    "com.hemovia.api.controller.BloodRequestCancellationAcceptanceTest#ac041ReleasesAllBagsAndAllowsReallocation",
+    "com.hemovia.api.controller.BloodRequestCancellationAcceptanceTest#ac046CoordinatesCancellationAndAllocation",
+    "com.hemovia.api.controller.BloodRequestCancellationAcceptanceTest#ac046CoordinatesTwoCancellations"
   ]
 }

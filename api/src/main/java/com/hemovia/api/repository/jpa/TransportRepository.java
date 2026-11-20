@@ -1,0 +1,20 @@
+package com.hemovia.api.repository.jpa;
+
+import com.hemovia.api.model.entity.Transport;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.Optional;
+import java.util.UUID;
+
+public interface TransportRepository extends JpaRepository<Transport, UUID> {
+    Optional<Transport> findById(@NotNull UUID id);
+    boolean existsById(@NotNull UUID id);
+    @Query("""
+            select count(t) from Transport t where t.allocation.request.id = :requestId
+              and t.status = com.hemovia.api.model.enums.TransportStatus.IN_TRANSIT
+            """)
+    long countInTransitByRequestId(@Param("requestId") UUID requestId);
+}

@@ -9,7 +9,7 @@ Projeto Integrador desenvolvido na **CESAR School**, curso de Análise e Desenvo
 ## Tecnologias usadas
 
 - **Backend:** Java + Spring Boot
-- **Arquitetura:** Clean Architecture (Domain, Application, Infrastructure, Presentation) + princípios SOLID
+- **Arquitetura:** backend em cinco camadas Java (`controller`, `service`, `dto`, `repository` e `model`)
 - **Banco de dados:** PostgreSQL (Spring Data JPA)
 - **Documentação de API:** OpenAPI/Swagger
 - **CI/CD:** GitHub Actions
@@ -124,9 +124,28 @@ Issues organizadas e atualizadas pela ferramenta de issues do GitHub:
 -  **[Vídeo da entrega 04](https://www.youtube.com/watch?v=d44n4RsEXDw)**
 -  **[Explicação do código](https://www.youtube.com/watch?v=TQqrf7Rikus)**
 
-## Como rodar o projeto
+## Desenvolvimento local
 
 *(seção detalhada a partir da segunda entrega)*
+
+### Organização do backend
+
+As cinco camadas ficam sob o pacote `com.hemovia.api`.
+
+| Camada | Responsabilidade |
+|---|---|
+| `controller` | Rotas HTTP, tratamento de erros, configuração do Swagger e segurança da sessão HTTP. |
+| `service` | Casos de uso, regras de aplicação, transações e serviços de autenticação. |
+| `dto` | Dados de entrada, de saída e de troca interna, separados dos modelos persistidos. |
+| `repository` | Contratos de persistência, repositórios Spring Data JPA, adaptadores e mapeadores. |
+| `model` | Modelos de negócio, entidades JPA em `model.entity`, enums, objetos de valor e algoritmos. |
+
+Um controller recebe e devolve DTOs e chama o serviço. O serviço coordena a operação e usa o modelo e os repositórios. O ArchUnit verifica a distribuição do código e as dependências entre as camadas.
+
+- Agrupe os casos de uso em `service/usecase/<área>`. Use uma classe por operação com regras próprias, como `CreateHospital`. Agrupe as operações de um mesmo cadastro em classes como `ManageBloodCenters`.
+- Use `record` para os DTOs. O repositório pode receber dados internos em `dto.internal`. Os DTOs HTTP ficam em `dto.request` e `dto.response`.
+- Use as interfaces de persistência, relógio e autenticação para separar os casos de uso de dependências externas.
+- Os planos de execução em `.spec` registram o trabalho de cada entrega. Para localizar os arquivos no checkout atual, consulte o `tasks.md` da história.
 
 ### Modelo persistente: entidades base
 
@@ -182,6 +201,14 @@ A autenticação usa cookies do navegador; o botão **Authorize** não é usado 
 
 Não use dados pessoais ou credenciais reais nos exemplos. O documento reflete os controllers e DTOs existentes; ele não cria endpoints para entidades sem controller.
 
+#### Cancelamento de requisições hospitalares — POOUS10
+
+Um profissional com papel `HOSPITAL` pode cancelar uma requisição do próprio hospital em `PENDING` ou `ALLOCATED` com `POST /api/v1/requests/{id}/cancel`, sem corpo. A resposta `200` contém `id` e `status: CANCELLED`. O cancelamento libera as bolsas reservadas e preserva a alocação e seus itens como histórico: a alocação fica `CANCELLED`, os itens ficam `RELEASED` com o horário de liberação e as bolsas voltam a `AVAILABLE`.
+
+Para testar no Swagger, siga a autenticação acima, abra a operação de cancelamento, informe o ID da requisição e preencha o header `X-XSRF-TOKEN` com o valor do cookie `XSRF-TOKEN`. Pedidos em trânsito, entregues ou já cancelados retornam `422`; requisições inexistentes ou de outro hospital retornam `404`.
+
+O cancelamento e a alocação usam o mesmo bloqueio da requisição. A liberação acontece em uma única transação; uma falha de gravação desfaz todas as alterações. [História e critérios de aceite](https://github.com/HemovIA/hemovia-backend/issues/12).
+
 ---
 
 ### ⚙️ Infraestrutura de Software (SO)
@@ -213,11 +240,7 @@ Documento completo com todas as histórias do backlog (POO, AED, EST, SO e RSD �
 
 ---
 
-## Como rodar o projeto
-
-*(seção detalhada a partir da segunda entrega)*
-
-### Deploy no Render
+## Deploy no Render
 
 O arquivo [`render.yaml`](render.yaml) configura o serviço Docker do Render para usar `api/Dockerfile` e `api/` como contexto de build. Para criar o serviço, crie um Blueprint no Render apontando para este repositório (selecione a branch que deseja publicar, como `develop`) e informe as variáveis solicitadas:
 
@@ -225,6 +248,54 @@ O arquivo [`render.yaml`](render.yaml) configura o serviço Docker do Render par
 - `JWT_SECRET`: segredo forte e exclusivo para assinatura dos tokens.
 
 O Render fornece a variável `PORT` automaticamente; a API já a utiliza. Para um serviço Render já criado sem Blueprint, configure **Dockerfile Path** como `api/Dockerfile` e **Docker Context** como `api` nas configurações de build. Não use a raiz do repositório como contexto, pois o Dockerfile copia arquivos relativos à pasta `api`.
+
+---
+
+## Rotas na rede cadastrada — AEDUS04 e POOUS07
+
+O [OSRM](https://project-osrm.org/) fornece trajetos de ruas com dados do [OpenStreetMap](https://www.openstreetmap.org/copyright). Nosso Dijkstra escolhe a sequência de ligações cadastradas com menor tempo total. Defina as coordenadas dos hemocentros e hospitais antes de preparar a malha.
+
+1. Autentique-se como `ADMIN`, obtenha o CSRF e cadastre o ponto de origem em `POST /api/v1/route-graph/nodes`:
+
+```json
+{"name":"Origem","bloodCenterId":"<id-do-hemocentro>"}
+```
+
+2. Cadastre o destino na mesma operação:
+
+```json
+{"name":"Destino","hospitalId":"<id-do-hospital>"}
+```
+
+Ao vincular um cadastro, omita `latitude` e `longitude`: o servidor copia as coordenadas do recurso. Para um cruzamento, envie `name`, `latitude` e `longitude`, sem os campos de vínculo. Guarde os IDs dos pontos retornados; são diferentes dos IDs do hospital e do hemocentro.
+
+3. Cadastre a ligação em `POST /api/v1/route-graph/edges`, usando os IDs dos pontos:
+
+```json
+{"fromNodeId":"<id-do-ponto-de-origem>","toNodeId":"<id-do-ponto-de-destino>"}
+```
+
+O servidor consulta o OSRM para obter tempo, distância e geometria. Não informe pesos manualmente. Cada ligação é direcional; cadastre também a ligação inversa se precisar da viagem de volta. Use os GETs de `/route-graph/nodes` e `/route-graph/edges` para consultar a malha.
+
+4. Autentique-se como `HEMOCENTRO` vinculado à origem e envie uma prévia a `POST /api/v1/routes/calculate`:
+
+```json
+{
+  "hospitalId":"<id-do-hospital>",
+  "component":"RED_BLOOD_CELLS",
+  "deliveryDeadline":"2030-12-31T18:00:00Z"
+}
+```
+
+Substitua o prazo pelo instante futuro do seu teste. A prévia não grava rota nem reserva estoque. Nas operações POST, envie o cookie da sessão e o header `X-XSRF-TOKEN`, conforme as instruções de autenticação no Swagger.
+
+5. Com uma requisição pendente do hospital e estoque compatível, execute `POST /api/v1/requests/{id}/allocate`. A resposta mantém os campos anteriores e acrescenta `route`, com ID da rota, vértices, distância em quilômetros, duração em segundos e geometria GeoJSON. Se não houver caminho ou a chegada ultrapassar o prazo, retorna `422 INVALID_ROUTE` e desfaz a reserva inteira. O cancelamento preserva o histórico da rota.
+
+O GeoJSON usa pares `[longitude, latitude]`; o perfil considerado é o de carro. Os custos e trajetos são snapshots dos trechos consultados no cadastro, sem atualização automática ou trânsito em tempo real. A seleção é ótima dentro da rede cadastrada; não pesquisa todas as ruas fora dela. Esta entrega oferece cadastro e listagem da malha e mantém a alocação restrita a hemácias.
+
+O endereço do serviço é configurável por `ROUTING_BASE_URL`. O servidor público de demonstração é destinado a uso não comercial razoável, limita consultas a uma por segundo e não oferece garantia de disponibilidade. [Política do servidor](https://github.com/Project-OSRM/osrm-backend/wiki/Demo-server). Falha do provedor no cadastro retorna `503 ROUTING_PROVIDER_UNAVAILABLE`, sem ligação parcial.
+
+O limite de plaquetas na prévia é a regra didática do backlog: 60 minutos por padrão, configurável em segundos por `ROUTING_PLATELETS_MAX_SECONDS`. A associação da rota ao transporte será feita na POOUS09; esta entrega não cria transporte nem veículo.
 
 ---
 

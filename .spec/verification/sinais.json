@@ -77,10 +77,10 @@
       "codigo": "GLOB_SEM_ARQUIVOS",
       "feature": "—",
       "ref": "P-002",
-      "ocorrencias": 18,
+      "ocorrencias": 30,
       "primeiraVez": "2026-10-22T16:48:12.342Z",
-      "ultimaVez": "2026-11-09T23:05:19.426Z",
-      "gitRev": "566c3c6"
+      "ultimaVez": "2026-11-20T19:48:11.376Z",
+      "gitRev": "2eb01b0"
     },
     "ARQUIVO_INEXISTENTE::finalizando-entidades-base::T-005": {
       "codigo": "ARQUIVO_INEXISTENTE",
@@ -257,10 +257,10 @@
       "codigo": "VERIFY_OBSOLETO",
       "feature": "revisao-projeto",
       "ref": "—",
-      "ocorrencias": 2,
+      "ocorrencias": 8,
       "primeiraVez": "2026-10-22T17:48:09.136Z",
-      "ultimaVez": "2026-10-22T18:28:23.301Z",
-      "gitRev": "5fd3c0c"
+      "ultimaVez": "2026-11-20T19:30:24.866Z",
+      "gitRev": "2eb01b0"
     },
     "VERIFY_FALHOU::finalizando-entidades-base::AC-005": {
       "codigo": "VERIFY_FALHOU",
@@ -347,10 +347,10 @@
       "codigo": "VERIFY_FALHOU",
       "feature": "finalizando-entidades-base",
       "ref": "AC-014",
-      "ocorrencias": 2,
+      "ocorrencias": 3,
       "primeiraVez": "2026-10-22T18:21:36.111Z",
-      "ultimaVez": "2026-10-22T18:24:16.571Z",
-      "gitRev": "5fd3c0c"
+      "ultimaVez": "2026-11-12T16:51:18.624Z",
+      "gitRev": "4ece0a9"
     },
     "VERIFY_FALHOU::finalizando-entidades-base::AC-015": {
       "codigo": "VERIFY_FALHOU",
@@ -603,6 +603,276 @@
       "primeiraVez": "2026-11-09T22:48:48.728Z",
       "ultimaVez": "2026-11-09T22:48:48.728Z",
       "gitRev": "566c3c6"
+    },
+    "VERIFY_OBSOLETO::aedus05-aedus07::—": {
+      "codigo": "VERIFY_OBSOLETO",
+      "feature": "aedus05-aedus07",
+      "ref": "—",
+      "ocorrencias": 6,
+      "primeiraVez": "2026-11-12T16:47:05.221Z",
+      "ultimaVez": "2026-11-20T19:30:24.865Z",
+      "gitRev": "2eb01b0"
+    },
+    "VERIFY_OBSOLETO::documentacao-swagger::—": {
+      "codigo": "VERIFY_OBSOLETO",
+      "feature": "documentacao-swagger",
+      "ref": "—",
+      "ocorrencias": 6,
+      "primeiraVez": "2026-11-12T16:47:05.227Z",
+      "ultimaVez": "2026-11-20T19:30:24.866Z",
+      "gitRev": "2eb01b0"
+    },
+    "VERIFY_OBSOLETO::finalizando-entidades-base::—": {
+      "codigo": "VERIFY_OBSOLETO",
+      "feature": "finalizando-entidades-base",
+      "ref": "—",
+      "ocorrencias": 6,
+      "primeiraVez": "2026-11-12T16:47:05.227Z",
+      "ultimaVez": "2026-11-20T19:30:24.866Z",
+      "gitRev": "2eb01b0"
+    },
+    "VERIFY_OBSOLETO::poous04-emissao-requisicoes::—": {
+      "codigo": "VERIFY_OBSOLETO",
+      "feature": "poous04-emissao-requisicoes",
+      "ref": "—",
+      "ocorrencias": 6,
+      "primeiraVez": "2026-11-12T16:47:05.227Z",
+      "ultimaVez": "2026-11-20T19:30:24.866Z",
+      "gitRev": "2eb01b0"
+    },
+    "VERIFY_OBSOLETO::poous06-poous12::—": {
+      "codigo": "VERIFY_OBSOLETO",
+      "feature": "poous06-poous12",
+      "ref": "—",
+      "ocorrencias": 6,
+      "primeiraVez": "2026-11-12T16:47:05.227Z",
+      "ultimaVez": "2026-11-20T19:30:24.866Z",
+      "gitRev": "2eb01b0"
+    },
+    "VERIFY_OBSOLETO::poous13-cadastro-hemocentros::—": {
+      "codigo": "VERIFY_OBSOLETO",
+      "feature": "poous13-cadastro-hemocentros",
+      "ref": "—",
+      "ocorrencias": 6,
+      "primeiraVez": "2026-11-12T16:47:05.227Z",
+      "ultimaVez": "2026-11-20T19:30:24.866Z",
+      "gitRev": "2eb01b0"
+    },
+    "ARQUIVO_INEXISTENTE::poous10-cancelamento-requisicoes::T-025": {
+      "codigo": "ARQUIVO_INEXISTENTE",
+      "feature": "poous10-cancelamento-requisicoes",
+      "ref": "T-025",
+      "ocorrencias": 3,
+      "primeiraVez": "2026-11-20T13:54:31.038Z",
+      "ultimaVez": "2026-11-20T13:54:31.038Z",
+      "gitRev": "c866394"
+    },
+    "ARQUIVO_INEXISTENTE::poous10-cancelamento-requisicoes::T-027": {
+      "codigo": "ARQUIVO_INEXISTENTE",
+      "feature": "poous10-cancelamento-requisicoes",
+      "ref": "T-027",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-20T13:54:31.038Z",
+      "ultimaVez": "2026-11-20T13:54:31.038Z",
+      "gitRev": "c866394"
+    },
+    "AC_SEM_TESTE::poous10-cancelamento-requisicoes::AC-041": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "poous10-cancelamento-requisicoes",
+      "ref": "AC-041",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-20T13:54:31.038Z",
+      "ultimaVez": "2026-11-20T13:54:31.038Z",
+      "gitRev": "c866394"
+    },
+    "AC_SEM_TESTE::poous10-cancelamento-requisicoes::AC-042": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "poous10-cancelamento-requisicoes",
+      "ref": "AC-042",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-20T13:54:31.038Z",
+      "ultimaVez": "2026-11-20T13:54:31.038Z",
+      "gitRev": "c866394"
+    },
+    "AC_SEM_TESTE::poous10-cancelamento-requisicoes::AC-043": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "poous10-cancelamento-requisicoes",
+      "ref": "AC-043",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-20T13:54:31.038Z",
+      "ultimaVez": "2026-11-20T13:54:31.038Z",
+      "gitRev": "c866394"
+    },
+    "AC_SEM_TESTE::poous10-cancelamento-requisicoes::AC-044": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "poous10-cancelamento-requisicoes",
+      "ref": "AC-044",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-20T13:54:31.038Z",
+      "ultimaVez": "2026-11-20T13:54:31.038Z",
+      "gitRev": "c866394"
+    },
+    "AC_SEM_TESTE::poous10-cancelamento-requisicoes::AC-045": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "poous10-cancelamento-requisicoes",
+      "ref": "AC-045",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-20T13:54:31.038Z",
+      "ultimaVez": "2026-11-20T13:54:31.038Z",
+      "gitRev": "c866394"
+    },
+    "AC_SEM_TESTE::poous10-cancelamento-requisicoes::AC-046": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "poous10-cancelamento-requisicoes",
+      "ref": "AC-046",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-20T13:54:31.038Z",
+      "ultimaVez": "2026-11-20T13:54:31.038Z",
+      "gitRev": "c866394"
+    },
+    "AC_SEM_TESTE::poous10-cancelamento-requisicoes::AC-047": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "poous10-cancelamento-requisicoes",
+      "ref": "AC-047",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-20T13:54:31.038Z",
+      "ultimaVez": "2026-11-20T13:54:31.038Z",
+      "gitRev": "c866394"
+    },
+    "ARQUIVO_INEXISTENTE::aedus04-poous07-roteirizacao::T-028": {
+      "codigo": "ARQUIVO_INEXISTENTE",
+      "feature": "aedus04-poous07-roteirizacao",
+      "ref": "T-028",
+      "ocorrencias": 7,
+      "primeiraVez": "2026-11-20T15:21:36.486Z",
+      "ultimaVez": "2026-11-20T15:21:36.487Z",
+      "gitRev": "a48cb94"
+    },
+    "ARQUIVO_INEXISTENTE::aedus04-poous07-roteirizacao::T-029": {
+      "codigo": "ARQUIVO_INEXISTENTE",
+      "feature": "aedus04-poous07-roteirizacao",
+      "ref": "T-029",
+      "ocorrencias": 16,
+      "primeiraVez": "2026-11-20T15:21:36.487Z",
+      "ultimaVez": "2026-11-20T15:21:36.487Z",
+      "gitRev": "a48cb94"
+    },
+    "ARQUIVO_INEXISTENTE::aedus04-poous07-roteirizacao::T-030": {
+      "codigo": "ARQUIVO_INEXISTENTE",
+      "feature": "aedus04-poous07-roteirizacao",
+      "ref": "T-030",
+      "ocorrencias": 5,
+      "primeiraVez": "2026-11-20T15:21:36.487Z",
+      "ultimaVez": "2026-11-20T15:21:36.487Z",
+      "gitRev": "a48cb94"
+    },
+    "ARQUIVO_INEXISTENTE::aedus04-poous07-roteirizacao::T-031": {
+      "codigo": "ARQUIVO_INEXISTENTE",
+      "feature": "aedus04-poous07-roteirizacao",
+      "ref": "T-031",
+      "ocorrencias": 7,
+      "primeiraVez": "2026-11-20T15:21:36.487Z",
+      "ultimaVez": "2026-11-20T15:21:36.487Z",
+      "gitRev": "a48cb94"
+    },
+    "ARQUIVO_INEXISTENTE::aedus04-poous07-roteirizacao::T-032": {
+      "codigo": "ARQUIVO_INEXISTENTE",
+      "feature": "aedus04-poous07-roteirizacao",
+      "ref": "T-032",
+      "ocorrencias": 4,
+      "primeiraVez": "2026-11-20T15:21:36.487Z",
+      "ultimaVez": "2026-11-20T15:21:36.487Z",
+      "gitRev": "a48cb94"
+    },
+    "AC_SEM_TESTE::aedus04-poous07-roteirizacao::AC-048": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "aedus04-poous07-roteirizacao",
+      "ref": "AC-048",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-20T15:21:36.487Z",
+      "ultimaVez": "2026-11-20T15:21:36.487Z",
+      "gitRev": "a48cb94"
+    },
+    "AC_SEM_TESTE::aedus04-poous07-roteirizacao::AC-049": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "aedus04-poous07-roteirizacao",
+      "ref": "AC-049",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-20T15:21:36.487Z",
+      "ultimaVez": "2026-11-20T15:21:36.487Z",
+      "gitRev": "a48cb94"
+    },
+    "AC_SEM_TESTE::aedus04-poous07-roteirizacao::AC-050": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "aedus04-poous07-roteirizacao",
+      "ref": "AC-050",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-20T15:21:36.487Z",
+      "ultimaVez": "2026-11-20T15:21:36.487Z",
+      "gitRev": "a48cb94"
+    },
+    "AC_SEM_TESTE::aedus04-poous07-roteirizacao::AC-051": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "aedus04-poous07-roteirizacao",
+      "ref": "AC-051",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-20T15:21:36.487Z",
+      "ultimaVez": "2026-11-20T15:21:36.487Z",
+      "gitRev": "a48cb94"
+    },
+    "AC_SEM_TESTE::aedus04-poous07-roteirizacao::AC-052": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "aedus04-poous07-roteirizacao",
+      "ref": "AC-052",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-20T15:21:36.487Z",
+      "ultimaVez": "2026-11-20T15:21:36.487Z",
+      "gitRev": "a48cb94"
+    },
+    "AC_SEM_TESTE::aedus04-poous07-roteirizacao::AC-053": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "aedus04-poous07-roteirizacao",
+      "ref": "AC-053",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-20T15:21:36.487Z",
+      "ultimaVez": "2026-11-20T15:21:36.487Z",
+      "gitRev": "a48cb94"
+    },
+    "AC_SEM_TESTE::aedus04-poous07-roteirizacao::AC-054": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "aedus04-poous07-roteirizacao",
+      "ref": "AC-054",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-20T15:21:36.487Z",
+      "ultimaVez": "2026-11-20T15:21:36.487Z",
+      "gitRev": "a48cb94"
+    },
+    "AC_SEM_TESTE::aedus04-poous07-roteirizacao::AC-055": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "aedus04-poous07-roteirizacao",
+      "ref": "AC-055",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-20T15:21:36.487Z",
+      "ultimaVez": "2026-11-20T15:21:36.487Z",
+      "gitRev": "a48cb94"
+    },
+    "AC_SEM_TESTE::aedus04-poous07-roteirizacao::AC-056": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "aedus04-poous07-roteirizacao",
+      "ref": "AC-056",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-20T15:21:36.487Z",
+      "ultimaVez": "2026-11-20T15:21:36.487Z",
+      "gitRev": "a48cb94"
+    },
+    "VERIFY_OBSOLETO::poous10-cancelamento-requisicoes::—": {
+      "codigo": "VERIFY_OBSOLETO",
+      "feature": "poous10-cancelamento-requisicoes",
+      "ref": "—",
+      "ocorrencias": 2,
+      "primeiraVez": "2026-11-20T15:21:36.487Z",
+      "ultimaVez": "2026-11-20T19:30:24.866Z",
+      "gitRev": "2eb01b0"
     }
   }
 }

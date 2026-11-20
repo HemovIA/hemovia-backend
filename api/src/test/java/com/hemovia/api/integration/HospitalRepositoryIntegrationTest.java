@@ -1,7 +1,7 @@
 package com.hemovia.api.integration;
 
-import com.hemovia.api.model.Hospital;
-import com.hemovia.api.repository.HospitalRepository;
+import com.hemovia.api.model.entity.Hospital;
+import com.hemovia.api.repository.jpa.HospitalRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;

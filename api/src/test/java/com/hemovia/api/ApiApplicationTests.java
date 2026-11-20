@@ -24,8 +24,8 @@ class ApiApplicationTests {
     }
 
     @Test
-    void deveTerAplicadoAsMigrationsAteAV14AoSubirOContexto() {
+    void deveTerAplicadoAsMigrationsAteAV15AoSubirOContexto() {
         // Ciclo 4 da Seção 2: ao subir, a aplicação deixa o banco na última versão do guia
-        assertThat(flyway.info().current().getVersion().getVersion()).isEqualTo("14");
+        assertThat(flyway.info().current().getVersion().getVersion()).isEqualTo("15");
     }
 }
