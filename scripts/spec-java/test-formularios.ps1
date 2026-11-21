@@ -98,8 +98,9 @@ management:
       $proof = Get-Content -LiteralPath $proofPath -Raw | ConvertFrom-Json
       $statuses = @($proof.results.PSObject.Properties | ForEach-Object { $_.Value.status })
       $principles = @($proof.principles.PSObject.Properties | ForEach-Object { $_.Value.status })
+      $proofTime = if ($proof.timestamp -is [datetime]) { [DateTimeOffset]::new($proof.timestamp.ToUniversalTime()) } else { [DateTimeOffset]::Parse([string]$proof.timestamp, [Globalization.CultureInfo]::InvariantCulture) }
       if ($proof.feature -ne $feature -or $null -eq $proof.exitCode -or $proof.exitCode -ne 0 -or
-          [DateTimeOffset]::Parse($proof.timestamp) -lt $began -or $statuses.Count -eq 0 -or
+          $proofTime -lt $began -or $statuses.Count -eq 0 -or
           @($statuses + $principles | Where-Object { $_ -ne 'pass' }).Count -gt 0) {
         Write-Error "Prova inválida ou com falha/pulo para $feature; consulte $proofPath" -ErrorAction Continue
         $result=1; break

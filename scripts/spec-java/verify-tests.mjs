@@ -69,7 +69,7 @@ function browserPassed(id) {
     assert.ok(spec.tests.length && spec.ok && spec.tests.every(t => t.status === 'expected' && t.expectedStatus === 'passed' && t.results.length && t.results.every(r => r.status === 'passed')), `${id}: ${spec.title} falhou ou foi pulado`);
   }
 }
-for (const id of ['AC-096','AC-097','AC-098','AC-099','AC-100','AC-101','AC-102','AC-103','AC-104','AC-105','AC-106','AC-108']) {
+for (const id of ['AC-096','AC-097','AC-098','AC-099','AC-100','AC-101','AC-102','AC-103','AC-104','AC-105','AC-106','AC-108','AC-109','AC-110','AC-111','AC-112','AC-113']) {
   test(`@spec:${id} interações Playwright reais`, () => browserPassed(id));
 }
 test('@spec:AC-107 integração e contratos backend e frontend executados sem falhas', () => {

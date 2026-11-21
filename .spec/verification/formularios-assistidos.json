@@ -1,11 +1,11 @@
 {
   "feature": "formularios-assistidos",
-  "timestamp": "2026-11-21T10:44:28.551Z",
-  "gitRev": "984bb34",
+  "timestamp": "2026-11-21T12:42:32.336Z",
+  "gitRev": "17f2145",
   "command": "node scripts/spec-java/verify-tests.mjs",
   "reporter": "tap",
   "exitCode": 0,
-  "testsParsed": 117,
+  "testsParsed": 122,
   "results": {
     "AC-094": {
       "status": "pass",

@@ -1,11 +1,11 @@
 {
   "feature": "estus01-estus02-estatisticas",
-  "timestamp": "2026-11-21T10:57:44.464Z",
-  "gitRev": "984bb34",
+  "timestamp": "2026-11-21T12:36:05.813Z",
+  "gitRev": "17f2145",
   "command": "node scripts/spec-java/verify-tests.mjs",
   "reporter": "tap",
   "exitCode": 0,
-  "testsParsed": 117,
+  "testsParsed": 122,
   "results": {
     "AC-067": {
       "status": "pass",
