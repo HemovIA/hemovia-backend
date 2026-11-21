@@ -16,6 +16,7 @@ public interface TransportRepository extends JpaRepository<Transport, UUID> {
     @Query("select t.allocation.request.id from Transport t where t.id = :id")
     Optional<UUID> findRequestId(@Param("id") UUID id);
     boolean existsByAllocationId(UUID allocationId);
+    Optional<Transport> findByAllocationId(UUID allocationId);
     boolean existsByVehicleIdAndStatus(UUID vehicleId, TransportStatus status);
     @Query("""
             select count(t) from Transport t where t.allocation.request.id = :requestId
@@ -23,3 +24,4 @@ public interface TransportRepository extends JpaRepository<Transport, UUID> {
             """)
     long countInTransitByRequestId(@Param("requestId") UUID requestId);
 }
+
