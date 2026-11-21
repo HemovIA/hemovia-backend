@@ -29,6 +29,8 @@ public class TransportQueryStoreAdapter implements TransportQueryStore {
             }
             return cb.and(clauses.toArray(Predicate[]::new));
         };
-        return repository.findAll(spec, PageRequest.of(page,size,Sort.by(Sort.Order.desc("startedAt"),Sort.Order.asc("id"))));
+        var pageable =  PageRequest.of(page,size,Sort.by(Sort.Order.desc("startedAt"),Sort.Order.asc("id")));
+        if (pageable.getOffset() > Integer.MAX_VALUE) return new PageImpl<>(java.util.List.of(), pageable, repository.count(spec));
+        return repository.findAll(spec, pageable);
     }
 }

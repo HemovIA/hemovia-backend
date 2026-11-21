@@ -163,6 +163,23 @@
     "api/src/main/java/com/hemovia/api/dto/response/InventoryCombinationResponse.java",
     "api/src/main/java/com/hemovia/api/dto/response/DemandSummaryResponse.java",
     "api/src/main/java/com/hemovia/api/dto/response/DemandMetricsResponse.java",
-    "api/src/main/java/com/hemovia/api/dto/response/HospitalDemandResponse.java"
+    "api/src/main/java/com/hemovia/api/dto/response/HospitalDemandResponse.java",
+    "api/src/main/java/com/hemovia/api/dto/request/QueryPage.java",
+    "api/src/main/java/com/hemovia/api/dto/response/PageResponse.java",
+    "api/src/main/java/com/hemovia/api/dto/internal/RequestQuery.java",
+    "api/src/main/java/com/hemovia/api/dto/internal/TransportQuery.java",
+    "api/src/main/java/com/hemovia/api/dto/response/BloodRequestSummaryResponse.java",
+    "api/src/main/java/com/hemovia/api/dto/response/BloodRequestDetailsResponse.java",
+    "api/src/main/java/com/hemovia/api/dto/response/TransportSummaryResponse.java",
+    "api/src/main/java/com/hemovia/api/dto/response/TransportDetailsResponse.java",
+    "api/src/main/java/com/hemovia/api/repository/port/BloodRequestQueryStore.java",
+    "api/src/main/java/com/hemovia/api/repository/adapter/BloodRequestQueryStoreAdapter.java",
+    "api/src/main/java/com/hemovia/api/repository/port/TransportQueryStore.java",
+    "api/src/main/java/com/hemovia/api/repository/adapter/TransportQueryStoreAdapter.java",
+    "api/src/main/java/com/hemovia/api/repository/port/HospitalQueryStore.java",
+    "api/src/main/java/com/hemovia/api/repository/adapter/HospitalQueryStoreAdapter.java",
+    "api/src/main/java/com/hemovia/api/service/usecase/request/QueryBloodRequests.java",
+    "api/src/main/java/com/hemovia/api/service/usecase/transport/QueryTransports.java",
+    "api/src/main/java/com/hemovia/api/service/usecase/hospital/QueryHospitals.java"
   ]
 }

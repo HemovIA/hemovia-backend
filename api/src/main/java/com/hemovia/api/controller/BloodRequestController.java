@@ -97,16 +97,30 @@ public class BloodRequestController {
         return ResponseEntity.ok(cancel.execute(id));
     }
     @Operation(summary = "Listar requisições", security = @SecurityRequirement(name = "cookieAuth"))
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Consulta realizada"),
+        @ApiResponse(responseCode = "400", description = "Parâmetro inválido", content = @Content(schema = @Schema(implementation = ApiError.class))),
+        @ApiResponse(responseCode = "401", description = "Sessão ausente", content = @Content(schema = @Schema(implementation = ApiError.class))),
+        @ApiResponse(responseCode = "403", description = "Acesso negado", content = @Content(schema = @Schema(implementation = ApiError.class))),
+        @ApiResponse(responseCode = "404", description = "Recurso não encontrado", content = @Content(schema = @Schema(implementation = ApiError.class)))
+    })
     @GetMapping
     public PageResponse<BloodRequestSummaryResponse> list(@RequestParam(required = false) RequestStatus status,
             @RequestParam(required = false) UUID hospitalId, @RequestParam(required = false) BloodType bloodType,
             @RequestParam(required = false) RhFactor rhFactor, @RequestParam(required = false) BloodComponent component,
-            @RequestParam(required = false) RequestPriority priority, @RequestParam(required = false) Integer page,
-            @RequestParam(required = false) Integer size) {
+            @RequestParam(required = false) RequestPriority priority, @Parameter(description = "Página a partir de zero", schema = @Schema(defaultValue = "0", minimum = "0")) @RequestParam(required = false) Integer page,
+            @Parameter(description = "Itens por página", schema = @Schema(defaultValue = "20", minimum = "1", maximum = "100")) @RequestParam(required = false) Integer size) {
         return query.list(new RequestQuery(null, status, hospitalId, bloodType, rhFactor, component, priority), QueryPage.of(page, size));
     }
 
     @Operation(summary = "Detalhar requisição", security = @SecurityRequirement(name = "cookieAuth"))
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Consulta realizada"),
+        @ApiResponse(responseCode = "400", description = "Parâmetro inválido", content = @Content(schema = @Schema(implementation = ApiError.class))),
+        @ApiResponse(responseCode = "401", description = "Sessão ausente", content = @Content(schema = @Schema(implementation = ApiError.class))),
+        @ApiResponse(responseCode = "403", description = "Acesso negado", content = @Content(schema = @Schema(implementation = ApiError.class))),
+        @ApiResponse(responseCode = "404", description = "Recurso não encontrado", content = @Content(schema = @Schema(implementation = ApiError.class)))
+    })
     @GetMapping("/{id}")
     public BloodRequestDetailsResponse detail(@PathVariable UUID id) { return query.detail(id); }
 }

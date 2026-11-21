@@ -1,0 +1,107 @@
+{
+  "feature": "consultas-operacionais",
+  "timestamp": "2026-11-21T02:16:39.140Z",
+  "gitRev": "d7acb0a",
+  "command": "node scripts/spec-java/verify-tests.mjs",
+  "reporter": "tap",
+  "exitCode": 0,
+  "testsParsed": 102,
+  "results": {
+    "AC-075": {
+      "status": "pass",
+      "testName": "@spec:AC-075 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-076": {
+      "status": "pass",
+      "testName": "@spec:AC-076 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-077": {
+      "status": "pass",
+      "testName": "@spec:AC-077 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-078": {
+      "status": "pass",
+      "testName": "@spec:AC-078 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-079": {
+      "status": "pass",
+      "testName": "@spec:AC-079 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-080": {
+      "status": "pass",
+      "testName": "@spec:AC-080 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-081": {
+      "status": "pass",
+      "testName": "@spec:AC-081 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-082": {
+      "status": "pass",
+      "testName": "@spec:AC-082 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-083": {
+      "status": "pass",
+      "testName": "@spec:AC-083 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-084": {
+      "status": "pass",
+      "testName": "@spec:AC-084 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-085": {
+      "status": "pass",
+      "testName": "@spec:AC-085 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-086": {
+      "status": "pass",
+      "testName": "@spec:AC-086 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-087": {
+      "status": "pass",
+      "testName": "@spec:AC-087 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-088": {
+      "status": "pass",
+      "testName": "@spec:AC-088 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-089": {
+      "status": "pass",
+      "testName": "@spec:AC-089 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-090": {
+      "status": "pass",
+      "testName": "@spec:AC-090 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-091": {
+      "status": "pass",
+      "testName": "@spec:AC-091 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-092": {
+      "status": "pass",
+      "testName": "@spec:AC-092 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-093": {
+      "status": "pass",
+      "testName": "@spec:AC-093 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    }
+  },
+  "principles": {}
+}

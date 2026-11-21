@@ -25,7 +25,9 @@ public class HospitalQueryStoreAdapter implements HospitalQueryStore {
             else if(user.role()==com.hemovia.api.model.enums.Role.TRANSPORTADOR) clauses.add(cb.disjunction());
             return cb.and(clauses.toArray(Predicate[]::new));
         };
-        return repository.findAll(spec,PageRequest.of(page,size,Sort.by(Sort.Order.asc("name"),Sort.Order.asc("id"))));
+        var pageable = PageRequest.of(page,size,Sort.by(Sort.Order.asc("name"),Sort.Order.asc("id")));
+        if (pageable.getOffset() > Integer.MAX_VALUE) return new PageImpl<>(java.util.List.of(), pageable, repository.count(spec));
+        return repository.findAll(spec, pageable);
     }
     private static String pattern(String input) {
         return "%"+input.toLowerCase(Locale.ROOT).replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_")+"%";

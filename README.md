@@ -373,3 +373,9 @@ As métricas populacionais dividem por `n`; as amostrais, por `n - 1`. Médias, 
 | Matheus | [mngv@cesar.school](mailto:mngv@cesar.school) | 
 | Emily Raquel |  [emrs@cesar.school](mailto:emrs@cesar.school) |
 | Vinicius Wagner | [vwgg@cesar.school](mailto:vwgg@cesar.school) |
+
+### Consultas operacionais
+
+Com sessão autenticada, `GET /api/v1/requests`, `/api/v1/transports` e `/api/v1/hospitals` retornam `content`, `page`, `size`, `totalElements` e `totalPages`. Os detalhes usam `GET` no mesmo caminho com `/{id}`. A paginação começa em zero, usa 20 itens por padrão e aceita tamanhos de 1 a 100. A ordenação é data de criação decrescente para requisições, início decrescente para transportes e nome crescente para hospitais; empates usam identificador crescente.
+
+Requisições aceitam `status`, `hospitalId`, `bloodType`, `rhFactor`, `component` e `priority`; transportes aceitam `status`, `requestId` e `vehicleId`; hospitais aceitam trechos `name` e `city` sem distinção entre maiúsculas e minúsculas. Os filtros são combinados entre si e com o vínculo da sessão antes da contagem e paginação. ADMIN vê todos os recursos; HOSPITAL vê seu hospital e os pedidos e viagens vinculados; HEMOCENTRO vê hospitais, pedidos pendentes ou que alocou e viagens de suas alocações; TRANSPORTADOR vê viagens de seu veículo e pedidos associados, sem acesso ao cadastro de hospitais. Detalhes fora do vínculo retornam 404. As consultas usam rota persistida, sem calcular nova rota.

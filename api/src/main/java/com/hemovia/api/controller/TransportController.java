@@ -84,13 +84,27 @@ public class TransportController {
             @PathVariable UUID id) {
         return ResponseEntity.ok(complete.execute(id));
     }
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Consulta realizada"),
+        @ApiResponse(responseCode = "400", description = "Parâmetro inválido", content = @Content(schema = @Schema(implementation = ApiError.class))),
+        @ApiResponse(responseCode = "401", description = "Sessão ausente", content = @Content(schema = @Schema(implementation = ApiError.class))),
+        @ApiResponse(responseCode = "403", description = "Acesso negado", content = @Content(schema = @Schema(implementation = ApiError.class))),
+        @ApiResponse(responseCode = "404", description = "Recurso não encontrado", content = @Content(schema = @Schema(implementation = ApiError.class)))
+    })
     @GetMapping
     @Operation(summary = "Listar transportes")
     public PageResponse<TransportSummaryResponse> list(@RequestParam(required=false) TransportStatus status,
             @RequestParam(required=false) UUID requestId, @RequestParam(required=false) UUID vehicleId,
-            @RequestParam(required=false) Integer page, @RequestParam(required=false) Integer size) {
+            @Parameter(description = "Página a partir de zero", schema = @Schema(defaultValue = "0", minimum = "0")) @RequestParam(required=false) Integer page, @Parameter(description = "Itens por página", schema = @Schema(defaultValue = "20", minimum = "1", maximum = "100")) @RequestParam(required=false) Integer size) {
         return query.list(new TransportQuery(null,status,requestId,vehicleId),QueryPage.of(page,size));
     }
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Consulta realizada"),
+        @ApiResponse(responseCode = "400", description = "Parâmetro inválido", content = @Content(schema = @Schema(implementation = ApiError.class))),
+        @ApiResponse(responseCode = "401", description = "Sessão ausente", content = @Content(schema = @Schema(implementation = ApiError.class))),
+        @ApiResponse(responseCode = "403", description = "Acesso negado", content = @Content(schema = @Schema(implementation = ApiError.class))),
+        @ApiResponse(responseCode = "404", description = "Recurso não encontrado", content = @Content(schema = @Schema(implementation = ApiError.class)))
+    })
     @GetMapping("/{id}")
     @Operation(summary = "Detalhar transporte")
     public TransportDetailsResponse detail(@PathVariable UUID id) { return query.detail(id); }

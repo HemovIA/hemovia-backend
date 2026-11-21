@@ -291,5 +291,62 @@
   ],
   "AC-074": [
     "com.hemovia.api.documentation.OpenApiContractIT#ac074DocumentsStatisticsContract"
+  ],
+  "AC-075": [
+    "com.hemovia.api.controller.BloodRequestQueryAcceptanceTest#listaCampos"
+  ],
+  "AC-076": [
+    "com.hemovia.api.controller.BloodRequestQueryAcceptanceTest#detalhe"
+  ],
+  "AC-077": [
+    "com.hemovia.api.controller.BloodRequestQueryAcceptanceTest#escopo"
+  ],
+  "AC-078": [
+    "com.hemovia.api.controller.BloodRequestQueryAcceptanceTest#filtra"
+  ],
+  "AC-079": [
+    "com.hemovia.api.controller.TransportQueryAcceptanceTest#lista"
+  ],
+  "AC-080": [
+    "com.hemovia.api.controller.TransportQueryAcceptanceTest#detalhe"
+  ],
+  "AC-081": [
+    "com.hemovia.api.controller.TransportQueryAcceptanceTest#escopo"
+  ],
+  "AC-082": [
+    "com.hemovia.api.controller.TransportQueryAcceptanceTest#filtros"
+  ],
+  "AC-083": [
+    "com.hemovia.api.controller.HospitalQueryAcceptanceTest#dados"
+  ],
+  "AC-084": [
+    "com.hemovia.api.controller.HospitalQueryAcceptanceTest#escopo"
+  ],
+  "AC-085": [
+    "com.hemovia.api.controller.HospitalQueryAcceptanceTest#negaTransportador"
+  ],
+  "AC-086": [
+    "com.hemovia.api.controller.HospitalQueryAcceptanceTest#busca"
+  ],
+  "AC-087": [
+    "com.hemovia.api.controller.OperationalQueriesContractTest#exigeSessao"
+  ],
+  "AC-088": [
+    "com.hemovia.api.controller.OperationalQueriesContractTest#oculta"
+  ],
+  "AC-089": [
+    "com.hemovia.api.controller.OperationalQueriesContractTest#invalido"
+  ],
+  "AC-090": [
+    "com.hemovia.api.controller.OperationalQueriesContractTest#pagina"
+  ],
+  "AC-091": [
+    "com.hemovia.api.controller.OperationalQueriesContractTest#vazio"
+  ],
+  "AC-093": [
+    "com.hemovia.api.controller.OperationalQueriesContractTest#leitura"
+  ],
+  "AC-092": [
+    "com.hemovia.api.documentation.OpenApiContractIT#consultasOperacionais"
   ]
 }

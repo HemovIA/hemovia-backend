@@ -91,6 +91,7 @@ class TransportQueryAcceptanceTest {
         mvc.perform(get("/api/v1/transports/"+transport).cookie(token(Role.ADMIN,null)))
           .andExpect(status().isOk()).andExpect(jsonPath("$.transport.id").value(transport.toString()))
           .andExpect(jsonPath("$.route.id").value(route.toString()))
+          .andExpect(jsonPath("$.route.distanceKm").value(12)).andExpect(jsonPath("$.route.estimatedDurationSeconds").value(60))
           .andExpect(jsonPath("$.route.coordinates[0][0]").value(2.0))
           .andExpect(jsonPath("$.bloodBagIds[0]").value(bag.toString()));
     }

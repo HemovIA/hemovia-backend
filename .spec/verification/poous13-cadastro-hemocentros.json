@@ -1,11 +1,11 @@
 {
   "feature": "poous13-cadastro-hemocentros",
-  "timestamp": "2026-11-20T22:40:05.662Z",
-  "gitRev": "8f84d35",
+  "timestamp": "2026-11-21T02:38:26.347Z",
+  "gitRev": "d7acb0a",
   "command": "node scripts/spec-java/verify-tests.mjs",
   "reporter": "tap",
   "exitCode": 0,
-  "testsParsed": 83,
+  "testsParsed": 102,
   "results": {
     "AC-036": {
       "status": "pass",

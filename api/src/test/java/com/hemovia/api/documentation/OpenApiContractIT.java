@@ -35,10 +35,12 @@ class OpenApiContractIT {
             Map.entry("/users/{id}", Set.of("get", "put")),
             Map.entry("/users/{id}/role", Set.of("patch")),
             Map.entry("/users/{id}/deactivate", Set.of("patch")),
-            Map.entry("/hospitals", Set.of("post")),
+            Map.entry("/hospitals", Set.of("get", "post")),
+            Map.entry("/hospitals/{id}", Set.of("get")),
             Map.entry("/blood-centers", Set.of("get", "post")),
             Map.entry("/blood-centers/{id}", Set.of("get", "put", "delete")),
-            Map.entry("/requests", Set.of("post")),
+            Map.entry("/requests", Set.of("get", "post")),
+            Map.entry("/requests/{id}", Set.of("get")),
             Map.entry("/requests/{id}/allocate", Set.of("post")),
             Map.entry("/requests/{id}/cancel", Set.of("post")),
             Map.entry("/donations", Set.of("get", "post")),
@@ -49,6 +51,8 @@ class OpenApiContractIT {
             Map.entry("/route-graph/edges", Set.of("get", "post")),
             Map.entry("/routes/calculate", Set.of("post")),
             Map.entry("/vehicles", Set.of("get", "post")),
+            Map.entry("/transports", Set.of("get")),
+            Map.entry("/transports/{id}", Set.of("get")),
             Map.entry("/transports/start", Set.of("post")),
             Map.entry("/transports/{id}/complete", Set.of("post")),
             Map.entry("/statistics/inventory", Set.of("get")),
@@ -79,11 +83,31 @@ class OpenApiContractIT {
                 assertTrue(objectFieldNames(operation.path("responses")).stream().anyMatch(code -> code.startsWith("2")));
             }
         }
-        assertEquals(41, operationIds.size());
+        assertEquals(47, operationIds.size());
         assertFalse(paths.has("/auth/register"));
         assertFalse(paths.has("/error"));
         assertTrue(paths.path("/auth/csrf").path("get").path("responses").has("204"));
         assertTrue(paths.path("/auth/logout").path("post").path("responses").has("204"));
+    }
+
+    @Test @DisplayName("@spec:AC-092 OpenAPI descreve consultas, filtros, autenticação e erros")
+    void consultasOperacionais() throws Exception {
+        JsonNode doc=getOpenApiDocument();
+        for (String base : new String[]{"/requests","/transports","/hospitals"}) {
+            for (String path : new String[]{base,base+"/{id}"}) {
+                JsonNode op=doc.path("paths").path(path).path("get");
+                assertTrue(op.path("security").isArray(),path);
+                for(String code:new String[]{"200","400","401","403","404"}) assertTrue(op.path("responses").has(code),path+" "+code);
+                assertTrue(op.path("responses").path("200").path("content").path("*/*").path("schema").has("$ref"),path);
+            }
+            JsonNode params=doc.path("paths").path(base).path("get").path("parameters");
+            Set<String> names=new java.util.HashSet<>(); params.forEach(v -> names.add(v.path("name").asText()));
+            assertTrue(names.containsAll(Set.of("page","size")),base);
+            Set<String> filters=switch(base) { case "/requests" -> Set.of("status","hospitalId","bloodType","rhFactor","component","priority"); case "/transports" -> Set.of("status","requestId","vehicleId"); default -> Set.of("name","city"); };
+            assertTrue(names.containsAll(filters),base);
+        }
+        JsonNode schemas=doc.path("components").path("schemas");
+        assertTrue(schemas.has("HospitalResponse")); assertTrue(schemas.has("BloodRequestDetailsResponse")); assertTrue(schemas.has("TransportDetailsResponse"));
     }
 
     @Test

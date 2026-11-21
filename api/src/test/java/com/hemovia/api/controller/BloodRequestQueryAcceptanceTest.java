@@ -64,7 +64,7 @@ class BloodRequestQueryAcceptanceTest {
     }
     UUID insert(UUID hospital, String type, String priority) {
         UUID id = UUID.randomUUID();
-        jdbc.update("insert into blood_requests(id,hospital_id,blood_type,rh_factor,component,quantity,priority,status,created_at,updated_at,version) values (?,?,?,'POSITIVE','PLATELETS',2,?,'PENDING',now(),now(),0)", id, hospital, type, priority);
+        jdbc.update("insert into blood_requests(id,hospital_id,blood_type,rh_factor,component,quantity,priority,status,created_at,updated_at,delivery_deadline,version) values (?,?,?,'POSITIVE','PLATELETS',2,?,'PENDING',now(),now(),'2030-01-01T00:00:00Z',0)", id, hospital, type, priority);
         return id;
     }
     Cookie token(Role role, UUID hospitalId) { return token(role, hospitalId, null, null); }
@@ -84,6 +84,7 @@ class BloodRequestQueryAcceptanceTest {
             .andExpect(jsonPath("$.content[0].component").value("PLATELETS"))
             .andExpect(jsonPath("$.content[0].quantity").value(2))
             .andExpect(jsonPath("$.content[0].priority").value("HIGH"))
+            .andExpect(jsonPath("$.content[0].deliveryDeadline").exists())
             .andExpect(jsonPath("$.content[0].status").value("ALLOCATED"))
             .andExpect(jsonPath("$.content[0].createdAt").exists()).andExpect(jsonPath("$.content[0].updatedAt").exists());
     }
@@ -107,6 +108,9 @@ class BloodRequestQueryAcceptanceTest {
           .andExpect(jsonPath("$.allocations[?(@.id == '"+allocation+"')].bloodCenterId").value(center.toString()))
           .andExpect(jsonPath("$.allocations[?(@.id == '"+allocation+"')].bags[0].id").value(bag.toString()))
           .andExpect(jsonPath("$.allocations[?(@.id == '"+allocation+"')].route.id").value(route.toString()))
+          .andExpect(jsonPath("$.allocations[?(@.id == '"+allocation+"')].route.distanceKm").value(12.0))
+          .andExpect(jsonPath("$.allocations[?(@.id == '"+allocation+"')].route.estimatedDurationSeconds").value(60))
+          .andExpect(jsonPath("$.allocations[?(@.id == '"+allocation+"')].route.coordinates[0][0]").value(2.0))
           .andExpect(jsonPath("$.allocations[?(@.id == '"+allocation+"')].transportId").value(transport.toString()));
     }
     @Test @DisplayName("@spec:AC-077 escopo por perfil antes da contagem")

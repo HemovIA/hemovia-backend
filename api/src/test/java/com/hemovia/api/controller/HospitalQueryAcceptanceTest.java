@@ -31,14 +31,16 @@ class HospitalQueryAcceptanceTest {
     @Test @DisplayName("@spec:AC-083 lista e detalhe retornam dados do hospital")
     void dados() throws Exception {
         Cookie c=token(Role.ADMIN,null);
-        mvc.perform(get("/api/v1/hospitals").cookie(c)).andExpect(status().isOk()).andExpect(jsonPath("$.totalElements").value(2));
+        mvc.perform(get("/api/v1/hospitals").cookie(c)).andExpect(status().isOk()).andExpect(jsonPath("$.totalElements").value((int) hospitals.count()));
+        mvc.perform(get("/api/v1/hospitals").cookie(c).param("name","Hospital Alpha"))
+          .andExpect(status().isOk()).andExpect(jsonPath("$.content[0].id").value(first.getId().toString()));
         mvc.perform(get("/api/v1/hospitals/"+first.getId()).cookie(c)).andExpect(status().isOk())
           .andExpect(jsonPath("$.id").value(first.getId().toString())).andExpect(jsonPath("$.name").value("Hospital Alpha"))
           .andExpect(jsonPath("$.city").value("Recife")).andExpect(jsonPath("$.latitude").value(1.0)).andExpect(jsonPath("$.longitude").value(2.0)).andExpect(jsonPath("$.priority").value(3));
     }
     @Test @DisplayName("@spec:AC-084 hospitais isolados por vínculo")
     void escopo() throws Exception {
-        for(Cookie c:new Cookie[]{token(Role.ADMIN,null),token(Role.HEMOCENTRO,null)}) mvc.perform(get("/api/v1/hospitals").cookie(c)).andExpect(status().isOk()).andExpect(jsonPath("$.totalElements").value(2));
+        for(Cookie c:new Cookie[]{token(Role.ADMIN,null),token(Role.HEMOCENTRO,null)}) mvc.perform(get("/api/v1/hospitals").cookie(c)).andExpect(status().isOk()).andExpect(jsonPath("$.totalElements").value((int) hospitals.count()));
         Cookie c=token(Role.HOSPITAL,first.getId());
         mvc.perform(get("/api/v1/hospitals").cookie(c)).andExpect(status().isOk()).andExpect(jsonPath("$.totalElements").value(1)).andExpect(jsonPath("$.content[0].id").value(first.getId().toString()));
         mvc.perform(get("/api/v1/hospitals/"+second.getId()).cookie(c)).andExpect(status().isNotFound());
