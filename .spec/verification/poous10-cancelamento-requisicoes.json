@@ -1,11 +1,11 @@
 {
   "feature": "poous10-cancelamento-requisicoes",
-  "timestamp": "2026-11-20T21:03:31.608Z",
-  "gitRev": "d00ca95",
+  "timestamp": "2026-11-21T11:11:40.363Z",
+  "gitRev": "984bb34",
   "command": "node scripts/spec-java/verify-tests.mjs",
   "reporter": "tap",
   "exitCode": 0,
-  "testsParsed": 75,
+  "testsParsed": 117,
   "results": {
     "AC-041": {
       "status": "pass",

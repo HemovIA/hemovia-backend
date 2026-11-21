@@ -1,11 +1,11 @@
 {
   "feature": "aedus05-aedus07",
-  "timestamp": "2026-11-20T20:54:27.520Z",
-  "gitRev": "668c320",
+  "timestamp": "2026-11-21T10:49:35.855Z",
+  "gitRev": "984bb34",
   "command": "node scripts/spec-java/verify-tests.mjs",
   "reporter": "tap",
   "exitCode": 0,
-  "testsParsed": 75,
+  "testsParsed": 117,
   "results": {
     "AC-026": {
       "status": "pass",

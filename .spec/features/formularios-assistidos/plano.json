@@ -1,0 +1,170 @@
+{
+  "runId": "hemovia-backend-formularios-assistidos-mwq9sgvd",
+  "feature": "formularios-assistidos",
+  "agent": "codex",
+  "modo": "sequencial",
+  "paralelizar": null,
+  "modeloForcado": "gpt-6.1-terra",
+  "esforcoForcado": "medium",
+  "geradoEm": "2026-11-21 10:33",
+  "branchTrabalho": "spec/formularios-assistidos",
+  "baseDir": ".spec/features/formularios-assistidos",
+  "specDir": ".spec",
+  "repoName": "hemovia-backend",
+  "logsDir": "../onp-worktrees/hemovia-backend-formularios-assistidos-logs",
+  "ondas": [],
+  "faixas": [],
+  "sequenciais": [
+    {
+      "id": "T-046",
+      "titulo": "Cadastro e consulta de doadores",
+      "modelo": "gpt-6.1-terra",
+      "esforco": "medium",
+      "arquivos": [
+        "api/src/main/java/com/hemovia/api/model/entity/Person.java",
+        "api/src/main/java/com/hemovia/api/repository/jpa/PersonRepository.java",
+        "api/src/main/resources/db/migration/V17__add_donor_cpf.sql",
+        "api/src/main/java/com/hemovia/api/controller/DonorController.java",
+        "api/src/main/java/com/hemovia/api/controller/security/SecurityConfig.java",
+        "api/src/main/java/com/hemovia/api/dto/request/DonorRequest.java",
+        "api/src/main/java/com/hemovia/api/dto/response/DonorResponse.java",
+        "api/src/main/java/com/hemovia/api/service/usecase/donor/ManageDonors.java",
+        "api/src/test/java/com/hemovia/api/controller/DonorAcceptanceTest.java",
+        "api/src/test/java/com/hemovia/api/model/DonorMigrationIT.java",
+        "api/src/test/java/com/hemovia/api/service/usecase/donor/ManageDonorsTest.java"
+      ],
+      "refs": [
+        "US-032",
+        "AC-094",
+        "AC-095",
+        "AC-107"
+      ]
+    },
+    {
+      "id": "T-047",
+      "titulo": "Seleção pesquisável e contratos frontend",
+      "modelo": "gpt-6.1-terra",
+      "esforco": "medium",
+      "arquivos": [
+        "../hemovia-frontend/src/ui.tsx",
+        "../hemovia-frontend/src/domain.ts",
+        "../hemovia-frontend/src/styles.css"
+      ],
+      "refs": [
+        "US-033",
+        "AC-102",
+        "AC-103"
+      ]
+    },
+    {
+      "id": "T-048",
+      "titulo": "Formulários de doação e bolsa",
+      "modelo": "gpt-6.1-terra",
+      "esforco": "medium",
+      "arquivos": [
+        "../hemovia-frontend/src/donor.tsx",
+        "../hemovia-frontend/src/pages.tsx",
+        "../hemovia-frontend/src/demo.ts",
+        "../hemovia-frontend/src/ui.tsx"
+      ],
+      "refs": [
+        "US-032",
+        "US-033",
+        "AC-096",
+        "AC-097",
+        "AC-098",
+        "AC-099",
+        "AC-100"
+      ]
+    },
+    {
+      "id": "T-049",
+      "titulo": "Seletores operacionais",
+      "modelo": "gpt-6.1-terra",
+      "esforco": "medium",
+      "arquivos": [
+        "../hemovia-frontend/src/pages.tsx",
+        "../hemovia-frontend/src/registries.tsx",
+        "../hemovia-frontend/src/ui.tsx"
+      ],
+      "refs": [
+        "US-033",
+        "AC-101"
+      ]
+    },
+    {
+      "id": "T-050",
+      "titulo": "Leituras operacionais persistidas",
+      "modelo": "gpt-6.1-terra",
+      "esforco": "medium",
+      "arquivos": [
+        "../hemovia-frontend/src/App.tsx",
+        "../hemovia-frontend/src/pages.tsx",
+        "../hemovia-frontend/src/registries.tsx",
+        "../hemovia-frontend/src/queries.ts",
+        "../hemovia-frontend/src/ui.tsx"
+      ],
+      "refs": [
+        "US-034",
+        "AC-104",
+        "AC-105",
+        "AC-106"
+      ]
+    },
+    {
+      "id": "T-051",
+      "titulo": "Testes integrados e documentação",
+      "modelo": "gpt-6.1-terra",
+      "esforco": "medium",
+      "arquivos": [
+        "../hemovia-frontend/package.json",
+        "../hemovia-frontend/package-lock.json",
+        "../hemovia-frontend/README.md",
+        "../hemovia-frontend/.gitignore",
+        "../hemovia-frontend/playwright.config.ts",
+        "../hemovia-frontend/vite.config.ts",
+        "../hemovia-frontend/tests/donor.spec.ts",
+        "../hemovia-frontend/tests/qa-isolado.spec.ts",
+        "../hemovia-frontend/src/demo.ts",
+        "../hemovia-frontend/src/domain.ts",
+        "../hemovia-frontend/src/http.ts",
+        "../hemovia-frontend/src/main.tsx",
+        "../hemovia-frontend/src/vite-env.d.ts",
+        "onpspec.config.json",
+        "scripts/spec-java/verify-tests.mjs",
+        "scripts/spec-java/acceptance-cases.json",
+        "scripts/spec-java/test-formularios.ps1",
+        "api/src/test/java/com/hemovia/api/ApiApplicationTests.java",
+        "api/src/test/java/com/hemovia/api/migration/AtualizacaoDeBancoLegadoTest.java",
+        "api/src/test/java/com/hemovia/api/migration/MigracaoV16TransportesTest.java",
+        "api/src/test/java/com/hemovia/api/migration/MigracoesEmBancoVazioTest.java",
+        "api/src/test/java/com/hemovia/api/model/MigrationSourcesTest.java",
+        "api/src/test/java/com/hemovia/api/documentation/OpenApiContractIT.java"
+      ],
+      "refs": [
+        "US-035",
+        "AC-107",
+        "AC-108"
+      ]
+    },
+    {
+      "id": "T-052",
+      "titulo": "Verificação e auditoria",
+      "modelo": "gpt-6.1-terra",
+      "esforco": "medium",
+      "arquivos": [
+        ".spec/features/formularios-assistidos/resultado-validacao.md",
+        ".spec/features/formularios-assistidos/andamento.md"
+      ],
+      "refs": [
+        "US-035",
+        "AC-107",
+        "AC-108"
+      ]
+    }
+  ],
+  "concluidas": [],
+  "avisos": [
+    "T-046 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar"
+  ]
+}

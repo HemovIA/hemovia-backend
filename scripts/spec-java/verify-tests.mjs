@@ -45,3 +45,36 @@ test('@spec:AC-014 regressões documentais e testes do adaptador continuam ativo
   writeFileSync(path.join(directory, 'node.log'), `${result.stdout ?? ''}\n${result.stderr ?? ''}`);
   assert.equal(result.status, 0, `Regressões Node falharam; consulte ${path.relative(root, directory)}/node.log`);
 });
+
+// Real browser results are read from a fresh report in this isolated run.
+const frontend = path.resolve(root, '../hemovia-frontend');
+const browserReport = path.join(directory, 'playwright.json');
+const browser = spawnSync(process.execPath,
+  [path.join(frontend, 'node_modules/@playwright/test/cli.js'), 'test', '--reporter=json', '--workers=1'],
+  { cwd: frontend, env: { ...process.env, PLAYWRIGHT_JSON_OUTPUT_FILE: browserReport }, encoding: 'utf8', timeout: 180000, maxBuffer: 32 * 1024 * 1024 });
+writeFileSync(path.join(directory, 'playwright.log'), `${browser.stdout ?? ''}\n${browser.stderr ?? ''}`);
+let browserSpecs = [], browserError;
+try {
+  const report = JSON.parse(readFileSync(browserReport, 'utf8'));
+  function collect(suites) { for (const suite of suites || []) { browserSpecs.push(...(suite.specs || [])); collect(suite.suites); } }
+  collect(report.suites);
+  if (!browserSpecs.length) throw new Error('Relatório Playwright sem testes executados');
+} catch (error) { browserError = error; }
+function browserPassed(id) {
+  if (browserError) throw browserError;
+  assert.equal(browser.status, 0, `Suíte Playwright falhou; consulte ${path.relative(root, directory)}/playwright.log`);
+  const matching = browserSpecs.filter(spec => spec.title.includes(`@spec:${id}`));
+  assert.ok(matching.length, `${id} não possui caso Playwright executado`);
+  for (const spec of matching) {
+    assert.ok(spec.tests.length && spec.ok && spec.tests.every(t => t.status === 'expected' && t.expectedStatus === 'passed' && t.results.length && t.results.every(r => r.status === 'passed')), `${id}: ${spec.title} falhou ou foi pulado`);
+  }
+}
+for (const id of ['AC-096','AC-097','AC-098','AC-099','AC-100','AC-101','AC-102','AC-103','AC-104','AC-105','AC-106','AC-108']) {
+  test(`@spec:${id} interações Playwright reais`, () => browserPassed(id));
+}
+test('@spec:AC-107 integração e contratos backend e frontend executados sem falhas', () => {
+  assert.equal(maven.status, 0, 'Suíte Maven falhou');
+  assert.ok(cases.length && cases.every(c => c.status === 'pass'), 'JUnit ausente, falho ou pulado');
+  assert.equal(browser.status, 0, 'Suíte Playwright falhou');
+  assert.ok(!browserError && browserSpecs.length && browserSpecs.every(s => s.ok && s.tests.length && s.tests.every(t => t.status === 'expected' && t.expectedStatus === 'passed' && t.results.length && t.results.every(r => r.status === 'passed'))), 'Playwright ausente, falho ou pulado');
+});

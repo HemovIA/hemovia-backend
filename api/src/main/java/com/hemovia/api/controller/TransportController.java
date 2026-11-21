@@ -16,6 +16,15 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.UUID;
+import com.hemovia.api.dto.internal.TransportQuery;
+import com.hemovia.api.dto.request.QueryPage;
+import com.hemovia.api.dto.response.PageResponse;
+import com.hemovia.api.dto.response.TransportSummaryResponse;
+import com.hemovia.api.dto.response.TransportDetailsResponse;
+import com.hemovia.api.model.enums.TransportStatus;
+import com.hemovia.api.service.usecase.transport.QueryTransports;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,10 +40,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class TransportController {
     private final StartTransport start;
     private final CompleteTransport complete;
+    private final QueryTransports query;
 
-    public TransportController(StartTransport start, CompleteTransport complete) {
+    public TransportController(StartTransport start, CompleteTransport complete, QueryTransports query) {
         this.start = start;
         this.complete = complete;
+        this.query = query;
     }
 
     @PostMapping("/start")
@@ -73,4 +84,28 @@ public class TransportController {
             @PathVariable UUID id) {
         return ResponseEntity.ok(complete.execute(id));
     }
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Consulta realizada"),
+        @ApiResponse(responseCode = "400", description = "Parâmetro inválido", content = @Content(schema = @Schema(implementation = ApiError.class))),
+        @ApiResponse(responseCode = "401", description = "Sessão ausente", content = @Content(schema = @Schema(implementation = ApiError.class))),
+        @ApiResponse(responseCode = "403", description = "Acesso negado", content = @Content(schema = @Schema(implementation = ApiError.class))),
+        @ApiResponse(responseCode = "404", description = "Recurso não encontrado", content = @Content(schema = @Schema(implementation = ApiError.class)))
+    })
+    @GetMapping
+    @Operation(summary = "Listar transportes")
+    public PageResponse<TransportSummaryResponse> list(@RequestParam(required=false) TransportStatus status,
+            @RequestParam(required=false) UUID requestId, @RequestParam(required=false) UUID vehicleId,
+            @Parameter(description = "Página a partir de zero", schema = @Schema(defaultValue = "0", minimum = "0")) @RequestParam(required=false) Integer page, @Parameter(description = "Itens por página", schema = @Schema(defaultValue = "20", minimum = "1", maximum = "100")) @RequestParam(required=false) Integer size) {
+        return query.list(new TransportQuery(null,status,requestId,vehicleId),QueryPage.of(page,size));
+    }
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Consulta realizada"),
+        @ApiResponse(responseCode = "400", description = "Parâmetro inválido", content = @Content(schema = @Schema(implementation = ApiError.class))),
+        @ApiResponse(responseCode = "401", description = "Sessão ausente", content = @Content(schema = @Schema(implementation = ApiError.class))),
+        @ApiResponse(responseCode = "403", description = "Acesso negado", content = @Content(schema = @Schema(implementation = ApiError.class))),
+        @ApiResponse(responseCode = "404", description = "Recurso não encontrado", content = @Content(schema = @Schema(implementation = ApiError.class)))
+    })
+    @GetMapping("/{id}")
+    @Operation(summary = "Detalhar transporte")
+    public TransportDetailsResponse detail(@PathVariable UUID id) { return query.detail(id); }
 }

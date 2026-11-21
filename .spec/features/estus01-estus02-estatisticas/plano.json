@@ -1,0 +1,141 @@
+{
+  "runId": "hemovia-backend-estus01-estus02-estatisticas-mwpjhevp",
+  "feature": "estus01-estus02-estatisticas",
+  "agent": "codex",
+  "modo": "paralelo",
+  "paralelizar": [
+    "T-037",
+    "T-038"
+  ],
+  "modeloForcado": "gpt-6.1-terra",
+  "esforcoForcado": "medium",
+  "geradoEm": "2026-11-20 22:17",
+  "branchTrabalho": "spec/estus01-estus02-estatisticas",
+  "baseDir": ".spec/features/estus01-estus02-estatisticas",
+  "specDir": ".spec",
+  "repoName": "hemovia-backend",
+  "logsDir": "../onp-worktrees/hemovia-backend-estus01-estus02-estatisticas-logs",
+  "ondas": [
+    [
+      "faixa-1",
+      "faixa-2"
+    ]
+  ],
+  "faixas": [
+    {
+      "id": "faixa-1",
+      "branch": "spec/estus01-estus02-estatisticas-faixa-1",
+      "worktree": "../onp-worktrees/hemovia-backend-estus01-estus02-estatisticas-faixa-1",
+      "tarefas": [
+        {
+          "id": "T-037",
+          "titulo": "Implementar cálculos estatísticos e percentuais",
+          "modelo": "gpt-6.1-terra",
+          "esforco": "medium",
+          "arquivos": [
+            "api/src/main/java/com/hemovia/api/model/algorithm/statistics/Frequency.java",
+            "api/src/main/java/com/hemovia/api/model/algorithm/statistics/DescriptiveStatistics.java",
+            "api/src/main/java/com/hemovia/api/model/algorithm/statistics/PercentageDistribution.java",
+            "api/src/test/java/com/hemovia/api/model/algorithm/statistics/DescriptiveStatisticsTest.java",
+            "api/src/test/java/com/hemovia/api/model/algorithm/statistics/PercentageDistributionTest.java"
+          ],
+          "refs": [
+            "US-026",
+            "US-027",
+            "AC-068",
+            "AC-070",
+            "AC-071"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "faixa-2",
+      "branch": "spec/estus01-estus02-estatisticas-faixa-2",
+      "worktree": "../onp-worktrees/hemovia-backend-estus01-estus02-estatisticas-faixa-2",
+      "tarefas": [
+        {
+          "id": "T-038",
+          "titulo": "Consultar estoque e demanda por agregação",
+          "modelo": "gpt-6.1-terra",
+          "esforco": "medium",
+          "arquivos": [
+            "api/src/main/java/com/hemovia/api/dto/internal/InventoryCount.java",
+            "api/src/main/java/com/hemovia/api/dto/internal/DemandCount.java",
+            "api/src/main/java/com/hemovia/api/repository/port/StatisticsStore.java",
+            "api/src/main/java/com/hemovia/api/repository/adapter/StatisticsStoreAdapter.java"
+          ],
+          "refs": [
+            "US-026",
+            "US-027",
+            "AC-067",
+            "AC-069",
+            "AC-072"
+          ]
+        }
+      ]
+    }
+  ],
+  "sequenciais": [
+    {
+      "id": "T-039",
+      "titulo": "Expor indicadores com serviços, segurança e Swagger",
+      "modelo": "gpt-6.1-terra",
+      "esforco": "medium",
+      "arquivos": [
+        "api/src/main/java/com/hemovia/api/service/usecase/statistics/CalculateInventorySummary.java",
+        "api/src/main/java/com/hemovia/api/service/usecase/statistics/CalculateDemandStatistics.java",
+        "api/src/main/java/com/hemovia/api/controller/StatisticsController.java",
+        "api/src/main/java/com/hemovia/api/controller/security/SecurityConfig.java",
+        "api/src/main/java/com/hemovia/api/dto/response/InventorySummaryResponse.java",
+        "api/src/main/java/com/hemovia/api/dto/response/BloodTypeInventoryResponse.java",
+        "api/src/main/java/com/hemovia/api/dto/response/ComponentInventoryResponse.java",
+        "api/src/main/java/com/hemovia/api/dto/response/InventoryCombinationResponse.java",
+        "api/src/main/java/com/hemovia/api/dto/response/DemandSummaryResponse.java",
+        "api/src/main/java/com/hemovia/api/dto/response/DemandMetricsResponse.java",
+        "api/src/main/java/com/hemovia/api/dto/response/HospitalDemandResponse.java"
+      ],
+      "refs": [
+        "US-026",
+        "US-027",
+        "AC-067",
+        "AC-068",
+        "AC-070",
+        "AC-071",
+        "AC-072",
+        "AC-073",
+        "AC-074"
+      ]
+    },
+    {
+      "id": "T-040",
+      "titulo": "Provar estatísticas e atualizar guia e auditoria",
+      "modelo": "gpt-6.1-terra",
+      "esforco": "medium",
+      "arquivos": [
+        "api/src/test/java/com/hemovia/api/controller/StatisticsAcceptanceTest.java",
+        "api/src/test/java/com/hemovia/api/documentation/OpenApiContractIT.java",
+        "scripts/spec-java/acceptance-cases.json",
+        "onpspec.config.json",
+        "README.md"
+      ],
+      "refs": [
+        "AC-067",
+        "AC-068",
+        "AC-069",
+        "AC-070",
+        "AC-071",
+        "AC-072",
+        "AC-073",
+        "AC-074"
+      ]
+    }
+  ],
+  "concluidas": [],
+  "avisos": [
+    "T-037 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar",
+    "T-038 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar",
+    "T-039 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar",
+    "T-040 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar"
+  ]
+}

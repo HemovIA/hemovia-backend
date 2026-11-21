@@ -1,11 +1,11 @@
 {
   "feature": "poous04-emissao-requisicoes",
-  "timestamp": "2026-11-20T21:00:03.620Z",
-  "gitRev": "d00ca95",
+  "timestamp": "2026-11-21T11:02:45.059Z",
+  "gitRev": "984bb34",
   "command": "node scripts/spec-java/verify-tests.mjs",
   "reporter": "tap",
   "exitCode": 0,
-  "testsParsed": 75,
+  "testsParsed": 117,
   "results": {
     "AC-022": {
       "status": "pass",

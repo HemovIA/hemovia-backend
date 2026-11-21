@@ -10,12 +10,13 @@ import org.springframework.data.repository.query.Param;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface TransportRepository extends JpaRepository<Transport, UUID> {
+public interface TransportRepository extends JpaRepository<Transport, UUID>, org.springframework.data.jpa.repository.JpaSpecificationExecutor<Transport> {
     Optional<Transport> findById(@NotNull UUID id);
     boolean existsById(@NotNull UUID id);
     @Query("select t.allocation.request.id from Transport t where t.id = :id")
     Optional<UUID> findRequestId(@Param("id") UUID id);
     boolean existsByAllocationId(UUID allocationId);
+    Optional<Transport> findByAllocationId(UUID allocationId);
     boolean existsByVehicleIdAndStatus(UUID vehicleId, TransportStatus status);
     @Query("""
             select count(t) from Transport t where t.allocation.request.id = :requestId
@@ -23,3 +24,5 @@ public interface TransportRepository extends JpaRepository<Transport, UUID> {
             """)
     long countInTransitByRequestId(@Param("requestId") UUID requestId);
 }
+
+
