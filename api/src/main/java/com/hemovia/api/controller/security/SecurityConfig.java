@@ -71,6 +71,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, ApiPrefixConfiguration.PREFIXO + "/statistics/**").hasAnyRole(Role.ADMIN.name(), Role.HEMOCENTRO.name())
                 .requestMatchers(HttpMethod.PUT, BLOOD_CENTERS + "/*").hasRole(Role.ADMIN.name())
                 .requestMatchers(HttpMethod.DELETE, BLOOD_CENTERS + "/*").hasRole(Role.ADMIN.name())
+                .requestMatchers(ApiPrefixConfiguration.PREFIXO + "/donors", ApiPrefixConfiguration.PREFIXO + "/donors/**").hasAnyRole(Role.ADMIN.name(), Role.HEMOCENTRO.name())
                 .requestMatchers(ApiPrefixConfiguration.PREFIXO + "/users/**").hasRole(Role.ADMIN.name())
                 // Usuário sem papel não tem nenhuma autoridade, então cai aqui em 403
                 .anyRequest().hasAnyRole(Role.ADMIN.name(), Role.HEMOCENTRO.name(), Role.HOSPITAL.name(), Role.TRANSPORTADOR.name()))
@@ -94,3 +95,4 @@ public class SecurityConfig {
         return source;
     }
 }
+
