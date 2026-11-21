@@ -1,0 +1,87 @@
+{
+  "feature": "formularios-assistidos",
+  "timestamp": "2026-11-21T10:44:28.551Z",
+  "gitRev": "984bb34",
+  "command": "node scripts/spec-java/verify-tests.mjs",
+  "reporter": "tap",
+  "exitCode": 0,
+  "testsParsed": 117,
+  "results": {
+    "AC-094": {
+      "status": "pass",
+      "testName": "@spec:AC-094 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-095": {
+      "status": "pass",
+      "testName": "@spec:AC-095 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-096": {
+      "status": "pass",
+      "testName": "@spec:AC-096 interações Playwright reais",
+      "method": "tap"
+    },
+    "AC-097": {
+      "status": "pass",
+      "testName": "@spec:AC-097 interações Playwright reais",
+      "method": "tap"
+    },
+    "AC-098": {
+      "status": "pass",
+      "testName": "@spec:AC-098 interações Playwright reais",
+      "method": "tap"
+    },
+    "AC-099": {
+      "status": "pass",
+      "testName": "@spec:AC-099 interações Playwright reais",
+      "method": "tap"
+    },
+    "AC-100": {
+      "status": "pass",
+      "testName": "@spec:AC-100 interações Playwright reais",
+      "method": "tap"
+    },
+    "AC-101": {
+      "status": "pass",
+      "testName": "@spec:AC-101 interações Playwright reais",
+      "method": "tap"
+    },
+    "AC-102": {
+      "status": "pass",
+      "testName": "@spec:AC-102 interações Playwright reais",
+      "method": "tap"
+    },
+    "AC-103": {
+      "status": "pass",
+      "testName": "@spec:AC-103 interações Playwright reais",
+      "method": "tap"
+    },
+    "AC-104": {
+      "status": "pass",
+      "testName": "@spec:AC-104 interações Playwright reais",
+      "method": "tap"
+    },
+    "AC-105": {
+      "status": "pass",
+      "testName": "@spec:AC-105 interações Playwright reais",
+      "method": "tap"
+    },
+    "AC-106": {
+      "status": "pass",
+      "testName": "@spec:AC-106 interações Playwright reais",
+      "method": "tap"
+    },
+    "AC-107": {
+      "status": "pass",
+      "testName": "@spec:AC-107 integração e contratos backend e frontend executados sem falhas",
+      "method": "tap"
+    },
+    "AC-108": {
+      "status": "pass",
+      "testName": "@spec:AC-108 interações Playwright reais",
+      "method": "tap"
+    }
+  },
+  "principles": {}
+}

@@ -1,7 +1,7 @@
 # Spec: Formulários assistidos e validação integrada
 
 > feature: formularios-assistidos
-> status: pronta
+> status: auditada
 
 ## Contexto
 
