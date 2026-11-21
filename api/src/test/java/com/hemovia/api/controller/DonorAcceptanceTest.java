@@ -43,6 +43,7 @@ class DonorAcceptanceTest {
     @Test @DisplayName("@spec:AC-095 CPF exato, validação, permissão e concorrência no banco")
     void exactSearchSecurityAndConcurrentUniqueness() throws Exception {
         var admin = session(Role.ADMIN);
+        int usersBefore = jdbc.queryForObject("select count(*) from users", Integer.class);
         mvc.perform(post(PATH).cookie(admin).contentType(MediaType.APPLICATION_JSON).content(BODY)).andExpect(status().isForbidden());
         for (Role role : new Role[]{Role.HOSPITAL, Role.TRANSPORTADOR}) {
             assertEquals(403, create(session(role)));
@@ -62,6 +63,7 @@ class DonorAcceptanceTest {
         } finally { executor.shutdownNow(); }
         mvc.perform(get(PATH).param("cpf", "529.982.247-25").cookie(admin)).andExpect(status().isOk()).andExpect(jsonPath("$.name").value("Doador sintético")).andExpect(jsonPath("$.cpf").value("52998224725"));
         assertEquals(1, jdbc.queryForObject("select count(*) from person where cpf = ?", Integer.class, "52998224725"));
+        assertEquals(usersBefore, jdbc.queryForObject("select count(*) from users", Integer.class));
     }
 }
 

@@ -36,6 +36,7 @@ class OpenApiContractIT {
             Map.entry("/users/{id}/role", Set.of("patch")),
             Map.entry("/users/{id}/deactivate", Set.of("patch")),
             Map.entry("/hospitals", Set.of("get", "post")),
+            Map.entry("/donors", Set.of("get", "post")),
             Map.entry("/hospitals/{id}", Set.of("get")),
             Map.entry("/blood-centers", Set.of("get", "post")),
             Map.entry("/blood-centers/{id}", Set.of("get", "put", "delete")),
@@ -83,7 +84,7 @@ class OpenApiContractIT {
                 assertTrue(objectFieldNames(operation.path("responses")).stream().anyMatch(code -> code.startsWith("2")));
             }
         }
-        assertEquals(47, operationIds.size());
+        assertEquals(49, operationIds.size());
         assertFalse(paths.has("/auth/register"));
         assertFalse(paths.has("/error"));
         assertTrue(paths.path("/auth/csrf").path("get").path("responses").has("204"));

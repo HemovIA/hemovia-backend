@@ -17,7 +17,7 @@ class MigracaoV16TransportesTest {
             UUID vehicle = (UUID) banco.valor("select vehicle_id from transports where id=?", first);
             banco.executar("update transports set vehicle_id=? where id in (?,?)", vehicle, second, third);
             banco.migrarTudo();
-            assertThat(banco.versaoAtual()).isEqualTo("16");
+            assertThat(banco.versaoAtual()).isEqualTo("17");
             assertThat(banco.contar("select count(*) from transports where vehicle_id=? and status='PLANNED'", vehicle)).isEqualTo(3);
             banco.exigirIndice("uk_transports_active_vehicle");
             banco.executar("update transports set status='IN_TRANSIT' where id=?", first);

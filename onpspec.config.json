@@ -7,7 +7,9 @@
     "src/**/*.test.*",
     "src/**/*.spec.*",
     "__tests__/**",
-    "api/src/test/java/**/*.java"
+    "api/src/test/java/**/*.java",
+    "../hemovia-frontend/tests/**/*.ts",
+    "scripts/spec-java/verify-tests.mjs"
   ],
   "srcGlobs": [
     "src/**",
@@ -180,6 +182,10 @@
     "api/src/main/java/com/hemovia/api/repository/adapter/HospitalQueryStoreAdapter.java",
     "api/src/main/java/com/hemovia/api/service/usecase/request/QueryBloodRequests.java",
     "api/src/main/java/com/hemovia/api/service/usecase/transport/QueryTransports.java",
-    "api/src/main/java/com/hemovia/api/service/usecase/hospital/QueryHospitals.java"
+    "api/src/main/java/com/hemovia/api/service/usecase/hospital/QueryHospitals.java",
+    "../hemovia-frontend/src/**",
+    "../hemovia-frontend/vite.config.ts",
+    "../hemovia-frontend/playwright.config.ts",
+    "scripts/spec-java/test-formularios.ps1"
   ]
 }

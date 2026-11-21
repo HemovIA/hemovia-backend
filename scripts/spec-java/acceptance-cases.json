@@ -348,5 +348,13 @@
   ],
   "AC-092": [
     "com.hemovia.api.documentation.OpenApiContractIT#consultasOperacionais"
+  ],
+  "AC-094": [
+    "com.hemovia.api.service.usecase.donor.ManageDonorsTest#createsWithoutContacts",
+    "com.hemovia.api.model.DonorMigrationIT#preservesLegacyPerson"
+  ],
+  "AC-095": [
+    "com.hemovia.api.service.usecase.donor.ManageDonorsTest#searchesExactNormalizedCpf",
+    "com.hemovia.api.controller.DonorAcceptanceTest#exactSearchSecurityAndConcurrentUniqueness"
   ]
 }
