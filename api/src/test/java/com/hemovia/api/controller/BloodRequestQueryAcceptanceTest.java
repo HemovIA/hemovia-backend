@@ -98,7 +98,7 @@ class BloodRequestQueryAcceptanceTest {
         mvc.perform(get("/api/v1/requests").cookie(access).param("bloodType", "B"))
             .andExpect(status().isOk()).andExpect(jsonPath("$.totalElements").value(0));
     }
-    @Test @DisplayName("@spec:AC-076 detalhe inclui histórico, bolsas, rota e transporte persistidos")
+    @Test @DisplayName("@spec:AC-076 detalhe inclui histÃ³rico, bolsas, rota e transporte persistidos")
     void detalhe() throws Exception {
         mvc.perform(get("/api/v1/requests/"+requestA).cookie(token(Role.HOSPITAL, first.getId())))
           .andExpect(status().isOk()).andExpect(jsonPath("$.request.id").value(requestA.toString()))

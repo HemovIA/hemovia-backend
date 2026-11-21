@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface TransportRepository extends JpaRepository<Transport, UUID> {
+public interface TransportRepository extends JpaRepository<Transport, UUID>, org.springframework.data.jpa.repository.JpaSpecificationExecutor<Transport> {
     Optional<Transport> findById(@NotNull UUID id);
     boolean existsById(@NotNull UUID id);
     @Query("select t.allocation.request.id from Transport t where t.id = :id")
@@ -24,4 +24,5 @@ public interface TransportRepository extends JpaRepository<Transport, UUID> {
             """)
     long countInTransitByRequestId(@Param("requestId") UUID requestId);
 }
+
 
