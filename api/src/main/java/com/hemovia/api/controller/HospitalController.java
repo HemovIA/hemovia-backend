@@ -4,6 +4,11 @@ import com.hemovia.api.dto.request.HospitalRequest;
 import com.hemovia.api.dto.response.HospitalResponse;
 import com.hemovia.api.service.usecase.hospital.CreateHospital;
 import jakarta.validation.Valid;
+import java.util.UUID;
+import com.hemovia.api.dto.request.QueryPage;
+import com.hemovia.api.dto.response.PageResponse;
+import com.hemovia.api.service.usecase.hospital.QueryHospitals;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -20,9 +25,11 @@ import org.springframework.web.bind.annotation.*;
 public class HospitalController {
 
     private final CreateHospital createHospital;
+    private final QueryHospitals query;
 
-    public HospitalController(CreateHospital createHospital) {
+    public HospitalController(CreateHospital createHospital, QueryHospitals query) {
         this.createHospital = createHospital;
+        this.query = query;
     }
 
     @PostMapping
@@ -35,4 +42,13 @@ public class HospitalController {
         HospitalResponse response = createHospital.execute(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+    @GetMapping
+    @Operation(summary = "Listar hospitais", security = @SecurityRequirement(name = "cookieAuth"))
+    public PageResponse<HospitalResponse> list(@RequestParam(required=false) String name, @RequestParam(required=false) String city,
+            @RequestParam(required=false) Integer page, @RequestParam(required=false) Integer size) {
+        return query.list(name,city,QueryPage.of(page,size));
+    }
+    @GetMapping("/{id}")
+    @Operation(summary = "Detalhar hospital", security = @SecurityRequirement(name = "cookieAuth"))
+    public HospitalResponse detail(@PathVariable UUID id) { return query.detail(id); }
 }
