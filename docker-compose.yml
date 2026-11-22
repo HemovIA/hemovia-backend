@@ -1,0 +1,103 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:?Defina POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER:?Defina POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Defina POSTGRES_PASSWORD}
+    volumes: [postgres_data:/var/lib/postgresql/data]
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+  api:
+    build: ./api
+    image: hemovia-api:observabilidade
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: ${POSTGRES_DB:?Defina POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER:?Defina POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Defina POSTGRES_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET:?Defina JWT_SECRET}
+      ADMIN_NAME: ${ADMIN_NAME:-}
+      ADMIN_CPF: ${ADMIN_CPF:-}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
+      COOKIE_SECURE: "false"
+      SPRING_PROFILES_ACTIVE: observabilidade
+      APP_NAME: hemovia-api
+      MANAGEMENT_ADDRESS: 0.0.0.0
+      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: http://tempo:4318/v1/traces
+    ports: ["127.0.0.1:18080:8080"]
+    volumes: [api_logs:/app/logs]
+    depends_on:
+      postgres: {condition: service_healthy}
+  prometheus:
+    image: prom/prometheus:v3.7.3
+    command: ["--config.file=/etc/prometheus/prometheus.yml", "--storage.tsdb.path=/prometheus"]
+    ports: ["127.0.0.1:19090:9090"]
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    extra_hosts: ["node-exporter:172.30.83.1"]
+  grafana:
+    image: grafana/grafana:12.2.1
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER:?Defina GRAFANA_ADMIN_USER}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:?Defina GRAFANA_ADMIN_PASSWORD}
+      GF_USERS_VIEWERS_CAN_EDIT: "true"
+      GF_AUTH_ANONYMOUS_ENABLED: "false"
+    ports: ["127.0.0.1:13000:3000"]
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/dashboards:/var/lib/grafana/dashboards:ro
+  loki:
+    image: grafana/loki:3.6.0
+    command: ["-config.file=/etc/loki/loki.yml"]
+    volumes:
+      - ./loki/loki.yml:/etc/loki/loki.yml:ro
+      - loki_data:/tmp
+  tempo:
+    image: grafana/tempo:2.9.0
+    command: ["-config.file=/etc/tempo/tempo.yml"]
+    volumes:
+      - ./tempo/tempo.yml:/etc/tempo/tempo.yml:ro
+      - tempo_data:/var/tempo
+  alloy:
+    image: grafana/alloy:v1.11.2
+    command: [run, /etc/alloy/config.alloy, "--storage.path=/var/lib/alloy/data"]
+    volumes:
+      - ./loki/config.alloy:/etc/alloy/config.alloy:ro
+      - api_logs:/app/logs:ro
+      - alloy_data:/var/lib/alloy/data
+  node-exporter:
+    image: prom/node-exporter:v1.10.2
+    network_mode: host
+    pid: host
+    command: ["--path.rootfs=/host", "--web.listen-address=172.30.83.1:9100"]
+    volumes: ["/:/host:ro"]
+  cadvisor:
+    image: ghcr.io/google/cadvisor:v0.60.5
+    privileged: true
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker:/var/lib/docker:ro
+volumes:
+  postgres_data:
+  api_logs:
+  prometheus_data:
+  grafana_data:
+  loki_data:
+  tempo_data:
+  alloy_data:
+networks:
+  default:
+    ipam:
+      config:
+        - subnet: 172.30.83.0/24
+          gateway: 172.30.83.1
