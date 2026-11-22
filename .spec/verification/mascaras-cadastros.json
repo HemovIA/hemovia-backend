@@ -1,8 +1,8 @@
 {
   "feature": "mascaras-cadastros",
-  "timestamp": "2026-11-21T12:19:02.100Z",
-  "gitRev": "17f2145",
-  "command": "node scripts/spec-java/verify-tests.mjs",
+  "timestamp": "2026-11-22T17:37:56.695Z",
+  "gitRev": "d93b3ed",
+  "command": "node api/target/onp-regression-batch.mjs",
   "reporter": "tap",
   "exitCode": 0,
   "testsParsed": 122,

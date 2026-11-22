@@ -1,0 +1,54 @@
+Prometheus - consulta up
+Captura: 2026-11-22T17:14:33.018Z
+{
+  "status": "success",
+  "data": {
+    "resultType": "vector",
+    "result": [
+      {
+        "metric": {
+          "__name__": "up",
+          "instance": "localhost:9090",
+          "job": "prometheus"
+        },
+        "value": [
+          1795367673.008,
+          "1"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "up",
+          "instance": "node-exporter:9100",
+          "job": "node-exporter"
+        },
+        "value": [
+          1795367673.008,
+          "1"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "up",
+          "instance": "cadvisor:8080",
+          "job": "cadvisor"
+        },
+        "value": [
+          1795367673.008,
+          "1"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "up",
+          "instance": "api:8081",
+          "job": "hemovia-api"
+        },
+        "value": [
+          1795367673.008,
+          "1"
+        ]
+      }
+    ]
+  }
+}

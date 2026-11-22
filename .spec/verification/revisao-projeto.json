@@ -1,8 +1,8 @@
 {
   "feature": "revisao-projeto",
-  "timestamp": "2026-11-21T13:02:20.500Z",
-  "gitRev": "17f2145",
-  "command": "node scripts/spec-java/verify-tests.mjs",
+  "timestamp": "2026-11-22T17:38:00.102Z",
+  "gitRev": "d93b3ed",
+  "command": "node api/target/onp-regression-batch.mjs",
   "reporter": "tap",
   "exitCode": 0,
   "testsParsed": 122,

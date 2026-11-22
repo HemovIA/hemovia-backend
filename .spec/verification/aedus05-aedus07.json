@@ -1,8 +1,8 @@
 {
   "feature": "aedus05-aedus07",
-  "timestamp": "2026-11-21T12:26:58.378Z",
-  "gitRev": "17f2145",
-  "command": "node scripts/spec-java/verify-tests.mjs",
+  "timestamp": "2026-11-22T17:25:39.491Z",
+  "gitRev": "0ee1d4e",
+  "command": "node scripts/spec-java/run-spec-tests.mjs",
   "reporter": "tap",
   "exitCode": 0,
   "testsParsed": 122,

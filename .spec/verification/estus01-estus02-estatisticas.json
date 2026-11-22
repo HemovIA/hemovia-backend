@@ -1,8 +1,8 @@
 {
   "feature": "estus01-estus02-estatisticas",
-  "timestamp": "2026-11-21T12:36:05.813Z",
-  "gitRev": "17f2145",
-  "command": "node scripts/spec-java/verify-tests.mjs",
+  "timestamp": "2026-11-22T17:35:45.442Z",
+  "gitRev": "d93b3ed",
+  "command": "node scripts/spec-java/run-spec-tests.mjs",
   "reporter": "tap",
   "exitCode": 0,
   "testsParsed": 122,

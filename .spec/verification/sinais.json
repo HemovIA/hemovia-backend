@@ -257,10 +257,10 @@
       "codigo": "VERIFY_OBSOLETO",
       "feature": "revisao-projeto",
       "ref": "—",
-      "ocorrencias": 12,
+      "ocorrencias": 13,
       "primeiraVez": "2026-10-22T17:48:09.136Z",
-      "ultimaVez": "2026-11-21T10:29:22.967Z",
-      "gitRev": "361dbb4"
+      "ultimaVez": "2026-11-22T17:21:42.655Z",
+      "gitRev": "5f40672"
     },
     "VERIFY_FALHOU::finalizando-entidades-base::AC-005": {
       "codigo": "VERIFY_FALHOU",
@@ -608,55 +608,55 @@
       "codigo": "VERIFY_OBSOLETO",
       "feature": "aedus05-aedus07",
       "ref": "—",
-      "ocorrencias": 10,
+      "ocorrencias": 11,
       "primeiraVez": "2026-11-12T16:47:05.221Z",
-      "ultimaVez": "2026-11-21T10:29:22.966Z",
-      "gitRev": "361dbb4"
+      "ultimaVez": "2026-11-22T17:21:42.653Z",
+      "gitRev": "5f40672"
     },
     "VERIFY_OBSOLETO::documentacao-swagger::—": {
       "codigo": "VERIFY_OBSOLETO",
       "feature": "documentacao-swagger",
       "ref": "—",
-      "ocorrencias": 10,
+      "ocorrencias": 11,
       "primeiraVez": "2026-11-12T16:47:05.227Z",
-      "ultimaVez": "2026-11-21T10:29:22.966Z",
-      "gitRev": "361dbb4"
+      "ultimaVez": "2026-11-22T17:21:42.654Z",
+      "gitRev": "5f40672"
     },
     "VERIFY_OBSOLETO::finalizando-entidades-base::—": {
       "codigo": "VERIFY_OBSOLETO",
       "feature": "finalizando-entidades-base",
       "ref": "—",
-      "ocorrencias": 10,
+      "ocorrencias": 11,
       "primeiraVez": "2026-11-12T16:47:05.227Z",
-      "ultimaVez": "2026-11-21T10:29:22.966Z",
-      "gitRev": "361dbb4"
+      "ultimaVez": "2026-11-22T17:21:42.654Z",
+      "gitRev": "5f40672"
     },
     "VERIFY_OBSOLETO::poous04-emissao-requisicoes::—": {
       "codigo": "VERIFY_OBSOLETO",
       "feature": "poous04-emissao-requisicoes",
       "ref": "—",
-      "ocorrencias": 10,
+      "ocorrencias": 11,
       "primeiraVez": "2026-11-12T16:47:05.227Z",
-      "ultimaVez": "2026-11-21T10:29:22.967Z",
-      "gitRev": "361dbb4"
+      "ultimaVez": "2026-11-22T17:21:42.654Z",
+      "gitRev": "5f40672"
     },
     "VERIFY_OBSOLETO::poous06-poous12::—": {
       "codigo": "VERIFY_OBSOLETO",
       "feature": "poous06-poous12",
       "ref": "—",
-      "ocorrencias": 10,
+      "ocorrencias": 11,
       "primeiraVez": "2026-11-12T16:47:05.227Z",
-      "ultimaVez": "2026-11-21T10:29:22.967Z",
-      "gitRev": "361dbb4"
+      "ultimaVez": "2026-11-22T17:21:42.654Z",
+      "gitRev": "5f40672"
     },
     "VERIFY_OBSOLETO::poous13-cadastro-hemocentros::—": {
       "codigo": "VERIFY_OBSOLETO",
       "feature": "poous13-cadastro-hemocentros",
       "ref": "—",
-      "ocorrencias": 10,
+      "ocorrencias": 11,
       "primeiraVez": "2026-11-12T16:47:05.227Z",
-      "ultimaVez": "2026-11-21T10:29:22.967Z",
-      "gitRev": "361dbb4"
+      "ultimaVez": "2026-11-22T17:21:42.655Z",
+      "gitRev": "5f40672"
     },
     "ARQUIVO_INEXISTENTE::poous10-cancelamento-requisicoes::T-025": {
       "codigo": "ARQUIVO_INEXISTENTE",
@@ -869,10 +869,10 @@
       "codigo": "VERIFY_OBSOLETO",
       "feature": "poous10-cancelamento-requisicoes",
       "ref": "—",
-      "ocorrencias": 6,
+      "ocorrencias": 7,
       "primeiraVez": "2026-11-20T15:21:36.487Z",
-      "ultimaVez": "2026-11-21T10:29:22.967Z",
-      "gitRev": "361dbb4"
+      "ultimaVez": "2026-11-22T17:21:42.655Z",
+      "gitRev": "5f40672"
     },
     "VERIFY_OBSOLETO::aedus04-poous07-roteirizacao::—": {
       "codigo": "VERIFY_OBSOLETO",
@@ -896,10 +896,10 @@
       "codigo": "VERIFY_OBSOLETO",
       "feature": "poous09-poous11-transporte-entrega",
       "ref": "—",
-      "ocorrencias": 4,
+      "ocorrencias": 5,
       "primeiraVez": "2026-11-20T20:49:18.481Z",
-      "ultimaVez": "2026-11-21T10:29:22.967Z",
-      "gitRev": "361dbb4"
+      "ultimaVez": "2026-11-22T17:21:42.655Z",
+      "gitRev": "5f40672"
     },
     "ID_DUPLICADO::finalizando-entidades-base::Q-002": {
       "codigo": "ID_DUPLICADO",
@@ -1346,19 +1346,19 @@
       "codigo": "VERIFY_OBSOLETO",
       "feature": "estus01-estus02-estatisticas",
       "ref": "—",
-      "ocorrencias": 2,
+      "ocorrencias": 3,
       "primeiraVez": "2026-11-21T02:17:02.769Z",
-      "ultimaVez": "2026-11-21T10:29:22.966Z",
-      "gitRev": "361dbb4"
+      "ultimaVez": "2026-11-22T17:21:42.654Z",
+      "gitRev": "5f40672"
     },
     "VERIFY_OBSOLETO::consultas-operacionais::—": {
       "codigo": "VERIFY_OBSOLETO",
       "feature": "consultas-operacionais",
       "ref": "—",
-      "ocorrencias": 1,
+      "ocorrencias": 2,
       "primeiraVez": "2026-11-21T10:29:22.966Z",
-      "ultimaVez": "2026-11-21T10:29:22.966Z",
-      "gitRev": "361dbb4"
+      "ultimaVez": "2026-11-22T17:21:42.654Z",
+      "gitRev": "5f40672"
     },
     "ARQUIVO_INEXISTENTE::formularios-assistidos::T-052": {
       "codigo": "ARQUIVO_INEXISTENTE",
@@ -1647,6 +1647,159 @@
       "primeiraVez": "2026-11-21T10:39:33.512Z",
       "ultimaVez": "2026-11-21T10:39:33.512Z",
       "gitRev": "984bb34"
+    },
+    "ARQUIVO_INEXISTENTE::observabilidade::T-055": {
+      "codigo": "ARQUIVO_INEXISTENTE",
+      "feature": "observabilidade",
+      "ref": "T-055",
+      "ocorrencias": 3,
+      "primeiraVez": "2026-11-22T16:53:59.425Z",
+      "ultimaVez": "2026-11-22T16:53:59.426Z",
+      "gitRev": "5f40672"
+    },
+    "ARQUIVO_INEXISTENTE::observabilidade::T-056": {
+      "codigo": "ARQUIVO_INEXISTENTE",
+      "feature": "observabilidade",
+      "ref": "T-056",
+      "ocorrencias": 10,
+      "primeiraVez": "2026-11-22T16:53:59.426Z",
+      "ultimaVez": "2026-11-22T16:53:59.426Z",
+      "gitRev": "5f40672"
+    },
+    "ARQUIVO_INEXISTENTE::observabilidade::T-057": {
+      "codigo": "ARQUIVO_INEXISTENTE",
+      "feature": "observabilidade",
+      "ref": "T-057",
+      "ocorrencias": 2,
+      "primeiraVez": "2026-11-22T16:53:59.426Z",
+      "ultimaVez": "2026-11-22T16:53:59.426Z",
+      "gitRev": "5f40672"
+    },
+    "ARQUIVO_INEXISTENTE::observabilidade::T-058": {
+      "codigo": "ARQUIVO_INEXISTENTE",
+      "feature": "observabilidade",
+      "ref": "T-058",
+      "ocorrencias": 3,
+      "primeiraVez": "2026-11-22T16:53:59.426Z",
+      "ultimaVez": "2026-11-22T16:53:59.426Z",
+      "gitRev": "5f40672"
+    },
+    "AC_SEM_TESTE::observabilidade::AC-114": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "observabilidade",
+      "ref": "AC-114",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-22T16:53:59.426Z",
+      "ultimaVez": "2026-11-22T16:53:59.426Z",
+      "gitRev": "5f40672"
+    },
+    "AC_SEM_TESTE::observabilidade::AC-115": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "observabilidade",
+      "ref": "AC-115",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-22T16:53:59.426Z",
+      "ultimaVez": "2026-11-22T16:53:59.426Z",
+      "gitRev": "5f40672"
+    },
+    "AC_SEM_TESTE::observabilidade::AC-116": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "observabilidade",
+      "ref": "AC-116",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-22T16:53:59.426Z",
+      "ultimaVez": "2026-11-22T16:53:59.426Z",
+      "gitRev": "5f40672"
+    },
+    "AC_SEM_TESTE::observabilidade::AC-117": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "observabilidade",
+      "ref": "AC-117",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-22T16:53:59.426Z",
+      "ultimaVez": "2026-11-22T16:53:59.426Z",
+      "gitRev": "5f40672"
+    },
+    "AC_SEM_TESTE::observabilidade::AC-118": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "observabilidade",
+      "ref": "AC-118",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-22T16:53:59.426Z",
+      "ultimaVez": "2026-11-22T16:53:59.426Z",
+      "gitRev": "5f40672"
+    },
+    "AC_SEM_TESTE::observabilidade::AC-119": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "observabilidade",
+      "ref": "AC-119",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-22T16:53:59.426Z",
+      "ultimaVez": "2026-11-22T16:53:59.426Z",
+      "gitRev": "5f40672"
+    },
+    "AC_SEM_TESTE::observabilidade::AC-120": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "observabilidade",
+      "ref": "AC-120",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-22T16:53:59.426Z",
+      "ultimaVez": "2026-11-22T16:53:59.426Z",
+      "gitRev": "5f40672"
+    },
+    "AC_SEM_TESTE::observabilidade::AC-121": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "observabilidade",
+      "ref": "AC-121",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-22T16:53:59.426Z",
+      "ultimaVez": "2026-11-22T16:53:59.426Z",
+      "gitRev": "5f40672"
+    },
+    "AC_SEM_TESTE::observabilidade::AC-122": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "observabilidade",
+      "ref": "AC-122",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-22T16:53:59.426Z",
+      "ultimaVez": "2026-11-22T16:53:59.426Z",
+      "gitRev": "5f40672"
+    },
+    "AC_SEM_TESTE::observabilidade::AC-123": {
+      "codigo": "AC_SEM_TESTE",
+      "feature": "observabilidade",
+      "ref": "AC-123",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-22T16:53:59.426Z",
+      "ultimaVez": "2026-11-22T16:53:59.426Z",
+      "gitRev": "5f40672"
+    },
+    "VERIFY_FALHOU::observabilidade::AC-123": {
+      "codigo": "VERIFY_FALHOU",
+      "feature": "observabilidade",
+      "ref": "AC-123",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-22T17:15:53.216Z",
+      "ultimaVez": "2026-11-22T17:15:53.216Z",
+      "gitRev": "5f40672"
+    },
+    "VERIFY_OBSOLETO::formularios-assistidos::—": {
+      "codigo": "VERIFY_OBSOLETO",
+      "feature": "formularios-assistidos",
+      "ref": "—",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-22T17:21:42.654Z",
+      "ultimaVez": "2026-11-22T17:21:42.654Z",
+      "gitRev": "5f40672"
+    },
+    "VERIFY_OBSOLETO::mascaras-cadastros::—": {
+      "codigo": "VERIFY_OBSOLETO",
+      "feature": "mascaras-cadastros",
+      "ref": "—",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-22T17:21:42.654Z",
+      "ultimaVez": "2026-11-22T17:21:42.654Z",
+      "gitRev": "5f40672"
     }
   }
 }

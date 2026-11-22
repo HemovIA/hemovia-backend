@@ -1,8 +1,8 @@
 {
   "feature": "finalizando-entidades-base",
-  "timestamp": "2026-11-21T12:39:42.417Z",
-  "gitRev": "17f2145",
-  "command": "node scripts/spec-java/verify-tests.mjs",
+  "timestamp": "2026-11-22T17:37:55.534Z",
+  "gitRev": "d93b3ed",
+  "command": "node api/target/onp-regression-batch.mjs",
   "reporter": "tap",
   "exitCode": 0,
   "testsParsed": 122,

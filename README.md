@@ -379,3 +379,53 @@ As métricas populacionais dividem por `n`; as amostrais, por `n - 1`. Médias, 
 Com sessão autenticada, `GET /api/v1/requests`, `/api/v1/transports` e `/api/v1/hospitals` retornam `content`, `page`, `size`, `totalElements` e `totalPages`. Os detalhes usam `GET` no mesmo caminho com `/{id}`. A paginação começa em zero, usa 20 itens por padrão e aceita tamanhos de 1 a 100. A ordenação é data de criação decrescente para requisições, início decrescente para transportes e nome crescente para hospitais; empates usam identificador crescente.
 
 Requisições aceitam `status`, `hospitalId`, `bloodType`, `rhFactor`, `component` e `priority`; transportes aceitam `status`, `requestId` e `vehicleId`; hospitais aceitam trechos `name` e `city` sem distinção entre maiúsculas e minúsculas. Os filtros são combinados entre si e com o vínculo da sessão antes da contagem e paginação. ADMIN vê todos os recursos; HOSPITAL vê seu hospital e os pedidos e viagens vinculados; HEMOCENTRO vê hospitais, pedidos pendentes ou que alocou e viagens de suas alocações; TRANSPORTADOR vê viagens de seu veículo e pedidos associados, sem acesso ao cadastro de hospitais. Detalhes fora do vínculo retornam 404. As consultas usam rota persistida, sem calcular nova rota.
+
+## Observabilidade da API e infraestrutura
+
+A demonstração usa a API Java com dados sintéticos. O Compose provisiona Prometheus, Grafana, Loki, Tempo, Alloy, Node Exporter e cAdvisor. O diagrama e as provas datadas estão no [relatório de observabilidade](docs/observabilidade/relatorio.pdf) e em [evidências](docs/observabilidade/evidencias/).
+
+Na raiz do backend, copie `.env.example` para `.env`, configure PostgreSQL, `JWT_SECRET`, os campos `ADMIN_*` e credenciais administrativas do Grafana. Defina também `GRAFANA_VIEWER_USER` e `GRAFANA_VIEWER_PASSWORD` no ambiente local e crie a conta com papel Viewer em **Administration → Users and access → Users**. Guarde as credenciais no arquivo local ignorado pelo Git.
+
+```powershell
+if (-not (Test-Path .env)) { Copy-Item .env.example .env }
+# Edite .env com valores próprios antes de iniciar.
+docker compose up -d --build
+node --env-file=.env scripts/observabilidade/carga.mjs --loop
+```
+
+A carga cria dados sintéticos e permanece em execução até Ctrl+C. Confira `docker compose ps`, o probe [http://localhost:18080/readyz](http://localhost:18080/readyz), os alvos [http://localhost:19090/targets](http://localhost:19090/targets) e o Grafana em [http://localhost:13000](http://localhost:13000). Os serviços publicados pelo Compose escutam apenas em localhost. A porta de gerenciamento 8081 é interna; Prometheus consulta `/actuator/prometheus` na rede Docker. Consulte `http_server_requests_seconds_count`, `http_server_requests_seconds_bucket`, `jvm_memory_used_bytes`, `hikaricp_connections_active`, `hemovia_doacoes_registradas_total` e `hemovia_requisicoes_emitidas_total` no Prometheus. Os dashboards provisionados são **Hemovia — Aplicação** e **Hemovia — Infraestrutura**.
+
+Para conferir o endpoint interno a partir do contêiner da API, execute:
+
+```powershell
+docker compose exec -T api wget -qO- http://127.0.0.1:8081/actuator/prometheus
+```
+
+O health check da API publicado para Docker e Render usa `/readyz`. Em serviços Render configurados manualmente, ajuste o caminho do health check para `/readyz` ao publicar esta versão.
+
+No Grafana, entre com a conta Viewer e abra Explore com Loki. A consulta `{application="hemovia-api"} |= "Requisicao de sangue processada"` encontra eventos da carga; abra o campo derivado `traceId` para consultar o mesmo trace no Tempo. Para diagnóstico operacional, use `docker compose logs api`, `docker compose logs alloy` e `docker compose logs prometheus`. Não inclua credenciais nas evidências.
+
+A publicação para a correção depende de definir a URL HTTPS, a janela de disponibilidade e a entrega da credencial Viewer em canal privado. Encaminhe apenas o Grafana e valide o acesso de outra rede durante a janela combinada.
+
+Para verificar a entrega local após configurar a conta Viewer:
+
+```powershell
+$env:HEMOVIA_OBS_VERIFY='true'
+node --env-file=.env .agents/skills/onp-spec-driven/scripts/onp-spec.mjs verify observabilidade
+```
+
+### Pré-requisitos e portas da demonstração
+
+Use Docker Engine Linux rootful ou Docker Desktop com contêineres Linux, Docker Compose, Node.js 22 e Python com `pypdf` para a verificação documental. Caso o Python com `pypdf` não esteja no PATH, configure `$env:HEMOVIA_PDF_PYTHON='C:\caminho\para\python.exe'` antes do comando de verificação.
+
+| Serviço | Porta interna | Acesso publicado local |
+|---|---:|---|
+| API / gerenciamento | 8080 / 8081 | 18080 / não publicado |
+| PostgreSQL | 5432 | não publicado |
+| Prometheus | 9090 | 19090 |
+| Grafana | 3000 | 13000 |
+| Loki | 3100 | não publicado |
+| Tempo HTTP / OTLP | 3200 / 4318 | não publicado |
+| Node Exporter | 9100 | rede do host Docker |
+| cAdvisor | 8080 | não publicado |
+| Alloy | 12345 | não publicado |

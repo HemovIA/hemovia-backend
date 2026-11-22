@@ -1,5 +1,5 @@
 {
-  "testCommand": "node scripts/spec-java/verify-tests.mjs",
+  "testCommand": "node scripts/spec-java/run-spec-tests.mjs",
   "reporter": "tap",
   "testGlobs": [
     "test/**",
@@ -12,6 +12,9 @@
     "scripts/spec-java/verify-tests.mjs"
   ],
   "srcGlobs": [
+    "scripts/spec-java/run-spec-tests.mjs",
+    "scripts/observabilidade/**",
+    "tests/observabilidade/**",
     "src/**",
     "scripts/spec-java/test-postgres.ps1",
     "scripts/spec-java/verify-tests.mjs",

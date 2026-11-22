@@ -1,0 +1,30 @@
+Captura: 2026-11-22T17:13:23.793Z
+GET /api/user: 200
+{
+  "id": 2,
+  "uid": "dg5367l2ia7swa",
+  "email": "[omitido]",
+  "name": "[omitido]",
+  "login": "[omitido]",
+  "theme": "",
+  "orgId": 1,
+  "isGrafanaAdmin": false,
+  "isDisabled": false,
+  "isExternal": false,
+  "isExternallySynced": false,
+  "isGrafanaAdminExternallySynced": false,
+  "authLabels": [],
+  "updatedAt": "2026-11-22T17:07:07Z",
+  "createdAt": "2026-11-22T17:07:07Z",
+  "avatarUrl": "/avatar/bb19444b04e04310ca4d9e6e4c805e11",
+  "isProvisioned": false
+}
+GET /api/org: 200
+GET /api/user/orgs: 200
+[
+  {
+    "orgId": 1,
+    "name": "[omitido]",
+    "role": "Viewer"
+  }
+]
