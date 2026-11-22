@@ -4,7 +4,7 @@ server:
 
 spring:
   application:
-    name: api
+    name: ${APP_NAME:hemovia-api}
   config:
     import: "optional:file:.env[.properties],optional:file:api/.env[.properties]"
   datasource:
@@ -58,7 +58,25 @@ hemovia:
     password: ${ADMIN_PASSWORD:}
 
 management:
+  server:
+    port: ${MANAGEMENT_PORT:8081}
+    address: ${MANAGEMENT_ADDRESS:127.0.0.1}
   endpoints:
     web:
       exposure:
-        include: health,info
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: never
+      probes:
+        enabled: true
+        add-additional-paths: true
+      group:
+        readiness:
+          include: readinessState,db
+  metrics:
+    tags:
+      application: ${spring.application.name}
+    distribution:
+      percentiles-histogram:
+        http.server.requests: true

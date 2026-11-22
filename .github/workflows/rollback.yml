@@ -31,7 +31,7 @@ jobs:
           APP_URL: ${{ vars.RENDER_APP_URL }}
         run: |
           for i in $(seq 1 40); do
-            curl -fsS "$APP_URL/actuator/health" | grep -q '"status":"UP"' && exit 0
+            curl -fsS "$APP_URL/readyz" | grep -q '"status":"UP"' && exit 0
             sleep 15
           done
           exit 1

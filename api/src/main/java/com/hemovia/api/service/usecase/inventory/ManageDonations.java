@@ -1,6 +1,8 @@
 package com.hemovia.api.service.usecase.inventory;
 
 import com.hemovia.api.dto.request.DonationRequest;
+import com.hemovia.api.service.observability.BusinessMetrics;
+import org.springframework.beans.factory.annotation.Autowired;
 import com.hemovia.api.dto.response.DonationResponse;
 import com.hemovia.api.model.entity.BloodBag;
 import com.hemovia.api.model.entity.Donation;
@@ -20,11 +22,18 @@ public class ManageDonations {
     private final DonationRepository donations;
     private final BloodBagRepository bags;
     private final InventoryLinks links;
+    private final BusinessMetrics metrics;
 
     public ManageDonations(DonationRepository donations, BloodBagRepository bags, InventoryLinks links) {
+        this(donations, bags, links, null);
+    }
+
+    @Autowired
+    public ManageDonations(DonationRepository donations, BloodBagRepository bags, InventoryLinks links, BusinessMetrics metrics) {
         this.donations = donations;
         this.bags = bags;
         this.links = links;
+        this.metrics = metrics;
     }
 
     @Transactional(readOnly = true)
@@ -44,7 +53,9 @@ public class ManageDonations {
         if (bag.getDonor() == null) bag.setDonor(donation.getDonor());
         if (bag.getBloodCenter() == null) bag.setBloodCenter(donation.getBloodCenter());
         donation.addBloodBag(bag);
-        return response(donations.save(donation));
+        var result = response(donations.save(donation));
+        if (metrics != null) metrics.donationRegistered();
+        return result;
     }
 
     public DonationResponse update(String donationId, DonationRequest request) {

@@ -1,0 +1,15 @@
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  opentelemetry:
+    tracing:
+      export:
+        otlp:
+          endpoint: ${OTEL_EXPORTER_OTLP_TRACES_ENDPOINT:http://tempo:4318/v1/traces}
+logging:
+  file:
+    name: ${LOG_FILE:/app/logs/hemovia-api.log}
+  structured:
+    format:
+      file: logstash

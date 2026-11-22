@@ -4,7 +4,7 @@ services:
     runtime: docker
     dockerfilePath: ./api/Dockerfile
     dockerContext: ./api
-    healthCheckPath: /actuator/health
+    healthCheckPath: /readyz
     envVars:
       - key: POSTGRES_HOST
         sync: false

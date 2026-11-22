@@ -111,12 +111,12 @@ jobs:
           ENCODED=$(jq -rn --arg v "$IMAGE" '$v|@uri')
           curl -fsS -X POST "${HOOK}&imgURL=${ENCODED}"
 
-      - name: Smoke test — /actuator/health deve responder UP
+      - name: Smoke test — /readyz deve responder UP
         env:
           APP_URL: ${{ vars.RENDER_APP_URL }}
         run: |
           for i in $(seq 1 40); do
-            if curl -fsS "$APP_URL/actuator/health" | grep -q '"status":"UP"'; then
+            if curl -fsS "$APP_URL/readyz" | grep -q '"status":"UP"'; then
               echo "Aplicação no ar: $APP_URL"; exit 0
             fi
             echo "Aguardando deploy... ($i/40)"; sleep 15

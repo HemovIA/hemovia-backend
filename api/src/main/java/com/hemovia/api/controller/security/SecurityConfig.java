@@ -54,7 +54,7 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .exceptionHandling(handling -> handling.authenticationEntryPoint(errorHandler).accessDeniedHandler(errorHandler))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/actuator/**", "/error", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
+                .requestMatchers("/actuator/**", "/readyz", "/livez", "/error", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                 .requestMatchers(HttpMethod.GET, AUTH + "/csrf").permitAll()
                 .requestMatchers(HttpMethod.POST, LOGIN, AUTH + "/refresh").permitAll()
                 .requestMatchers(AUTH + "/**").authenticated()
