@@ -359,5 +359,26 @@
   ],
   "AC-131": [
     "com.hemovia.api.repository.adapter.DonorUserPersistenceIT#preservesUsersAndConstrainsDonorLink"
+  ],
+  "AC-124": [
+    "com.hemovia.api.controller.DonorRegistrationIntegrationTest#startIsPublicWithCsrfAndDoesNotCreateAccount",
+    "com.hemovia.api.controller.DonorRegistrationIntegrationTest#canRetryAfterEmailDeliveryFailure"
+  ],
+  "AC-125": [
+    "com.hemovia.api.controller.DonorRegistrationIntegrationTest#validLinkCreatesLoginAndRejectsInvalidOrReusedLink",
+    "com.hemovia.api.controller.DonorRegistrationIntegrationTest#expiredLinkCannotCreateAccount"
+  ],
+  "AC-126": [
+    "com.hemovia.api.controller.DonorRegistrationIntegrationTest#publicAccountHasNoOperationalPermissions"
+  ],
+  "AC-127": [
+    "com.hemovia.api.controller.DonorRegistrationIntegrationTest#matchesTheExistingPersonWithoutChangingIt"
+  ],
+  "AC-128": [
+    "com.hemovia.api.controller.DonorRegistrationIntegrationTest#createsAnUnlinkedAccountWithoutCreatingAPerson"
+  ],
+  "AC-129": [
+    "com.hemovia.api.controller.DonorRegistrationIntegrationTest#mismatchedOrMissingEmailRequiresUpdatingDonorRecords",
+    "com.hemovia.api.controller.DonorRegistrationIntegrationTest#concurrentRequestsCannotClaimTheSameCpf"
   ]
 }

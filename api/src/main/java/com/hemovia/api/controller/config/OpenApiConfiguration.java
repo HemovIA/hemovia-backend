@@ -44,8 +44,8 @@ public class OpenApiConfiguration {
             if (openApi.getPaths() != null) {
                 openApi.getPaths().forEach((caminho, item) -> {
                     String relativo = semPrefixo(caminho);
-                    // Login, refresh e emissão de CSRF não exigem uma sessão de acesso ativa
-                    if (List.of("/auth/login", "/auth/refresh", "/auth/csrf").contains(relativo)) {
+                    // Login, cadastro, refresh e emissão de CSRF aceitam chamadas sem sessão ativa.
+                    if (List.of("/auth/login", "/auth/refresh", "/auth/csrf", "/auth/register", "/auth/register/confirm").contains(relativo)) {
                         item.readOperations().forEach(operation -> operation.setSecurity(List.of()));
                     }
                     // O login e a telemetria são isentos de CSRF na cadeia de segurança.

@@ -167,6 +167,16 @@ node <diretorio-da-skill-onp-spec-driven>/scripts/onp-spec.mjs audit --ci
 
 Os dois últimos comandos só devem ser considerados aprovados quando terminarem com exit code `0`; veja as limitações e evidências reais em [resultado-validacao.md](.spec/features/finalizando-entidades-base/resultado-validacao.md).
 
+### Cadastro público de doadores
+
+Na tela de login, selecione **Criar conta** e informe um e-mail. O link recebido fica válido por 30 minutos. Após abri-lo, informe nome, CPF e senha. A conta é criada com o papel `DOADOR` e pode entrar pelo mesmo formulário de login.
+
+Quando CPF e e-mail confirmado correspondem a um cadastro de doador, a nova conta é vinculada a esse cadastro. Se o CPF já existir e o e-mail estiver ausente ou divergente, a pessoa precisa atualizar seus dados com o hemocentro. Para CPF sem cadastro de doador, a conta é criada sem vínculo.
+
+Configure `SMTP_HOST`, `SMTP_PORT`, `SMTP_USERNAME`, `SMTP_PASSWORD` e `REGISTRATION_EMAIL_FROM` no ambiente da API. A autenticação SMTP e o STARTTLS vêm habilitados por padrão. Em produção, defina `REGISTRATION_FRONTEND_URL` com a URL HTTPS do frontend. A configuração local está nos arquivos `.env.example`.
+
+A interface obtém a proteção CSRF em `GET /api/v1/auth/csrf` e envia `X-XSRF-TOKEN` ao solicitar `POST /api/v1/auth/register` e concluir `POST /api/v1/auth/register/confirm`. Os endpoints respondem com `202` e `201`, respectivamente.
+
 ### Documentação interativa da API
 
 Com a aplicação iniciada, a interface Swagger UI fica em [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html) e o documento OpenAPI em [http://localhost:8080/v3/api-docs](http://localhost:8080/v3/api-docs). A documentação é pública; isso não altera a autenticação das operações de negócio. O endpoint `/auth/me` exige JWT e as outras rotas mantêm a política atual descrita no próprio documento.
