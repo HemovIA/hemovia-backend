@@ -1,7 +1,7 @@
 {
   "feature": "observabilidade",
-  "timestamp": "2026-11-22T17:38:35.958Z",
-  "gitRev": "d93b3ed",
+  "timestamp": "2026-11-25T23:16:09.097Z",
+  "gitRev": "13bbd7e",
   "command": "node scripts/spec-java/run-spec-tests.mjs",
   "reporter": "tap",
   "exitCode": 0,

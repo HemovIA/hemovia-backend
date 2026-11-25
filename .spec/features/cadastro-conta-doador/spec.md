@@ -1,7 +1,7 @@
 # Cadastro público de conta de doador
 
 > feature: cadastro-conta-doador
-> status: em-implementacao
+> status: auditada
 
 ## Contexto
 
