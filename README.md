@@ -128,6 +128,10 @@ Issues organizadas e atualizadas pela ferramenta de issues do GitHub:
 
 *(seção detalhada a partir da segunda entrega)*
 
+### Especificações
+
+As especificações e tarefas de cada funcionalidade ficam em [`.spec/features`](.spec/features/). As provas dos critérios de aceite ficam em [`.spec/verification`](.spec/verification/).
+
 ### Organização do backend
 
 As cinco camadas ficam sob o pacote `com.hemovia.api`.

@@ -5,7 +5,7 @@
 
 ## Contexto
 
-Recuperar requisições, transportes e hospitais persistidos para continuar a operação entre sessões. As regras de visibilidade foram aprovadas: "Sim, seguir essas regras". O usuário solicitou a skill local onp-spec-driven. Esta especificação substitui o rascunho de .specs/features/consultas-operacionais; as regras aprovadas foram preservadas.
+As consultas recuperam requisições, transportes e hospitais persistidos para dar continuidade à operação entre sessões. Em 20/11/2026, o usuário pediu para completar as consultas da API antes de testar o conjunto e aprovou as [regras de visibilidade](#decisões-confirmadas).
 
 ## Histórias
 
@@ -23,7 +23,7 @@ Como operador autorizado, quero consultar requisições para recuperar dados per
 
 - **Dado** registros persistidos e usuários com perfis e vínculos distintos
 - **Quando** a consulta correspondente é solicitada com os parâmetros e a sessão do cenário
-- **Então** GET /api/v1/requests/{id} retorna dados do pedido, alocações com hemocentro e estado, bolsas, rota persistida e transporte associado quando existentes.
+- **Então** GET /api/v1/requests/{id} retorna os dados do pedido e o histórico de alocações, inclusive as canceladas, com hemocentro e estado, bolsas, rota persistida e transporte associado quando existentes.
 
 #### AC-077 — Isolar pedidos por vínculo
 
