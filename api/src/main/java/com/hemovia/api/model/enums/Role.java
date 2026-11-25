@@ -11,5 +11,6 @@ public enum Role {
     // Funcionário de um hospital
     HOSPITAL,
     // Condutor de um veículo de transporte
-    TRANSPORTADOR
+    TRANSPORTADOR,
+    DOADOR
 }

@@ -26,12 +26,13 @@ public final class UserPersistenceMapper {
         entity.setHospitalId(user.hospitalId());
         entity.setBloodCenterId(user.bloodCenterId());
         entity.setVehicleId(user.vehicleId());
+        entity.setDonorId(user.donorId());
         return entity;
     }
 
     public static User toDomain(UserEntity entity) {
         return User.restore(entity.getId(), entity.getName(), new Email(entity.getEmail()), new Cpf(entity.getCpf()),
                 entity.getPhoneNumber(), entity.getPasswordHash(), entity.getRole(), entity.isActive(),
-                entity.getHospitalId(), entity.getBloodCenterId(), entity.getVehicleId());
+                entity.getHospitalId(), entity.getBloodCenterId(), entity.getVehicleId(), entity.getDonorId());
     }
 }

@@ -356,5 +356,8 @@
   "AC-095": [
     "com.hemovia.api.service.usecase.donor.ManageDonorsTest#searchesExactNormalizedCpf",
     "com.hemovia.api.controller.DonorAcceptanceTest#exactSearchSecurityAndConcurrentUniqueness"
+  ],
+  "AC-131": [
+    "com.hemovia.api.repository.adapter.DonorUserPersistenceIT#preservesUsersAndConstrainsDonorLink"
   ]
 }
