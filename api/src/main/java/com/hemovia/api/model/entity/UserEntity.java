@@ -57,4 +57,7 @@ public class UserEntity {
 
     @Column(name = "vehicle_id")
     private UUID vehicleId;
+
+    @Column(name = "donor_id")
+    private UUID donorId;
 }

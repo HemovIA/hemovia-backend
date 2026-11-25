@@ -1,0 +1,52 @@
+{
+  "feature": "cadastro-conta-doador",
+  "timestamp": "2026-11-25T23:22:07.916Z",
+  "gitRev": "ce11f00",
+  "command": "node scripts/spec-java/run-spec-tests.mjs",
+  "reporter": "tap",
+  "exitCode": 0,
+  "testsParsed": 130,
+  "results": {
+    "AC-124": {
+      "status": "pass",
+      "testName": "@spec:AC-124 formulário público e API passam na mesma execução",
+      "method": "tap"
+    },
+    "AC-125": {
+      "status": "pass",
+      "testName": "@spec:AC-125 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-126": {
+      "status": "pass",
+      "testName": "@spec:AC-126 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-127": {
+      "status": "pass",
+      "testName": "@spec:AC-127 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-128": {
+      "status": "pass",
+      "testName": "@spec:AC-128 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-129": {
+      "status": "pass",
+      "testName": "@spec:AC-129 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-130": {
+      "status": "pass",
+      "testName": "@spec:AC-130 interações Playwright reais",
+      "method": "tap"
+    },
+    "AC-131": {
+      "status": "pass",
+      "testName": "@spec:AC-131 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    }
+  },
+  "principles": {}
+}

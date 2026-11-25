@@ -28,6 +28,8 @@ class OpenApiContractIT {
     private static final Map<String, Set<String>> EXPECTED_OPERATIONS = Map.ofEntries(
             Map.entry("/auth/csrf", Set.of("get")),
             Map.entry("/auth/login", Set.of("post")),
+            Map.entry("/auth/register", Set.of("post")),
+            Map.entry("/auth/register/confirm", Set.of("post")),
             Map.entry("/auth/refresh", Set.of("post")),
             Map.entry("/auth/logout", Set.of("post")),
             Map.entry("/auth/me", Set.of("get")),
@@ -84,8 +86,9 @@ class OpenApiContractIT {
                 assertTrue(objectFieldNames(operation.path("responses")).stream().anyMatch(code -> code.startsWith("2")));
             }
         }
-        assertEquals(49, operationIds.size());
-        assertFalse(paths.has("/auth/register"));
+        assertEquals(51, operationIds.size());
+        assertTrue(paths.path("/auth/register").path("post").path("responses").has("202"));
+        assertTrue(paths.path("/auth/register/confirm").path("post").path("responses").has("201"));
         assertFalse(paths.has("/error"));
         assertTrue(paths.path("/auth/csrf").path("get").path("responses").has("204"));
         assertTrue(paths.path("/auth/logout").path("post").path("responses").has("204"));
@@ -181,7 +184,7 @@ class OpenApiContractIT {
         assertEquals("HEMOVIA_ACCESS", scheme.path("name").asText());
         assertFalse(document.path("components").path("securitySchemes").has("bearerAuth"));
         assertTrue(document.path("security").get(0).has("cookieAuth"));
-        for (String path : Set.of("/auth/login", "/auth/refresh", "/auth/csrf")) {
+        for (String path : Set.of("/auth/login", "/auth/refresh", "/auth/csrf", "/auth/register", "/auth/register/confirm")) {
             String method = path.endsWith("csrf") ? "get" : "post";
             assertTrue(document.path("paths").path(path).path(method).path("security").isEmpty());
         }

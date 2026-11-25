@@ -56,7 +56,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/actuator/**", "/readyz", "/livez", "/error", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                 .requestMatchers(HttpMethod.GET, AUTH + "/csrf").permitAll()
-                .requestMatchers(HttpMethod.POST, LOGIN, AUTH + "/refresh").permitAll()
+                .requestMatchers(HttpMethod.POST, LOGIN, AUTH + "/refresh", AUTH + "/register", AUTH + "/register/confirm").permitAll()
                 .requestMatchers(AUTH + "/**").authenticated()
                 .requestMatchers(HttpMethod.POST, ApiPrefixConfiguration.PREFIXO + "/requests").hasRole(Role.HOSPITAL.name())
                 .requestMatchers(HttpMethod.POST, ApiPrefixConfiguration.PREFIXO + "/requests/*/allocate").hasRole(Role.HEMOCENTRO.name())

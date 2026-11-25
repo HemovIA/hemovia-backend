@@ -1,12 +1,15 @@
 package com.hemovia.api.controller;
 
+import com.hemovia.api.dto.request.ConfirmDonorRegistrationRequest;
 import com.hemovia.api.dto.request.LoginRequest;
+import com.hemovia.api.dto.request.StartDonorRegistrationRequest;
 import com.hemovia.api.dto.internal.SessionTokens;
 import com.hemovia.api.dto.response.UserResponse;
 import com.hemovia.api.service.usecase.auth.GetCurrentUser;
 import com.hemovia.api.service.usecase.auth.Login;
 import com.hemovia.api.service.usecase.auth.Logout;
 import com.hemovia.api.service.usecase.auth.RefreshSession;
+import com.hemovia.api.service.usecase.auth.RegisterDonor;
 import com.hemovia.api.controller.security.SessionCookies;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -39,14 +42,16 @@ public class AuthController {
     private final Logout logout;
     private final GetCurrentUser currentUser;
     private final SessionCookies cookies;
+    private final RegisterDonor registration;
 
     public AuthController(Login login, RefreshSession refresh, Logout logout,
-                          GetCurrentUser currentUser, SessionCookies cookies) {
+                          GetCurrentUser currentUser, SessionCookies cookies, RegisterDonor registration) {
         this.login = login;
         this.refresh = refresh;
         this.logout = logout;
         this.currentUser = currentUser;
         this.cookies = cookies;
+        this.registration = registration;
     }
 
     // Entrega o cookie XSRF-TOKEN para o front-end ler e devolver no header das próximas escritas
@@ -60,6 +65,25 @@ public class AuthController {
             token.getToken();
         }
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/register")
+    @Operation(operationId = "authStartDonorRegistration", summary = "Solicitar confirmação de cadastro por e-mail")
+    @ApiResponse(responseCode = "202", description = "Solicitação recebida")
+    @ApiResponse(responseCode = "503", description = "Envio de e-mail indisponível")
+    public ResponseEntity<Void> startRegistration(@Valid @RequestBody StartDonorRegistrationRequest request) {
+        registration.start(request.email());
+        return ResponseEntity.accepted().build();
+    }
+
+    @PostMapping("/register/confirm")
+    @Operation(operationId = "authConfirmDonorRegistration", summary = "Confirmar e-mail e criar conta de doador")
+    @ApiResponse(responseCode = "201", description = "Conta criada")
+    @ApiResponse(responseCode = "400", description = "Dados ou link inválidos")
+    @ApiResponse(responseCode = "409", description = "Cadastro não pôde ser concluído")
+    public ResponseEntity<Void> confirmRegistration(@Valid @RequestBody ConfirmDonorRegistrationRequest request) {
+        registration.confirm(request);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PostMapping("/login")

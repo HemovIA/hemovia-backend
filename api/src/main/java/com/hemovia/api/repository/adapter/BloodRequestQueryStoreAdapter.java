@@ -28,6 +28,7 @@ public class BloodRequestQueryStoreAdapter implements BloodRequestQueryStore {
             if (filter.priority() != null) clauses.add(cb.equal(root.get("priority"), filter.priority()));
             switch (user.role()) {
                 case ADMIN -> { }
+                case DOADOR -> clauses.add(cb.disjunction());
                 case HOSPITAL -> clauses.add(user.hospitalId() == null ? cb.disjunction() : cb.equal(root.get("hospital").get("id"), user.hospitalId()));
                 case HEMOCENTRO -> {
                     if (user.bloodCenterId() == null) clauses.add(cb.disjunction());

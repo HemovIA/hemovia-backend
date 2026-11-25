@@ -8,7 +8,7 @@ import com.hemovia.api.model.valueobject.Email;
 import java.util.UUID;
 
 /*
-Usuário do sistema. Tem exatamente um papel e, conforme o papel, um vínculo com hospital, hemocentro ou veículo.
+Usuário do sistema. Tem exatamente um papel e, conforme o papel, um vínculo com hospital, hemocentro, veículo ou pessoa doadora.
 Usuários antigos, de antes dos papéis, existem com papel nulo e não conseguem entrar.
 */
 public final class User {
@@ -29,9 +29,10 @@ public final class User {
     private UUID hospitalId;
     private UUID bloodCenterId;
     private UUID vehicleId;
+    private UUID donorId;
 
     private User(UUID id, String name, Email email, Cpf cpf, String phoneNumber, String passwordHash,
-                 Role role, boolean active, UUID hospitalId, UUID bloodCenterId, UUID vehicleId) {
+                 Role role, boolean active, UUID hospitalId, UUID bloodCenterId, UUID vehicleId, UUID donorId) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -43,13 +44,14 @@ public final class User {
         this.hospitalId = hospitalId;
         this.bloodCenterId = bloodCenterId;
         this.vehicleId = vehicleId;
+        this.donorId = donorId;
     }
 
     // Cria um usuário novo, ativo, com papel e vínculo válidos; "linkedId" é o id do hospital, hemocentro ou veículo
     public static User create(String name, Email email, Cpf cpf, String phoneNumber, String passwordHash,
                               Role role, UUID linkedId) {
         User user = new User(UUID.randomUUID(), requireName(name), email, cpf, clean(phoneNumber), passwordHash,
-                null, true, null, null, null);
+                null, true, null, null, null, null);
         user.assignRole(role, linkedId);
         return user;
     }
@@ -57,7 +59,12 @@ public final class User {
     // Reconstrói um usuário já guardado, inclusive os antigos sem papel
     public static User restore(UUID id, String name, Email email, Cpf cpf, String phoneNumber, String passwordHash,
                                Role role, boolean active, UUID hospitalId, UUID bloodCenterId, UUID vehicleId) {
-        return new User(id, name, email, cpf, phoneNumber, passwordHash, role, active, hospitalId, bloodCenterId, vehicleId);
+        return restore(id, name, email, cpf, phoneNumber, passwordHash, role, active, hospitalId, bloodCenterId, vehicleId, null);
+    }
+
+    public static User restore(UUID id, String name, Email email, Cpf cpf, String phoneNumber, String passwordHash,
+                               Role role, boolean active, UUID hospitalId, UUID bloodCenterId, UUID vehicleId, UUID donorId) {
+        return new User(id, name, email, cpf, phoneNumber, passwordHash, role, active, hospitalId, bloodCenterId, vehicleId, donorId);
     }
 
     // Troca o papel e o vínculo juntos; se a troca for inválida, nada muda
@@ -87,17 +94,18 @@ public final class User {
         if (newRole == null) {
             throw new InvalidDataException("O papel do usuário é obrigatório.");
         }
-        boolean needsLink = newRole != Role.ADMIN;
+        boolean needsLink = newRole != Role.ADMIN && newRole != Role.DOADOR;
         if (needsLink && linkedId == null) {
             throw new InvalidDataException("O papel " + newRole + " exige um vínculo.");
         }
-        if (!needsLink && linkedId != null) {
+        if (newRole == Role.ADMIN && linkedId != null) {
             throw new InvalidDataException("O papel ADMIN não pode ter vínculo.");
         }
         this.role = newRole;
         this.hospitalId = newRole == Role.HOSPITAL ? linkedId : null;
         this.bloodCenterId = newRole == Role.HEMOCENTRO ? linkedId : null;
         this.vehicleId = newRole == Role.TRANSPORTADOR ? linkedId : null;
+        this.donorId = newRole == Role.DOADOR ? linkedId : null;
     }
 
     // O nome é obrigatório e é guardado sem espaços nas pontas
@@ -155,5 +163,9 @@ public final class User {
 
     public UUID vehicleId() {
         return vehicleId;
+    }
+
+    public UUID donorId() {
+        return donorId;
     }
 }

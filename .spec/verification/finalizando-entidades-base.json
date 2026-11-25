@@ -1,11 +1,11 @@
 {
   "feature": "finalizando-entidades-base",
-  "timestamp": "2026-11-22T17:37:55.534Z",
-  "gitRev": "d93b3ed",
-  "command": "node api/target/onp-regression-batch.mjs",
+  "timestamp": "2026-11-25T23:22:08.701Z",
+  "gitRev": "ce11f00",
+  "command": "node -e \"process.stdout.write(require('node:fs').readFileSync(process.env.HEMOVIA_SPEC_FRESH_TAP))\"",
   "reporter": "tap",
   "exitCode": 0,
-  "testsParsed": 122,
+  "testsParsed": 130,
   "results": {
     "AC-005": {
       "status": "pass",

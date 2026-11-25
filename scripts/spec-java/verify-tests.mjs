@@ -26,6 +26,7 @@ writeFileSync(path.join(directory, 'maven.log'), `${maven.stdout ?? ''}\n${maven
 let cases = [], reportError;
 try { cases = readFreshReports(directory, startedAt); } catch (error) { reportError = error; }
 for (const [id, required] of Object.entries(manifest)) {
+  if (id === 'AC-124') continue;
   test(`@spec:${id} casos JUnit obrigatórios, inclusive PostgreSQL`, () => {
     if (reportError) throw reportError;
     const result = assessCriterion(cases, required);
@@ -69,9 +70,15 @@ function browserPassed(id) {
     assert.ok(spec.tests.length && spec.ok && spec.tests.every(t => t.status === 'expected' && t.expectedStatus === 'passed' && t.results.length && t.results.every(r => r.status === 'passed')), `${id}: ${spec.title} falhou ou foi pulado`);
   }
 }
-for (const id of ['AC-096','AC-097','AC-098','AC-099','AC-100','AC-101','AC-102','AC-103','AC-104','AC-105','AC-106','AC-108','AC-109','AC-110','AC-111','AC-112','AC-113']) {
+for (const id of ['AC-096','AC-097','AC-098','AC-099','AC-100','AC-101','AC-102','AC-103','AC-104','AC-105','AC-106','AC-108','AC-109','AC-110','AC-111','AC-112','AC-113','AC-130']) {
   test(`@spec:${id} interações Playwright reais`, () => browserPassed(id));
 }
+test('@spec:AC-124 formulário público e API passam na mesma execução', () => {
+  browserPassed('AC-124');
+  assert.ok(!reportError, reportError?.message);
+  const result = assessCriterion(cases, manifest['AC-124']);
+  assert.ok(result.pass, result.reason);
+});
 test('@spec:AC-107 integração e contratos backend e frontend executados sem falhas', () => {
   assert.equal(maven.status, 0, 'Suíte Maven falhou');
   assert.ok(cases.length && cases.every(c => c.status === 'pass'), 'JUnit ausente, falho ou pulado');
