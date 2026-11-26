@@ -263,14 +263,15 @@ Documento completo com todas as histórias do backlog (POO, AED, EST, SO e RSD �
 
 ---
 
-## Deploy no Render
+## Deploy da demo na AWS
 
-O arquivo [`render.yaml`](render.yaml) configura o serviço Docker do Render para usar `api/Dockerfile` e `api/` como contexto de build. Para criar o serviço, crie um Blueprint no Render apontando para este repositório (selecione a branch que deseja publicar, como `develop`) e informe as variáveis solicitadas:
+A demonstração roda em uma instância Lightsail em `us-east-2`. O GitHub Actions publica o frontend e a API em uma mesma versão, identificada pelos dois commits. Para publicar, os dois commits da `main` precisam ter passado na CI.
 
-- `POSTGRES_HOST`, `POSTGRES_DB`, `POSTGRES_USER` e `POSTGRES_PASSWORD`: dados de conexão de um PostgreSQL acessível pelo serviço.
-- `JWT_SECRET`: segredo forte e exclusivo para assinatura dos tokens.
+1. No repositório do backend, abra **Actions → Deploy AWS Demo → Run workflow**, selecione `main` e inicie a publicação.
+2. Confira os commits no resumo do workflow e o sucesso da verificação de saúde. Abra a [demo do Hemovia](https://18.216.26.95/) e o [Grafana](https://18.216.26.95/grafana/).
+3. Para voltar à versão anterior, abra **Actions → Rollback AWS Demo → Run workflow** e selecione `main`. A recuperação usa a versão anterior guardada na VM e preserva os volumes do Compose.
 
-O Render fornece a variável `PORT` automaticamente; a API já a utiliza. Para um serviço Render já criado sem Blueprint, configure **Dockerfile Path** como `api/Dockerfile` e **Docker Context** como `api` nas configurações de build. Não use a raiz do repositório como contexto, pois o Dockerfile copia arquivos relativos à pasta `api`.
+O workflow usa credenciais temporárias do IAM por OIDC. A stack [AWS CI/CD](deploy/lightsail/aws-cicd.json) define a função, o bucket privado e o documento Systems Manager. As variáveis do repositório do backend são `HEMOVIA_AWS_ROLE_ARN`, `HEMOVIA_RELEASE_BUCKET`, `HEMOVIA_SSM_DOCUMENT` e `HEMOVIA_SSM_NODE`. A VM executa o script [release.sh](deploy/lightsail/release.sh) e usa o `.env` do ambiente.
 
 ---
 
@@ -424,7 +425,7 @@ Para conferir o endpoint interno a partir do contêiner da API, execute:
 docker compose exec -T api wget -qO- http://127.0.0.1:8081/actuator/prometheus
 ```
 
-O health check da API publicado para Docker e Render usa `/readyz`. Em serviços Render configurados manualmente, ajuste o caminho do health check para `/readyz` ao publicar esta versão.
+O health check da API no Docker Compose usa `/readyz`. Na demo da AWS, o script de publicação verifica esse endpoint localmente na VM antes de confirmar a versão.
 
 No Grafana, entre com a conta Viewer e abra Explore com Loki. A consulta `{application="hemovia-api"} |= "Requisicao de sangue processada"` encontra eventos da carga; abra o campo derivado `traceId` para consultar o mesmo trace no Tempo. Para diagnóstico operacional, use `docker compose logs api`, `docker compose logs alloy` e `docker compose logs prometheus`. Não inclua credenciais nas evidências.
 

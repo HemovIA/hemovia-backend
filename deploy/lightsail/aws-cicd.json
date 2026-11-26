@@ -1,0 +1,351 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Infraestrutura da publicacao do Hemovia pelo GitHub Actions com execucao restrita na demo.",
+  "Metadata": {
+    "AWSToolsMetrics": {
+      "AWSAgentToolkit": "aws-cloudformation@3"
+    }
+  },
+  "Parameters": {
+    "GitHubRepositorySubject": {
+      "Type": "String",
+      "Description": "Identidade do repositorio conforme a claim sub do GitHub.",
+      "Default": "HemovIA@315909150/hemovia-backend@1331209834",
+      "AllowedValues": [
+        "HemovIA@315909150/hemovia-backend@1331209834"
+      ]
+    }
+  },
+  "Resources": {
+    "ReleaseBucket": {
+      "Type": "AWS::S3::Bucket",
+      "DeletionPolicy": "Retain",
+      "UpdateReplacePolicy": "Retain",
+      "Metadata": {
+        "com.aws.cloudformation.Context": {
+          "why": "Guarda versões completas produzidas pela esteira.",
+          "must": [
+            "Somente acessos autenticados.",
+            "Objetos cifrados em repouso."
+          ]
+        }
+      },
+      "Properties": {
+        "PublicAccessBlockConfiguration": {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true
+        },
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
+                "SSEAlgorithm": "AES256"
+              }
+            }
+          ]
+        },
+        "VersioningConfiguration": {
+          "Status": "Enabled"
+        },
+        "LifecycleConfiguration": {
+          "Rules": [
+            {
+              "Id": "ReleaseRetention",
+              "Prefix": "releases/",
+              "Status": "Enabled",
+              "ExpirationInDays": 30,
+              "NoncurrentVersionExpiration": {
+                "NoncurrentDays": 7
+              },
+              "AbortIncompleteMultipartUpload": {
+                "DaysAfterInitiation": 1
+              }
+            }
+          ]
+        }
+      }
+    },
+    "RequireTls": {
+      "Type": "AWS::S3::BucketPolicy",
+      "Properties": {
+        "Bucket": {
+          "Ref": "ReleaseBucket"
+        },
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Sid": "RequireTls",
+              "Effect": "Deny",
+              "Principal": "*",
+              "Action": "s3:*",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "ReleaseBucket",
+                    "Arn"
+                  ]
+                },
+                {
+                  "Fn::Sub": "${ReleaseBucket.Arn}/*"
+                }
+              ],
+              "Condition": {
+                "Bool": {
+                  "aws:SecureTransport": "false"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "GitHubIssuer": {
+      "Type": "AWS::IAM::OIDCProvider",
+      "Metadata": {
+        "com.aws.cloudformation.Context": {
+          "why": "Permite a troca de tokens temporários emitidos pelo GitHub.",
+          "must": [
+            "A função que usa este emissor valida audiência e identidade do repositório."
+          ]
+        }
+      },
+      "Properties": {
+        "Url": "https://token.actions.githubusercontent.com",
+        "ClientIdList": [
+          "sts.amazonaws.com"
+        ]
+      }
+    },
+    "HostRole": {
+      "Type": "AWS::IAM::Role",
+      "Metadata": {
+        "com.aws.cloudformation.Context": {
+          "why": "Registra a VM no Systems Manager e lê os artefatos aprovados.",
+          "must": [
+            "A VM só lê a pasta releases do bucket."
+          ]
+        }
+      },
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "ssm.amazonaws.com"
+              },
+              "Action": "sts:AssumeRole",
+              "Condition": {
+                "StringEquals": {
+                  "aws:SourceAccount": {
+                    "Ref": "AWS::AccountId"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Sub": "arn:${AWS::Partition}:iam::aws:policy/AmazonSSMManagedInstanceCore"
+          }
+        ],
+        "Policies": [
+          {
+            "PolicyName": "ReadReleases",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": "s3:GetObject",
+                  "Resource": {
+                    "Fn::Sub": "${ReleaseBucket.Arn}/releases/*"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "DeployDocument": {
+      "Type": "AWS::SSM::Document",
+      "Metadata": {
+        "com.aws.cloudformation.Context": {
+          "why": "Executa somente a rotina de publicação instalada na VM.",
+          "must": [
+            "Aceita operações e identificadores validados. A função do GitHub não obtém acesso a comandos genéricos."
+          ]
+        }
+      },
+      "Properties": {
+        "DocumentType": "Command",
+        "DocumentFormat": "JSON",
+        "UpdateMethod": "NewVersion",
+        "Content": {
+          "schemaVersion": "2.2",
+          "description": "Aplica ou recupera uma versao do Hemovia Demo.",
+          "parameters": {
+            "Operation": {
+              "type": "String",
+              "description": "Operacao a executar.",
+              "allowedValues": [
+                "deploy",
+                "rollback"
+              ],
+              "interpolationType": "ENV_VAR"
+            },
+            "Release": {
+              "type": "String",
+              "description": "Par de commits para a publicacao.",
+              "default": "",
+              "allowedPattern": "^([0-9a-f]{40}-[0-9a-f]{40})?$",
+              "interpolationType": "ENV_VAR"
+            }
+          },
+          "mainSteps": [
+            {
+              "name": "ApplyRelease",
+              "action": "aws:runShellScript",
+              "inputs": {
+                "timeoutSeconds": "420",
+                "runCommand": [
+                  "set -eu",
+                  "export PATH=\"/usr/local/bin:/usr/bin:/bin:/snap/bin\"",
+                  {
+                    "Fn::Sub": "exec /opt/hemovia-demo/deploy/lightsail/release.sh \"$SSM_Operation\" \"$SSM_Release\" \"${ReleaseBucket}\""
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    "GitHubDeployRole": {
+      "Type": "AWS::IAM::Role",
+      "Metadata": {
+        "com.aws.cloudformation.Context": {
+          "why": "Dá à esteira acesso temporário para publicar na demonstração.",
+          "must": [
+            "Apenas a identidade imutável da main do backend.",
+            "SendCommand limitado ao documento da demo e ao nó marcado."
+          ]
+        }
+      },
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Federated": {
+                  "Ref": "GitHubIssuer"
+                }
+              },
+              "Action": "sts:AssumeRoleWithWebIdentity",
+              "Condition": {
+                "StringEquals": {
+                  "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
+                  "token.actions.githubusercontent.com:sub": {
+                    "Fn::Sub": "repo:${GitHubRepositorySubject}:ref:refs/heads/main"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": "PublishDemo",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Sid": "WriteRelease",
+                  "Effect": "Allow",
+                  "Action": [
+                    "s3:PutObject",
+                    "s3:GetObject"
+                  ],
+                  "Resource": {
+                    "Fn::Sub": "${ReleaseBucket.Arn}/releases/*"
+                  }
+                },
+                {
+                  "Sid": "UseDeployDocument",
+                  "Effect": "Allow",
+                  "Action": "ssm:SendCommand",
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:ssm:${AWS::Region}:${AWS::AccountId}:document/${DeployDocument}"
+                  }
+                },
+                {
+                  "Sid": "UseDemoNode",
+                  "Effect": "Allow",
+                  "Action": "ssm:SendCommand",
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:ssm:${AWS::Region}:${AWS::AccountId}:managed-instance/*"
+                  },
+                  "Condition": {
+                    "StringEquals": {
+                      "ssm:resourceTag/HemoviaEnvironment": "demo"
+                    }
+                  }
+                },
+                {
+                  "Sid": "ReadInvocationStatus",
+                  "Effect": "Allow",
+                  "Action": "ssm:GetCommandInvocation",
+                  "Resource": "*",
+                  "Condition": {
+                    "StringEquals": {
+                      "aws:RequestedRegion": {
+                        "Ref": "AWS::Region"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  "Outputs": {
+    "ReleaseBucket": {
+      "Description": "Bucket privado de versoes.",
+      "Value": {
+        "Ref": "ReleaseBucket"
+      }
+    },
+    "GitHubDeployRole": {
+      "Description": "Funcao temporaria para o GitHub Actions.",
+      "Value": {
+        "Fn::GetAtt": [
+          "GitHubDeployRole",
+          "Arn"
+        ]
+      }
+    },
+    "HostRole": {
+      "Description": "Nome da funcao de ativacao da VM.",
+      "Value": {
+        "Ref": "HostRole"
+      }
+    },
+    "DeployDocument": {
+      "Description": "Documento que o GitHub Actions pode executar.",
+      "Value": {
+        "Ref": "DeployDocument"
+      }
+    }
+  }
+}
