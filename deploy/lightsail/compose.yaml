@@ -1,0 +1,67 @@
+services:
+  postgres:
+    restart: unless-stopped
+  api:
+    restart: unless-stopped
+    mem_limit: 1536m
+    environment:
+      COOKIE_SECURE: "true"
+      SERVER_FORWARD_HEADERS_STRATEGY: framework
+      CORS_ALLOWED_ORIGINS: https://${HEMOVIA_PUBLIC_IP:?Defina HEMOVIA_PUBLIC_IP}
+      HEMOVIA_API_DOCS_ENABLED: "false"
+      REGISTRATION_FRONTEND_URL: https://${HEMOVIA_PUBLIC_IP:?Defina HEMOVIA_PUBLIC_IP}/
+      REGISTRATION_EMAIL_FROM: no-reply@hemovia.test
+      SMTP_HOST: mailpit
+      SMTP_PORT: "1025"
+      SMTP_AUTH: "false"
+      SMTP_STARTTLS: "false"
+  prometheus:
+    restart: unless-stopped
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --storage.tsdb.retention.time=7d
+      - --storage.tsdb.retention.size=2GB
+  grafana:
+    restart: unless-stopped
+    environment:
+      GF_SERVER_ROOT_URL: https://${HEMOVIA_PUBLIC_IP:?Defina HEMOVIA_PUBLIC_IP}/grafana/
+      GF_SERVER_SERVE_FROM_SUB_PATH: "true"
+      GF_SECURITY_COOKIE_SECURE: "true"
+      GF_USERS_ALLOW_SIGN_UP: "false"
+      GF_USERS_VIEWERS_CAN_EDIT: "false"
+  loki:
+    restart: unless-stopped
+    command:
+      - -config.file=/etc/loki/loki.yml
+      - -compactor.working-directory=/tmp/loki/compactor
+      - -compactor.retention-enabled=true
+      - -compactor.delete-request-store=filesystem
+      - -store.retention=72h
+  tempo:
+    restart: unless-stopped
+  alloy:
+    restart: unless-stopped
+  node-exporter:
+    restart: unless-stopped
+  cadvisor:
+    restart: unless-stopped
+  mailpit:
+    image: axllent/mailpit:v1.34.0
+    restart: unless-stopped
+    ports: ["127.0.0.1:18025:8025"]
+  caddy:
+    image: caddy:2.11.1-alpine
+    restart: unless-stopped
+    environment:
+      HEMOVIA_PUBLIC_IP: ${HEMOVIA_PUBLIC_IP:?Defina HEMOVIA_PUBLIC_IP}
+    ports: ["80:80", "443:443"]
+    volumes:
+      - ./deploy/lightsail/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./frontend:/srv:ro
+      - demo_caddy_data:/data
+      - demo_caddy_config:/config
+
+volumes:
+  demo_caddy_data:
+  demo_caddy_config:
