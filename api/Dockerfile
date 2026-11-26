@@ -19,12 +19,13 @@ FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 
 # Não roda como root
-RUN addgroup -S hemovia && adduser -S hemovia -G hemovia
+RUN addgroup -S hemovia && adduser -S hemovia -G hemovia \
+    && mkdir -p /app/logs && chown hemovia:hemovia /app/logs
 COPY --from=build /app/target/*.jar app.jar
 USER hemovia
 
 EXPOSE 8080
 HEALTHCHECK --interval=15s --timeout=5s --start-period=40s --retries=5 \
-  CMD wget -qO- http://localhost:${PORT:-8080}/actuator/health | grep -q '"status":"UP"' || exit 1
+  CMD wget -qO- http://localhost:${PORT:-8080}/readyz | grep -q '"status":"UP"' || exit 1
 
 ENTRYPOINT ["java", "-XX:MaxRAMPercentage=75", "-jar", "app.jar"]
