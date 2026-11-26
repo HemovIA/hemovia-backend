@@ -93,32 +93,3 @@ jobs:
           tags: |
             ${{ steps.vars.outputs.image }}:${{ github.sha }}
             ${{ steps.vars.outputs.image }}:latest
-
-  # 3) DEPLOY — publica a imagem da versão exata (tag = SHA do commit) no Render
-  deploy:
-    name: Deploy no Render
-    needs: image
-    runs-on: ubuntu-latest
-    environment:
-      name: production
-      url: ${{ vars.RENDER_APP_URL }}
-    steps:
-      - name: Disparar deploy da imagem ${{ github.sha }}
-        env:
-          HOOK: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
-          IMAGE: ${{ needs.image.outputs.image }}:${{ github.sha }}
-        run: |
-          ENCODED=$(jq -rn --arg v "$IMAGE" '$v|@uri')
-          curl -fsS -X POST "${HOOK}&imgURL=${ENCODED}"
-
-      - name: Smoke test — /actuator/health deve responder UP
-        env:
-          APP_URL: ${{ vars.RENDER_APP_URL }}
-        run: |
-          for i in $(seq 1 40); do
-            if curl -fsS "$APP_URL/actuator/health" | grep -q '"status":"UP"'; then
-              echo "Aplicação no ar: $APP_URL"; exit 0
-            fi
-            echo "Aguardando deploy... ($i/40)"; sleep 15
-          done
-          echo "Health check falhou após o deploy"; exit 1
