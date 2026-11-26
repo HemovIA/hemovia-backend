@@ -4,9 +4,21 @@ server:
 
 spring:
   application:
-    name: api
+    name: ${APP_NAME:hemovia-api}
   config:
     import: "optional:file:.env[.properties],optional:file:api/.env[.properties]"
+  mail:
+    host: ${SMTP_HOST:}
+    port: ${SMTP_PORT:587}
+    username: ${SMTP_USERNAME:}
+    password: ${SMTP_PASSWORD:}
+    properties:
+      mail.smtp.auth: ${SMTP_AUTH:true}
+      mail.smtp.starttls.enable: ${SMTP_STARTTLS:true}
+      mail.smtp.starttls.required: ${SMTP_STARTTLS:true}
+      mail.smtp.connectiontimeout: 3000
+      mail.smtp.timeout: 3000
+      mail.smtp.writetimeout: 3000
   datasource:
     url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB}
     username: ${POSTGRES_USER}
@@ -30,6 +42,9 @@ springdoc:
     disable-swagger-default-url: true
     persist-authorization: false
 hemovia:
+  registration:
+    sender: ${REGISTRATION_EMAIL_FROM:}
+    frontend-url: ${REGISTRATION_FRONTEND_URL:http://localhost:5173/}
   # OSRM: valores finitos e limite compatível com o servidor público
   routing:
     base-url: ${ROUTING_BASE_URL:https://router.project-osrm.org}
@@ -58,7 +73,28 @@ hemovia:
     password: ${ADMIN_PASSWORD:}
 
 management:
+  health:
+    mail:
+      enabled: false
+  server:
+    port: ${MANAGEMENT_PORT:8081}
+    address: ${MANAGEMENT_ADDRESS:127.0.0.1}
   endpoints:
     web:
       exposure:
-        include: health,info
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: never
+      probes:
+        enabled: true
+        add-additional-paths: true
+      group:
+        readiness:
+          include: readinessState,db
+  metrics:
+    tags:
+      application: ${spring.application.name}
+    distribution:
+      percentiles-histogram:
+        http.server.requests: true

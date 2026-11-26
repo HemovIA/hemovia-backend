@@ -11,7 +11,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface BloodRequestRepository extends JpaRepository<BloodRequest, UUID> {
+public interface BloodRequestRepository extends JpaRepository<BloodRequest, UUID>, org.springframework.data.jpa.repository.JpaSpecificationExecutor<BloodRequest> {
     Optional<BloodRequest> findById(@NotNull UUID id);
     boolean existsById(@NotNull UUID id);
 
@@ -19,3 +19,4 @@ public interface BloodRequestRepository extends JpaRepository<BloodRequest, UUID
     @Query("select r from BloodRequest r where r.id = :id")
     Optional<BloodRequest> lockById(@Param("id") UUID id);
 }
+

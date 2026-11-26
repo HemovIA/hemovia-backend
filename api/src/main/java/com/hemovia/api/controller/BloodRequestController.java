@@ -25,6 +25,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
+import com.hemovia.api.dto.internal.RequestQuery;
+import com.hemovia.api.dto.request.QueryPage;
+import com.hemovia.api.dto.response.PageResponse;
+import com.hemovia.api.dto.response.BloodRequestSummaryResponse;
+import com.hemovia.api.dto.response.BloodRequestDetailsResponse;
+import com.hemovia.api.model.enums.*;
+import com.hemovia.api.service.usecase.request.QueryBloodRequests;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/requests")
@@ -32,11 +41,13 @@ public class BloodRequestController {
     private final CreateHospitalBloodRequest create;
     private final AllocateBloodRequest allocate;
     private final CancelBloodRequest cancel;
+    private final QueryBloodRequests query;
 
-    public BloodRequestController(CreateHospitalBloodRequest create, AllocateBloodRequest allocate, CancelBloodRequest cancel) {
+    public BloodRequestController(CreateHospitalBloodRequest create, AllocateBloodRequest allocate, CancelBloodRequest cancel, QueryBloodRequests query) {
         this.create = create;
         this.allocate = allocate;
         this.cancel = cancel;
+        this.query = query;
     }
 
     @Operation(summary = "Emitir requisição hospitalar", security = @SecurityRequirement(name = "cookieAuth"),
@@ -85,4 +96,32 @@ public class BloodRequestController {
     public ResponseEntity<BloodRequestResponse> cancel(@PathVariable UUID id) {
         return ResponseEntity.ok(cancel.execute(id));
     }
+    @Operation(summary = "Listar requisições", security = @SecurityRequirement(name = "cookieAuth"))
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Consulta realizada"),
+        @ApiResponse(responseCode = "400", description = "Parâmetro inválido", content = @Content(schema = @Schema(implementation = ApiError.class))),
+        @ApiResponse(responseCode = "401", description = "Sessão ausente", content = @Content(schema = @Schema(implementation = ApiError.class))),
+        @ApiResponse(responseCode = "403", description = "Acesso negado", content = @Content(schema = @Schema(implementation = ApiError.class))),
+        @ApiResponse(responseCode = "404", description = "Recurso não encontrado", content = @Content(schema = @Schema(implementation = ApiError.class)))
+    })
+    @GetMapping
+    public PageResponse<BloodRequestSummaryResponse> list(@RequestParam(required = false) RequestStatus status,
+            @RequestParam(required = false) UUID hospitalId, @RequestParam(required = false) BloodType bloodType,
+            @RequestParam(required = false) RhFactor rhFactor, @RequestParam(required = false) BloodComponent component,
+            @RequestParam(required = false) RequestPriority priority, @Parameter(description = "Página a partir de zero", schema = @Schema(defaultValue = "0", minimum = "0")) @RequestParam(required = false) Integer page,
+            @Parameter(description = "Itens por página", schema = @Schema(defaultValue = "20", minimum = "1", maximum = "100")) @RequestParam(required = false) Integer size) {
+        return query.list(new RequestQuery(null, status, hospitalId, bloodType, rhFactor, component, priority), QueryPage.of(page, size));
+    }
+
+    @Operation(summary = "Detalhar requisição", security = @SecurityRequirement(name = "cookieAuth"))
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Consulta realizada"),
+        @ApiResponse(responseCode = "400", description = "Parâmetro inválido", content = @Content(schema = @Schema(implementation = ApiError.class))),
+        @ApiResponse(responseCode = "401", description = "Sessão ausente", content = @Content(schema = @Schema(implementation = ApiError.class))),
+        @ApiResponse(responseCode = "403", description = "Acesso negado", content = @Content(schema = @Schema(implementation = ApiError.class))),
+        @ApiResponse(responseCode = "404", description = "Recurso não encontrado", content = @Content(schema = @Schema(implementation = ApiError.class)))
+    })
+    @GetMapping("/{id}")
+    public BloodRequestDetailsResponse detail(@PathVariable UUID id) { return query.detail(id); }
 }
+

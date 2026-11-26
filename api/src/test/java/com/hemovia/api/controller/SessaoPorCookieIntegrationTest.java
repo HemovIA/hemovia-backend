@@ -185,10 +185,15 @@ class SessaoPorCookieIntegrationTest {
     }
 
     @Test
-    void deveNaoTerMaisARotaDeRegistroPublica() throws Exception {
-        Cookie acesso = cookie(fazerLogin(admin.email().value(), SENHA).andReturn(), SessionCookies.ACCESS);
-        comCsrf(post("/api/v1/auth/register").cookie(acesso).contentType(MediaType.APPLICATION_JSON).content("{}"))
-                .andExpect(status().isNotFound());
+    void cadastroPublicoNaoSubstituiCriacaoAdministrativaDeUsuario() throws Exception {
+        String dados = """
+                {"name":"Operador","email":"operador@example.org","cpf":"52998224725",
+                 "role":"ADMIN","password":"senha-teste-123"}
+                """;
+        comCsrf(post("/api/v1/users").contentType(MediaType.APPLICATION_JSON).content(dados))
+                .andExpect(status().isUnauthorized());
+        comCsrf(post("/api/v1/auth/register/confirm").contentType(MediaType.APPLICATION_JSON).content(dados))
+                .andExpect(status().isBadRequest());
     }
 
     // ---------- ciclo 29: refresh com rotação ----------

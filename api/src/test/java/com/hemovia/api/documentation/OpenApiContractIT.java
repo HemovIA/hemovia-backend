@@ -28,6 +28,8 @@ class OpenApiContractIT {
     private static final Map<String, Set<String>> EXPECTED_OPERATIONS = Map.ofEntries(
             Map.entry("/auth/csrf", Set.of("get")),
             Map.entry("/auth/login", Set.of("post")),
+            Map.entry("/auth/register", Set.of("post")),
+            Map.entry("/auth/register/confirm", Set.of("post")),
             Map.entry("/auth/refresh", Set.of("post")),
             Map.entry("/auth/logout", Set.of("post")),
             Map.entry("/auth/me", Set.of("get")),
@@ -35,10 +37,13 @@ class OpenApiContractIT {
             Map.entry("/users/{id}", Set.of("get", "put")),
             Map.entry("/users/{id}/role", Set.of("patch")),
             Map.entry("/users/{id}/deactivate", Set.of("patch")),
-            Map.entry("/hospitals", Set.of("post")),
+            Map.entry("/hospitals", Set.of("get", "post")),
+            Map.entry("/donors", Set.of("get", "post")),
+            Map.entry("/hospitals/{id}", Set.of("get")),
             Map.entry("/blood-centers", Set.of("get", "post")),
             Map.entry("/blood-centers/{id}", Set.of("get", "put", "delete")),
-            Map.entry("/requests", Set.of("post")),
+            Map.entry("/requests", Set.of("get", "post")),
+            Map.entry("/requests/{id}", Set.of("get")),
             Map.entry("/requests/{id}/allocate", Set.of("post")),
             Map.entry("/requests/{id}/cancel", Set.of("post")),
             Map.entry("/donations", Set.of("get", "post")),
@@ -47,7 +52,14 @@ class OpenApiContractIT {
             Map.entry("/blood-bags/{id}", Set.of("get", "put", "delete")),
             Map.entry("/route-graph/nodes", Set.of("get", "post")),
             Map.entry("/route-graph/edges", Set.of("get", "post")),
-            Map.entry("/routes/calculate", Set.of("post")));
+            Map.entry("/routes/calculate", Set.of("post")),
+            Map.entry("/vehicles", Set.of("get", "post")),
+            Map.entry("/transports", Set.of("get")),
+            Map.entry("/transports/{id}", Set.of("get")),
+            Map.entry("/transports/start", Set.of("post")),
+            Map.entry("/transports/{id}/complete", Set.of("post")),
+            Map.entry("/statistics/inventory", Set.of("get")),
+            Map.entry("/statistics/demand", Set.of("get")));
 
     @LocalServerPort
     private int port;
@@ -74,11 +86,32 @@ class OpenApiContractIT {
                 assertTrue(objectFieldNames(operation.path("responses")).stream().anyMatch(code -> code.startsWith("2")));
             }
         }
-        assertEquals(35, operationIds.size());
-        assertFalse(paths.has("/auth/register"));
+        assertEquals(51, operationIds.size());
+        assertTrue(paths.path("/auth/register").path("post").path("responses").has("202"));
+        assertTrue(paths.path("/auth/register/confirm").path("post").path("responses").has("201"));
         assertFalse(paths.has("/error"));
         assertTrue(paths.path("/auth/csrf").path("get").path("responses").has("204"));
         assertTrue(paths.path("/auth/logout").path("post").path("responses").has("204"));
+    }
+
+    @Test @DisplayName("@spec:AC-092 OpenAPI descreve consultas, filtros, autenticação e erros")
+    void consultasOperacionais() throws Exception {
+        JsonNode doc=getOpenApiDocument();
+        for (String base : new String[]{"/requests","/transports","/hospitals"}) {
+            for (String path : new String[]{base,base+"/{id}"}) {
+                JsonNode op=doc.path("paths").path(path).path("get");
+                assertTrue(op.path("security").isArray(),path);
+                for(String code:new String[]{"200","400","401","403","404"}) assertTrue(op.path("responses").has(code),path+" "+code);
+                assertTrue(op.path("responses").path("200").path("content").path("*/*").path("schema").has("$ref"),path);
+            }
+            JsonNode params=doc.path("paths").path(base).path("get").path("parameters");
+            Set<String> names=new java.util.HashSet<>(); params.forEach(v -> names.add(v.path("name").asText()));
+            assertTrue(names.containsAll(Set.of("page","size")),base);
+            Set<String> filters=switch(base) { case "/requests" -> Set.of("status","hospitalId","bloodType","rhFactor","component","priority"); case "/transports" -> Set.of("status","requestId","vehicleId"); default -> Set.of("name","city"); };
+            assertTrue(names.containsAll(filters),base);
+        }
+        JsonNode schemas=doc.path("components").path("schemas");
+        assertTrue(schemas.has("HospitalResponse")); assertTrue(schemas.has("BloodRequestDetailsResponse")); assertTrue(schemas.has("TransportDetailsResponse"));
     }
 
     @Test
@@ -151,7 +184,7 @@ class OpenApiContractIT {
         assertEquals("HEMOVIA_ACCESS", scheme.path("name").asText());
         assertFalse(document.path("components").path("securitySchemes").has("bearerAuth"));
         assertTrue(document.path("security").get(0).has("cookieAuth"));
-        for (String path : Set.of("/auth/login", "/auth/refresh", "/auth/csrf")) {
+        for (String path : Set.of("/auth/login", "/auth/refresh", "/auth/csrf", "/auth/register", "/auth/register/confirm")) {
             String method = path.endsWith("csrf") ? "get" : "post";
             assertTrue(document.path("paths").path(path).path(method).path("security").isEmpty());
         }
@@ -340,6 +373,96 @@ class OpenApiContractIT {
         assertTrue(preview.path("responses").path("200").path("content").has("application/json"));
         assertEquals("RoutePreviewResponse", refName(preview.path("responses").path("200")
                 .path("content").path("application/json").path("schema").path("$ref")));
+    }
+
+    @Test
+    @DisplayName("@spec:AC-066 OpenAPI descreve veículos e ciclo de transporte")
+    void ac066DocumentsTransportAndVehicleContracts() throws Exception {
+        JsonNode document = getOpenApiDocument();
+        JsonNode schemas = document.path("components").path("schemas");
+        assertRequired(schemas.path("StartTransportRequest"), "allocationId", "vehicleId");
+        assertRequired(schemas.path("VehicleRequest"), "code", "capacity");
+        for (String field : Set.of("allocationId", "vehicleId")) {
+            assertEquals("uuid", schemas.path("StartTransportRequest").path("properties").path(field).path("format").asText());
+        }
+        JsonNode transport = schemas.path("TransportResponse").path("properties");
+        for (String field : Set.of("id", "allocationId", "requestId", "routeId", "vehicleId")) {
+            assertEquals("uuid", transport.path(field).path("format").asText());
+        }
+        for (String field : Set.of("startedAt", "completedAt")) {
+            assertEquals("date-time", transport.path(field).path("format").asText());
+        }
+        for (String path : Set.of("/transports/start", "/transports/{id}/complete")) {
+            JsonNode operation = document.path("paths").path(path).path("post");
+            assertTrue(hasSecurityRequirement(operation, "cookieAuth"));
+            assertTrue(containsParameterNamed(operation, "X-XSRF-TOKEN"));
+            for (String code : Set.of("400", "401", "403", "404", "422")) {
+                assertEquals("ApiError", refName(operation.path("responses").path(code).path("content")
+                        .path("application/json").path("schema").path("$ref")));
+            }
+            String success = path.endsWith("start") ? "201" : "200";
+            assertEquals("TransportResponse", refName(operation.path("responses").path(success).path("content")
+                    .path("application/json").path("schema").path("$ref")));
+        }
+        assertTrue(hasPathIdParameter(document.path("paths").path("/transports/{id}/complete").path("post")));
+        assertTrue(document.path("paths").path("/transports/start").path("post").path("responses").has("409"));
+        for (String method : Set.of("get", "post")) {
+            JsonNode operation = document.path("paths").path("/vehicles").path(method);
+            assertTrue(hasSecurityRequirement(operation, "cookieAuth"));
+            assertTrue(operation.path("responses").has(method.equals("get") ? "200" : "201"));
+            assertEquals(method.equals("post"), containsParameterNamed(operation, "X-XSRF-TOKEN"));
+        }
+        assertFalse(schemas.has("Vehicle"));
+        assertFalse(schemas.has("Transport"));
+    }
+
+    @Test
+    @DisplayName("@spec:AC-074 OpenAPI documenta estatísticas, filtros e segurança")
+    void ac074DocumentsStatisticsContract() throws Exception {
+        JsonNode document = getOpenApiDocument();
+        JsonNode schemas = document.path("components").path("schemas");
+        JsonNode scheme = document.path("components").path("securitySchemes").path("cookieAuth");
+        assertEquals("cookie", scheme.path("in").asText());
+        assertEquals("HEMOVIA_ACCESS", scheme.path("name").asText());
+        for (String name : Set.of("inventory", "demand")) {
+            JsonNode operation = document.path("paths").path("/statistics/" + name).path("get");
+            assertTrue(hasSecurityRequirement(operation, "cookieAuth"));
+            assertFalse(containsParameterNamed(operation, "X-XSRF-TOKEN"));
+            for (String code : name.equals("demand") ? Set.of("200", "400", "401", "403") : Set.of("200", "401", "403")) {
+                JsonNode schema = operation.path("responses").path(code).path("content").path("application/json").path("schema");
+                assertEquals(code.equals("200") ? (name.equals("inventory") ? "InventorySummaryResponse" : "DemandSummaryResponse") : "ApiError", refName(schema.path("$ref")));
+            }
+        }
+        JsonNode demand = document.path("paths").path("/statistics/demand").path("get");
+        for (String name : Set.of("from", "to")) {
+            boolean found = false;
+            for (JsonNode parameter : demand.path("parameters")) {
+                if (name.equals(parameter.path("name").asText())) {
+                    found = true;
+                    assertEquals("query", parameter.path("in").asText());
+                    assertFalse(parameter.path("required").asBoolean());
+                    assertEquals("date-time", parameter.path("schema").path("format").asText());
+                }
+            }
+            assertTrue(found, name);
+        }
+        assertEquals(Set.of("generatedAt", "referenceDate", "totalBags", "byBloodType", "byComponent", "byBloodTypeAndComponent"), objectFieldNames(schemas.path("InventorySummaryResponse").path("properties")));
+        assertEquals(Set.of("from", "to", "overall", "byHospital"), objectFieldNames(schemas.path("DemandSummaryResponse").path("properties")));
+        JsonNode metrics = schemas.path("DemandMetricsResponse");
+        assertEquals(Set.of("requestCount", "totalBags", "mean", "median", "populationVariance", "populationStandardDeviation", "sampleVariance", "sampleStandardDeviation", "insufficientSample", "warning"), objectFieldNames(metrics.path("properties")));
+        assertEquals("int64", metrics.path("properties").path("requestCount").path("format").asText());
+        assertEquals("int64", metrics.path("properties").path("totalBags").path("format").asText());
+        assertTrue(metrics.path("description").asText().contains("bolsas"));
+        assertEquals("int64", schemas.path("InventorySummaryResponse").path("properties").path("totalBags").path("format").asText());
+        for (String name : Set.of("BloodTypeInventoryResponse", "ComponentInventoryResponse", "InventoryCombinationResponse")) {
+            JsonNode properties = schemas.path(name).path("properties");
+            assertEquals("int64", properties.path("count").path("format").asText());
+            assertEquals("number", properties.path("percentage").path("type").asText());
+            assertEquals(0, properties.path("percentage").path("minimum").asInt());
+            assertEquals(100, properties.path("percentage").path("maximum").asInt());
+            assertTrue(properties.path("percentage").path("description").asText().contains("duas casas"));
+        }
+        assertEquals(Set.of("hospitalId", "hospitalName", "metrics"), objectFieldNames(schemas.path("HospitalDemandResponse").path("properties")));
     }
 
     private static void assertBloodCenterOperation(JsonNode operation, boolean csrf, Set<String> responses) {

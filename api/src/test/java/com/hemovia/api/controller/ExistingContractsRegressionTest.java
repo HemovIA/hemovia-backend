@@ -63,7 +63,7 @@ class ExistingContractsRegressionTest {
         UUID id = UUID.randomUUID();
         var response = new HospitalResponse(id, "Hospital Sintético", "Recife", 0, 0, 1);
         when(service.execute(any())).thenReturn(response);
-        var mvc = MockMvcBuilders.standaloneSetup(new HospitalController(service)).setControllerAdvice(new GlobalExceptionHandler(new SystemClockProvider(Clock.systemUTC()))).build();
+        var mvc = MockMvcBuilders.standaloneSetup(new HospitalController(service, mock(com.hemovia.api.service.usecase.hospital.QueryHospitals.class))).setControllerAdvice(new GlobalExceptionHandler(new SystemClockProvider(Clock.systemUTC()))).build();
         mvc.perform(post("/hospitals").contentType(MediaType.APPLICATION_JSON)
                 .content("{\"name\":\"Hospital Sintético\",\"city\":\"Recife\",\"latitude\":0,\"longitude\":0,\"priority\":1}"))
                 .andExpect(status().isCreated()).andExpect(jsonPath("$.id").value(id.toString()));

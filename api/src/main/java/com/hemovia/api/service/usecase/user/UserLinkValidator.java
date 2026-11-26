@@ -28,8 +28,11 @@ public class UserLinkValidator {
         if (role == null) {
             throw new InvalidDataException("O papel do usuário é obrigatório.");
         }
+        if (role == Role.DOADOR) {
+            throw new InvalidDataException("O papel DOADOR é atribuído pelo cadastro público.");
+        }
         UUID chosen = switch (role) {
-            case ADMIN -> null;
+            case ADMIN, DOADOR -> null;
             case HOSPITAL -> hospitalId;
             case HEMOCENTRO -> bloodCenterId;
             case TRANSPORTADOR -> vehicleId;
@@ -51,7 +54,7 @@ public class UserLinkValidator {
             case HOSPITAL -> resources.hospitalExists(id);
             case HEMOCENTRO -> resources.bloodCenterExists(id);
             case TRANSPORTADOR -> resources.vehicleExists(id);
-            case ADMIN -> true;
+            case ADMIN, DOADOR -> true;
         };
         if (!exists) {
             String resource = switch (role) {
