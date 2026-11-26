@@ -77,6 +77,9 @@ case "$1" in
                     fi
                     printf '%s\n' "$directory" > "$HEMOVIA_DEPLOY_ROOT/active"
                     exit ;;
+                down)
+                    printf '%s\n' "$*" >> "$HEMOVIA_DEPLOY_ROOT/operations"
+                    exit 2 ;;
                 ps)
                     printf '%s\n' postgres api prometheus loki tempo alloy node-exporter cadvisor mailpit caddy
                     if [[ "$HEMOVIA_TEST_FAULT" != grafana || "$directory" != *"/$HEMOVIA_TEST_BAD/"* ]]; then
@@ -146,7 +149,10 @@ esac
         import fcntl
         with (root / ".deploy" / "lock").open("r+") as lock:
             fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            operations = (root / "operations").read_text()
+            assert "Outra operação" in release("deploy", GOOD, "release-bucket", status=1)
             assert "Outra operação" in release("rollback", status=1)
+            assert (root / "operations").read_text() == operations
             assert state.read_text().split() == ["baseline", GOOD]
         print("PASS CICD-09")
 
@@ -167,12 +173,20 @@ def test_workflows(frontend):
     print("PASS CICD-07")
     template = json.loads((HERE / "aws-cicd.json").read_text(encoding="utf-8"))
     role = template["Resources"]["GitHubDeployRole"]["Properties"]
-    trust = role["AssumeRolePolicyDocument"]["Statement"][0]["Condition"]["StringEquals"]
+    statements = role["AssumeRolePolicyDocument"]["Statement"]
+    assert len(statements) == 1
+    statement = statements[0]
+    assert statement["Action"] == "sts:AssumeRoleWithWebIdentity"
+    assert statement["Principal"] == {"Federated": {"Ref": "GitHubIssuer"}}
+    assert set(statement["Condition"]) == {"StringEquals"}
+    trust = statement["Condition"]["StringEquals"]
     assert trust["token.actions.githubusercontent.com:aud"] == "sts.amazonaws.com"
     assert trust["token.actions.githubusercontent.com:sub"] == {
         "Fn::Sub": "repo:${GitHubRepositorySubject}:ref:refs/heads/main"
     }
-    assert "StringLike" not in role["AssumeRolePolicyDocument"]["Statement"][0]["Condition"]
+    assert template["Parameters"]["GitHubRepositorySubject"]["AllowedValues"] == [
+        "HemovIA@315909150/hemovia-backend@1331209834"
+    ]
     assert "AWS-RunShellScript" not in json.dumps(role)
     print("PASS CICD-08")
 
