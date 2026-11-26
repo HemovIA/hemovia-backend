@@ -177,9 +177,18 @@ Na tela de login, selecione **Criar conta** e informe um e-mail. O link recebido
 
 Quando CPF e e-mail confirmado correspondem a um cadastro de doador, a nova conta é vinculada a esse cadastro. Se o CPF já existir e o e-mail estiver ausente ou divergente, a pessoa precisa atualizar seus dados com o hemocentro. Para CPF sem cadastro de doador, a conta é criada sem vínculo.
 
-Configure `SMTP_HOST`, `SMTP_PORT`, `SMTP_USERNAME`, `SMTP_PASSWORD` e `REGISTRATION_EMAIL_FROM` no ambiente da API. A autenticação SMTP e o STARTTLS vêm habilitados por padrão. Em produção, defina `REGISTRATION_FRONTEND_URL` com a URL HTTPS do frontend. A configuração local está nos arquivos `.env.example`.
+Para enviar por um provedor SMTP, configure `SMTP_HOST`, `SMTP_PORT`, `SMTP_USERNAME`, `SMTP_PASSWORD` e `REGISTRATION_EMAIL_FROM` no ambiente da API. A autenticação SMTP e o STARTTLS vêm habilitados por padrão. Em produção, defina `REGISTRATION_FRONTEND_URL` com a URL HTTPS do frontend. A configuração local está nos arquivos `.env.example`.
 
 A interface obtém a proteção CSRF em `GET /api/v1/auth/csrf` e envia `X-XSRF-TOKEN` ao solicitar `POST /api/v1/auth/register` e concluir `POST /api/v1/auth/register/confirm`. Os endpoints respondem com `202` e `201`, respectivamente.
+
+#### Testar o cadastro com Mailpit
+
+O Compose de desenvolvimento em `api/compose.yaml` captura os e-mails na [caixa de entrada local](http://127.0.0.1:8025). Abra o [frontend local](http://localhost:5173/), selecione **Criar conta** e use um endereço de teste. O link de confirmação aparece no Mailpit.
+
+- **API executada na máquina**. Inicie o banco e o Mailpit com `docker compose --env-file api/.env -f api/compose.yaml up -d postgres mailpit`. Use em `api/.env` os valores de Mailpit definidos em `api/.env.example`. O SMTP local é `127.0.0.1:1025`.
+- **API executada no Compose**. Suba os serviços com `docker compose --env-file api/.env -f api/compose.yaml up -d --build`. A API usa `mailpit:1025` na rede do Compose.
+
+Se o frontend estiver em outra origem, ajuste `REGISTRATION_FRONTEND_URL` para gerar o link correto e inclua essa origem em `CORS_ALLOWED_ORIGINS`. A caixa de entrada e a porta SMTP são acessíveis pela máquina local.
 
 ### Documentação interativa da API
 
@@ -194,10 +203,10 @@ Com a aplicação iniciada, a interface Swagger UI fica em [http://localhost:808
 No PowerShell, a partir da raiz do repositório:
 
 ```powershell
-Copy-Item api/.env.example api/.env
+if (-not (Test-Path api/.env)) { Copy-Item api/.env.example api/.env }
 # Preencha as variáveis POSTGRES_*, JWT_SECRET (mínimo 32 caracteres) e ADMIN_* em api/.env.
 # Para HTTP local, defina COOKIE_SECURE=false.
-docker compose --env-file api/.env -f api/compose.yaml up -d postgres
+docker compose --env-file api/.env -f api/compose.yaml up -d postgres mailpit
 Set-Location api
 .\mvnw.cmd spring-boot:run
 ```

@@ -27,6 +27,13 @@ services:
       # Dentro da rede do Compose a API encontra o banco pelo nome do serviço
       POSTGRES_HOST: postgres
       POSTGRES_PORT: "5432"
+      SMTP_HOST: mailpit
+      SMTP_PORT: "1025"
+      SMTP_AUTH: "false"
+      SMTP_STARTTLS: "false"
+      SMTP_USERNAME: ""
+      SMTP_PASSWORD: ""
+      REGISTRATION_EMAIL_FROM: ${REGISTRATION_EMAIL_FROM:-no-reply@hemovia.test}
     ports:
       - "${API_PORT:-8080}:8080"
     networks:
@@ -34,6 +41,8 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+      mailpit:
+        condition: service_started
     healthcheck:
       test: ["CMD-SHELL", "wget -qO- http://localhost:8080/readyz | grep -q '\"status\":\"UP\"'"]
       interval: 15s
@@ -41,6 +50,14 @@ services:
       start_period: 40s
       retries: 5
     restart: unless-stopped
+
+  mailpit:
+    image: axllent/mailpit:v1.34.0
+    ports:
+      - "127.0.0.1:8025:8025"
+      - "127.0.0.1:1025:1025"
+    networks:
+      - hemovia_network
 
   # Ferramenta opcional: docker compose --profile tools up -d
   pgadmin:
