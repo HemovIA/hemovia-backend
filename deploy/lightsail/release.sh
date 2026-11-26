@@ -20,8 +20,12 @@ if [[ -f "$state/versions" ]]; then
 fi
 
 record_version() {
-    printf '%s %s\n' "$1" "$2" > "$state/versions.next"
-    mv -f -- "$state/versions.next" "$state/versions"
+    local next
+    next=$(mktemp "$state/versions.XXXXXX") || return 1
+    if ! printf '%s %s\n' "$1" "$2" > "$next" || ! mv -fT -- "$next" "$state/versions"; then
+        rm -f -- "$next"
+        return 1
+    fi
 }
 
 write_image_override() {
@@ -44,14 +48,16 @@ compose() {
 
 healthy() {
     local directory=$1
-    local public_ip
+    local public_ip page
     public_ip=$(sed -n 's/^HEMOVIA_PUBLIC_IP=//p' "$root/.env")
     [[ $public_ip =~ ^[0-9]{1,3}(\.[0-9]{1,3}){3}$ ]] || return 1
 
     curl -fsS --max-time 5 http://127.0.0.1:18080/readyz \
         | grep -Eq '"status"[[:space:]]*:[[:space:]]*"UP"' || return 1
-    curl -fsS --max-time 10 --connect-to "$public_ip:443:127.0.0.1:443" \
-        "https://$public_ip/" > /dev/null || return 1
+    page=$(curl -fsS --max-time 10 --connect-to "$public_ip:443:127.0.0.1:443" \
+        --output /dev/null --write-out '%{http_code} %{size_download}' \
+        "https://$public_ip/") || return 1
+    [[ $page =~ ^200\ [1-9][0-9]*$ ]] || return 1
 
     local running service
     running=$(compose "$directory" ps --services --status running) || return 1
@@ -118,10 +124,8 @@ case "$operation" in
         if [[ ! -d "$releases/$release" ]]; then
             stage_release
         fi
-        if activate "$release"; then
-            if [[ $release != "$current" ]]; then
-                record_version "$release" "$current"
-            fi
+        if activate "$release" &&
+            { [[ $release == "$current" ]] || record_version "$release" "$current"; }; then
             echo "Versão aplicada: $release"
         else
             echo "Falha na versão $release. Reaplicando $current." >&2
@@ -135,12 +139,11 @@ case "$operation" in
         ;;
     rollback)
         [[ -n "$previous" ]] || { echo 'Nenhuma versão anterior aprovada.' >&2; exit 1; }
-        if ! activate "$previous"; then
+        if ! { activate "$previous" && record_version "$previous" "$current"; }; then
             echo "O rollback para $previous falhou. Reaplicando $current." >&2
             activate "$current" || echo "Falha também na recuperação de $current." >&2
             exit 1
         fi
-        record_version "$previous" "$current"
         echo "Rollback aplicado: $previous"
         ;;
     *)
