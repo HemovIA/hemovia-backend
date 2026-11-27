@@ -15,6 +15,24 @@ services:
       SMTP_PORT: "1025"
       SMTP_AUTH: "false"
       SMTP_STARTTLS: "false"
+      DONATION_CHAT_ENABLED: ${DONATION_CHAT_ENABLED:-false}
+      DONATION_CHAT_OLLAMA_URL: http://ollama:11434
+      DONATION_CHAT_OLLAMA_MODEL: qwen3:4b-instruct-2507-q4_K_M
+  ollama:
+    image: ollama/ollama@sha256:1cabd20e1762a7a8444bf4a7110b346d923cd77ab6c97c984434140638c913ec
+    restart: unless-stopped
+    cpus: 1.5
+    mem_limit: 4g
+    environment:
+      OLLAMA_NO_CLOUD: "1"
+      OLLAMA_NUM_PARALLEL: "1"
+    volumes:
+      - ollama_modelos:/root/.ollama
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
   prometheus:
     restart: unless-stopped
     command:
@@ -63,5 +81,8 @@ services:
       - demo_caddy_config:/config
 
 volumes:
+  ollama_modelos:
+    name: hemovia-ollama-modelos
+    external: true
   demo_caddy_data:
   demo_caddy_config:
