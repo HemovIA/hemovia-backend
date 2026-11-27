@@ -12,6 +12,16 @@
     "scripts/spec-java/verify-tests.mjs"
   ],
   "srcGlobs": [
+    "api/src/main/java/com/hemovia/api/controller/DonationChatController.java",
+    "api/src/main/java/com/hemovia/api/controller/config/DonationChatRequestConfiguration.java",
+    "api/src/main/java/com/hemovia/api/dto/request/DonationChatRequest.java",
+    "api/src/main/java/com/hemovia/api/dto/response/DonationChatResponse.java",
+    "api/src/main/java/com/hemovia/api/model/exception/DonationChatUnavailableException.java",
+    "api/src/main/java/com/hemovia/api/service/chat/**",
+    "api/src/main/java/com/hemovia/api/service/config/DonationChat*.java",
+    "api/src/main/java/com/hemovia/api/service/port/output/DonationChatInterpreter.java",
+    "api/src/main/java/com/hemovia/api/service/usecase/chat/**",
+    "api/src/main/resources/donation-chat/**",
     "scripts/spec-java/run-spec-tests.mjs",
     "scripts/observabilidade/**",
     "tests/observabilidade/**",
