@@ -380,5 +380,32 @@
   "AC-129": [
     "com.hemovia.api.controller.DonorRegistrationIntegrationTest#mismatchedOrMissingEmailRequiresUpdatingDonorRecords",
     "com.hemovia.api.controller.DonorRegistrationIntegrationTest#concurrentRequestsCannotClaimTheSameCpf"
+  ],
+  "AC-132": [
+    "com.hemovia.api.controller.DonationChatIntegrationTest#requiresDonorSessionAndCsrf"
+  ],
+  "AC-133": [
+    "com.hemovia.api.controller.DonationChatIntegrationTest#followUpUsesOnlySubmittedConversation"
+  ],
+  "AC-134": [
+    "com.hemovia.api.controller.DonationChatIntegrationTest#inferenceFailureReturnsServiceUnavailable",
+    "com.hemovia.api.service.chat.ModelDonationChatInterpreterTest#reportsProviderFailureWithoutLeakingBody"
+  ],
+  "AC-135": [
+    "com.hemovia.api.service.chat.DonationChatCatalogTest#explainsTattooAfterThreeMonths"
+  ],
+  "AC-136": [
+    "com.hemovia.api.service.chat.DonationChatCatalogTest#refersUncoveredOrIndividualCasesToScreening"
+  ],
+  "AC-137": [
+    "com.hemovia.api.service.chat.DonationChatCatalogTest#coversInitialDonationTopics"
+  ],
+  "AC-138": [
+    "com.hemovia.api.controller.DonationChatIntegrationTest#invalidInputNeverReachesInference",
+    "com.hemovia.api.controller.DonationChatIntegrationTest#onlyConversationIsForwardedAndNotLogged",
+    "com.hemovia.api.service.chat.ModelDonationChatInterpreterTest#sendsOnlyBoundedConversationToLocalProvider"
+  ],
+  "AC-139": [
+    "com.hemovia.api.service.chat.ModelDonationChatInterpreterTest#malformedOrUnknownSelectionReturnsOnlyOfficialReferral"
   ]
 }
