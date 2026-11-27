@@ -1,0 +1,62 @@
+{
+  "runId": "hemovia-backend-mascaras-cadastros-mwqd2xw0",
+  "feature": "mascaras-cadastros",
+  "agent": "codex",
+  "modo": "sequencial",
+  "paralelizar": null,
+  "modeloForcado": null,
+  "esforcoForcado": null,
+  "geradoEm": "2026-11-21 12:05",
+  "branchTrabalho": "spec/mascaras-cadastros",
+  "baseDir": ".spec/features/mascaras-cadastros",
+  "specDir": ".spec",
+  "repoName": "hemovia-backend",
+  "logsDir": "../onp-worktrees/hemovia-backend-mascaras-cadastros-logs",
+  "ondas": [],
+  "faixas": [],
+  "sequenciais": [
+    {
+      "id": "T-053",
+      "titulo": "Implementar máscaras e provar interação dos formulários",
+      "modelo": "gpt-6.1-terra",
+      "esforco": "medium",
+      "arquivos": [
+        "../hemovia-frontend/src/masks.ts",
+        "../hemovia-frontend/src/registries.tsx",
+        "../hemovia-frontend/src/donor.tsx",
+        "../hemovia-frontend/tests/masks.spec.ts",
+        "../hemovia-frontend/README.md"
+      ],
+      "refs": [
+        "US-036",
+        "AC-109",
+        "AC-110",
+        "AC-111",
+        "AC-112",
+        "AC-113"
+      ]
+    },
+    {
+      "id": "T-054",
+      "titulo": "Verificar e registrar as provas",
+      "modelo": "gpt-6.1-terra",
+      "esforco": "medium",
+      "arquivos": [
+        "scripts/spec-java/verify-tests.mjs",
+        "onpspec.config.json",
+        ".spec/features/mascaras-cadastros/resultado-validacao.md",
+        ".spec/features/mascaras-cadastros/andamento.md"
+      ],
+      "refs": [
+        "US-036",
+        "AC-109",
+        "AC-110",
+        "AC-111",
+        "AC-112",
+        "AC-113"
+      ]
+    }
+  ],
+  "concluidas": [],
+  "avisos": []
+}

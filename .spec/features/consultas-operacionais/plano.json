@@ -1,0 +1,130 @@
+{
+  "runId": "hemovia-backend-consultas-operacionais-mwpqwyfp",
+  "feature": "consultas-operacionais",
+  "agent": "codex",
+  "modo": "sequencial",
+  "paralelizar": null,
+  "modeloForcado": null,
+  "esforcoForcado": null,
+  "geradoEm": "2026-11-21 01:45",
+  "branchTrabalho": "spec/consultas-operacionais",
+  "baseDir": ".spec/features/consultas-operacionais",
+  "specDir": ".spec",
+  "repoName": "hemovia-backend",
+  "logsDir": "../onp-worktrees/hemovia-backend-consultas-operacionais-logs",
+  "ondas": [],
+  "faixas": [],
+  "sequenciais": [
+    {
+      "id": "T-041",
+      "titulo": "Contratos de paginação",
+      "modelo": "gpt-6.1-terra",
+      "esforco": "medium",
+      "arquivos": [
+        "api/src/main/java/com/hemovia/api/dto/response/PageResponse.java",
+        "api/src/main/java/com/hemovia/api/dto/request/QueryPage.java",
+        "api/src/test/java/com/hemovia/api/service/usecase/query/QueryPageTest.java"
+      ],
+      "refs": [
+        "US-031",
+        "AC-089",
+        "AC-090"
+      ]
+    },
+    {
+      "id": "T-042",
+      "titulo": "Consultas de requisições",
+      "modelo": "gpt-6.1-terra",
+      "esforco": "medium",
+      "arquivos": [
+        "api/src/main/java/com/hemovia/api/controller/BloodRequestController.java",
+        "api/src/main/java/com/hemovia/api/service/usecase/request/QueryBloodRequests.java",
+        "api/src/main/java/com/hemovia/api/repository/port/BloodRequestQueryStore.java",
+        "api/src/main/java/com/hemovia/api/repository/adapter/BloodRequestQueryStoreAdapter.java",
+        "api/src/main/java/com/hemovia/api/repository/jpa/BloodRequestRepository.java",
+        "api/src/main/java/com/hemovia/api/dto/response/BloodRequestDetailsResponse.java",
+        "api/src/main/java/com/hemovia/api/dto/response/BloodRequestSummaryResponse.java",
+        "api/src/test/java/com/hemovia/api/controller/BloodRequestQueryAcceptanceTest.java"
+      ],
+      "refs": [
+        "US-028",
+        "AC-075",
+        "AC-076",
+        "AC-077",
+        "AC-078"
+      ]
+    },
+    {
+      "id": "T-043",
+      "titulo": "Consultas de transportes",
+      "modelo": "gpt-6.1-terra",
+      "esforco": "medium",
+      "arquivos": [
+        "api/src/main/java/com/hemovia/api/controller/TransportController.java",
+        "api/src/main/java/com/hemovia/api/service/usecase/transport/QueryTransports.java",
+        "api/src/main/java/com/hemovia/api/repository/port/TransportQueryStore.java",
+        "api/src/main/java/com/hemovia/api/repository/adapter/TransportQueryStoreAdapter.java",
+        "api/src/main/java/com/hemovia/api/repository/jpa/TransportRepository.java",
+        "api/src/main/java/com/hemovia/api/dto/response/TransportDetailsResponse.java",
+        "api/src/main/java/com/hemovia/api/dto/response/TransportSummaryResponse.java",
+        "api/src/test/java/com/hemovia/api/controller/TransportQueryAcceptanceTest.java"
+      ],
+      "refs": [
+        "US-029",
+        "AC-079",
+        "AC-080",
+        "AC-081",
+        "AC-082"
+      ]
+    },
+    {
+      "id": "T-044",
+      "titulo": "Consultas de hospitais",
+      "modelo": "gpt-6.1-terra",
+      "esforco": "medium",
+      "arquivos": [
+        "api/src/main/java/com/hemovia/api/controller/HospitalController.java",
+        "api/src/main/java/com/hemovia/api/service/usecase/hospital/QueryHospitals.java",
+        "api/src/main/java/com/hemovia/api/repository/jpa/HospitalRepository.java",
+        "api/src/test/java/com/hemovia/api/controller/HospitalQueryAcceptanceTest.java"
+      ],
+      "refs": [
+        "US-030",
+        "AC-083",
+        "AC-084",
+        "AC-085",
+        "AC-086"
+      ]
+    },
+    {
+      "id": "T-045",
+      "titulo": "Segurança, documentação e provas",
+      "modelo": "gpt-6.1-terra",
+      "esforco": "medium",
+      "arquivos": [
+        "api/src/main/java/com/hemovia/api/controller/security/SecurityConfig.java",
+        "api/src/main/java/com/hemovia/api/controller/BloodRequestController.java",
+        "api/src/main/java/com/hemovia/api/controller/TransportController.java",
+        "api/src/main/java/com/hemovia/api/controller/HospitalController.java",
+        "api/src/test/java/com/hemovia/api/controller/OperationalQueriesContractTest.java",
+        "api/src/test/java/com/hemovia/api/documentation/OpenApiContractIT.java",
+        "scripts/spec-java/acceptance-cases.json",
+        "onpspec.config.json",
+        "README.md",
+        ".spec/features/consultas-operacionais/resultado-validacao.md"
+      ],
+      "refs": [
+        "US-031",
+        "AC-087",
+        "AC-088",
+        "AC-089",
+        "AC-090",
+        "AC-091",
+        "AC-092",
+        "AC-093"
+      ]
+    }
+  ],
+  "concluidas": [],
+  "avisos": []
+}

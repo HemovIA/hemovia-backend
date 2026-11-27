@@ -1,0 +1,52 @@
+{
+  "feature": "chat-com-ia",
+  "timestamp": "2026-11-27T18:15:19.929Z",
+  "gitRev": "84e5762",
+  "command": "node scripts/spec-java/run-spec-tests.mjs",
+  "reporter": "tap",
+  "exitCode": 0,
+  "testsParsed": 138,
+  "results": {
+    "AC-132": {
+      "status": "pass",
+      "testName": "@spec:AC-132 navegador e API passam na mesma execução",
+      "method": "tap"
+    },
+    "AC-133": {
+      "status": "pass",
+      "testName": "@spec:AC-133 navegador e API passam na mesma execução",
+      "method": "tap"
+    },
+    "AC-134": {
+      "status": "pass",
+      "testName": "@spec:AC-134 navegador e API passam na mesma execução",
+      "method": "tap"
+    },
+    "AC-135": {
+      "status": "pass",
+      "testName": "@spec:AC-135 navegador e API passam na mesma execução",
+      "method": "tap"
+    },
+    "AC-136": {
+      "status": "pass",
+      "testName": "@spec:AC-136 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-137": {
+      "status": "pass",
+      "testName": "@spec:AC-137 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    },
+    "AC-138": {
+      "status": "pass",
+      "testName": "@spec:AC-138 navegador e API passam na mesma execução",
+      "method": "tap"
+    },
+    "AC-139": {
+      "status": "pass",
+      "testName": "@spec:AC-139 casos JUnit obrigatórios, inclusive PostgreSQL",
+      "method": "tap"
+    }
+  },
+  "principles": {}
+}

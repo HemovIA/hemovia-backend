@@ -217,5 +217,195 @@
     "com.hemovia.api.controller.BloodRequestCancellationAcceptanceTest#ac041ReleasesAllBagsAndAllowsReallocation",
     "com.hemovia.api.controller.BloodRequestCancellationAcceptanceTest#ac046CoordinatesCancellationAndAllocation",
     "com.hemovia.api.controller.BloodRequestCancellationAcceptanceTest#ac046CoordinatesTwoCancellations"
+  ],
+  "AC-057": [
+    "com.hemovia.api.controller.TransportAcceptanceTest#ac057And061CompleteLifecycle"
+  ],
+  "AC-058": [
+    "com.hemovia.api.controller.TransportAcceptanceTest#ac058RejectsInvalidStartStates",
+    "com.hemovia.api.controller.TransportAcceptanceTest#ac059RejectsInvalidDepartureConditions"
+  ],
+  "AC-059": [
+    "com.hemovia.api.controller.TransportAcceptanceTest#ac059RejectsInsufficientCapacity",
+    "com.hemovia.api.controller.TransportAcceptanceTest#ac060CoordinatesVehicleCompetition"
+  ],
+  "AC-060": [
+    "com.hemovia.api.controller.TransportAcceptanceTest#ac060CoordinatesConcurrentStarts",
+    "com.hemovia.api.controller.TransportAcceptanceTest#ac060CoordinatesVehicleCompetition",
+    "com.hemovia.api.controller.TransportAcceptanceTest#ac060CoordinatesStartAndCancellation",
+    "com.hemovia.api.migration.MigracaoV16TransportesTest#ac060PreservesLegacyAndEnforcesOneActiveVehicle"
+  ],
+  "AC-061": [
+    "com.hemovia.api.controller.TransportAcceptanceTest#ac057And061CompleteLifecycle",
+    "com.hemovia.api.controller.TransportAcceptanceTest#ac061ReusesVehicleAfterDelivery"
+  ],
+  "AC-062": [
+    "com.hemovia.api.controller.TransportAcceptanceTest#ac062RejectsInconsistentCompletion",
+    "com.hemovia.api.controller.TransportAcceptanceTest#ac062CoordinatesConcurrentCompletions"
+  ],
+  "AC-063": [
+    "com.hemovia.api.controller.TransportAcceptanceTest#ac063RollsBackBothCommitFailures"
+  ],
+  "AC-064": [
+    "com.hemovia.api.controller.TransportAcceptanceTest#ac064ProtectsTransportEndpoints"
+  ],
+  "AC-065": [
+    "com.hemovia.api.controller.VehicleAcceptanceTest#ac065CreatesAndListsVehicles",
+    "com.hemovia.api.controller.VehicleAcceptanceTest#ac065ProtectsVehicleCreation",
+    "com.hemovia.api.service.usecase.vehicle.ManageVehiclesTest#createTrimsCodeAndReturnsSavedVehicle"
+  ],
+  "AC-066": [
+    "com.hemovia.api.migration.MigracaoV16TransportesTest#ac060PreservesLegacyAndEnforcesOneActiveVehicle",
+    "com.hemovia.api.documentation.OpenApiContractIT#ac066DocumentsTransportAndVehicleContracts"
+  ],
+  "AC-067": [
+    "com.hemovia.api.controller.StatisticsAcceptanceTest#ac067ReconcilesInventoryDistribution"
+  ],
+  "AC-068": [
+    "com.hemovia.api.model.algorithm.statistics.PercentageDistributionTest#distributesRemaindersInInputOrder",
+    "com.hemovia.api.model.algorithm.statistics.PercentageDistributionTest#handlesZerosAndLargeCounts",
+    "com.hemovia.api.model.algorithm.statistics.PercentageDistributionTest#rejectsInvalidInputs",
+    "com.hemovia.api.controller.StatisticsAcceptanceTest#ac068HandlesEmptyAndFractionalInventory"
+  ],
+  "AC-069": [
+    "com.hemovia.api.controller.StatisticsAcceptanceTest#ac069ExcludesUnavailableBagsWithoutMutation"
+  ],
+  "AC-070": [
+    "com.hemovia.api.model.algorithm.statistics.DescriptiveStatisticsTest#calculatesPopulationAndSample",
+    "com.hemovia.api.model.algorithm.statistics.DescriptiveStatisticsTest#calculatesAsymmetricFrequencies",
+    "com.hemovia.api.model.algorithm.statistics.DescriptiveStatisticsTest#avoidsCancellationForLargeValues",
+    "com.hemovia.api.controller.StatisticsAcceptanceTest#ac070CalculatesDemandMetrics"
+  ],
+  "AC-071": [
+    "com.hemovia.api.model.algorithm.statistics.DescriptiveStatisticsTest#calculatesAsymmetricFrequencies",
+    "com.hemovia.api.model.algorithm.statistics.DescriptiveStatisticsTest#handlesEmptyAndSingleSample",
+    "com.hemovia.api.model.algorithm.statistics.DescriptiveStatisticsTest#weightedMedianAndLargeCounts",
+    "com.hemovia.api.model.algorithm.statistics.DescriptiveStatisticsTest#rejectsInvalidInputsAndOverflow",
+    "com.hemovia.api.controller.StatisticsAcceptanceTest#ac071HandlesEmptySingleAndRepeatedDemand"
+  ],
+  "AC-072": [
+    "com.hemovia.api.controller.StatisticsAcceptanceTest#ac072FiltersByCreatedAtAndExcludesCancelled"
+  ],
+  "AC-073": [
+    "com.hemovia.api.controller.StatisticsAcceptanceTest#ac073ProtectsReadsAndDoesNotMutate"
+  ],
+  "AC-074": [
+    "com.hemovia.api.documentation.OpenApiContractIT#ac074DocumentsStatisticsContract"
+  ],
+  "AC-075": [
+    "com.hemovia.api.controller.BloodRequestQueryAcceptanceTest#listaCampos"
+  ],
+  "AC-076": [
+    "com.hemovia.api.controller.BloodRequestQueryAcceptanceTest#detalhe"
+  ],
+  "AC-077": [
+    "com.hemovia.api.controller.BloodRequestQueryAcceptanceTest#escopo"
+  ],
+  "AC-078": [
+    "com.hemovia.api.controller.BloodRequestQueryAcceptanceTest#filtra"
+  ],
+  "AC-079": [
+    "com.hemovia.api.controller.TransportQueryAcceptanceTest#lista"
+  ],
+  "AC-080": [
+    "com.hemovia.api.controller.TransportQueryAcceptanceTest#detalhe"
+  ],
+  "AC-081": [
+    "com.hemovia.api.controller.TransportQueryAcceptanceTest#escopo"
+  ],
+  "AC-082": [
+    "com.hemovia.api.controller.TransportQueryAcceptanceTest#filtros"
+  ],
+  "AC-083": [
+    "com.hemovia.api.controller.HospitalQueryAcceptanceTest#dados"
+  ],
+  "AC-084": [
+    "com.hemovia.api.controller.HospitalQueryAcceptanceTest#escopo"
+  ],
+  "AC-085": [
+    "com.hemovia.api.controller.HospitalQueryAcceptanceTest#negaTransportador"
+  ],
+  "AC-086": [
+    "com.hemovia.api.controller.HospitalQueryAcceptanceTest#busca"
+  ],
+  "AC-087": [
+    "com.hemovia.api.controller.OperationalQueriesContractTest#exigeSessao"
+  ],
+  "AC-088": [
+    "com.hemovia.api.controller.OperationalQueriesContractTest#oculta"
+  ],
+  "AC-089": [
+    "com.hemovia.api.controller.OperationalQueriesContractTest#invalido"
+  ],
+  "AC-090": [
+    "com.hemovia.api.controller.OperationalQueriesContractTest#pagina"
+  ],
+  "AC-091": [
+    "com.hemovia.api.controller.OperationalQueriesContractTest#vazio"
+  ],
+  "AC-093": [
+    "com.hemovia.api.controller.OperationalQueriesContractTest#leitura"
+  ],
+  "AC-092": [
+    "com.hemovia.api.documentation.OpenApiContractIT#consultasOperacionais"
+  ],
+  "AC-094": [
+    "com.hemovia.api.service.usecase.donor.ManageDonorsTest#createsWithoutContacts",
+    "com.hemovia.api.model.DonorMigrationIT#preservesLegacyPerson"
+  ],
+  "AC-095": [
+    "com.hemovia.api.service.usecase.donor.ManageDonorsTest#searchesExactNormalizedCpf",
+    "com.hemovia.api.controller.DonorAcceptanceTest#exactSearchSecurityAndConcurrentUniqueness"
+  ],
+  "AC-131": [
+    "com.hemovia.api.repository.adapter.DonorUserPersistenceIT#preservesUsersAndConstrainsDonorLink"
+  ],
+  "AC-124": [
+    "com.hemovia.api.controller.DonorRegistrationIntegrationTest#startIsPublicWithCsrfAndDoesNotCreateAccount",
+    "com.hemovia.api.controller.DonorRegistrationIntegrationTest#canRetryAfterEmailDeliveryFailure"
+  ],
+  "AC-125": [
+    "com.hemovia.api.controller.DonorRegistrationIntegrationTest#validLinkCreatesLoginAndRejectsInvalidOrReusedLink",
+    "com.hemovia.api.controller.DonorRegistrationIntegrationTest#expiredLinkCannotCreateAccount"
+  ],
+  "AC-126": [
+    "com.hemovia.api.controller.DonorRegistrationIntegrationTest#publicAccountHasNoOperationalPermissions"
+  ],
+  "AC-127": [
+    "com.hemovia.api.controller.DonorRegistrationIntegrationTest#matchesTheExistingPersonWithoutChangingIt"
+  ],
+  "AC-128": [
+    "com.hemovia.api.controller.DonorRegistrationIntegrationTest#createsAnUnlinkedAccountWithoutCreatingAPerson"
+  ],
+  "AC-129": [
+    "com.hemovia.api.controller.DonorRegistrationIntegrationTest#mismatchedOrMissingEmailRequiresUpdatingDonorRecords",
+    "com.hemovia.api.controller.DonorRegistrationIntegrationTest#concurrentRequestsCannotClaimTheSameCpf"
+  ],
+  "AC-132": [
+    "com.hemovia.api.controller.DonationChatIntegrationTest#requiresDonorSessionAndCsrf"
+  ],
+  "AC-133": [
+    "com.hemovia.api.controller.DonationChatIntegrationTest#followUpUsesOnlySubmittedConversation"
+  ],
+  "AC-134": [
+    "com.hemovia.api.controller.DonationChatIntegrationTest#inferenceFailureReturnsServiceUnavailable",
+    "com.hemovia.api.service.chat.ModelDonationChatInterpreterTest#reportsProviderFailureWithoutLeakingBody"
+  ],
+  "AC-135": [
+    "com.hemovia.api.service.chat.DonationChatCatalogTest#explainsTattooAfterThreeMonths"
+  ],
+  "AC-136": [
+    "com.hemovia.api.service.chat.DonationChatCatalogTest#refersUncoveredOrIndividualCasesToScreening"
+  ],
+  "AC-137": [
+    "com.hemovia.api.service.chat.DonationChatCatalogTest#coversInitialDonationTopics"
+  ],
+  "AC-138": [
+    "com.hemovia.api.controller.DonationChatIntegrationTest#invalidInputNeverReachesInference",
+    "com.hemovia.api.controller.DonationChatIntegrationTest#onlyConversationIsForwardedAndNotLogged",
+    "com.hemovia.api.service.chat.ModelDonationChatInterpreterTest#sendsOnlyBoundedConversationToLocalProvider"
+  ],
+  "AC-139": [
+    "com.hemovia.api.service.chat.ModelDonationChatInterpreterTest#malformedOrUnknownSelectionReturnsOnlyOfficialReferral"
   ]
 }

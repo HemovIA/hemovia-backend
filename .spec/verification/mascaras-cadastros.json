@@ -1,0 +1,37 @@
+{
+  "feature": "mascaras-cadastros",
+  "timestamp": "2026-11-27T18:15:38.320Z",
+  "gitRev": "84e5762",
+  "command": "node scripts/spec-java/run-spec-tests.mjs",
+  "reporter": "tap",
+  "exitCode": 0,
+  "testsParsed": 138,
+  "results": {
+    "AC-109": {
+      "status": "pass",
+      "testName": "@spec:AC-109 interações Playwright reais",
+      "method": "tap"
+    },
+    "AC-110": {
+      "status": "pass",
+      "testName": "@spec:AC-110 interações Playwright reais",
+      "method": "tap"
+    },
+    "AC-111": {
+      "status": "pass",
+      "testName": "@spec:AC-111 interações Playwright reais",
+      "method": "tap"
+    },
+    "AC-112": {
+      "status": "pass",
+      "testName": "@spec:AC-112 interações Playwright reais",
+      "method": "tap"
+    },
+    "AC-113": {
+      "status": "pass",
+      "testName": "@spec:AC-113 interações Playwright reais",
+      "method": "tap"
+    }
+  },
+  "principles": {}
+}

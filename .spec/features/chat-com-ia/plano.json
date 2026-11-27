@@ -1,0 +1,129 @@
+{
+  "runId": "hemovia-backend-chat-com-ia-mwzarlje",
+  "feature": "chat-com-ia",
+  "agent": "codex",
+  "modo": "paralelo",
+  "paralelizar": [
+    "T-062",
+    "T-063"
+  ],
+  "modeloForcado": "gpt-6.2-sol",
+  "esforcoForcado": "medium",
+  "geradoEm": "2026-11-27 18:10",
+  "branchTrabalho": "spec/chat-com-ia",
+  "baseDir": ".spec/features/chat-com-ia",
+  "specDir": ".spec",
+  "repoName": "hemovia-backend",
+  "logsDir": "../onp-worktrees/hemovia-backend-chat-com-ia-logs",
+  "ondas": [
+    [
+      "faixa-1",
+      "faixa-2"
+    ]
+  ],
+  "faixas": [
+    {
+      "id": "faixa-1",
+      "branch": "spec/chat-com-ia-faixa-1",
+      "worktree": "../onp-worktrees/hemovia-backend-chat-com-ia-faixa-1",
+      "tarefas": [
+        {
+          "id": "T-062",
+          "titulo": "Criar a base oficial e a API de conversa",
+          "modelo": "gpt-6.2-sol",
+          "esforco": "medium",
+          "arquivos": [
+            "api/src/main/resources/donation-chat/catalog.json",
+            "api/src/main/resources/application.yaml",
+            "api/src/main/java/com/hemovia/api/controller/DonationChatController.java",
+            "api/src/main/java/com/hemovia/api/controller/config/DonationChatRequestConfiguration.java",
+            "api/src/main/java/com/hemovia/api/controller/security/SecurityConfig.java",
+            "api/src/main/java/com/hemovia/api/controller/handler/GlobalExceptionHandler.java",
+            "api/src/main/java/com/hemovia/api/dto/request/DonationChatRequest.java",
+            "api/src/main/java/com/hemovia/api/dto/response/DonationChatResponse.java",
+            "api/src/main/java/com/hemovia/api/service/config/DonationChatConfiguration.java",
+            "api/src/main/java/com/hemovia/api/service/config/DonationChatProperties.java",
+            "api/src/main/java/com/hemovia/api/service/chat/DonationChatCatalog.java",
+            "api/src/main/java/com/hemovia/api/service/chat/ModelDonationChatInterpreter.java",
+            "api/src/main/java/com/hemovia/api/service/port/output/DonationChatInterpreter.java",
+            "api/src/main/java/com/hemovia/api/service/usecase/chat/AnswerDonationQuestion.java",
+            "api/src/main/java/com/hemovia/api/model/exception/DonationChatUnavailableException.java",
+            "api/src/test/java/com/hemovia/api/controller/DonationChatIntegrationTest.java",
+            "api/src/test/java/com/hemovia/api/documentation/OpenApiContractIT.java",
+            "api/src/test/java/com/hemovia/api/service/chat/DonationChatCatalogTest.java",
+            "api/src/test/java/com/hemovia/api/service/chat/ModelDonationChatInterpreterTest.java",
+            "scripts/spec-java/acceptance-cases.json",
+            "api/.env.example",
+            "README.md"
+          ],
+          "refs": [
+            "AC-132",
+            "AC-133",
+            "AC-135",
+            "AC-136",
+            "AC-137",
+            "AC-138",
+            "AC-139"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "faixa-2",
+      "branch": "spec/chat-com-ia-faixa-2",
+      "worktree": "../onp-worktrees/hemovia-backend-chat-com-ia-faixa-2",
+      "tarefas": [
+        {
+          "id": "T-063",
+          "titulo": "Integrar o chat à Área do Doador",
+          "modelo": "gpt-6.2-sol",
+          "esforco": "medium",
+          "arquivos": [
+            "../hemovia-frontend/src/donor-account.tsx",
+            "../hemovia-frontend/src/donor-chat.tsx",
+            "../hemovia-frontend/src/http.ts",
+            "../hemovia-frontend/src/styles.css",
+            "../hemovia-frontend/tests/donor-chat.spec.ts"
+          ],
+          "refs": [
+            "AC-132",
+            "AC-133",
+            "AC-134",
+            "AC-138"
+          ]
+        }
+      ]
+    }
+  ],
+  "sequenciais": [
+    {
+      "id": "T-064",
+      "titulo": "Validar a integração e registrar as provas",
+      "modelo": "gpt-6.2-sol",
+      "esforco": "medium",
+      "arquivos": [
+        "scripts/spec-java/verify-tests.mjs",
+        "scripts/spec-java/test-formularios.ps1",
+        "../hemovia-frontend/tests/donor-chat-integrated.spec.ts",
+        "onpspec.config.json",
+        ".spec/verification/chat-com-ia.json"
+      ],
+      "refs": [
+        "AC-132",
+        "AC-133",
+        "AC-134",
+        "AC-135",
+        "AC-136",
+        "AC-137",
+        "AC-138",
+        "AC-139"
+      ]
+    }
+  ],
+  "concluidas": [],
+  "avisos": [
+    "T-062 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar",
+    "T-063 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar",
+    "T-064 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar"
+  ]
+}

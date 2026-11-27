@@ -1,0 +1,5 @@
+Não consegui iniciar a implementação: o ambiente bloqueou a criação de processos com o erro **“windows sandbox failed: registered Core launch requires an installed app”**.
+
+Tentei o executor de comandos, o ambiente Node e o acesso gráfico; os três falharam pelo mesmo motivo. Por isso, não foi possível ler a skill e os artefatos, atualizar os arquivos de progresso, implementar os endpoints, executar testes, `verify` ou `audit --ci`, nem criar commits. Nenhum arquivo foi alterado.
+
+É necessário corrigir a inicialização do sandbox ou disponibilizar um ambiente de execução funcional para continuar. A auditoria não foi executada e a feature não está declarada auditada.

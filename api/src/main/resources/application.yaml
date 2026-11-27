@@ -45,6 +45,12 @@ hemovia:
   registration:
     sender: ${REGISTRATION_EMAIL_FROM:}
     frontend-url: ${REGISTRATION_FRONTEND_URL:http://localhost:5173/}
+  donation-chat:
+    enabled: ${DONATION_CHAT_ENABLED:false}
+    base-url: ${DONATION_CHAT_OLLAMA_URL:http://127.0.0.1:11434}
+    model: ${DONATION_CHAT_OLLAMA_MODEL:qwen2.5:7b}
+    connect-timeout: ${DONATION_CHAT_CONNECT_TIMEOUT:3s}
+    request-timeout: ${DONATION_CHAT_REQUEST_TIMEOUT:30s}
   # OSRM: valores finitos e limite compatível com o servidor público
   routing:
     base-url: ${ROUTING_BASE_URL:https://router.project-osrm.org}

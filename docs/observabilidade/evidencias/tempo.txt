@@ -1,0 +1,353 @@
+Tempo - trace 9653e7626e968e8ddcf7160d58223d13
+Captura: 2026-11-22T17:14:33.440Z
+{
+  "batches": [
+    {
+      "resource": {
+        "attributes": [
+          {
+            "key": "telemetry.sdk.language",
+            "value": {
+              "stringValue": "java"
+            }
+          },
+          {
+            "key": "telemetry.sdk.name",
+            "value": {
+              "stringValue": "opentelemetry"
+            }
+          },
+          {
+            "key": "telemetry.sdk.version",
+            "value": {
+              "stringValue": "1.62.0"
+            }
+          },
+          {
+            "key": "service.name",
+            "value": {
+              "stringValue": "hemovia-api"
+            }
+          }
+        ]
+      },
+      "scopeSpans": [
+        {
+          "scope": {
+            "name": "org.springframework.boot",
+            "version": "4.1.1"
+          },
+          "spans": [
+            {
+              "traceId": "llPnYm6Wjo3c9xYNWCI9Ew==",
+              "spanId": "WnY6Ww8fb7c=",
+              "name": "http post /api/v1/requests",
+              "kind": "SPAN_KIND_SERVER",
+              "startTimeUnixNano": "1795367277690015302",
+              "endTimeUnixNano": "1795367277708854011",
+              "attributes": [
+                {
+                  "key": "exception",
+                  "value": {
+                    "stringValue": "none"
+                  }
+                },
+                {
+                  "key": "method",
+                  "value": {
+                    "stringValue": "POST"
+                  }
+                },
+                {
+                  "key": "outcome",
+                  "value": {
+                    "stringValue": "SUCCESS"
+                  }
+                },
+                {
+                  "key": "status",
+                  "value": {
+                    "stringValue": "201"
+                  }
+                },
+                {
+                  "key": "uri",
+                  "value": {
+                    "stringValue": "/api/v1/requests"
+                  }
+                },
+                {
+                  "key": "http.url",
+                  "value": {
+                    "stringValue": "/api/v1/requests"
+                  }
+                }
+              ],
+              "status": {}
+            },
+            {
+              "traceId": "llPnYm6Wjo3c9xYNWCI9Ew==",
+              "spanId": "iWhmhoKUbAM=",
+              "parentSpanId": "WnY6Ww8fb7c=",
+              "name": "security filterchain before",
+              "kind": "SPAN_KIND_INTERNAL",
+              "startTimeUnixNano": "1795367277690160490",
+              "endTimeUnixNano": "1795367277690960189",
+              "attributes": [
+                {
+                  "key": "spring.security.filterchain.position",
+                  "value": {
+                    "stringValue": "14"
+                  }
+                },
+                {
+                  "key": "spring.security.filterchain.size",
+                  "value": {
+                    "stringValue": "14"
+                  }
+                },
+                {
+                  "key": "spring.security.reached.filter.name",
+                  "value": {
+                    "stringValue": "AuthorizationFilter"
+                  }
+                },
+                {
+                  "key": "spring.security.reached.filter.section",
+                  "value": {
+                    "stringValue": "before"
+                  }
+                }
+              ],
+              "events": [
+                {
+                  "timeUnixNano": "1795367277690000000",
+                  "name": "before DisableEncodeUrlFilter"
+                },
+                {
+                  "timeUnixNano": "1795367277690000000",
+                  "name": "before WebAsyncManagerIntegrationFilter"
+                },
+                {
+                  "timeUnixNano": "1795367277690000000",
+                  "name": "before SecurityContextHolderFilter"
+                },
+                {
+                  "timeUnixNano": "1795367277690000000",
+                  "name": "before HeaderWriterFilter"
+                },
+                {
+                  "timeUnixNano": "1795367277690000000",
+                  "name": "before CorsFilter"
+                },
+                {
+                  "timeUnixNano": "1795367277690000000",
+                  "name": "before CsrfFilter"
+                },
+                {
+                  "timeUnixNano": "1795367277690000000",
+                  "name": "before LogoutFilter"
+                },
+                {
+                  "timeUnixNano": "1795367277690000000",
+                  "name": "before JwtCookieAuthenticationFilter"
+                },
+                {
+                  "timeUnixNano": "1795367277690000000",
+                  "name": "before RequestCacheAwareFilter"
+                },
+                {
+                  "timeUnixNano": "1795367277690000000",
+                  "name": "before SecurityContextHolderAwareRequestFilter"
+                },
+                {
+                  "timeUnixNano": "1795367277690000000",
+                  "name": "before AnonymousAuthenticationFilter"
+                },
+                {
+                  "timeUnixNano": "1795367277690000000",
+                  "name": "before SessionManagementFilter"
+                },
+                {
+                  "timeUnixNano": "1795367277690000000",
+                  "name": "before ExceptionTranslationFilter"
+                },
+                {
+                  "timeUnixNano": "1795367277690000000",
+                  "name": "before AuthorizationFilter"
+                }
+              ],
+              "status": {
+                "code": "STATUS_CODE_OK"
+              }
+            },
+            {
+              "traceId": "llPnYm6Wjo3c9xYNWCI9Ew==",
+              "spanId": "99x9fHIkTNc=",
+              "parentSpanId": "iWhmhoKUbAM=",
+              "name": "authorize request",
+              "kind": "SPAN_KIND_INTERNAL",
+              "startTimeUnixNano": "1795367277690715322",
+              "endTimeUnixNano": "1795367277690897410",
+              "attributes": [
+                {
+                  "key": "spring.security.authentication.authorities",
+                  "value": {
+                    "stringValue": "[ROLE_HOSPITAL]"
+                  }
+                },
+                {
+                  "key": "spring.security.authentication.type",
+                  "value": {
+                    "stringValue": "UsernamePasswordAuthenticationToken"
+                  }
+                },
+                {
+                  "key": "spring.security.authorization.decision",
+                  "value": {
+                    "stringValue": "true"
+                  }
+                },
+                {
+                  "key": "spring.security.authorization.decision.details",
+                  "value": {
+                    "stringValue": "AuthorityAuthorizationDecision [granted=true, authorities=[ROLE_HOSPITAL]]"
+                  }
+                },
+                {
+                  "key": "spring.security.object",
+                  "value": {
+                    "stringValue": "request"
+                  }
+                }
+              ],
+              "status": {
+                "code": "STATUS_CODE_OK"
+              }
+            },
+            {
+              "traceId": "llPnYm6Wjo3c9xYNWCI9Ew==",
+              "spanId": "9Lcq6y9ju3M=",
+              "parentSpanId": "WnY6Ww8fb7c=",
+              "name": "secured request",
+              "kind": "SPAN_KIND_INTERNAL",
+              "startTimeUnixNano": "1795367277690978919",
+              "endTimeUnixNano": "1795367277708272019",
+              "status": {
+                "code": "STATUS_CODE_OK"
+              }
+            },
+            {
+              "traceId": "llPnYm6Wjo3c9xYNWCI9Ew==",
+              "spanId": "fWjdkx5LAoI=",
+              "parentSpanId": "9Lcq6y9ju3M=",
+              "name": "hemovia.requisicao.criar",
+              "kind": "SPAN_KIND_INTERNAL",
+              "startTimeUnixNano": "1795367277698648982",
+              "endTimeUnixNano": "1795367277704707858",
+              "status": {
+                "code": "STATUS_CODE_OK"
+              }
+            },
+            {
+              "traceId": "llPnYm6Wjo3c9xYNWCI9Ew==",
+              "spanId": "pCNLcKEC484=",
+              "parentSpanId": "WnY6Ww8fb7c=",
+              "name": "security filterchain after",
+              "kind": "SPAN_KIND_INTERNAL",
+              "startTimeUnixNano": "1795367277708330088",
+              "endTimeUnixNano": "1795367277708484226",
+              "attributes": [
+                {
+                  "key": "spring.security.filterchain.position",
+                  "value": {
+                    "stringValue": "14"
+                  }
+                },
+                {
+                  "key": "spring.security.filterchain.size",
+                  "value": {
+                    "stringValue": "14"
+                  }
+                },
+                {
+                  "key": "spring.security.reached.filter.name",
+                  "value": {
+                    "stringValue": "DisableEncodeUrlFilter"
+                  }
+                },
+                {
+                  "key": "spring.security.reached.filter.section",
+                  "value": {
+                    "stringValue": "after"
+                  }
+                }
+              ],
+              "events": [
+                {
+                  "timeUnixNano": "1795367277708000000",
+                  "name": "after AuthorizationFilter"
+                },
+                {
+                  "timeUnixNano": "1795367277708000000",
+                  "name": "after ExceptionTranslationFilter"
+                },
+                {
+                  "timeUnixNano": "1795367277708000000",
+                  "name": "after SessionManagementFilter"
+                },
+                {
+                  "timeUnixNano": "1795367277708000000",
+                  "name": "after AnonymousAuthenticationFilter"
+                },
+                {
+                  "timeUnixNano": "1795367277708000000",
+                  "name": "after SecurityContextHolderAwareRequestFilter"
+                },
+                {
+                  "timeUnixNano": "1795367277708000000",
+                  "name": "after RequestCacheAwareFilter"
+                },
+                {
+                  "timeUnixNano": "1795367277708000000",
+                  "name": "after JwtCookieAuthenticationFilter"
+                },
+                {
+                  "timeUnixNano": "1795367277708000000",
+                  "name": "after LogoutFilter"
+                },
+                {
+                  "timeUnixNano": "1795367277708000000",
+                  "name": "after CsrfFilter"
+                },
+                {
+                  "timeUnixNano": "1795367277708000000",
+                  "name": "after CorsFilter"
+                },
+                {
+                  "timeUnixNano": "1795367277708000000",
+                  "name": "after HeaderWriterFilter"
+                },
+                {
+                  "timeUnixNano": "1795367277708000000",
+                  "name": "after SecurityContextHolderFilter"
+                },
+                {
+                  "timeUnixNano": "1795367277708000000",
+                  "name": "after WebAsyncManagerIntegrationFilter"
+                },
+                {
+                  "timeUnixNano": "1795367277708000000",
+                  "name": "after DisableEncodeUrlFilter"
+                }
+              ],
+              "status": {
+                "code": "STATUS_CODE_OK"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
