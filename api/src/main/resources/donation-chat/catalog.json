@@ -1,0 +1,204 @@
+{
+  "version": 1,
+  "revisedOn": "2026-11-27",
+  "sources": {
+    "portaria": {
+      "title": "Portaria GM/MS nº 11.685/2026",
+      "url": "https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11685_03_07_2026.html"
+    },
+    "faq": {
+      "title": "Perguntas frequentes do Ministério da Saúde",
+      "url": "https://www.gov.br/saude/pt-br/composicao/saes/doacao-de-sangue/faq"
+    },
+    "hemocentros": {
+      "title": "Lista de Hemocentros no Brasil",
+      "url": "https://www.gov.br/saude/pt-br/composicao/saes/doacao-de-sangue/arquivos/lista-de-hemocentros.pdf/view"
+    }
+  },
+  "cards": [
+    {
+      "id": "requisitos",
+      "topic": "Idade e peso",
+      "appliesWhen": "Idade, peso mínimo, exigências para primeira doação ou para menores de idade.",
+      "answer": "A faixa geral é de 16 a 69 anos. A primeira doação deve ocorrer, em geral, antes de completar 61 anos. Aos 16 ou 17 anos, leve autorização escrita e cópia do documento do responsável legal a cada doação. O peso mínimo usual é 50 kg. O serviço avalia exceções e os demais critérios na triagem.",
+      "referenceSection": "Anexo IV-B, arts. 39 e 40",
+      "sourceIds": [
+        "portaria"
+      ]
+    },
+    {
+      "id": "intervalos",
+      "topic": "Frequência",
+      "appliesWhen": "Prazo entre duas doações de sangue total ou limite anual de doações.",
+      "answer": "Para sangue total, o intervalo mínimo usual é de dois meses para homens, com até quatro doações em 12 meses, e de três meses para mulheres, com até três doações em 12 meses. A equipe do hemocentro verifica os demais critérios na triagem.",
+      "referenceSection": "Anexo IV-B, art. 38",
+      "sourceIds": [
+        "portaria"
+      ]
+    },
+    {
+      "id": "preparacao",
+      "topic": "Preparação",
+      "appliesWhen": "O que levar, comer ou beber antes de doar sangue, incluindo jejum, álcool e documentos.",
+      "answer": "Leve um documento oficial com foto e vá quando estiver se sentindo bem. Alimente-se e hidrate-se antes de doar. Aguarde pelo menos três horas após uma refeição pesada e gordurosa e 12 horas após consumir álcool.",
+      "referenceSection": "Anexo IV-B, arts. 47, 49, 53 e 68. FAQ, requisitos para doação",
+      "sourceIds": [
+        "portaria",
+        "faq"
+      ]
+    },
+    {
+      "id": "tatuagem",
+      "topic": "Tatuagem",
+      "appliesWhen": "Perguntas sobre tatuagem sem mencionar que foi feita exatamente há três meses. Para três meses, escolha somente a ficha tatuagem-tres-meses para esse tema.",
+      "answer": "Para doação de sangue total após tatuagem, a espera é de sete dias quando o hemocentro consegue avaliar a segurança do procedimento. Quando essa avaliação é inviável, a espera é de quatro meses. Confirme as condições com o hemocentro, que também verifica os demais critérios na triagem.",
+      "referenceSection": "Anexo 2 do Anexo IV-B, procedimentos invasivos",
+      "sourceIds": [
+        "portaria",
+        "hemocentros"
+      ]
+    },
+    {
+      "id": "tatuagem-tres-meses",
+      "topic": "Tatuagem há três meses",
+      "appliesWhen": "A pergunta ou seu contexto recente identifica uma tatuagem feita há três meses (3 meses). Inclui pergunta complementar sobre esse prazo.",
+      "answer": "Para tatuagem, a espera é de sete dias quando o hemocentro consegue avaliar a segurança do procedimento e de quatro meses quando essa avaliação é inviável. Aos três meses, a espera de sete dias já passou, mas a de quatro meses ainda não foi cumprida. Confirme com o hemocentro qual regra se aplica. A aptidão depende dos demais critérios da triagem.",
+      "referenceSection": "Anexo 2 do Anexo IV-B, procedimentos invasivos",
+      "sourceIds": [
+        "portaria",
+        "hemocentros"
+      ]
+    },
+    {
+      "id": "piercing",
+      "topic": "Piercing",
+      "appliesWhen": "Piercing recente, inclusive na boca ou na região genital.",
+      "answer": "Para piercing, a espera é de sete dias quando o hemocentro consegue avaliar a segurança do procedimento. Se a avaliação for inviável, a espera é de quatro meses. Para piercing na boca ou na região genital, aguarde quatro meses após a retirada. Confirme as condições com o hemocentro.",
+      "referenceSection": "Anexo 2 do Anexo IV-B, procedimentos invasivos",
+      "sourceIds": [
+        "portaria",
+        "hemocentros"
+      ]
+    },
+    {
+      "id": "gestacao",
+      "topic": "Gestação e amamentação",
+      "appliesWhen": "Gravidez, parto, abortamento ou amamentação.",
+      "answer": "A doação fica suspensa durante a gestação e até 12 semanas após o parto ou abortamento. Durante a amamentação, também é preciso aguardar até que tenham passado 12 meses do parto. A equipe do hemocentro verifica os demais critérios na triagem.",
+      "referenceSection": "Anexo IV-B, art. 45",
+      "sourceIds": [
+        "portaria",
+        "hemocentros"
+      ]
+    },
+    {
+      "id": "menstruacao",
+      "topic": "Menstruação",
+      "appliesWhen": "Dúvidas sobre doação durante a menstruação.",
+      "answer": "A menstruação por si só não impede a doação. Sangramento intenso, fraqueza, dor importante ou anemia podem exigir adiamento. A equipe verifica como você está se sentindo e avalia os níveis de hemoglobina ou hematócrito na triagem.",
+      "referenceSection": "Anexo IV-B, arts. 42 e 46. FAQ, orientação sobre menstruação",
+      "sourceIds": [
+        "portaria",
+        "faq"
+      ]
+    },
+    {
+      "id": "transfusao",
+      "topic": "Transfusão",
+      "appliesWhen": "Recebimento de sangue ou hemocomponentes antes de uma doação.",
+      "answer": "A espera após receber uma transfusão de sangue ou hemocomponentes é de quatro meses a partir da data da transfusão. O hemocentro também avalia a condição de saúde que levou à transfusão e a recuperação.",
+      "referenceSection": "Anexo IV-B, art. 66, inciso X. FAQ, orientação sobre transfusão",
+      "sourceIds": [
+        "portaria",
+        "faq"
+      ]
+    },
+    {
+      "id": "vacinas",
+      "topic": "Vacinação",
+      "appliesWhen": "Vacinação recente. Abrange gripe, febre amarela, tríplice viral e orientação para confirmar outros tipos.",
+      "answer": "O intervalo depende da vacina e do motivo da aplicação. A vacina contra gripe tem espera de 48 horas. Para febre amarela e tríplice viral, a espera é de quatro semanas. Para outras vacinas, quando houver exposição à doença ou se houver dúvida sobre qual vacina tomou, informe o nome e a data ao hemocentro para confirmar o prazo.",
+      "referenceSection": "Anexo 4 do Anexo IV-B, tabela de vacinas",
+      "sourceIds": [
+        "portaria",
+        "hemocentros"
+      ]
+    },
+    {
+      "id": "procedimentos",
+      "topic": "Cirurgias e odontologia",
+      "appliesWhen": "Cirurgia ou procedimento odontológico recente. Use encaminhamento se a pessoa precisar de uma conclusão individual além da orientação geral.",
+      "answer": "O prazo após uma cirurgia ou procedimento odontológico depende do tipo de procedimento e de como está a recuperação. Informe ao hemocentro qual foi o procedimento e a data em que foi feito para a equipe confirmar a orientação.",
+      "referenceSection": "Anexo IV-B, art. 67 e Anexo 2",
+      "sourceIds": [
+        "portaria",
+        "hemocentros"
+      ]
+    },
+    {
+      "id": "medicamentos",
+      "topic": "Medicamentos",
+      "appliesWhen": "Uso de medicamentos, como antibióticos e tratamentos contínuos. A regra específica depende de triagem.",
+      "answer": "O hemocentro avalia tanto o medicamento quanto o motivo do uso. Informe à equipe o que está tomando e mantenha o tratamento conforme prescrito. A equipe de triagem orienta sobre a doação no seu caso.",
+      "referenceSection": "Anexo IV-B, art. 44 e Anexo 3",
+      "sourceIds": [
+        "portaria",
+        "hemocentros"
+      ]
+    },
+    {
+      "id": "sintomas",
+      "topic": "Gripe ou resfriado",
+      "appliesWhen": "Sintomas de gripe ou resfriado, incluindo recuperação. Para dengue, escolha a ficha dengue.",
+      "answer": "Se estiver com sintomas de gripe ou resfriado, adie a doação. Depois da recuperação, confirme com o hemocentro quanto tempo deve aguardar antes de comparecer.",
+      "referenceSection": "FAQ, orientações para gripe ou resfriado",
+      "sourceIds": [
+        "faq",
+        "hemocentros"
+      ]
+    },
+    {
+      "id": "dengue",
+      "topic": "Dengue",
+      "appliesWhen": "Dúvidas sobre voltar a doar após dengue.",
+      "answer": "Segundo o Ministério da Saúde, a espera é de quatro semanas após a recuperação completa para dengue sem gravidade e de seis meses para dengue grave. Confirme o prazo com o hemocentro se tiver dúvidas sobre o quadro ou a data de recuperação.",
+      "referenceSection": "FAQ, orientação sobre dengue",
+      "sourceIds": [
+        "faq",
+        "hemocentros"
+      ]
+    },
+    {
+      "id": "onde-doar",
+      "topic": "Local da doação",
+      "appliesWhen": "Onde doar, como encontrar um hemocentro, horários e agendamento.",
+      "answer": "Consulte a lista nacional de hemocentros e fale diretamente com a unidade mais próxima para confirmar o endereço, o horário, os documentos e a necessidade de agendamento.",
+      "referenceSection": "Lista nacional de hemocentros e FAQ",
+      "sourceIds": [
+        "hemocentros",
+        "faq"
+      ]
+    },
+    {
+      "id": "esclarecimento",
+      "topic": "Contexto insuficiente",
+      "appliesWhen": "A dúvida é sobre o escopo, mas falta contexto para identificar o tema. Selecione este identificador sozinho.",
+      "answer": "Você pode esclarecer a qual situação ou procedimento a sua dúvida se refere? Um resumo basta. Evite enviar seu nome, CPF ou documentos.",
+      "referenceSection": "FAQ do Ministério da Saúde",
+      "sourceIds": [
+        "faq"
+      ]
+    },
+    {
+      "id": "encaminhamento",
+      "topic": "Encaminhamento",
+      "appliesWhen": "Caso fora do escopo, dúvida sem base aplicável ou pedido de conclusão individual. Selecione este identificador sozinho.",
+      "answer": "O chat orienta sobre doação de sangue total no Brasil. Para saber se você pode doar, procure um hemocentro. A equipe avalia o seu caso durante a triagem. Você também pode consultar as perguntas frequentes do Ministério da Saúde.",
+      "referenceSection": "FAQ do Ministério da Saúde e lista nacional de hemocentros",
+      "sourceIds": [
+        "faq",
+        "hemocentros"
+      ]
+    }
+  ]
+}

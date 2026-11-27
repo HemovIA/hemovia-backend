@@ -4,8 +4,8 @@
 
 ## T-055 — Instrumentar a API e preservar os contratos [concluida]
 - Refs: AC-114, AC-115, AC-116, AC-120, AC-121
-- Arquivos: api/pom.xml, api/src/main/resources/application.yaml, api/src/main/resources/application-observabilidade.yaml, api/Dockerfile, api/compose.yaml, render.yaml, .github/workflows/ci-cd.yml, .github/workflows/rollback.yml, api/src/main/java/com/hemovia/api/controller/security/SecurityConfig.java, api/src/main/java/com/hemovia/api/service/usecase/inventory/ManageDonations.java, api/src/main/java/com/hemovia/api/service/usecase/request/CreateHospitalBloodRequest.java, api/src/main/java/com/hemovia/api/service/observability/BusinessMetrics.java, api/src/test/java/com/hemovia/api/observability/ObservabilityIntegrationTest.java
-- Notas: Isolar o Actuator, manter o probe em todos os chamadores, exportar traces e registrar métricas após o commit. Cobrir autenticação, commit e rollback.
+- Arquivos: api/pom.xml, api/src/main/resources/application.yaml, api/src/main/resources/application-observabilidade.yaml, api/Dockerfile, api/compose.yaml, .github/workflows/ci-cd.yml, .github/workflows/rollback.yml, api/src/main/java/com/hemovia/api/controller/security/SecurityConfig.java, api/src/main/java/com/hemovia/api/service/usecase/inventory/ManageDonations.java, api/src/main/java/com/hemovia/api/service/usecase/request/CreateHospitalBloodRequest.java, api/src/main/java/com/hemovia/api/service/observability/BusinessMetrics.java, api/src/test/java/com/hemovia/api/observability/ObservabilityIntegrationTest.java
+- Notas: Isolar o Actuator, manter o probe em todos os chamadores, exportar traces e registrar métricas após o commit. Cobrir autenticação, commit e rollback. O blueprint do Render foi desativado no commit 4a8608c.
 
 ## T-056 — Montar e provisionar a stack Docker [concluida]
 - Refs: AC-115, AC-117, AC-118, AC-119, AC-120, AC-121

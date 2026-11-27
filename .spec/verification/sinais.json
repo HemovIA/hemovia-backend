@@ -1877,10 +1877,10 @@
       "codigo": "VERIFY_OBSOLETO",
       "feature": "observabilidade",
       "ref": "—",
-      "ocorrencias": 1,
+      "ocorrencias": 2,
       "primeiraVez": "2026-11-25T23:09:59.780Z",
-      "ultimaVez": "2026-11-25T23:09:59.780Z",
-      "gitRev": "13bbd7e"
+      "ultimaVez": "2026-11-27T18:16:00.867Z",
+      "gitRev": "84e5762"
     },
     "VERIFY_FALHOU::cadastro-conta-doador::AC-131": {
       "codigo": "VERIFY_FALHOU",
@@ -1917,6 +1917,42 @@
       "primeiraVez": "2026-11-25T23:14:49.114Z",
       "ultimaVez": "2026-11-25T23:14:49.114Z",
       "gitRev": "13bbd7e"
+    },
+    "VERIFY_FALHOU::chat-com-ia::AC-132": {
+      "codigo": "VERIFY_FALHOU",
+      "feature": "chat-com-ia",
+      "ref": "AC-132",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-27T18:06:50.823Z",
+      "ultimaVez": "2026-11-27T18:06:50.823Z",
+      "gitRev": "be2f895"
+    },
+    "VERIFY_FALHOU::chat-com-ia::AC-133": {
+      "codigo": "VERIFY_FALHOU",
+      "feature": "chat-com-ia",
+      "ref": "AC-133",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-27T18:06:50.823Z",
+      "ultimaVez": "2026-11-27T18:06:50.823Z",
+      "gitRev": "be2f895"
+    },
+    "VERIFY_FALHOU::chat-com-ia::AC-134": {
+      "codigo": "VERIFY_FALHOU",
+      "feature": "chat-com-ia",
+      "ref": "AC-134",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-27T18:06:50.823Z",
+      "ultimaVez": "2026-11-27T18:06:50.823Z",
+      "gitRev": "be2f895"
+    },
+    "VERIFY_FALHOU::chat-com-ia::AC-138": {
+      "codigo": "VERIFY_FALHOU",
+      "feature": "chat-com-ia",
+      "ref": "AC-138",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-11-27T18:06:50.823Z",
+      "ultimaVez": "2026-11-27T18:06:50.823Z",
+      "gitRev": "be2f895"
     }
   }
 }

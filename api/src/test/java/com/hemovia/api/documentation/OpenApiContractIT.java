@@ -46,6 +46,7 @@ class OpenApiContractIT {
             Map.entry("/requests/{id}", Set.of("get")),
             Map.entry("/requests/{id}/allocate", Set.of("post")),
             Map.entry("/requests/{id}/cancel", Set.of("post")),
+            Map.entry("/donation-chat/messages", Set.of("post")),
             Map.entry("/donations", Set.of("get", "post")),
             Map.entry("/donations/{id}", Set.of("get", "put", "delete")),
             Map.entry("/blood-bags", Set.of("get", "post")),
@@ -86,12 +87,16 @@ class OpenApiContractIT {
                 assertTrue(objectFieldNames(operation.path("responses")).stream().anyMatch(code -> code.startsWith("2")));
             }
         }
-        assertEquals(51, operationIds.size());
+        assertEquals(52, operationIds.size());
         assertTrue(paths.path("/auth/register").path("post").path("responses").has("202"));
         assertTrue(paths.path("/auth/register/confirm").path("post").path("responses").has("201"));
         assertFalse(paths.has("/error"));
         assertTrue(paths.path("/auth/csrf").path("get").path("responses").has("204"));
         assertTrue(paths.path("/auth/logout").path("post").path("responses").has("204"));
+        JsonNode chat = paths.path("/donation-chat/messages").path("post");
+        assertTrue(chat.path("security").get(0).has("cookieAuth"));
+        assertTrue(chat.path("requestBody").path("content").path("application/json").path("schema").has("$ref"));
+        assertTrue(objectFieldNames(chat.path("responses")).containsAll(Set.of("200", "400", "401", "403", "503")));
     }
 
     @Test @DisplayName("@spec:AC-092 OpenAPI descreve consultas, filtros, autenticação e erros")

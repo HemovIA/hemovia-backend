@@ -190,6 +190,14 @@ O Compose de desenvolvimento em `api/compose.yaml` captura os e-mails na [caixa 
 
 Se o frontend estiver em outra origem, ajuste `REGISTRATION_FRONTEND_URL` para gerar o link correto e inclua essa origem em `CORS_ALLOWED_ORIGINS`. A caixa de entrada e a porta SMTP são acessíveis pela máquina local.
 
+### Chat de doação de sangue
+
+O endpoint `POST /api/v1/donation-chat/messages` exige a sessão de um usuário `DOADOR` e o token CSRF em `X-XSRF-TOKEN`. A requisição leva até nove mensagens recentes. A resposta usa orientações revisadas e links oficiais do catálogo em [api/src/main/resources/donation-chat/catalog.json](api/src/main/resources/donation-chat/catalog.json). A API não grava o histórico da conversa.
+
+Para habilitar o assistente, execute o [Ollama em modo local](https://docs.ollama.com/faq#how-do-i-disable-ollamas-cloud-features) com `OLLAMA_NO_CLOUD=1` e instale o modelo com `ollama pull qwen2.5:7b`. Defina `DONATION_CHAT_ENABLED=true` no ambiente da API ou em `api/.env` e reinicie a API. Se a API e o Ollama estiverem em máquinas ou contêineres diferentes, defina `DONATION_CHAT_OLLAMA_URL` com a origem acessível pela rede privada da API. Use um modelo local disponível no servidor e, se precisar alterar o padrão, configure `DONATION_CHAT_OLLAMA_MODEL`.
+
+Com o chat desabilitado ou o Ollama indisponível, o endpoint responde com HTTP 503. A seção [Fontes oficiais do chat](.spec/features/chat-com-ia/fontes.md) registra as referências para manutenção do catálogo.
+
 ### Documentação interativa da API
 
 Com a aplicação iniciada, a interface Swagger UI fica em [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html) e o documento OpenAPI em [http://localhost:8080/v3/api-docs](http://localhost:8080/v3/api-docs). A documentação é pública; isso não altera a autenticação das operações de negócio. O endpoint `/auth/me` exige JWT e as outras rotas mantêm a política atual descrita no próprio documento.

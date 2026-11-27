@@ -1,11 +1,11 @@
 {
   "feature": "aedus04-poous07-roteirizacao",
-  "timestamp": "2026-11-25T23:22:08.052Z",
-  "gitRev": "ce11f00",
-  "command": "node -e \"process.stdout.write(require('node:fs').readFileSync(process.env.HEMOVIA_SPEC_FRESH_TAP))\"",
+  "timestamp": "2026-11-27T18:15:32.223Z",
+  "gitRev": "84e5762",
+  "command": "node scripts/spec-java/run-spec-tests.mjs",
   "reporter": "tap",
   "exitCode": 0,
-  "testsParsed": 130,
+  "testsParsed": 138,
   "results": {
     "AC-048": {
       "status": "pass",

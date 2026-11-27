@@ -1,5 +1,6 @@
 package com.hemovia.api.controller.security;
 
+import com.hemovia.api.controller.DonationChatController;
 import com.hemovia.api.service.port.output.AccessTokenIssuer;
 import com.hemovia.api.model.enums.Role;
 import com.hemovia.api.controller.config.ApiPrefixConfiguration;
@@ -58,6 +59,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, AUTH + "/csrf").permitAll()
                 .requestMatchers(HttpMethod.POST, LOGIN, AUTH + "/refresh", AUTH + "/register", AUTH + "/register/confirm").permitAll()
                 .requestMatchers(AUTH + "/**").authenticated()
+                .requestMatchers(HttpMethod.POST, ApiPrefixConfiguration.PREFIXO + DonationChatController.MESSAGES_PATH).hasRole(Role.DOADOR.name())
                 .requestMatchers(HttpMethod.POST, ApiPrefixConfiguration.PREFIXO + "/requests").hasRole(Role.HOSPITAL.name())
                 .requestMatchers(HttpMethod.POST, ApiPrefixConfiguration.PREFIXO + "/requests/*/allocate").hasRole(Role.HEMOCENTRO.name())
                 .requestMatchers(HttpMethod.POST, ApiPrefixConfiguration.PREFIXO + "/requests/*/cancel").hasRole(Role.HOSPITAL.name())
